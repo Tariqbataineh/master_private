@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Match | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet"
+          href="../../assets/site.css">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet"
+          href="../css/smart-match.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg smart-navbar">
+
+        <div class="container">
+
+            <a href="./home.html"
+               class="navbar-brand fw-bold">
+
+                <span class="brand-icon">
+                    <i class="bi bi-universal-access"></i>
+                </span>
+
+                Wusool
+            </a>
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar">
+
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse"
+                 id="mainNavbar">
+
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item">
+                        <a href="./home.html"
+                           class="nav-link">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./accessibility-map.html"
+                           class="nav-link">
+                            Accessibility Map
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./smart-match.html"
+                           class="nav-link active">
+                            Smart Match
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="./home.html#aboutWusool"
+                           class="nav-link">
+                            About Us
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="d-flex gap-2">
+
+                    <a href="./login.html"
+                       class="btn btn-outline-wusool">
+                        Log In
+                    </a>
+
+                    <a href="./register.html"
+                       class="btn btn-wusool">
+                        Create Account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- Accessibility Toolbar -->
+    <section class="accessibility-toolbar">
+
+        <div class="container d-flex flex-wrap align-items-center gap-2">
+
+            <strong>
+                <i class="bi bi-universal-access-circle"></i>
+                Accessibility Tools
+            </strong>
+
+            <button id="decreaseText"
+                    type="button"
+                    class="btn toolbar-button">
+                A-
+            </button>
+
+            <button id="increaseText"
+                    type="button"
+                    class="btn toolbar-button">
+                A+
+            </button>
+
+            <button id="contrastButton"
+                    type="button"
+                    class="btn toolbar-button">
+                <i class="bi bi-circle-half"></i>
+                High Contrast
+            </button>
+
+            <button id="readPage"
+                    type="button"
+                    class="btn toolbar-button">
+                <i class="bi bi-volume-up"></i>
+                Read Page
+            </button>
+
+        </div>
+
+    </section>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="match-hero">
+
+            <div class="container">
+
+                <div class="row align-items-center g-5">
+
+                    <div class="col-lg-7">
+
+                        <span class="section-label">
+                            <i class="bi bi-stars"></i>
+                            Smart Accessibility Matching
+                        </span>
+
+                        <h1>
+                            Find Places That Match
+                            Your Accessibility Needs
+                        </h1>
+
+                        <p>
+                            Select the type of place and the accessibility
+                            features you need. Wusool will show the most
+                            suitable available places.
+                        </p>
+
+                    </div>
+
+                    <div class="col-lg-5">
+
+                        <div class="hero-preview">
+
+                            <div class="preview-icon">
+                                <i class="bi bi-magic"></i>
+                            </div>
+
+                            <strong>Smart Match Preview</strong>
+
+                            <p>
+                                Results are ranked according to accessibility
+                                score and selected facilities.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Match Form -->
+        <section class="match-section">
+
+            <div class="container">
+
+                <div class="match-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <span>Step 1</span>
+                            <h2>Choose Your Needs</h2>
+                        </div>
+
+                        <i class="bi bi-sliders"></i>
+
+                    </div>
+
+                    <form id="matchForm">
+
+                        <div class="mb-4">
+
+                            <label for="placeType"
+                                   class="form-label">
+                                Place Type
+                            </label>
+
+                            <select id="placeType"
+                                    class="form-select">
+
+                                <option value="all">
+                                    All Places
+                                </option>
+
+                                <option value="government">
+                                    Government Services
+                                </option>
+
+                                <option value="medical">
+                                    Medical Centers
+                                </option>
+
+                                <option value="bank">
+                                    Banks
+                                </option>
+
+                                <option value="community">
+                                    Community Centers
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <fieldset>
+
+                            <legend>
+                                Required Accessibility Features
+                            </legend>
+
+                            <div class="row g-3">
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label class="need-option">
+                                        <input type="checkbox"
+                                               name="accessibilityNeed"
+                                               value="ramp">
+                                        <i class="bi bi-signpost-split"></i>
+                                        Entrance Ramp
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label class="need-option">
+                                        <input type="checkbox"
+                                               name="accessibilityNeed"
+                                               value="elevator">
+                                        <i class="bi bi-building-up"></i>
+                                        Elevator
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label class="need-option">
+                                        <input type="checkbox"
+                                               name="accessibilityNeed"
+                                               value="parking">
+                                        <i class="bi bi-p-square"></i>
+                                        Accessible Parking
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label class="need-option">
+                                        <input type="checkbox"
+                                               name="accessibilityNeed"
+                                               value="restroom">
+                                        <i class="bi bi-person-wheelchair"></i>
+                                        Accessible Restroom
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label class="need-option">
+                                        <input type="checkbox"
+                                               name="accessibilityNeed"
+                                               value="assistance">
+                                        <i class="bi bi-person-heart"></i>
+                                        Staff Assistance
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 col-lg-4">
+                                    <label class="need-option">
+                                        <input type="checkbox"
+                                               name="accessibilityNeed"
+                                               value="wide-path">
+                                        <i class="bi bi-arrows"></i>
+                                        Wide Pathways
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </fieldset>
+
+                        <button type="submit"
+                                class="btn btn-wusool btn-lg mt-4">
+
+                            <i class="bi bi-search"></i>
+                            Find My Best Matches
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Results -->
+        <section class="results-section">
+
+            <div class="container">
+
+                <div class="results-heading">
+
+                    <div>
+                        <span class="section-label">Step 2</span>
+                        <h2>Your Smart Matches</h2>
+                    </div>
+
+                    <p id="matchStatus">
+                        Choose your needs to view suitable places.
+                    </p>
+
+                </div>
+
+                <div id="matchResults"
+                     class="row g-4">
+
+                    <!-- JavaScript results -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Visitor Notice -->
+        <section class="visitor-cta">
+
+            <div class="container">
+
+                <div class="visitor-cta-box">
+
+                    <div>
+                        <h2>Save Your Accessibility Preferences</h2>
+
+                        <p>
+                            Create an account to save your needs,
+                            favorite places and future visits.
+                        </p>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <a href="./login.html"
+                           class="btn btn-light">
+                            Log In
+                        </a>
+
+                        <a href="./register.html"
+                           class="btn btn-outline-light">
+                            Create Account
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer id="contact"
+            class="smart-footer">
+
+        <div class="container">
+
+            <div class="d-flex flex-wrap justify-content-between gap-3">
+
+                <strong>Wusool</strong>
+
+                <div class="footer-links">
+                    <a href="./home.html">Home</a>
+                    <a href="./accessibility-map.html">Map</a>
+                    <a href="./home.html#aboutWusool">About</a>
+                </div>
+
+                <span>© 2026 Wusool</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../../assets/site.js"></script>
+
+    <script src="../js/smart-match.js"></script>
+
+</body>
+</html>

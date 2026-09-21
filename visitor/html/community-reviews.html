@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Community Reviews | Wusool</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../../assets/site.css">
+    <link rel="stylesheet" href="../css/community-reviews.css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand" href="./home.html">
+            <span class="brand-icon">
+                <i class="bi bi-universal-access"></i>
+            </span>
+            Wusool
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+            <ul class="navbar-nav mx-auto gap-lg-4">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./home.html">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./accessibility-map.html">
+                        Accessibility Map
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./ai-assistant.html">
+                        AI Assistant
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./home.html#about">
+                        About Us
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="d-flex gap-2">
+
+                <a href="./login.html"
+                   class="btn btn-outline-wusool">
+                    Log In
+                </a>
+
+                <a href="./register.html"
+                   class="btn btn-wusool">
+                    Get Started
+                </a>
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Accessibility Toolbar -->
+<section class="accessibility-toolbar">
+    <div class="container d-flex flex-wrap align-items-center gap-2">
+
+        <strong class="me-2">
+            <i class="bi bi-universal-access me-1"></i>
+            Accessibility Tools
+        </strong>
+
+        <button class="btn accessibility-button"
+                id="decreaseText"
+                type="button">
+            A-
+        </button>
+
+        <button class="btn accessibility-button"
+                id="increaseText"
+                type="button">
+            A+
+        </button>
+
+        <button class="btn accessibility-button"
+                id="contrastButton"
+                type="button">
+
+            <i class="bi bi-circle-half me-1"></i>
+            High Contrast
+        </button>
+
+        <button class="btn accessibility-button"
+                id="readPage"
+                type="button">
+
+            <i class="bi bi-volume-up me-1"></i>
+            Read Page
+        </button>
+
+        <button class="btn accessibility-button"
+                id="voiceSearchButton"
+                type="button">
+
+            <i class="bi bi-mic me-1"></i>
+            Voice Search
+        </button>
+
+    </div>
+</section>
+
+<main>
+
+    <!-- Heading -->
+    <section class="reviews-heading">
+        <div class="container">
+
+            <span class="section-label">
+                VERIFIED EXPERIENCES
+            </span>
+
+            <h1>Community Reviews</h1>
+
+            <p>
+                Read verified visitor experiences before choosing a place.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- Search -->
+    <section class="container">
+
+        <div class="review-search-card">
+
+            <h2>Find Reviews for a Place</h2>
+
+            <form id="reviewSearchForm"
+                  class="row g-3"
+                  novalidate>
+
+                <div class="col-lg-5">
+
+                    <label for="reviewSearch"
+                           class="form-label">
+                        Place or Organization
+                    </label>
+
+                    <div class="input-group">
+
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+
+                        <input type="search"
+                               class="form-control"
+                               id="reviewSearch"
+                               name="reviewSearch"
+                               placeholder="Search by place, organization or branch">
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+
+                    <label for="cityFilter"
+                           class="form-label">
+                        City
+                    </label>
+
+                    <select class="form-select"
+                            id="cityFilter"
+                            name="city">
+
+                        <option value="all">All Cities</option>
+                        <option value="amman">Amman</option>
+                        <option value="irbid">Irbid</option>
+                        <option value="zarqa">Zarqa</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4 col-lg-2">
+
+                    <label for="typeFilter"
+                           class="form-label">
+                        Place Type
+                    </label>
+
+                    <select class="form-select"
+                            id="typeFilter"
+                            name="placeType">
+
+                        <option value="all">All Types</option>
+                        <option value="bank">Bank</option>
+                        <option value="government">Government</option>
+                        <option value="medical">Medical</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4 col-lg-2 d-flex align-items-end">
+
+                    <button type="submit"
+                            class="btn btn-wusool w-100 search-button">
+                        Search
+                    </button>
+
+                </div>
+
+            </form>
+
+            <p id="searchMessage"
+               class="search-message d-none">
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Place Information -->
+    <section class="container py-4">
+
+        <article class="place-card">
+
+            <div class="place-icon">
+                <i class="bi bi-bank"></i>
+            </div>
+
+            <div class="place-information">
+
+                <div class="verified-badge">
+                    <i class="bi bi-patch-check-fill"></i>
+                    Verified
+                </div>
+
+                <h2>Amman Main Branch</h2>
+
+                <p>
+                    Bank · Amman · Verified accessibility information
+                </p>
+
+            </div>
+
+            <div class="place-score">
+                <strong>92%</strong>
+                <span>Accessibility</span>
+            </div>
+
+            <a href="./place-details.html?id=1"
+               class="btn btn-outline-wusool">
+                Place Details
+            </a>
+
+        </article>
+
+    </section>
+
+    <!-- Reviews Content -->
+    <section class="container pb-5">
+
+        <div class="row g-4">
+
+            <!-- Summary -->
+            <div class="col-lg-4">
+
+                <article class="summary-card">
+
+                    <h2>Review Summary</h2>
+
+                    <div class="overall-rating">
+
+                        <strong>4.6</strong>
+
+                        <div>
+                            <div class="stars"
+                                 aria-label="4.6 out of 5 stars">
+                                ★★★★★
+                            </div>
+
+                            <p>Overall visitor rating</p>
+                        </div>
+
+                    </div>
+
+                    <div class="rating-category">
+
+                        <div>
+                            <span>Entrance Access</span>
+                            <strong>4.8</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-bar"
+                                 style="width: 96%">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="rating-category">
+
+                        <div>
+                            <span>Staff Assistance</span>
+                            <strong>4.7</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-bar"
+                                 style="width: 94%">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="rating-category">
+
+                        <div>
+                            <span>Accessible Parking</span>
+                            <strong>4.5</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-bar"
+                                 style="width: 90%">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="public-note">
+                        <i class="bi bi-eye"></i>
+                        Ratings are publicly visible.
+                    </div>
+
+                </article>
+
+            </div>
+
+            <!-- Visitor Experiences -->
+            <div class="col-lg-8">
+
+                <article class="experiences-card">
+
+                    <div class="experiences-heading">
+
+                        <div>
+                            <span class="section-label">
+                                COMMUNITY
+                            </span>
+
+                            <h2>Visitor Experiences</h2>
+                        </div>
+
+                        <select class="form-select review-sort"
+                                id="reviewSort"
+                                aria-label="Sort reviews">
+
+                            <option value="recent">
+                                Most Recent
+                            </option>
+
+                            <option value="highest">
+                                Highest Rating
+                            </option>
+
+                            <option value="lowest">
+                                Lowest Rating
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div id="reviewsContainer"></div>
+
+                    <div id="emptyReviews"
+                         class="empty-reviews d-none">
+
+                        <i class="bi bi-chat-square-text"></i>
+
+                        <h3>No Reviews Found</h3>
+
+                        <p>
+                            No reviews match your selected filters.
+                        </p>
+
+                    </div>
+
+                    <button type="button"
+                            class="btn btn-outline-wusool load-more-button"
+                            id="loadMoreButton">
+                        Load More Reviews
+                    </button>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Visitor CTA -->
+    <section class="visitor-cta">
+        <div class="container">
+
+            <div class="visitor-cta-content">
+
+                <div>
+                    <span>SHARE YOUR EXPERIENCE</span>
+
+                    <h2>
+                        Want to Share Your Experience
+                        or Report a Problem?
+                    </h2>
+
+                    <p>
+                        Log in or create an account to write a review,
+                        upload evidence or report incorrect information.
+                    </p>
+                </div>
+
+                <div class="visitor-cta-buttons">
+
+                    <a href="./login.html"
+                       class="btn btn-light btn-lg">
+                        Log In
+                    </a>
+
+                    <a href="./register.html"
+                       class="btn btn-outline-light btn-lg">
+                        Create Account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+
+        <div class="row align-items-center g-4">
+
+            <div class="col-md-4">
+                <h2>Wusool</h2>
+                <p>Accessibility for everyone.</p>
+            </div>
+
+            <div class="col-md-4 text-md-center">
+                <a href="./home.html">Home</a>
+                <a href="./accessibility-map.html">Map</a>
+                <a href="./home.html#contact">Contact</a>
+            </div>
+
+            <div class="col-md-4 text-md-end">
+                <p>© 2026 Wusool</p>
+            </div>
+
+        </div>
+
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../../assets/site.js"></script>
+<script src="../js/community-reviews.js"></script>
+
+</body>
+</html>

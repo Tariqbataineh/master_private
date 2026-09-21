@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="../../assets/site.css">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+    <div class="container">
+
+        <a class="navbar-brand" href="./home.html">
+            <span class="brand-icon">
+                <i class="bi bi-universal-access"></i>
+            </span>
+
+            Wusool
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Open navigation menu">
+
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+            <ul class="navbar-nav mx-auto gap-lg-4">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./home.html">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./accessibility-map.html">
+                        Accessibility Map
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./home.html#about">
+                        About Us
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="./home.html#contact">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="d-flex gap-2">
+                <a href="./login.html"
+                   class="btn btn-outline-wusool active-button">
+                    Log in
+                </a>
+
+                <a href="./register.html"
+                   class="btn btn-wusool">
+                    Join now
+                </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Accessibility Tools -->
+<section class="accessibility-toolbar">
+    <div class="container d-flex flex-wrap align-items-center gap-2">
+
+        <strong class="me-2">
+            <i class="bi bi-universal-access me-1"></i>
+            Accessibility Tools
+        </strong>
+
+        <button class="btn accessibility-button"
+                id="decreaseText"
+                type="button">
+            A-
+        </button>
+
+        <button class="btn accessibility-button"
+                id="increaseText"
+                type="button">
+            A+
+        </button>
+
+        <button class="btn accessibility-button"
+                id="contrastButton"
+                type="button">
+
+            <i class="bi bi-circle-half me-1"></i>
+            High Contrast
+        </button>
+
+        <button class="btn accessibility-button"
+                id="readPage"
+                type="button">
+
+            <i class="bi bi-volume-up me-1"></i>
+            Read Page
+        </button>
+
+    </div>
+</section>
+
+<!-- Login Page -->
+<main class="login-page">
+
+    <div class="container">
+        <div class="login-container">
+
+            <!-- Left Side -->
+            <section class="login-hero">
+
+                <div class="hero-decoration decoration-one"></div>
+                <div class="hero-decoration decoration-two"></div>
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        ACCESSIBILITY FOR EVERYONE
+                    </span>
+
+                    <h1>
+                        Access Every Place
+                        <span>With Confidence</span>
+                    </h1>
+
+                    <p>
+                        Find accessible places and explore the city
+                        with clear, trusted accessibility information.
+                    </p>
+
+                    <div class="hero-brand">
+                        <div class="hero-logo">W</div>
+
+                        <div>
+                            <strong>Wusool</strong>
+                            <small>Accessibility for everyone</small>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Right Side -->
+            <section class="login-form-section">
+
+                <div class="login-form-wrapper">
+
+                    <div class="mobile-logo">
+                        <span>W</span>
+                        Wusool
+                    </div>
+
+                    <span class="form-label-top">
+                        WELCOME TO WUSOOL
+                    </span>
+
+                    <h2>Welcome Back</h2>
+
+                    <p class="form-description">
+                        Sign in to continue to your Wusool account.
+                    </p>
+
+                    <!-- Alert -->
+                    <div id="loginAlert"
+                         class="alert d-none"
+                         role="alert">
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="loginForm"
+                          novalidate>
+
+                        <!-- Email -->
+                        <div class="mb-4">
+
+                            <label for="email"
+                                   class="form-label">
+                                Email Address
+                            </label>
+
+                            <div class="input-group custom-input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+
+                                <input type="email"
+                                       class="form-control"
+                                       id="email"
+                                       name="email"
+                                       placeholder="name@example.com"
+                                       autocomplete="email"
+                                       required>
+
+                            </div>
+
+                            <div class="invalid-feedback"
+                                 id="emailError">
+                                Please enter a valid email address.
+                            </div>
+
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+
+                            <label for="password"
+                                   class="form-label">
+                                Password
+                            </label>
+
+                            <div class="input-group custom-input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock"></i>
+                                </span>
+
+                                <input type="password"
+                                       class="form-control"
+                                       id="password"
+                                       name="password"
+                                       placeholder="Enter your password"
+                                       autocomplete="current-password"
+                                       minlength="6"
+                                       required>
+
+                                <button class="btn password-toggle"
+                                        type="button"
+                                        id="togglePassword"
+                                        aria-label="Show password">
+
+                                    <i class="bi bi-eye"
+                                       id="passwordIcon">
+                                    </i>
+                                </button>
+
+                            </div>
+
+                            <div class="invalid-feedback"
+                                 id="passwordError">
+                                Password must contain at least 6 characters.
+                            </div>
+
+                        </div>
+
+                        <!-- Remember and Forgot -->
+                        <div class="login-options">
+
+                            <div class="form-check">
+
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       id="rememberMe"
+                                       name="rememberMe">
+
+                                <label class="form-check-label"
+                                       for="rememberMe">
+                                    Remember me
+                                </label>
+
+                            </div>
+
+                            <button type="button"
+                                    class="forgot-password"
+                                    id="forgotPasswordButton">
+                                Forgot password?
+                            </button>
+
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit"
+                                class="btn btn-wusool login-button"
+                                id="loginButton">
+
+                            <span id="loginButtonText">
+                                Log in
+                            </span>
+
+                            <span id="loginSpinner"
+                                  class="spinner-border spinner-border-sm d-none"
+                                  aria-hidden="true">
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                    <div class="register-link">
+                        Don’t have an account?
+
+                        <a href="./register.html">
+                            Create Account
+                        </a>
+                    </div>
+
+                    <div class="privacy-message">
+                        <i class="bi bi-shield-check"></i>
+                        Your information is protected and secure.
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+
+</main>
+
+<!-- Forgot Password Modal -->
+<div class="modal fade"
+     id="forgotPasswordModal"
+     tabindex="-1"
+     aria-labelledby="forgotPasswordTitle"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+
+            <div class="modal-header">
+
+                <h2 class="modal-title fs-5"
+                    id="forgotPasswordTitle">
+                    Reset Password
+                </h2>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p class="text-secondary">
+                    Enter your email address and we will send
+                    you password reset instructions.
+                </p>
+
+                <label for="resetEmail"
+                       class="form-label">
+                    Email Address
+                </label>
+
+                <input type="email"
+                       class="form-control"
+                       id="resetEmail"
+                       name="resetEmail"
+                       placeholder="name@example.com">
+
+                <div id="resetMessage"
+                     class="alert alert-success mt-3 d-none">
+                    Reset instructions were sent successfully.
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <button type="button"
+                        class="btn btn-wusool"
+                        id="sendResetButton">
+                    Send Instructions
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+
+        <div class="row align-items-center g-4">
+
+            <div class="col-md-4">
+                <h2>Wusool</h2>
+                <p>Accessibility for everyone.</p>
+            </div>
+
+            <div class="col-md-4 text-md-center">
+                <a href="./home.html">Home</a>
+                <a href="./accessibility-map.html">Map</a>
+                <a href="./home.html#contact">Contact</a>
+            </div>
+
+            <div class="col-md-4 text-md-end">
+                <p>© 2026 Wusool</p>
+            </div>
+
+        </div>
+
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../../assets/site.js"></script>
+<script src="../js/login.js"></script>
+
+</body>
+</html>

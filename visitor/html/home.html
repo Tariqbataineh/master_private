@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Wusool helps everyone discover and explore accessible places."
+    >
+
+    <title>Wusool | Accessibility for Everyone</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared CSS -->
+    <link
+        rel="stylesheet"
+        href="../../assets/site.css"
+    >
+
+    <!-- Home CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/home.css"
+    >
+</head>
+
+<body>
+
+    <!-- Skip Link -->
+    <a href="#mainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ======================================
+         Navbar
+    ======================================= -->
+
+    <header class="sticky-top">
+
+        <nav
+            class="navbar navbar-expand-lg main-navbar"
+            aria-label="Main navigation"
+        >
+            <div class="container py-2">
+
+                <!-- Logo -->
+                <a class="navbar-brand wusool-logo" href="home.html">
+                    <span class="logo-icon">
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    <span>Wusool</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Open navigation menu"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar Links -->
+                <div
+                    class="collapse navbar-collapse"
+                    id="mainNavbar"
+                >
+                    <ul class="navbar-nav mx-auto gap-lg-2">
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                href="home.html"
+                            >
+                                Home
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+    class="nav-link"
+    href="./accessibility-map.html"
+>
+    Accessibility Map
+</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#howItWorks"
+                            >
+                                How It Works
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                               href="#organizations" class="nav-link">
+                                Organizations
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#aboutWusool"
+                            >
+                                About Us
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="d-flex flex-wrap gap-2 mt-3 mt-lg-0">
+
+                        <button
+                            class="btn btn-light border"
+                            type="button"
+                        >
+                            AR | EN
+                        </button>
+
+                        <a href="./login.html" class="btn btn-login">
+    Log In
+</a>
+
+                        <a
+                             href="./register.html" class="btn btn-primary">
+                            Get Started
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ======================================
+             Accessibility Toolbar
+        ======================================= -->
+
+        <div class="accessibility-toolbar">
+            <div
+                class="container d-flex flex-wrap
+                       align-items-center gap-2 py-2"
+            >
+                <span class="accessibility-toolbar-title me-2">
+                    <i class="bi bi-universal-access-circle"></i>
+                    Accessibility Tools
+                </span>
+
+                <button
+                    id="decreaseFont"
+                    class="accessibility-button"
+                    type="button"
+                    aria-label="Decrease text size"
+                >
+                    A−
+                </button>
+
+                <button
+                    id="increaseFont"
+                    class="accessibility-button"
+                    type="button"
+                    aria-label="Increase text size"
+                >
+                    A+
+                </button>
+
+                <button
+                    id="highContrast"
+                    class="accessibility-button"
+                    type="button"
+                    aria-pressed="false"
+                >
+                    <i class="bi bi-circle-half"></i>
+                    High Contrast
+                </button>
+
+                <button
+                    id="readPage"
+                    class="accessibility-button"
+                    type="button"
+                >
+                    <i class="bi bi-volume-up"></i>
+                    Read Page
+                </button>
+
+                <button
+                    id="voiceSearch"
+                    class="accessibility-button"
+                    type="button"
+                >
+                    <i class="bi bi-mic"></i>
+                    Voice Search
+                </button>
+
+            </div>
+        </div>
+
+    </header>
+
+    <!-- ======================================
+         Main Content
+    ======================================= -->
+
+    <main id="mainContent">
+
+        <!-- ======================================
+             Hero Section
+        ======================================= -->
+
+        <section class="hero-section section-space">
+            <div class="container">
+
+                <div class="hero-container">
+
+                    <div class="row align-items-center g-5">
+
+                        <!-- Hero Text -->
+                        <div class="col-lg-6">
+
+                            <span class="hero-label">
+                                <i class="bi bi-stars"></i>
+                                AI-Powered Accessibility Guide
+                            </span>
+
+                            <h1 class="hero-title mt-3">
+                                Find Places That
+                                <span>Welcome Everyone.</span>
+                            </h1>
+
+                            <p class="hero-description mt-3">
+                                Discover accessible places, compare
+                                verified features, and plan every
+                                visit with confidence.
+                            </p>
+
+                            <div class="d-flex flex-wrap gap-3 mt-4">
+
+                               <a
+    href="./accessibility-map.html"
+    class="btn btn-wusool btn-lg"
+>
+    <i class="bi bi-map me-2"></i>
+    Explore Accessibility Map
+</a>
+
+                               <a href="./ai-assistant.html"
+   class="btn btn-wusool">
+    <i class="bi bi-stars me-2"></i>
+                                    Ask AI Assistant
+                                </a>
+
+                            </div>
+
+                            <div class="hero-features mt-4">
+
+                                <span>
+                                    <i class="bi bi-patch-check-fill"></i>
+                                    Verified information
+                                </span>
+
+                                <span>
+                                    <i class="bi bi-person-check-fill"></i>
+                                    Personalized results
+                                </span>
+
+                            </div>
+                        </div>
+
+                        <!-- Hero Map -->
+                        <div class="col-lg-6">
+
+                            <div class="hero-map">
+
+                                <div class="map-grid"></div>
+
+                                <span class="map-road road-one"></span>
+                                <span class="map-road road-two"></span>
+
+                                <span class="map-location location-one">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </span>
+
+                                <span class="map-location location-two">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </span>
+
+                                <span class="map-location location-three">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </span>
+
+                                <div class="accessibility-match">
+
+                                    <div class="match-icon">
+                                        <i class="bi bi-building-check"></i>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            Accessibility Match
+                                        </strong>
+
+                                        <small>
+                                            Recommended for your needs
+                                        </small>
+                                    </div>
+
+                                    <span class="match-score">
+                                        92%
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Search Panel -->
+                    <form
+                        id="searchForm"
+                        class="search-panel"
+                    >
+                        <label
+                            for="searchInput"
+                            class="form-label fw-bold"
+                        >
+                            Where would you like to go?
+                        </label>
+
+                        <div class="row g-2">
+
+                            <div class="col-lg-5">
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+
+                                    <input
+                                        id="searchInput"
+                                        type="search"
+                                        class="form-control"
+                                        placeholder="Search for a place or service"
+                                        required
+                                    >
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-2">
+                                <select
+                                    id="citySelect"
+                                    class="form-select"
+                                    aria-label="Select city"
+                                >
+                                    <option value="" selected>
+                                        Select City
+                                    </option>
+
+                                    <option value="Amman">Amman</option>
+                                    <option value="Irbid">Irbid</option>
+                                    <option value="Zarqa">Zarqa</option>
+                                    <option value="Aqaba">Aqaba</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-6 col-lg-3">
+                                <select
+                                    id="accessibilityNeed"
+                                    class="form-select"
+                                    aria-label="Select accessibility need"
+                                >
+                                    <option value="" selected>
+                                        Accessibility Need
+                                    </option>
+
+                                    <option value="wheelchair">
+                                        Wheelchair Access
+                                    </option>
+
+                                    <option value="visual">
+                                        Visual Guidance
+                                    </option>
+
+                                    <option value="hearing">
+                                        Hearing Assistance
+                                    </option>
+
+                                    <option value="parking">
+                                        Accessible Parking
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-2 d-grid">
+                                <button
+                                    class="btn btn-dark"
+                                    type="submit"
+                                >
+                                    Search
+                                </button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================
+             How Wusool Works
+        ======================================= -->
+
+        <section
+            id="howItWorks"
+            class="section-space"
+        >
+            <div class="container">
+
+                <div class="text-center mx-auto section-heading">
+
+                    <span class="section-small-title">
+                        Simple and confident
+                    </span>
+
+                    <h2 class="section-title">
+                        How Wusool Works
+                    </h2>
+
+                    <p class="section-description mx-auto">
+                        From searching for a place to completing
+                        a confident visit in three simple steps.
+                    </p>
+
+                </div>
+
+                <div class="row g-4 mt-4">
+
+                    <div class="col-md-4">
+                        <article class="process-card wusool-card">
+
+                            <span class="step-number">1</span>
+
+                            <div class="process-icon">
+                                <i class="bi bi-search-heart"></i>
+                            </div>
+
+                            <h3>Search & Discover</h3>
+
+                            <p>
+                                Find banks, government services,
+                                clinics, shops, and public places.
+                            </p>
+
+                        </article>
+                    </div>
+
+                    <div class="col-md-4">
+                        <article class="process-card wusool-card">
+
+                            <span class="step-number">2</span>
+
+                            <div class="process-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </div>
+
+                            <h3>Compare Accessibility</h3>
+
+                            <p>
+                                Review entrances, elevators,
+                                parking, paths, photos, and scores.
+                            </p>
+
+                        </article>
+                    </div>
+
+                    <div class="col-md-4">
+                        <article class="process-card wusool-card">
+
+                            <span class="step-number">3</span>
+
+                            <div class="process-icon">
+                                <i class="bi bi-calendar2-check"></i>
+                            </div>
+
+                            <h3>Plan Your Visit</h3>
+
+                            <p>
+                                Choose the correct branch and
+                                learn what to expect before visiting.
+                            </p>
+
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================
+             Featured Accessible Places
+        ======================================= -->
+
+        <section
+            id="featuredPlaces"
+            class="section-space section-background"
+        >
+            <div class="container">
+
+                <div
+                    class="d-flex flex-column flex-md-row
+                           justify-content-between
+                           align-items-md-end gap-3 mb-4"
+                >
+                    <div>
+                        <span class="section-small-title">
+                            Verified places
+                        </span>
+
+                        <h2 class="section-title mb-1">
+                            Featured Accessible Places
+                        </h2>
+
+                        <p class="section-description mb-0">
+                            Clear accessibility information
+                            before you leave home.
+                        </p>
+                    </div>
+
+        <a href="./accessibility-map.html"
+   class="btn btn-wusool-outline">
+    View All Places
+    <i class="bi bi-arrow-right"></i>
+</a>
+                </div>
+
+               <div class="row g-4">
+
+    <!-- Place 1 -->
+    <div class="col-md-6 col-xl-4">
+
+        <article class="place-card wusool-card position-relative h-100">
+
+            <div class="place-image place-image-one">
+
+                <span class="place-score">
+                    92%
+                </span>
+
+                <span class="verified-place">
+                    <i class="bi bi-patch-check-fill"></i>
+                    Verified
+                </span>
+
+            </div>
+
+            <div class="p-4">
+
+                <h3>
+                    <a href="./place-details.html?id=1"
+                       class="stretched-link place-title-link">
+                        Amman City Hall
+                    </a>
+                </h3>
+
+                <p class="text-secondary">
+                    Government · Amman
+                </p>
+
+                <div class="tag-list">
+                    <span class="wusool-tag">Ramp</span>
+                    <span class="wusool-tag">Elevator</span>
+                    <span class="wusool-tag">Parking</span>
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <!-- Place 2 -->
+    <div class="col-md-6 col-xl-4">
+
+        <article class="place-card wusool-card position-relative h-100">
+
+            <div class="place-image place-image-two">
+
+                <span class="place-score">
+                    88%
+                </span>
+
+                <span class="verified-place">
+                    <i class="bi bi-patch-check-fill"></i>
+                    Verified
+                </span>
+
+            </div>
+
+            <div class="p-4">
+
+                <h3>
+                    <a href="./place-details.html?id=2"
+                       class="stretched-link place-title-link">
+                        Al Noor Medical Center
+                    </a>
+                </h3>
+
+                <p class="text-secondary">
+                    Medical Center · Amman
+                </p>
+
+                <div class="tag-list">
+                    <span class="wusool-tag">Wide Entry</span>
+                    <span class="wusool-tag">Elevator</span>
+                    <span class="wusool-tag">Parking</span>
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <!-- Place 3 -->
+    <div class="col-md-6 col-xl-4">
+
+        <article class="place-card wusool-card position-relative h-100">
+
+            <div class="place-image place-image-three">
+
+                <span class="place-score">
+                    86%
+                </span>
+
+                <span class="verified-place">
+                    <i class="bi bi-patch-check-fill"></i>
+                    Verified
+                </span>
+
+            </div>
+
+            <div class="p-4">
+
+                <h3>
+                    <a href="./place-details.html?id=3"
+                       class="stretched-link place-title-link">
+                        Community Hub
+                    </a>
+                </h3>
+
+                <p class="text-secondary">
+                    Community Center · Amman
+                </p>
+
+                <div class="tag-list">
+                    <span class="wusool-tag">Ramp</span>
+                    <span class="wusool-tag">Assistance</span>
+                    <span class="wusool-tag">Wide Paths</span>
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</div>
+        </section>
+
+        <!-- ======================================
+             AI Analysis
+        ======================================= -->
+
+        <section
+            id="aiAnalysis"
+            class="section-space"
+        >
+            <div class="container">
+
+                <div class="ai-analysis-container">
+
+                    <div class="row align-items-center g-5">
+
+                        <div class="col-lg-6">
+
+                            <span class="ai-label">
+                                <i class="bi bi-stars"></i>
+                                Wusool AI Accessibility
+                            </span>
+
+                            <h2 class="mt-3">
+                                See Accessibility Before You Arrive
+                            </h2>
+
+                            <p>
+                                AI reviews uploaded entrance and
+                                pathway photos to detect possible
+                                stairs, obstacles, narrow paths,
+                                and improvement needs.
+                            </p>
+
+           <a href="./ai-accessibility-report.html?id=1"
+   class="btn btn-light mt-2">
+
+    Learn About AI Analysis
+    <i class="bi bi-arrow-right ms-2"></i>
+
+</a>
+                        </div>
+
+                        <div class="col-lg-6">
+
+                            <div class="ai-result-card">
+
+                                <h3>AI Accessibility Preview</h3>
+
+                                <hr>
+
+                                <p class="ai-result success-result">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Ramp detected at main entrance
+                                </p>
+
+                                <p class="ai-result warning-result">
+                                    <i class="bi bi-exclamation-circle-fill"></i>
+                                    Possible obstacle on pathway
+                                </p>
+
+                                <p class="ai-result information-result">
+                                    <i class="bi bi-lightbulb-fill"></i>
+                                    Suggested alternative entrance
+                                </p>
+
+                                <div class="ai-score">
+                                    <span>Preliminary Score</span>
+                                    <strong>88%</strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================
+             Main Features
+        ======================================= -->
+
+        <section class="section-space">
+            <div class="container">
+
+                <div class="text-center section-heading mx-auto">
+
+                    <span class="section-small-title">
+                        One inclusive platform
+                    </span>
+
+                    <h2 class="section-title">
+                        Everything You Need in One Place
+                    </h2>
+
+                    <p class="section-description mx-auto">
+                        Wusool features are designed for accessible,
+                        confident, and organized visits.
+                    </p>
+
+                </div>
+<div class="row g-3 mt-4">
+
+    <!-- Feature 1 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-map"></i>
+
+            <h3>
+                <a href="./accessibility-map.html"
+                   class="stretched-link feature-card-link">
+                    Map & Nearby
+                </a>
+            </h3>
+
+            <p>
+                Nearby branches, distance and directions.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 2 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-magic"></i>
+
+            <h3>
+          <a href="./smart-match.html"
+   class="stretched-link feature-card-link">
+    Smart Match
+</a>
+            </h3>
+
+            <p>
+                Places ranked according to your needs.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 3 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-speedometer2"></i>
+
+            <h3>
+                <a href="./ai-accessibility-report.html?id=1"
+                   class="stretched-link feature-card-link">
+                    Accessibility Score
+                </a>
+            </h3>
+
+            <p>
+                Clear accessibility score from 0 to 100.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 4 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-sign-turn-right"></i>
+
+            <h3>
+                <!-- Smart Guidance -->
+<a href="./smart-guidance.html"
+   class="stretched-link feature-card-link">
+    Smart Guidance
+</a>
+            </h3>
+
+            <p>
+                Text and voice directions and alerts.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 5 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-calendar-check"></i>
+
+            <h3>
+    <a href="./booking-information.html#booking"
+       class="stretched-link feature-card-link">
+        Visit Booking
+    </a>
+</h3>
+            <p>
+                Learn how booking works before creating an account.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 6 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-person-heart"></i>
+
+           <h3>
+    <a href="./booking-information.html#assistance"
+       class="stretched-link feature-card-link">
+        Visit Assistance
+    </a>
+</h3>
+
+            <p>
+                Learn how to request employee help before visiting.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 7 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-person-wheelchair"></i>
+
+            <h3>
+    <a href="./booking-information.html#equipment"
+       class="stretched-link feature-card-link">
+        Equipment
+    </a>
+</h3>
+
+            <p>
+                View information about available accessibility equipment.
+            </p>
+
+        </article>
+
+    </div>
+
+
+    <!-- Feature 8 -->
+    <div class="col-sm-6 col-lg-3">
+
+        <article class="feature-card wusool-card position-relative h-100">
+
+            <i class="bi bi-chat-square-heart"></i>
+
+            <h3>
+                <a href="./community-reviews.html"
+                   class="stretched-link feature-card-link">
+                    Reviews & Reports
+                </a>
+            </h3>
+
+            <p>
+                View community reviews and accessibility reports.
+            </p>
+
+        </article>
+
+    </div>
+
+</div>
+        </section>
+
+        <!-- ======================================
+             Organizations
+        ======================================= -->
+
+        <section
+            id="organizations"
+            class="section-space section-background"
+        >
+            <div class="container">
+
+                <span class="section-small-title">
+                    Private and government organizations
+                </span>
+
+                <h2 class="section-title">
+                    Built for Organizations That Want to Improve
+                </h2>
+
+                <p class="section-description">
+                    Manage branches, evaluate accessibility,
+                    and turn reports into practical improvements.
+                </p>
+
+                <div class="row g-4 mt-4">
+
+                    <div class="col-md-6 col-lg-4">
+                        <article class="organization-card wusool-card">
+                            <i class="bi bi-buildings"></i>
+                            <h3>Branches & Working Hours</h3>
+                            <p>Manage locations, services and opening times.</p>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <article class="organization-card wusool-card">
+                            <i class="bi bi-ui-checks-grid"></i>
+                            <h3>Accessibility Checklist</h3>
+                            <p>Evaluate entrances, paths and facilities.</p>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <article class="organization-card wusool-card">
+                            <i class="bi bi-lightbulb"></i>
+                            <h3>AI Improvement Suggestions</h3>
+                            <p>Receive practical accessibility improvements.</p>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <article class="organization-card wusool-card">
+                            <i class="bi bi-graph-up-arrow"></i>
+                            <h3>Reports & Dashboards</h3>
+                            <p>Track accessibility scores and reports.</p>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <article class="organization-card wusool-card">
+                            <i class="bi bi-award"></i>
+                            <h3>Wusool Certificate</h3>
+                            <p>Receive a verified accessibility certificate.</p>
+                        </article>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <article class="organization-card wusool-card">
+                            <i class="bi bi-credit-card"></i>
+                            <h3>Flexible Subscriptions</h3>
+                            <p>Monthly and annual multi-branch packages.</p>
+                        </article>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================
+             Accessibility Section
+        ======================================= -->
+
+        <section
+            id="aboutWusool"
+            class="section-space"
+        >
+            <div class="container">
+
+                <div class="website-accessibility">
+
+                    <div class="row align-items-center g-4">
+
+                        <div class="col-lg-5">
+
+                            <span class="section-small-title">
+                                Inclusive by design
+                            </span>
+
+                            <h2 class="section-title">
+                                The Wusool Website Is Accessible Too
+                            </h2>
+
+                            <p class="section-description">
+                                Designed for different ways of seeing,
+                                hearing, reading, and navigating.
+                            </p>
+
+                        </div>
+
+                        <div class="col-lg-7">
+
+                            <div class="row g-3">
+
+                                <div class="col-sm-6">
+                                    <div class="accessibility-item">
+                                        <i class="bi bi-keyboard"></i>
+                                        <div>
+                                            <strong>Keyboard Navigation</strong>
+                                            <small>Tab, Enter and Escape</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="accessibility-item">
+                                        <i class="bi bi-ear"></i>
+                                        <div>
+                                            <strong>Screen Reader Ready</strong>
+                                            <small>Labels and landmarks</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="accessibility-item">
+                                        <i class="bi bi-circle-half"></i>
+                                        <div>
+                                            <strong>High Contrast</strong>
+                                            <small>Readable and clear text</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="accessibility-item">
+                                        <i class="bi bi-mic"></i>
+                                        <div>
+                                            <strong>Text & Voice</strong>
+                                            <small>Reading and voice options</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================================
+             Statistics and CTA
+        ======================================= -->
+
+        <section
+            id="getStarted"
+            class="section-space pt-0"
+        >
+            <div class="container">
+
+                <div class="row g-3">
+
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <strong>0–100</strong>
+                            <span>Accessibility Score</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <strong>AI + Human</strong>
+                            <span>Transparent Verification</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <strong>AR | EN</strong>
+                            <span>Bilingual Experience</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <strong>One Platform</strong>
+                            <span>Search, Book and Improve</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="home-cta mt-4">
+
+                    <div>
+                        <h2>Ready for a More Confident Visit?</h2>
+
+                        <p>
+                            Explore accessible places or create
+                            an account to book and request assistance.
+                        </p>
+                    </div>
+
+                    <div class="d-flex flex-wrap gap-2">
+
+                        <a href="./accessibility-map.html"
+   class="btn btn-light btn-lg">
+    Explore the Map
+</a>
+
+                <a href="./register.html"
+   class="btn btn-outline-light btn-lg">
+    Create Account
+</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ======================================
+         Footer
+    ======================================= -->
+
+    <footer id="contact" class="main-footer">
+        <div class="container py-5">
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-4">
+
+                    <a
+                        class="wusool-logo text-white"
+                        href="home.html"
+                    >
+                        <span class="logo-icon">
+                            <i class="bi bi-universal-access"></i>
+                        </span>
+
+                        <span>Wusool</span>
+                    </a>
+
+                    <p class="footer-description mt-3 mb-0">
+                        More access. A brighter tomorrow.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-5">
+
+                    <div class="d-flex flex-wrap gap-3">
+
+                        <a href="./accessibility-map.html">
+    Accessibility Map
+</a>
+
+                        <a href="#howItWorks">
+                            How It Works
+                        </a>
+
+                        <a href="#organizations">
+                            Organizations
+                        </a>
+
+                        <a href="#aboutWusool">
+                            About Us
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 text-lg-end">
+
+                    <p class="footer-copyright mb-0">
+                        © 2026 Wusool<br>
+                        Accessibility for Everyone
+                    </p>
+
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Shared JavaScript -->
+    <script src="../../assets/site.js"></script>
+
+    <!-- Home JavaScript -->
+    <script src="../js/home.js"></script>
+
+</body>
+</html>

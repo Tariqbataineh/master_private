@@ -1,0 +1,450 @@
+/* ========================================
+   Wusool - Shared Website Styles
+======================================== */
+
+/* ---------- Website Colors ---------- */
+:root {
+    --primary-color: #0f766e;
+    --primary-dark: #0b5f59;
+    --secondary-color: #0f2747;
+    --accent-color: #14b8a6;
+
+    --background-color: #ffffff;
+    --section-background: #f3faf9;
+    --light-color: #eef8f7;
+
+    --text-color: #10233f;
+    --muted-color: #64748b;
+    --border-color: #d6e6e4;
+
+    --white-color: #ffffff;
+    --black-color: #000000;
+    --warning-color: #f59e0b;
+
+    --main-radius: 16px;
+    --large-radius: 24px;
+
+    --main-shadow:
+        0 15px 40px rgba(15, 39, 71, 0.10);
+}
+
+/* ---------- General Reset ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+    line-height: 1.6;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+/* ---------- Shared Headings ---------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.section-title {
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+}
+
+.section-description {
+    max-width: 700px;
+    color: var(--muted-color);
+    font-size: 17px;
+}
+
+.section-space {
+    padding: 80px 0;
+}
+
+.section-background {
+    background-color: var(--section-background);
+}
+
+/* ---------- Logo ---------- */
+.wusool-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--secondary-color);
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.wusool-logo:hover {
+    color: var(--primary-color);
+}
+
+.logo-icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+
+    color: var(--white-color);
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent-color),
+            #0b72e7
+        );
+
+    border-radius: 14px;
+    font-size: 22px;
+
+    box-shadow:
+        0 8px 20px rgba(20, 184, 166, 0.25);
+}
+
+/* ---------- Navbar ---------- */
+.main-navbar {
+    background-color: var(--white-color);
+    border-bottom: 1px solid var(--border-color);
+
+    box-shadow:
+        0 5px 25px rgba(15, 39, 71, 0.05);
+}
+
+.main-navbar .nav-link {
+    padding: 9px 14px !important;
+    color: #46556f;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.main-navbar .nav-link:hover,
+.main-navbar .nav-link.active {
+    color: var(--primary-color);
+    background-color: var(--light-color);
+}
+
+/* ---------- Shared Buttons ---------- */
+.btn {
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.btn-wusool {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-wusool:hover,
+.btn-wusool:focus {
+    color: var(--white-color);
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+.btn-wusool-outline {
+    color: var(--primary-color);
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+}
+
+.btn-wusool-outline:hover,
+.btn-wusool-outline:focus {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* ---------- Accessibility Toolbar ---------- */
+.accessibility-toolbar {
+    background-color: #f3f7f7;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.accessibility-toolbar-title {
+    color: var(--secondary-color);
+    font-weight: 700;
+}
+
+.accessibility-button {
+    padding: 5px 12px;
+    color: var(--text-color);
+    background-color: var(--white-color);
+    border: 1px solid #b9cfcc;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.accessibility-button:hover,
+.accessibility-button:focus {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* ---------- Shared Cards ---------- */
+.wusool-card {
+    height: 100%;
+    overflow: hidden;
+
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--main-radius);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.wusool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--main-shadow);
+}
+
+/* ---------- Forms ---------- */
+.form-control,
+.form-select {
+    min-height: 48px;
+    border-color: var(--border-color);
+    border-radius: 10px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+
+    box-shadow:
+        0 0 0 4px rgba(15, 118, 110, 0.15);
+}
+
+.input-group-text {
+    color: var(--primary-color);
+    background-color: var(--light-color);
+    border-color: var(--border-color);
+}
+
+/* ---------- Tags ---------- */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.wusool-tag {
+    padding: 6px 10px;
+
+    color: #34525c;
+    background-color: var(--light-color);
+
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* ---------- Accessibility Focus ---------- */
+:focus-visible {
+    outline: 4px solid var(--warning-color) !important;
+    outline-offset: 3px;
+}
+
+/* ---------- Skip Link ---------- */
+.skip-link {
+    position: fixed;
+    top: -100px;
+    left: 20px;
+    z-index: 9999;
+
+    padding: 10px 16px;
+
+    color: var(--white-color);
+    background-color: var(--black-color);
+
+    border-radius: 8px;
+}
+
+.skip-link:focus {
+    top: 20px;
+    color: var(--white-color);
+}
+
+/* ---------- Footer ---------- */
+.main-footer {
+    color: var(--white-color);
+    background-color: #091c32;
+}
+
+.main-footer a {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.main-footer a:hover {
+    color: var(--white-color);
+}
+
+.footer-description,
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ========================================
+   Text Size Accessibility
+======================================== */
+
+body.large-text {
+    font-size: 18px;
+}
+
+body.small-text {
+    font-size: 14px;
+}
+
+/* ========================================
+   High Contrast Mode
+======================================== */
+
+body.high-contrast {
+    --primary-color: #ffdd00;
+    --primary-dark: #ffdd00;
+    --secondary-color: #ffffff;
+
+    --background-color: #000000;
+    --section-background: #000000;
+    --light-color: #111111;
+
+    --text-color: #ffffff;
+    --muted-color: #eeeeee;
+    --border-color: #ffffff;
+
+    color: #ffffff;
+    background-color: #000000;
+}
+
+body.high-contrast .main-navbar,
+body.high-contrast .accessibility-toolbar,
+body.high-contrast .section-background,
+body.high-contrast .wusool-card,
+body.high-contrast .modal-content {
+    color: #ffffff !important;
+    background-color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4,
+body.high-contrast h5,
+body.high-contrast h6,
+body.high-contrast .wusool-logo,
+body.high-contrast .accessibility-toolbar-title,
+body.high-contrast .nav-link {
+    color: #ffffff !important;
+}
+
+body.high-contrast .nav-link:hover,
+body.high-contrast .nav-link.active {
+    color: #000000 !important;
+    background-color: #ffdd00 !important;
+}
+
+body.high-contrast .accessibility-button {
+    color: #ffffff;
+    background-color: #000000;
+    border-color: #ffffff;
+}
+
+body.high-contrast .accessibility-button:hover {
+    color: #000000;
+    background-color: #ffdd00;
+}
+
+body.high-contrast .form-control,
+body.high-contrast .form-select {
+    color: #ffffff;
+    background-color: #000000;
+    border-color: #ffffff;
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 991px) {
+    .section-space {
+        padding: 60px 0;
+    }
+
+    .navbar-collapse {
+        padding-top: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .section-space {
+        padding: 45px 0;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
+
+    .accessibility-toolbar .container {
+        align-items: flex-start !important;
+    }
+}
+
+/* ---------- Reduce Animations ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
