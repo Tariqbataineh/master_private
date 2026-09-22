@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Wusool registered user dashboard for accessible visits and visual navigation."
+    />
+
+    <title>User Dashboard | Wusool</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/site.css" />
+    <link rel="stylesheet" href="../css/user-dashboard.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+    <header>
+      <nav
+        class="navbar navbar-expand-xl main-navbar sticky-top"
+        aria-label="Main navigation"
+      >
+        <div class="container">
+          <a
+            class="navbar-brand wusool-logo"
+            href="../../visitor/html/home.html"
+          >
+            <span class="logo-icon" aria-hidden="true">
+              <i class="bi bi-universal-access"></i>
+            </span>
+            Wusool
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#userNavbar"
+            aria-controls="userNavbar"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="userNavbar">
+            <ul class="navbar-nav mx-auto gap-xl-1">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="./user-dashboard.html"
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../visitor/html/accessibility-map.html"
+                >
+                  Explore Places
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./visual-navigation-start.html">
+                  Visual Navigation
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./my-visits.html">My Visits</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./saved-places.html">Saved Places</a>
+              </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+              <a
+                class="notification-link position-relative"
+                href="./notifications.html"
+                aria-label="Notifications, 3 unread"
+              >
+                <i class="bi bi-bell"></i>
+                <span class="notification-count">3</span>
+              </a>
+
+              <div class="dropdown">
+                <button
+                  class="btn user-menu-button dropdown-toggle d-flex align-items-center gap-2"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <span class="user-avatar" aria-hidden="true">T</span>
+                  <span class="d-none d-sm-inline" id="navbarUserName"
+                    >Tariq</span
+                  >
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                  <li>
+                    <a class="dropdown-item" href="./user-profile.html">
+                      <i class="bi bi-person me-2"></i>Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./accessibility-preferences.html"
+                    >
+                      <i class="bi bi-sliders me-2"></i>Accessibility
+                      Preferences
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="./account-settings.html">
+                      <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      href="../../visitor/html/home.html"
+                    >
+                      <i class="bi bi-box-arrow-right me-2"></i>Log Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <section
+        class="accessibility-toolbar py-2"
+        aria-label="Accessibility tools"
+      >
+        <div class="container d-flex flex-wrap align-items-center gap-2">
+          <span class="accessibility-toolbar-title me-2">
+            <i class="bi bi-universal-access-circle me-1"></i>
+            Accessibility Tools
+          </span>
+          <button class="accessibility-button" id="decreaseFont" type="button">
+            A−
+          </button>
+          <button class="accessibility-button" id="increaseFont" type="button">
+            A+
+          </button>
+          <button
+            class="accessibility-button"
+            id="highContrast"
+            type="button"
+            aria-pressed="false"
+          >
+            <i class="bi bi-circle-half me-1"></i>High Contrast
+          </button>
+          <button class="accessibility-button" id="readPage" type="button">
+            <i class="bi bi-volume-up me-1"></i>Read Page
+          </button>
+          <button class="accessibility-button" id="voiceSearch" type="button">
+            <i class="bi bi-mic me-1"></i>Voice Search
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <main id="mainContent">
+      <section class="dashboard-hero py-5">
+        <div class="container">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+              <p class="dashboard-date mb-2" id="currentDate">
+                Your accessible journey starts here
+              </p>
+              <h1 class="dashboard-title mb-3">
+                Welcome back, <span id="welcomeUserName">Tariq</span>
+              </h1>
+              <p class="dashboard-description mb-4">
+                Find accessible places, prepare your visit, and receive accurate
+                visual guidance while you are there.
+              </p>
+
+              <form class="place-search" id="dashboardSearchForm" role="search">
+                <label class="visually-hidden" for="searchInput"
+                  >Search for a place or service</label
+                >
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text border-end-0">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input
+                    class="form-control border-start-0"
+                    id="searchInput"
+                    type="search"
+                    placeholder="Search for a bank, clinic, service, or place"
+                  />
+                  <button class="btn btn-wusool px-4" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-lg-5">
+              <article class="navigation-highlight p-4 p-md-5">
+                <span class="highlight-icon mb-3" aria-hidden="true">
+                  <i class="bi bi-camera-fill"></i>
+                </span>
+                <p class="highlight-label mb-2">AI Visual Navigation</p>
+                <h2 class="h3 mb-3">Let Wusool guide you inside the place</h2>
+                <p class="mb-4">
+                  Analyze your surroundings and receive safe directions by text
+                  or voice.
+                </p>
+                <a
+                  class="btn btn-light btn-lg w-100"
+                  href="./visual-navigation-start.html"
+                >
+                  <i class="bi bi-play-circle me-2"></i>Start Visual Navigation
+                </a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5" aria-labelledby="overviewTitle">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"
+          >
+            <div>
+              <span class="section-label">Your overview</span>
+              <h2 class="h3 mb-0" id="overviewTitle">
+                Everything important at a glance
+              </h2>
+            </div>
+            <a class="fw-semibold" href="./accessibility-preferences.html">
+              Update accessibility preferences
+              <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-sm-6 col-xl-3">
+              <article class="summary-card h-100 p-4">
+                <span class="summary-icon summary-icon-teal"
+                  ><i class="bi bi-calendar2-check"></i
+                ></span>
+                <div>
+                  <p class="summary-value mb-0">2</p>
+                  <p class="summary-label mb-0">Upcoming visits</p>
+                </div>
+              </article>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <article class="summary-card h-100 p-4">
+                <span class="summary-icon summary-icon-blue"
+                  ><i class="bi bi-bookmark-heart"></i
+                ></span>
+                <div>
+                  <p class="summary-value mb-0">6</p>
+                  <p class="summary-label mb-0">Saved places</p>
+                </div>
+              </article>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <article class="summary-card h-100 p-4">
+                <span class="summary-icon summary-icon-orange"
+                  ><i class="bi bi-compass"></i
+                ></span>
+                <div>
+                  <p class="summary-value mb-0">4</p>
+                  <p class="summary-label mb-0">Completed routes</p>
+                </div>
+              </article>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-3">
+              <article class="summary-card h-100 p-4">
+                <span class="summary-icon summary-icon-purple"
+                  ><i class="bi bi-chat-square-text"></i
+                ></span>
+                <div>
+                  <p class="summary-value mb-0">3</p>
+                  <p class="summary-label mb-0">Your contributions</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="dashboard-section py-5"
+        aria-labelledby="quickActionsTitle"
+      >
+        <div class="container">
+          <span class="section-label">Quick access</span>
+          <h2 class="h3 mb-4" id="quickActionsTitle">
+            What would you like to do?
+          </h2>
+
+          <div class="row g-4">
+            <div class="col-12 col-md-6 col-xl-3">
+              <a
+                class="quick-action-card d-block h-100 p-4"
+                href="../../visitor/html/accessibility-map.html"
+              >
+                <span class="quick-action-icon"><i class="bi bi-map"></i></span>
+                <h3 class="h5 mt-4">Explore Accessible Places</h3>
+                <p class="mb-3">
+                  Search the map and compare verified accessibility information.
+                </p>
+                <span class="action-link"
+                  >Open map <i class="bi bi-arrow-right"></i
+                ></span>
+              </a>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <a
+                class="quick-action-card d-block h-100 p-4"
+                href="./visual-navigation-start.html"
+              >
+                <span class="quick-action-icon"
+                  ><i class="bi bi-camera"></i
+                ></span>
+                <h3 class="h5 mt-4">Visual Navigation</h3>
+                <p class="mb-3">
+                  Analyze your surroundings and receive safe step-by-step
+                  directions.
+                </p>
+                <span class="action-link"
+                  >Start navigation <i class="bi bi-arrow-right"></i
+                ></span>
+              </a>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <a
+                class="quick-action-card d-block h-100 p-4"
+                href="./plan-visit.html"
+              >
+                <span class="quick-action-icon"
+                  ><i class="bi bi-calendar-plus"></i
+                ></span>
+                <h3 class="h5 mt-4">Plan a Visit</h3>
+                <p class="mb-3">
+                  Choose a branch, date, destination, and accessibility support.
+                </p>
+                <span class="action-link"
+                  >Plan visit <i class="bi bi-arrow-right"></i
+                ></span>
+              </a>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+              <a
+                class="quick-action-card d-block h-100 p-4"
+                href="./add-place.html"
+              >
+                <span class="quick-action-icon"
+                  ><i class="bi bi-geo-alt"></i
+                ></span>
+                <h3 class="h5 mt-4">Add a Place</h3>
+                <p class="mb-3">
+                  Help the community by submitting a new accessible location.
+                </p>
+                <span class="action-link"
+                  >Add place <i class="bi bi-arrow-right"></i
+                ></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5" aria-labelledby="visitTitle">
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <article class="content-card h-100 p-4 p-md-5">
+                <div
+                  class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4"
+                >
+                  <div>
+                    <span class="section-label">Next visit</span>
+                    <h2 class="h3 mb-0" id="visitTitle">Your upcoming visit</h2>
+                  </div>
+                  <span class="status-badge">Confirmed</span>
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row gap-4">
+                  <span class="place-icon flex-shrink-0" aria-hidden="true">
+                    <i class="bi bi-building"></i>
+                  </span>
+                  <div class="flex-grow-1">
+                    <h3 class="h4">Amman City Hall</h3>
+                    <p class="text-secondary mb-3">
+                      <i class="bi bi-geo-alt me-1"></i>King Hussein Street,
+                      Amman
+                    </p>
+                    <div class="row g-3 mb-4">
+                      <div class="col-sm-6">
+                        <div class="visit-detail">
+                          <i class="bi bi-calendar3"></i>
+                          <span><small>Date</small>24 September 2026</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="visit-detail">
+                          <i class="bi bi-clock"></i>
+                          <span><small>Time</small>10:30 AM</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2">
+                      <a class="btn btn-wusool" href="./visit-details.html"
+                        >View Visit Details</a
+                      >
+                      <a
+                        class="btn btn-wusool-outline"
+                        href="./visual-navigation-start.html"
+                      >
+                        Start Navigation
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-lg-5">
+              <article class="content-card h-100 p-4 p-md-5">
+                <div
+                  class="d-flex justify-content-between align-items-start gap-3 mb-4"
+                >
+                  <div>
+                    <span class="section-label">For you</span>
+                    <h2 class="h3 mb-0">Smart recommendations</h2>
+                  </div>
+                  <span class="recommendation-icon"
+                    ><i class="bi bi-stars"></i
+                  ></span>
+                </div>
+
+                <ul class="recommendation-list">
+                  <li>
+                    <span><i class="bi bi-check-circle-fill"></i></span>
+                    Step-free entrances based on your preferences
+                  </li>
+                  <li>
+                    <span><i class="bi bi-check-circle-fill"></i></span>
+                    Accessible parking near the main entrance
+                  </li>
+                  <li>
+                    <span><i class="bi bi-check-circle-fill"></i></span>
+                    Elevators and wide internal pathways
+                  </li>
+                </ul>
+
+                <a
+                  class="btn btn-wusool-outline w-100 mt-4"
+                  href="./smart-recommendations.html"
+                >
+                  View Recommendations
+                </a>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-section py-5" aria-labelledby="savedTitle">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4"
+          >
+            <div>
+              <span class="section-label">Saved places</span>
+              <h2 class="h3 mb-0" id="savedTitle">Continue exploring</h2>
+            </div>
+            <a class="fw-semibold" href="./saved-places.html">
+              View all saved places <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="saved-place-card h-100 p-4">
+                <div class="d-flex justify-content-between gap-3">
+                  <span class="place-icon"><i class="bi bi-hospital"></i></span>
+                  <button
+                    class="saved-button"
+                    type="button"
+                    aria-label="Remove Al Noor Medical Center from saved places"
+                  >
+                    <i class="bi bi-bookmark-fill"></i>
+                  </button>
+                </div>
+                <h3 class="h5 mt-4">Al Noor Medical Center</h3>
+                <p class="text-secondary mb-3">Medical Center · Amman</p>
+                <div
+                  class="d-flex justify-content-between align-items-center gap-3"
+                >
+                  <span class="score-pill">88% Accessible</span>
+                  <a
+                    href="../../visitor/html/place-details.html?id=2"
+                    aria-label="View Al Noor Medical Center"
+                  >
+                    View <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </article>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="saved-place-card h-100 p-4">
+                <div class="d-flex justify-content-between gap-3">
+                  <span class="place-icon"><i class="bi bi-bank"></i></span>
+                  <button
+                    class="saved-button"
+                    type="button"
+                    aria-label="Remove Amman City Hall from saved places"
+                  >
+                    <i class="bi bi-bookmark-fill"></i>
+                  </button>
+                </div>
+                <h3 class="h5 mt-4">Amman City Hall</h3>
+                <p class="text-secondary mb-3">Government Service · Amman</p>
+                <div
+                  class="d-flex justify-content-between align-items-center gap-3"
+                >
+                  <span class="score-pill">92% Accessible</span>
+                  <a
+                    href="../../visitor/html/place-details.html?id=1"
+                    aria-label="View Amman City Hall"
+                  >
+                    View <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </article>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <article class="saved-place-card h-100 p-4">
+                <div class="d-flex justify-content-between gap-3">
+                  <span class="place-icon"><i class="bi bi-people"></i></span>
+                  <button
+                    class="saved-button"
+                    type="button"
+                    aria-label="Remove Community Hub from saved places"
+                  >
+                    <i class="bi bi-bookmark-fill"></i>
+                  </button>
+                </div>
+                <h3 class="h5 mt-4">Community Hub</h3>
+                <p class="text-secondary mb-3">Community Service · Amman</p>
+                <div
+                  class="d-flex justify-content-between align-items-center gap-3"
+                >
+                  <span class="score-pill">86% Accessible</span>
+                  <a
+                    href="../../visitor/html/place-details.html?id=3"
+                    aria-label="View Community Hub"
+                  >
+                    View <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer py-4">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+      >
+        <a class="wusool-logo text-white" href="../../visitor/html/home.html">
+          <span class="logo-icon" aria-hidden="true"
+            ><i class="bi bi-universal-access"></i
+          ></span>
+          Wusool
+        </a>
+        <p class="footer-copyright mb-0">
+          © 2026 Wusool. Accessibility for everyone.
+        </p>
+        <nav class="d-flex gap-3" aria-label="Footer navigation">
+          <a href="./help-support.html">Help</a>
+          <a href="../../visitor/html/home.html#aboutWusool">About</a>
+          <a href="../../visitor/html/home.html#contact">Contact</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/site.js"></script>
+    <script src="../js/user-dashboard.js"></script>
+  </body>
+</html>

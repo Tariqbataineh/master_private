@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content="Plan an accessible visit using Wusool."
+    />
+
+    <title>Plan a Visit | Wusool</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../../assets/site.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../css/plan-visit.css"
+    />
+  </head>
+
+  <body>
+    <a
+      class="skip-link"
+      href="#mainContent"
+    >
+      Skip to main content
+    </a>
+
+    <header>
+      <nav
+        class="navbar navbar-expand-xl main-navbar sticky-top"
+        aria-label="Main navigation"
+      >
+        <div class="container">
+          <a
+            class="navbar-brand wusool-logo"
+            href="../../visitor/html/home.html"
+          >
+            <span
+              class="logo-icon"
+              aria-hidden="true"
+            >
+              <i class="bi bi-universal-access"></i>
+            </span>
+
+            Wusool
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#userNavbar"
+            aria-controls="userNavbar"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse"
+            id="userNavbar"
+          >
+            <ul class="navbar-nav mx-auto gap-xl-1">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./user-dashboard.html"
+                >
+                  Dashboard
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../visitor/html/accessibility-map.html"
+                >
+                  Explore Places
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./my-visits.html"
+                  title="Start AI navigation from a confirmed visit"
+                >
+                  Visual Navigation
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="./my-visits.html"
+                >
+                  My Visits
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./saved-places.html"
+                >
+                  Saved Places
+                </a>
+              </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+              <a
+                class="btn btn-light position-relative"
+                href="./notifications.html"
+                aria-label="Notifications"
+              >
+                <i class="bi bi-bell"></i>
+
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  3
+                </span>
+              </a>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-wusool dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-person-circle me-1"></i>
+
+                  <span id="navbarUserName">
+                    User
+                  </span>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./user-profile.html"
+                    >
+                      Profile
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./accessibility-preferences.html"
+                    >
+                      Accessibility Preferences
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      href="../../visitor/html/home.html"
+                    >
+                      Log Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <section
+        class="accessibility-toolbar py-2"
+        aria-label="Accessibility tools"
+      >
+        <div class="container d-flex flex-wrap align-items-center gap-2">
+          <span class="accessibility-toolbar-title me-2">
+            <i class="bi bi-universal-access-circle me-1"></i>
+            Accessibility Tools
+          </span>
+
+          <button
+            class="accessibility-button"
+            id="decreaseFont"
+            type="button"
+          >
+            A−
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="increaseFont"
+            type="button"
+          >
+            A+
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="highContrast"
+            type="button"
+            aria-pressed="false"
+          >
+            <i class="bi bi-circle-half me-1"></i>
+            High Contrast
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="readPage"
+            type="button"
+          >
+            <i class="bi bi-volume-up me-1"></i>
+            Read Page
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <main id="mainContent">
+      <!-- Heading -->
+      <section class="visit-heading py-5">
+        <div class="container">
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb mb-3">
+              <li class="breadcrumb-item">
+                <a href="./user-dashboard.html">
+                  Dashboard
+                </a>
+              </li>
+
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+              >
+                Plan a Visit
+              </li>
+            </ol>
+          </nav>
+
+          <span class="visit-label">
+            Accessible visit planner
+          </span>
+
+          <h1 class="display-5 fw-bold mb-3">
+            Plan Your Visit
+          </h1>
+
+          <p class="text-secondary mb-0">
+            Choose your destination, visit time, and the accessibility
+            support you may need.
+          </p>
+        </div>
+      </section>
+
+      <!-- Progress -->
+      <section class="py-4 border-bottom">
+        <div class="container">
+          <div class="visit-progress">
+            <div class="progress-step active">
+              <span>1</span>
+              <strong>Plan Visit</strong>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+              <span>2</span>
+              <strong>Review</strong>
+            </div>
+
+            <div class="progress-line"></div>
+
+            <div class="progress-step">
+              <span>3</span>
+              <strong>Confirmed</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Form -->
+      <section class="py-5">
+        <div class="container">
+          <form
+            id="visitForm"
+            class="needs-validation"
+            novalidate
+          >
+            <div class="row g-4">
+              <div class="col-lg-8">
+                <!-- Place Information -->
+                <article class="visit-card p-4 p-md-5 mb-4">
+                  <div class="mb-4">
+                    <span class="visit-label">
+                      Step 1
+                    </span>
+
+                    <h2 class="h3 mb-2">
+                      Place and Destination
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                      Select where you want to go.
+                    </p>
+                  </div>
+
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="placeSelect"
+                      >
+                        Place
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="placeSelect"
+                        required
+                      ></select>
+
+                      <div class="invalid-feedback">
+                        Select a place.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="branchSelect"
+                      >
+                        Branch
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="branchSelect"
+                        required
+                      ></select>
+
+                      <div class="invalid-feedback">
+                        Select a branch.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="destinationSelect"
+                      >
+                        Destination Inside the Place
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="destinationSelect"
+                        required
+                      ></select>
+
+                      <div class="invalid-feedback">
+                        Select your destination.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="visitPurpose"
+                      >
+                        Visit Purpose
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="visitPurpose"
+                        required
+                      >
+                        <option value="">
+                          Select visit purpose
+                        </option>
+
+                        <option value="Appointment">
+                          Appointment
+                        </option>
+
+                        <option value="Customer Service">
+                          Customer Service
+                        </option>
+
+                        <option value="Document Submission">
+                          Document Submission
+                        </option>
+
+                        <option value="Medical Visit">
+                          Medical Visit
+                        </option>
+
+                        <option value="Job Interview">
+                          Job Interview
+                        </option>
+
+                        <option value="Other">
+                          Other
+                        </option>
+                      </select>
+
+                      <div class="invalid-feedback">
+                        Select the purpose of your visit.
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Date and Time -->
+                <article class="visit-card p-4 p-md-5 mb-4">
+                  <div class="mb-4">
+                    <span class="visit-label">
+                      Step 2
+                    </span>
+
+                    <h2 class="h3 mb-2">
+                      Date and Time
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                      Choose when you plan to visit.
+                    </p>
+                  </div>
+
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="visitDate"
+                      >
+                        Visit Date
+                      </label>
+
+                      <input
+                        class="form-control"
+                        id="visitDate"
+                        type="date"
+                        required
+                      />
+
+                      <div class="invalid-feedback">
+                        Select a valid visit date.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="visitTime"
+                      >
+                        Visit Time
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="visitTime"
+                        required
+                      >
+                        <option value="">
+                          Select time
+                        </option>
+
+                        <option value="08:30">
+                          08:30 AM
+                        </option>
+
+                        <option value="09:00">
+                          09:00 AM
+                        </option>
+
+                        <option value="09:30">
+                          09:30 AM
+                        </option>
+
+                        <option value="10:00">
+                          10:00 AM
+                        </option>
+
+                        <option value="10:30">
+                          10:30 AM
+                        </option>
+
+                        <option value="11:00">
+                          11:00 AM
+                        </option>
+
+                        <option value="11:30">
+                          11:30 AM
+                        </option>
+
+                        <option value="12:00">
+                          12:00 PM
+                        </option>
+
+                        <option value="13:00">
+                          01:00 PM
+                        </option>
+
+                        <option value="14:00">
+                          02:00 PM
+                        </option>
+                      </select>
+
+                      <div class="invalid-feedback">
+                        Select a visit time.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="availability-message mt-4">
+                    <i class="bi bi-info-circle-fill"></i>
+
+                    <span>
+                      The selected time will be confirmed when you
+                      review the visit.
+                    </span>
+                  </div>
+                </article>
+
+                <!-- Accessibility Support -->
+                <article class="visit-card p-4 p-md-5">
+                  <div
+                    class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4"
+                  >
+                    <div>
+                      <span class="visit-label">
+                        Step 3
+                      </span>
+
+                      <h2 class="h3 mb-2">
+                        Accessibility Support
+                      </h2>
+
+                      <p class="text-secondary mb-0">
+                        Select any support you need during the visit.
+                      </p>
+                    </div>
+
+                    <button
+                      class="btn btn-sm btn-wusool-outline"
+                      id="useSavedPreferences"
+                      type="button"
+                    >
+                      Use Saved Preferences
+                    </button>
+                  </div>
+
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="support-option p-3">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            id="wheelchairSupport"
+                            name="visitSupport"
+                            type="checkbox"
+                            value="Wheelchair support"
+                          />
+
+                          <label
+                            class="form-check-label fw-semibold"
+                            for="wheelchairSupport"
+                          >
+                            Wheelchair Support
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="support-option p-3">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            id="staffAssistance"
+                            name="visitSupport"
+                            type="checkbox"
+                            value="Staff assistance"
+                          />
+
+                          <label
+                            class="form-check-label fw-semibold"
+                            for="staffAssistance"
+                          >
+                            Staff Assistance
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="support-option p-3">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            id="accessibleParking"
+                            name="visitSupport"
+                            type="checkbox"
+                            value="Accessible parking"
+                          />
+
+                          <label
+                            class="form-check-label fw-semibold"
+                            for="accessibleParking"
+                          >
+                            Accessible Parking
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="support-option p-3">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            id="visualNavigation"
+                            name="visitSupport"
+                            type="checkbox"
+                            value="AI visual navigation"
+                          />
+
+                          <label
+                            class="form-check-label fw-semibold"
+                            for="visualNavigation"
+                          >
+                            AI Visual Navigation
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="support-option p-3">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            id="equipmentReservation"
+                            name="visitSupport"
+                            type="checkbox"
+                            value="Equipment reservation"
+                          />
+
+                          <label
+                            class="form-check-label fw-semibold"
+                            for="equipmentReservation"
+                          >
+                            Reserve Accessible Equipment
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <fieldset>
+                        <legend class="h5 fw-bold mb-2">
+                          Navigation Guidance
+                        </legend>
+
+                        <p class="text-secondary mb-3">
+                          Your saved accessibility preference is selected
+                          automatically. You can change it for this visit.
+                        </p>
+
+                        <div class="row g-3">
+                          <div class="col-md-4">
+                            <div class="support-option h-100 p-3">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  id="textGuidance"
+                                  name="guidanceMethod"
+                                  type="radio"
+                                  value="text"
+                                  required
+                                />
+
+                                <label
+                                  class="form-check-label"
+                                  for="textGuidance"
+                                >
+                                  <strong class="d-block">
+                                    <i class="bi bi-chat-left-text me-1"></i>
+                                    Text
+                                  </strong>
+
+                                  <small class="text-secondary">
+                                    Written directions and safety warnings.
+                                  </small>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="support-option h-100 p-3">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  id="voiceGuidance"
+                                  name="guidanceMethod"
+                                  type="radio"
+                                  value="voice"
+                                  required
+                                />
+
+                                <label
+                                  class="form-check-label"
+                                  for="voiceGuidance"
+                                >
+                                  <strong class="d-block">
+                                    <i class="bi bi-volume-up me-1"></i>
+                                    Voice
+                                  </strong>
+
+                                  <small class="text-secondary">
+                                    Spoken directions and safety warnings.
+                                  </small>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="support-option h-100 p-3">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  id="bothGuidance"
+                                  name="guidanceMethod"
+                                  type="radio"
+                                  value="both"
+                                  required
+                                  checked
+                                />
+
+                                <label
+                                  class="form-check-label"
+                                  for="bothGuidance"
+                                >
+                                  <strong class="d-block">
+                                    <i class="bi bi-stars me-1"></i>
+                                    Text &amp; Voice
+                                  </strong>
+
+                                  <small class="text-secondary">
+                                    Written and spoken guidance together.
+                                  </small>
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="col-12">
+                      <label
+                        class="form-label fw-semibold"
+                        for="visitNotes"
+                      >
+                        Additional Notes
+                      </label>
+
+                      <textarea
+                        class="form-control"
+                        id="visitNotes"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="Add any information that may help the place prepare for your visit"
+                      ></textarea>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Live Summary -->
+              <aside class="col-lg-4">
+                <article class="visit-summary-card p-4 sticky-lg-top">
+                  <span class="summary-icon mb-3">
+                    <i class="bi bi-calendar2-check"></i>
+                  </span>
+
+                  <h2 class="h4 mb-4">
+                    Visit Summary
+                  </h2>
+
+                  <dl class="summary-list">
+                    <div>
+                      <dt>Place</dt>
+
+                      <dd id="summaryPlace">
+                        Not selected
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Branch</dt>
+
+                      <dd id="summaryBranch">
+                        Not selected
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Destination</dt>
+
+                      <dd id="summaryDestination">
+                        Not selected
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Date</dt>
+
+                      <dd id="summaryDate">
+                        Not selected
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Time</dt>
+
+                      <dd id="summaryTime">
+                        Not selected
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Support</dt>
+
+                      <dd id="summarySupport">
+                        No support selected
+                      </dd>
+                    </div>
+
+                    <div>
+                      <dt>Navigation Guidance</dt>
+
+                      <dd id="summaryGuidance">
+                        Text &amp; Voice
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <div class="d-grid gap-2 mt-4">
+                    <button
+                      class="btn btn-wusool btn-lg"
+                      type="submit"
+                    >
+                      Continue to Review
+
+                      <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+
+                    <a
+                      class="btn btn-light"
+                      href="./user-dashboard.html"
+                    >
+                      Cancel
+                    </a>
+                  </div>
+                </article>
+              </aside>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer py-4">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+      >
+        <a
+          class="wusool-logo text-white"
+          href="../../visitor/html/home.html"
+        >
+          <span class="logo-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
+
+          Wusool
+        </a>
+
+        <p class="footer-copyright mb-0">
+          © 2026 Wusool. Accessibility for everyone.
+        </p>
+
+        <nav
+          class="d-flex gap-3"
+          aria-label="Footer navigation"
+        >
+          <a href="./help-support.html">Help</a>
+
+          <a href="../../visitor/html/home.html#contact">
+            Contact
+          </a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../../assets/site.js"></script>
+
+    <script src="../js/plan-visit.js"></script>
+  </body>
+</html>

@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content="Manage your upcoming, completed, and cancelled Wusool visits."
+    />
+
+    <title>My Visits | Wusool</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../../assets/site.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../css/my-visits.css"
+    />
+  </head>
+
+  <body>
+    <a
+      class="skip-link"
+      href="#mainContent"
+    >
+      Skip to main content
+    </a>
+
+    <header>
+      <nav
+        class="navbar navbar-expand-xl main-navbar sticky-top"
+        aria-label="Main navigation"
+      >
+        <div class="container">
+          <a
+            class="navbar-brand wusool-logo"
+            href="../../visitor/html/home.html"
+          >
+            <span
+              class="logo-icon"
+              aria-hidden="true"
+            >
+              <i class="bi bi-universal-access"></i>
+            </span>
+
+            Wusool
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#userNavbar"
+            aria-controls="userNavbar"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse"
+            id="userNavbar"
+          >
+            <ul class="navbar-nav mx-auto gap-xl-1">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./user-dashboard.html"
+                >
+                  Dashboard
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../visitor/html/accessibility-map.html"
+                >
+                  Explore Places
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./visual-navigation-start.html"
+                >
+                  Visual Navigation
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="./my-visits.html"
+                >
+                  My Visits
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./saved-places.html"
+                >
+                  Saved Places
+                </a>
+              </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+              <a
+                class="btn btn-light position-relative"
+                href="./notifications.html"
+                aria-label="Notifications"
+              >
+                <i class="bi bi-bell"></i>
+
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  3
+                </span>
+              </a>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-wusool dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-person-circle me-1"></i>
+
+                  <span id="navbarUserName">
+                    User
+                  </span>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./user-profile.html"
+                    >
+                      Profile
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./accessibility-preferences.html"
+                    >
+                      Accessibility Preferences
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      href="../../visitor/html/home.html"
+                    >
+                      Log Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <section
+        class="accessibility-toolbar py-2"
+        aria-label="Accessibility tools"
+      >
+        <div class="container d-flex flex-wrap align-items-center gap-2">
+          <span class="accessibility-toolbar-title me-2">
+            <i class="bi bi-universal-access-circle me-1"></i>
+            Accessibility Tools
+          </span>
+
+          <button
+            class="accessibility-button"
+            id="decreaseFont"
+            type="button"
+          >
+            A−
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="increaseFont"
+            type="button"
+          >
+            A+
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="highContrast"
+            type="button"
+            aria-pressed="false"
+          >
+            <i class="bi bi-circle-half me-1"></i>
+            High Contrast
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="readPage"
+            type="button"
+          >
+            <i class="bi bi-volume-up me-1"></i>
+            Read Page
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <main id="mainContent">
+      <!-- Heading -->
+      <section class="visits-heading py-5">
+        <div class="container">
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb mb-3">
+              <li class="breadcrumb-item">
+                <a href="./user-dashboard.html">
+                  Dashboard
+                </a>
+              </li>
+
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+              >
+                My Visits
+              </li>
+            </ol>
+          </nav>
+
+          <div
+            class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-4"
+          >
+            <div>
+              <span class="visits-label">
+                Visit management
+              </span>
+
+              <h1 class="display-5 fw-bold mb-3">
+                My Visits
+              </h1>
+
+              <p class="text-secondary mb-0">
+                Manage upcoming visits and review your visit history.
+              </p>
+            </div>
+
+            <a
+              class="btn btn-wusool"
+              href="./plan-visit.html"
+            >
+              <i class="bi bi-calendar-plus me-2"></i>
+              Plan New Visit
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Statistics -->
+      <section class="py-4 border-bottom">
+        <div class="container">
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <article class="stat-card h-100 p-4">
+                <span class="stat-icon">
+                  <i class="bi bi-calendar2-check"></i>
+                </span>
+
+                <div>
+                  <strong id="upcomingCount">
+                    0
+                  </strong>
+
+                  <span>Upcoming Visits</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <article class="stat-card h-100 p-4">
+                <span class="stat-icon completed-icon">
+                  <i class="bi bi-check-circle"></i>
+                </span>
+
+                <div>
+                  <strong id="completedCount">
+                    0
+                  </strong>
+
+                  <span>Completed Visits</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <article class="stat-card h-100 p-4">
+                <span class="stat-icon cancelled-icon">
+                  <i class="bi bi-x-circle"></i>
+                </span>
+
+                <div>
+                  <strong id="cancelledCount">
+                    0
+                  </strong>
+
+                  <span>Cancelled Visits</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filters -->
+      <section class="py-4">
+        <div class="container">
+          <div class="row g-3 align-items-center">
+            <div class="col-lg-7">
+              <div
+                class="nav visit-tabs"
+                role="tablist"
+                aria-label="Filter visits"
+              >
+                <button
+                  class="visit-tab active"
+                  type="button"
+                  data-filter="all"
+                >
+                  All Visits
+                </button>
+
+                <button
+                  class="visit-tab"
+                  type="button"
+                  data-filter="Confirmed"
+                >
+                  Upcoming
+                </button>
+
+                <button
+                  class="visit-tab"
+                  type="button"
+                  data-filter="Completed"
+                >
+                  Completed
+                </button>
+
+                <button
+                  class="visit-tab"
+                  type="button"
+                  data-filter="Cancelled"
+                >
+                  Cancelled
+                </button>
+              </div>
+            </div>
+
+            <div class="col-lg-5">
+              <label
+                class="visually-hidden"
+                for="visitSearch"
+              >
+                Search visits
+              </label>
+
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-search"></i>
+                </span>
+
+                <input
+                  class="form-control"
+                  id="visitSearch"
+                  type="search"
+                  placeholder="Search by place, branch, or destination"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visits -->
+      <section class="pb-5">
+        <div class="container">
+          <div
+            class="row g-4"
+            id="visitsContainer"
+          ></div>
+
+          <article
+            class="empty-visits d-none p-5 text-center"
+            id="emptyVisits"
+          >
+            <span class="empty-icon mx-auto mb-3">
+              <i class="bi bi-calendar-x"></i>
+            </span>
+
+            <h2 class="h4">
+              No Visits Found
+            </h2>
+
+            <p class="text-secondary">
+              You do not have visits matching this filter.
+            </p>
+
+            <a
+              class="btn btn-wusool"
+              href="./plan-visit.html"
+            >
+              Plan Your First Visit
+            </a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Cancel Modal -->
+    <div
+      class="modal fade"
+      id="cancelVisitModal"
+      tabindex="-1"
+      aria-labelledby="cancelVisitTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              class="modal-title fs-5"
+              id="cancelVisitTitle"
+            >
+              Cancel Visit
+            </h2>
+
+            <button
+              class="btn-close"
+              type="button"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            Are you sure you want to cancel this visit?
+          </div>
+
+          <div class="modal-footer">
+            <button
+              class="btn btn-light"
+              type="button"
+              data-bs-dismiss="modal"
+            >
+              Keep Visit
+            </button>
+
+            <button
+              class="btn btn-danger"
+              id="confirmCancelVisit"
+              type="button"
+            >
+              Cancel Visit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="main-footer py-4">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+      >
+        <a
+          class="wusool-logo text-white"
+          href="../../visitor/html/home.html"
+        >
+          <span class="logo-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
+
+          Wusool
+        </a>
+
+        <p class="footer-copyright mb-0">
+          © 2026 Wusool. Accessibility for everyone.
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../../assets/site.js"></script>
+
+    <script src="../js/my-visits.js"></script>
+  </body>
+</html>

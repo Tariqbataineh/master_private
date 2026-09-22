@@ -1,0 +1,135 @@
+.details-heading {
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(20, 184, 166, 0.15),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #f7fcfb,
+      #edf8f7
+    );
+
+  border-bottom: 1px solid var(--border-color);
+}
+
+.details-label {
+  color: var(--primary-color);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+
+
+.details-card,
+.action-card,
+.missing-card {
+  background-color: var(--white-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--main-radius);
+  box-shadow: 0 12px 35px rgba(15, 39, 71, 0.07);
+}
+
+.visit-status {
+  padding: 8px 14px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.status-confirmed {
+  color: #087567;
+  background-color: #dff7f2;
+}
+
+.status-completed {
+  color: #146c43;
+  background-color: #e5f7ed;
+}
+
+.status-cancelled {
+  color: #b02a37;
+  background-color: #fdebec;
+}
+
+.place-icon,
+.detail-icon,
+.action-icon,
+.missing-icon {
+  display: grid;
+  place-items: center;
+
+  color: var(--primary-color);
+  background-color: var(--light-color);
+
+  border-radius: 16px;
+}
+
+.place-icon {
+  width: 65px;
+  height: 65px;
+  font-size: 1.7rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.detail-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+}
+
+.detail-item small,
+.detail-item strong {
+  display: block;
+}
+
+.detail-item small {
+  color: var(--muted-color);
+  font-size: 0.78rem;
+}
+
+.support-tag {
+  padding: 8px 12px;
+
+  color: var(--primary-color);
+  background-color: var(--light-color);
+
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.action-card {
+  top: 110px;
+}
+
+.action-icon,
+.missing-icon {
+  width: 58px;
+  height: 58px;
+  font-size: 1.5rem;
+}
+
+body.high-contrast .details-heading,
+body.high-contrast .details-card,
+body.high-contrast .action-card,
+body.high-contrast .missing-card {
+  color: var(--white-color);
+  background: var(--black-color);
+  border-color: var(--white-color);
+}
+
+@media (max-width: 767px) {
+  .details-heading {
+    text-align: center;
+  }
+}

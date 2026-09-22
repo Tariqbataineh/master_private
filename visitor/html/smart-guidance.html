@@ -1,386 +1,274 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
 
-<head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Smart Guidance | Wusool</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-          rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet"
-          href="../../assets/site.css">
+    <link rel="stylesheet" href="../../assets/site.css" />
 
-    <link rel="stylesheet"
-          href="../css/smart-guidance.css">
-</head>
+    <link rel="stylesheet" href="../css/smart-guidance.css" />
+  </head>
 
-<body>
-
+  <body>
     <nav class="navbar navbar-expand-lg guidance-navbar">
+      <div class="container">
+        <a href="./home.html" class="navbar-brand fw-bold">
+          <span class="brand-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
 
-        <div class="container">
+          Wusool
+        </a>
 
-            <a href="./home.html"
-               class="navbar-brand fw-bold">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <span class="brand-icon">
-                    <i class="bi bi-universal-access"></i>
-                </span>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a href="./home.html" class="nav-link"> Home </a>
+            </li>
 
-                Wusool
+            <li class="nav-item">
+              <a href="./accessibility-map.html" class="nav-link">
+                Accessibility Map
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="./smart-guidance.html" class="nav-link active">
+                Smart Guidance
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="./home.html#aboutWusool" class="nav-link"> About Us </a>
+            </li>
+          </ul>
+
+          <div class="d-flex gap-2">
+            <a href="./login.html" class="btn btn-outline-wusool"> Log In </a>
+
+            <a href="./register.html" class="btn btn-wusool">
+              Create Account
             </a>
-
-            <button class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#mainNavbar">
-
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse"
-                 id="mainNavbar">
-
-                <ul class="navbar-nav mx-auto">
-
-                    <li class="nav-item">
-                        <a href="./home.html"
-                           class="nav-link">
-                            Home
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="./accessibility-map.html"
-                           class="nav-link">
-                            Accessibility Map
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="./smart-guidance.html"
-                           class="nav-link active">
-                            Smart Guidance
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="./home.html#aboutWusool"
-                           class="nav-link">
-                            About Us
-                        </a>
-                    </li>
-
-                </ul>
-
-                <div class="d-flex gap-2">
-
-                    <a href="./login.html"
-                       class="btn btn-outline-wusool">
-                        Log In
-                    </a>
-
-                    <a href="./register.html"
-                       class="btn btn-wusool">
-                        Create Account
-                    </a>
-
-                </div>
-
-            </div>
-
+          </div>
         </div>
-
+      </div>
     </nav>
 
     <section class="accessibility-toolbar">
+      <div class="container d-flex flex-wrap align-items-center gap-2">
+        <strong>
+          <i class="bi bi-universal-access-circle"></i>
+          Accessibility Tools
+        </strong>
 
-        <div class="container d-flex flex-wrap align-items-center gap-2">
+        <button type="button" id="decreaseText" class="btn toolbar-button">
+          A-
+        </button>
 
-            <strong>
-                <i class="bi bi-universal-access-circle"></i>
-                Accessibility Tools
-            </strong>
+        <button type="button" id="increaseText" class="btn toolbar-button">
+          A+
+        </button>
 
-            <button id="decreaseText"
-                    class="btn toolbar-button">
-                A-
-            </button>
+        <button type="button" id="contrastButton" class="btn toolbar-button">
+          <i class="bi bi-circle-half"></i>
+          High Contrast
+        </button>
 
-            <button id="increaseText"
-                    class="btn toolbar-button">
-                A+
-            </button>
-
-            <button id="contrastButton"
-                    class="btn toolbar-button">
-
-                <i class="bi bi-circle-half"></i>
-                High Contrast
-
-            </button>
-
-            <button id="readPage"
-                    class="btn toolbar-button">
-
-                <i class="bi bi-volume-up"></i>
-                Read Page
-
-            </button>
-
-        </div>
-
+        <button type="button" id="readPage" class="btn toolbar-button">
+          <i class="bi bi-volume-up"></i>
+          Read Page
+        </button>
+      </div>
     </section>
 
     <main>
+      <section class="guidance-hero">
+        <div class="container text-center">
+          <span class="section-label">
+            <i class="bi bi-sign-turn-right"></i>
+            Accessible Visit Guidance
+          </span>
 
-        <section class="guidance-hero">
+          <h1>Know the Accessible Route Before You Arrive</h1>
 
-            <div class="container text-center">
+          <p>
+            Preview accessible entrances, parking areas, elevators and important
+            directions.
+          </p>
+        </div>
+      </section>
 
-                <span class="section-label">
-                    <i class="bi bi-sign-turn-right"></i>
-                    Accessible Visit Guidance
-                </span>
+      <section class="guidance-section">
+        <div class="container">
+          <div class="row g-4">
+            <div class="col-lg-4">
+              <div class="guidance-control">
+                <h2>Plan Your Route</h2>
 
-                <h1>Know the Accessible Route Before You Arrive</h1>
+                <p>Select a place and accessibility need.</p>
 
-                <p>
-                    Preview accessible entrances, parking areas,
-                    elevators and important directions.
-                </p>
+                <form id="guidanceForm">
+                  <label for="guidancePlace" class="form-label">
+                    Select Place
+                  </label>
 
+                  <select id="guidancePlace" class="form-select mb-4">
+                    <option value="1">Amman City Hall</option>
+
+                    <option value="2">Al Noor Medical Center</option>
+
+                    <option value="3">Community Hub</option>
+
+                    <option value="4">Jordan National Bank</option>
+
+                    <option value="5">Public Library</option>
+
+                    <option value="6">Government Service Center</option>
+                  </select>
+
+                  <label for="guidanceNeed" class="form-label">
+                    Main Accessibility Need
+                  </label>
+
+                  <select id="guidanceNeed" class="form-select mb-4">
+                    <option value="wheelchair">
+                      Wheelchair Accessible Route
+                    </option>
+
+                    <option value="parking">Accessible Parking</option>
+
+                    <option value="elevator">Elevator Access</option>
+
+                    <option value="assistance">Staff Assistance</option>
+                  </select>
+
+                  <button type="submit" class="btn btn-wusool w-100">
+                    <i class="bi bi-signpost-2"></i>
+                    Show Guidance
+                  </button>
+                </form>
+              </div>
             </div>
 
-        </section>
+            <div class="col-lg-8">
+              <div class="route-preview">
+                <div class="route-header">
+                  <div>
+                    <span>Guidance Preview</span>
+                    <h2 id="selectedPlaceName">Amman City Hall</h2>
+                  </div>
 
-        <section class="guidance-section">
-
-            <div class="container">
-
-                <div class="row g-4">
-
-                    <div class="col-lg-4">
-
-                        <div class="guidance-control">
-
-                            <h2>Plan Your Route</h2>
-
-                            <p>
-                                Select a place and accessibility need.
-                            </p>
-
-                            <form id="guidanceForm">
-
-                                <label for="guidancePlace"
-                                       class="form-label">
-                                    Select Place
-                                </label>
-
-                                <select id="guidancePlace"
-                                        class="form-select mb-4">
-
-                                    <option value="1">
-                                        Amman City Hall
-                                    </option>
-
-                                    <option value="2">
-                                        Al Noor Medical Center
-                                    </option>
-
-                                    <option value="3">
-                                        Community Hub
-                                    </option>
-
-                                    <option value="4">
-                                        Jordan National Bank
-                                    </option>
-
-                                    <option value="5">
-                                        Public Library
-                                    </option>
-
-                                    <option value="6">
-                                        Government Service Center
-                                    </option>
-
-                                </select>
-
-                                <label for="guidanceNeed"
-                                       class="form-label">
-                                    Main Accessibility Need
-                                </label>
-
-                                <select id="guidanceNeed"
-                                        class="form-select mb-4">
-
-                                    <option value="wheelchair">
-                                        Wheelchair Accessible Route
-                                    </option>
-
-                                    <option value="parking">
-                                        Accessible Parking
-                                    </option>
-
-                                    <option value="elevator">
-                                        Elevator Access
-                                    </option>
-
-                                    <option value="assistance">
-                                        Staff Assistance
-                                    </option>
-
-                                </select>
-
-                                <button type="submit"
-                                        class="btn btn-wusool w-100">
-
-                                    <i class="bi bi-signpost-2"></i>
-                                    Show Guidance
-
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-8">
-
-                        <div class="route-preview">
-
-                            <div class="route-header">
-
-                                <div>
-                                    <span>Guidance Preview</span>
-                                    <h2 id="selectedPlaceName">
-                                        Amman City Hall
-                                    </h2>
-                                </div>
-
-                                <button id="speakGuidance"
-                                        type="button"
-                                        class="btn btn-outline-wusool">
-
-                                    <i class="bi bi-volume-up"></i>
-                                    Read Directions
-
-                                </button>
-
-                            </div>
-
-                            <div class="route-map">
-
-                                <div class="route-line"></div>
-
-                                <div class="map-point point-one">
-                                    <i class="bi bi-p-square-fill"></i>
-                                </div>
-
-                                <div class="map-point point-two">
-                                    <i class="bi bi-signpost-split-fill"></i>
-                                </div>
-
-                                <div class="map-point point-three">
-                                    <i class="bi bi-building-check"></i>
-                                </div>
-
-                            </div>
-
-                            <div id="guidanceSteps"
-                                 class="guidance-steps">
-
-                                <!-- JavaScript -->
-
-                            </div>
-
-                            <div class="route-actions">
-
-                                <a id="placeDetailsLink"
-                                   href="./place-details.html?id=1"
-                                   class="btn btn-wusool">
-
-                                    View Place Details
-                                </a>
-
-                                <a href="./accessibility-map.html"
-                                   class="btn btn-outline-wusool">
-
-                                    Open Accessibility Map
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                  <button
+                    id="speakGuidance"
+                    type="button"
+                    class="btn btn-outline-wusool"
+                  >
+                    <i class="bi bi-volume-up"></i>
+                    Read Directions
+                  </button>
                 </div>
 
-            </div>
+                <div class="route-map">
+                  <div class="route-line"></div>
 
-        </section>
+                  <div class="map-point point-one">
+                    <i class="bi bi-p-square-fill"></i>
+                  </div>
 
-        <section class="visitor-notice">
+                  <div class="map-point point-two">
+                    <i class="bi bi-signpost-split-fill"></i>
+                  </div>
 
-            <div class="container">
-
-                <div class="notice-box">
-
-                    <i class="bi bi-info-circle"></i>
-
-                    <div>
-                        <h2>Visitor Preview</h2>
-
-                        <p>
-                            Create an account to save directions,
-                            receive alerts and request assistance.
-                        </p>
-                    </div>
-
-                    <a href="./register.html"
-                       class="btn btn-light">
-                        Create Account
-                    </a>
-
+                  <div class="map-point point-three">
+                    <i class="bi bi-building-check"></i>
+                  </div>
                 </div>
 
+                <div id="guidanceSteps" class="guidance-steps">
+                  <!-- JavaScript -->
+                </div>
+
+                <div class="route-actions">
+                  <a
+                    id="placeDetailsLink"
+                    href="./place-details.html?id=1"
+                    class="btn btn-wusool"
+                  >
+                    View Place Details
+                  </a>
+
+                  <a
+                    href="./accessibility-map.html"
+                    class="btn btn-outline-wusool"
+                  >
+                    Open Accessibility Map
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="visitor-notice">
+        <div class="container">
+          <div class="notice-box">
+            <i class="bi bi-info-circle"></i>
+
+            <div>
+              <h2>Visitor Preview</h2>
+
+              <p>
+                Create an account to save directions, receive alerts and request
+                assistance.
+              </p>
             </div>
 
-        </section>
-
+            <a href="./register.html" class="btn btn-light"> Create Account </a>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer id="contact"
-            class="guidance-footer">
+    <footer id="contact" class="guidance-footer">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between gap-3">
+          <strong>Wusool</strong>
 
-        <div class="container">
+          <div class="footer-links">
+            <a href="./home.html">Home</a>
+            <a href="./accessibility-map.html">Map</a>
+            <a href="./home.html#aboutWusool">About</a>
+          </div>
 
-            <div class="d-flex flex-wrap justify-content-between gap-3">
-
-                <strong>Wusool</strong>
-
-                <div class="footer-links">
-                    <a href="./home.html">Home</a>
-                    <a href="./accessibility-map.html">Map</a>
-                    <a href="./home.html#aboutWusool">About</a>
-                </div>
-
-                <span>© 2026 Wusool</span>
-
-            </div>
-
+          <span>© 2026 Wusool</span>
         </div>
-
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -388,6 +276,5 @@
     <script src="../../assets/site.js"></script>
 
     <script src="../js/smart-guidance.js"></script>
-
-</body>
+  </body>
 </html>

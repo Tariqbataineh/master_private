@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content="Manage your accessibility and navigation preferences in Wusool."
+    />
+
+    <title>Accessibility Preferences | Wusool</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../../assets/site.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="../css/accessibility-preferences.css"
+    />
+  </head>
+
+  <body>
+    <a
+      class="skip-link"
+      href="#mainContent"
+    >
+      Skip to main content
+    </a>
+
+    <header>
+      <!-- Navbar -->
+      <nav
+        class="navbar navbar-expand-xl main-navbar sticky-top"
+        aria-label="Main navigation"
+      >
+        <div class="container">
+          <a
+            class="navbar-brand wusool-logo"
+            href="../../visitor/html/home.html"
+          >
+            <span
+              class="logo-icon"
+              aria-hidden="true"
+            >
+              <i class="bi bi-universal-access"></i>
+            </span>
+
+            Wusool
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#userNavbar"
+            aria-controls="userNavbar"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse"
+            id="userNavbar"
+          >
+            <ul class="navbar-nav mx-auto gap-xl-1">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./user-dashboard.html"
+                >
+                  Dashboard
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../visitor/html/accessibility-map.html"
+                >
+                  Explore Places
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./visual-navigation-start.html"
+                >
+                  Visual Navigation
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./my-visits.html"
+                >
+                  My Visits
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./saved-places.html"
+                >
+                  Saved Places
+                </a>
+              </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+              <a
+                class="btn btn-light position-relative"
+                href="./notifications.html"
+                aria-label="Notifications"
+              >
+                <i class="bi bi-bell"></i>
+
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  3
+                </span>
+              </a>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-wusool dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-person-circle me-1"></i>
+
+                  <span id="navbarUserName">
+                    User
+                  </span>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./user-profile.html"
+                    >
+                      <i class="bi bi-person me-2"></i>
+                      Profile
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item active"
+                      href="./accessibility-preferences.html"
+                    >
+                      <i class="bi bi-sliders me-2"></i>
+                      Accessibility Preferences
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./account-settings.html"
+                    >
+                      <i class="bi bi-gear me-2"></i>
+                      Settings
+                    </a>
+                  </li>
+
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      href="../../visitor/html/home.html"
+                    >
+                      <i class="bi bi-box-arrow-right me-2"></i>
+                      Log Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Accessibility Toolbar -->
+      <section
+        class="accessibility-toolbar py-2"
+        aria-label="Accessibility tools"
+      >
+        <div class="container d-flex flex-wrap align-items-center gap-2">
+          <span class="accessibility-toolbar-title me-2">
+            <i class="bi bi-universal-access-circle me-1"></i>
+            Accessibility Tools
+          </span>
+
+          <button
+            class="accessibility-button"
+            id="decreaseFont"
+            type="button"
+          >
+            A−
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="increaseFont"
+            type="button"
+          >
+            A+
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="highContrast"
+            type="button"
+            aria-pressed="false"
+          >
+            <i class="bi bi-circle-half me-1"></i>
+            High Contrast
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="readPage"
+            type="button"
+          >
+            <i class="bi bi-volume-up me-1"></i>
+            Read Page
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <main id="mainContent">
+      <!-- Page Heading -->
+      <section class="preferences-heading py-5">
+        <div class="container">
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb mb-3">
+              <li class="breadcrumb-item">
+                <a href="./user-dashboard.html">
+                  Dashboard
+                </a>
+              </li>
+
+              <li class="breadcrumb-item">
+                <a href="./user-profile.html">
+                  Profile
+                </a>
+              </li>
+
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+              >
+                Accessibility Preferences
+              </li>
+            </ol>
+          </nav>
+
+          <span class="preferences-label">
+            Personalized accessibility
+          </span>
+
+          <h1 class="display-5 fw-bold mb-3">
+            Accessibility Preferences
+          </h1>
+
+          <p class="text-secondary mb-0">
+            Tell Wusool what you need so we can recommend suitable
+            places and provide safer visual navigation.
+          </p>
+        </div>
+      </section>
+
+      <!-- Preferences Form -->
+      <section class="py-5">
+        <div class="container">
+          <form id="preferencesForm">
+            <div class="row g-4">
+              <div class="col-lg-8">
+                <!-- Accessibility Needs -->
+                <article class="preferences-card p-4 p-md-5 mb-4">
+                  <div class="mb-4">
+                    <span class="preferences-label">
+                      Step 1
+                    </span>
+
+                    <h2 class="h3 mb-2">
+                      Accessibility Needs
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                      Select all options that describe your needs.
+                    </p>
+                  </div>
+
+                  <div class="row g-3">
+                    <!-- Wheelchair -->
+                    <div class="col-md-6">
+                      <input
+                        class="btn-check preference-input"
+                        id="wheelchairUser"
+                        name="accessibilityNeeds"
+                        type="checkbox"
+                        value="wheelchair"
+                        data-label="Wheelchair access"
+                      />
+
+                      <label
+                        class="preference-option d-flex gap-3 h-100 p-3"
+                        for="wheelchairUser"
+                      >
+                        <span class="preference-icon">
+                          <i class="bi bi-person-wheelchair"></i>
+                        </span>
+
+                        <span>
+                          <strong class="d-block">
+                            Wheelchair Access
+                          </strong>
+
+                          <small class="text-secondary">
+                            I need step-free and wheelchair-friendly routes.
+                          </small>
+                        </span>
+                      </label>
+                    </div>
+
+                    <!-- Limited Mobility -->
+                    <div class="col-md-6">
+                      <input
+                        class="btn-check preference-input"
+                        id="limitedMobility"
+                        name="accessibilityNeeds"
+                        type="checkbox"
+                        value="limited-mobility"
+                        data-label="Limited mobility support"
+                      />
+
+                      <label
+                        class="preference-option d-flex gap-3 h-100 p-3"
+                        for="limitedMobility"
+                      >
+                        <span class="preference-icon">
+                          <i class="bi bi-person-standing"></i>
+                        </span>
+
+                        <span>
+                          <strong class="d-block">
+                            Limited Mobility
+                          </strong>
+
+                          <small class="text-secondary">
+                            I prefer shorter routes and places to rest.
+                          </small>
+                        </span>
+                      </label>
+                    </div>
+
+                    <!-- Visual Support -->
+                    <div class="col-md-6">
+                      <input
+                        class="btn-check preference-input"
+                        id="visualSupport"
+                        name="accessibilityNeeds"
+                        type="checkbox"
+                        value="visual-support"
+                        data-label="Visual accessibility support"
+                      />
+
+                      <label
+                        class="preference-option d-flex gap-3 h-100 p-3"
+                        for="visualSupport"
+                      >
+                        <span class="preference-icon">
+                          <i class="bi bi-eye"></i>
+                        </span>
+
+                        <span>
+                          <strong class="d-block">
+                            Visual Support
+                          </strong>
+
+                          <small class="text-secondary">
+                            I need audio directions and clear descriptions.
+                          </small>
+                        </span>
+                      </label>
+                    </div>
+
+                    <!-- Hearing Support -->
+                    <div class="col-md-6">
+                      <input
+                        class="btn-check preference-input"
+                        id="hearingSupport"
+                        name="accessibilityNeeds"
+                        type="checkbox"
+                        value="hearing-support"
+                        data-label="Hearing accessibility support"
+                      />
+
+                      <label
+                        class="preference-option d-flex gap-3 h-100 p-3"
+                        for="hearingSupport"
+                      >
+                        <span class="preference-icon">
+                          <i class="bi bi-ear"></i>
+                        </span>
+
+                        <span>
+                          <strong class="d-block">
+                            Hearing Support
+                          </strong>
+
+                          <small class="text-secondary">
+                            I prefer written guidance and visual alerts.
+                          </small>
+                        </span>
+                      </label>
+                    </div>
+
+                    <!-- Cognitive Support -->
+                    <div class="col-md-6">
+                      <input
+                        class="btn-check preference-input"
+                        id="simpleInstructions"
+                        name="accessibilityNeeds"
+                        type="checkbox"
+                        value="simple-instructions"
+                        data-label="Simple instructions"
+                      />
+
+                      <label
+                        class="preference-option d-flex gap-3 h-100 p-3"
+                        for="simpleInstructions"
+                      >
+                        <span class="preference-icon">
+                          <i class="bi bi-signpost-split"></i>
+                        </span>
+
+                        <span>
+                          <strong class="d-block">
+                            Simple Instructions
+                          </strong>
+
+                          <small class="text-secondary">
+                            I prefer short and direct navigation instructions.
+                          </small>
+                        </span>
+                      </label>
+                    </div>
+
+                    <!-- Staff Assistance -->
+                    <div class="col-md-6">
+                      <input
+                        class="btn-check preference-input"
+                        id="staffAssistance"
+                        name="accessibilityNeeds"
+                        type="checkbox"
+                        value="staff-assistance"
+                        data-label="Staff assistance"
+                      />
+
+                      <label
+                        class="preference-option d-flex gap-3 h-100 p-3"
+                        for="staffAssistance"
+                      >
+                        <span class="preference-icon">
+                          <i class="bi bi-person-raised-hand"></i>
+                        </span>
+
+                        <span>
+                          <strong class="d-block">
+                            Staff Assistance
+                          </strong>
+
+                          <small class="text-secondary">
+                            I may need help from staff during my visit.
+                          </small>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Route Preferences -->
+                <article class="preferences-card p-4 p-md-5 mb-4">
+                  <div class="mb-4">
+                    <span class="preferences-label">
+                      Step 2
+                    </span>
+
+                    <h2 class="h3 mb-2">
+                      Route Preferences
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                      These options will be used by AI Visual Navigation.
+                    </p>
+                  </div>
+
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="form-check route-option p-3">
+                        <input
+                          class="form-check-input"
+                          id="avoidStairs"
+                          name="routePreferences"
+                          type="checkbox"
+                          value="avoid-stairs"
+                          data-label="Avoid stairs"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="avoidStairs"
+                        >
+                          Avoid Stairs
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-check route-option p-3">
+                        <input
+                          class="form-check-input"
+                          id="preferElevator"
+                          name="routePreferences"
+                          type="checkbox"
+                          value="prefer-elevator"
+                          data-label="Prefer elevators"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="preferElevator"
+                        >
+                          Prefer Elevators
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-check route-option p-3">
+                        <input
+                          class="form-check-input"
+                          id="stepFreeRoute"
+                          name="routePreferences"
+                          type="checkbox"
+                          value="step-free-route"
+                          data-label="Step-free routes"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="stepFreeRoute"
+                        >
+                          Step-Free Routes
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-check route-option p-3">
+                        <input
+                          class="form-check-input"
+                          id="widePathways"
+                          name="routePreferences"
+                          type="checkbox"
+                          value="wide-pathways"
+                          data-label="Wide pathways"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="widePathways"
+                        >
+                          Wide Pathways
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-check route-option p-3">
+                        <input
+                          class="form-check-input"
+                          id="accessibleParking"
+                          name="routePreferences"
+                          type="checkbox"
+                          value="accessible-parking"
+                          data-label="Accessible parking"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="accessibleParking"
+                        >
+                          Accessible Parking
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="form-check route-option p-3">
+                        <input
+                          class="form-check-input"
+                          id="restAreas"
+                          name="routePreferences"
+                          type="checkbox"
+                          value="rest-areas"
+                          data-label="Rest areas"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="restAreas"
+                        >
+                          Rest Areas
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Guidance Preferences -->
+                <article class="preferences-card p-4 p-md-5">
+                  <div class="mb-4">
+                    <span class="preferences-label">
+                      Step 3
+                    </span>
+
+                    <h2 class="h3 mb-2">
+                      Navigation Guidance
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                      Choose how you want to receive directions.
+                    </p>
+                  </div>
+
+                  <fieldset class="mb-4">
+                    <legend class="h6 fw-bold mb-3">
+                      Guidance Method
+                    </legend>
+
+                    <div class="row g-3">
+                      <div class="col-md-4">
+                        <input
+                          class="btn-check"
+                          id="textGuidance"
+                          name="guidanceMethod"
+                          type="radio"
+                          value="text"
+                        />
+
+                        <label
+                          class="guidance-option d-block text-center p-3"
+                          for="textGuidance"
+                        >
+                          <i class="bi bi-chat-left-text"></i>
+
+                          <strong class="d-block mt-2">
+                            Text
+                          </strong>
+                        </label>
+                      </div>
+
+                      <div class="col-md-4">
+                        <input
+                          class="btn-check"
+                          id="voiceGuidance"
+                          name="guidanceMethod"
+                          type="radio"
+                          value="voice"
+                        />
+
+                        <label
+                          class="guidance-option d-block text-center p-3"
+                          for="voiceGuidance"
+                        >
+                          <i class="bi bi-volume-up"></i>
+
+                          <strong class="d-block mt-2">
+                            Voice
+                          </strong>
+                        </label>
+                      </div>
+
+                      <div class="col-md-4">
+                        <input
+                          class="btn-check"
+                          id="bothGuidance"
+                          name="guidanceMethod"
+                          type="radio"
+                          value="both"
+                          checked
+                        />
+
+                        <label
+                          class="guidance-option d-block text-center p-3"
+                          for="bothGuidance"
+                        >
+                          <i class="bi bi-soundwave"></i>
+
+                          <strong class="d-block mt-2">
+                            Voice and Text
+                          </strong>
+                        </label>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="guidanceLanguage"
+                      >
+                        Guidance Language
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="guidanceLanguage"
+                        name="guidanceLanguage"
+                      >
+                        <option value="English">
+                          English
+                        </option>
+
+                        <option value="Arabic">
+                          Arabic
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="speechRate"
+                      >
+                        Voice Speed:
+                        <span id="speechRateValue">
+                          Normal
+                        </span>
+                      </label>
+
+                      <input
+                        class="form-range"
+                        id="speechRate"
+                        name="speechRate"
+                        type="range"
+                        min="1"
+                        max="3"
+                        value="2"
+                      />
+
+                      <div class="d-flex justify-content-between small text-secondary">
+                        <span>Slow</span>
+                        <span>Normal</span>
+                        <span>Fast</span>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          id="hazardAlerts"
+                          name="hazardAlerts"
+                          type="checkbox"
+                          checked
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="hazardAlerts"
+                        >
+                          Enable immediate hazard alerts
+                        </label>
+
+                        <p class="small text-secondary mb-0">
+                          Wusool will warn you if stairs, obstacles, or
+                          unsafe routes are detected.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-check form-switch">
+                        <input
+                          class="form-check-input"
+                          id="vibrationAlerts"
+                          name="vibrationAlerts"
+                          type="checkbox"
+                        />
+
+                        <label
+                          class="form-check-label fw-semibold"
+                          for="vibrationAlerts"
+                        >
+                          Enable vibration alerts
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Preferences Summary -->
+              <aside class="col-lg-4">
+                <article class="preferences-summary p-4 sticky-lg-top">
+                  <span class="summary-icon mb-3">
+                    <i class="bi bi-person-check"></i>
+                  </span>
+
+                  <h2 class="h4">
+                    Your Preferences
+                  </h2>
+
+                  <p class="text-secondary">
+                    Your selections will appear here.
+                  </p>
+
+                  <hr />
+
+                  <h3 class="h6">
+                    Accessibility Needs
+                  </h3>
+
+                  <ul
+                    class="summary-list mb-4"
+                    id="needsSummary"
+                  >
+                    <li class="text-secondary">
+                      No options selected
+                    </li>
+                  </ul>
+
+                  <h3 class="h6">
+                    Preferred Routes
+                  </h3>
+
+                  <ul
+                    class="summary-list mb-4"
+                    id="routesSummary"
+                  >
+                    <li class="text-secondary">
+                      No options selected
+                    </li>
+                  </ul>
+
+                  <h3 class="h6">
+                    Guidance
+                  </h3>
+
+                  <p
+                    class="summary-guidance"
+                    id="guidanceSummary"
+                  >
+                    Voice and Text
+                  </p>
+
+                  <div class="d-grid gap-2 mt-4">
+                    <button
+                      class="btn btn-wusool"
+                      type="submit"
+                    >
+                      <i class="bi bi-check-circle me-2"></i>
+                      Save Preferences
+                    </button>
+
+                    <button
+                      class="btn btn-light"
+                      id="resetPreferences"
+                      type="button"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </article>
+              </aside>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer py-4">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+      >
+        <a
+          class="wusool-logo text-white"
+          href="../../visitor/html/home.html"
+        >
+          <span class="logo-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
+
+          Wusool
+        </a>
+
+        <p class="footer-copyright mb-0">
+          © 2026 Wusool. Accessibility for everyone.
+        </p>
+
+        <nav
+          class="d-flex gap-3"
+          aria-label="Footer navigation"
+        >
+          <a href="./help-support.html">Help</a>
+
+          <a href="../../visitor/html/home.html#aboutWusool">
+            About
+          </a>
+
+          <a href="../../visitor/html/home.html#contact">
+            Contact
+          </a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../../assets/site.js"></script>
+
+    <script src="../js/accessibility-preferences.js"></script>
+  </body>
+</html>

@@ -1,696 +1,571 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Create Account | Wusool</title>
 
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="../../assets/site.css">
-    <link rel="stylesheet" href="../css/register.css">
-</head>
+    <link rel="stylesheet" href="../../assets/site.css" />
+    <link rel="stylesheet" href="../css/register.css" />
+  </head>
 
-<body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
-    <div class="container">
-
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+      <div class="container">
         <a class="navbar-brand" href="./home.html">
-            <span class="brand-icon">
-                <i class="bi bi-universal-access"></i>
-            </span>
+          <span class="brand-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
 
-            Wusool
+          Wusool
         </a>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#mainNavbar"
-                aria-label="Open navigation menu">
-
-            <span class="navbar-toggler-icon"></span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-label="Open navigation menu"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse"
-             id="mainNavbar">
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav mx-auto gap-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html"> Home </a>
+            </li>
 
-            <ul class="navbar-nav mx-auto gap-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="./accessibility-map.html">
+                Accessibility Map
+              </a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./home.html">
-                        Home
-                    </a>
-                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html#aboutWusool"> About Us </a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./accessibility-map.html">
-                        Accessibility Map
-                    </a>
-                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html#contact"> Contact </a>
+            </li>
+          </ul>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./home.html#about">
-                        About Us
-                    </a>
-                </li>
+          <div class="d-flex gap-2">
+            <a href="./login.html" class="btn btn-outline-wusool"> Log in </a>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./home.html#contact">
-                        Contact
-                    </a>
-                </li>
-
-            </ul>
-
-            <div class="d-flex gap-2">
-
-                <a href="./login.html"
-                   class="btn btn-outline-wusool">
-                    Log in
-                </a>
-
-                <a href="./register.html"
-                   class="btn btn-wusool">
-                    Join now
-                </a>
-
-            </div>
+            <a href="./register.html" class="btn btn-wusool"> Join now </a>
+          </div>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<!-- Accessibility Toolbar -->
-<section class="accessibility-toolbar">
-    <div class="container d-flex flex-wrap align-items-center gap-2">
-
+    <!-- Accessibility Toolbar -->
+    <section class="accessibility-toolbar">
+      <div class="container d-flex flex-wrap align-items-center gap-2">
         <strong class="me-2">
-            <i class="bi bi-universal-access me-1"></i>
-            Accessibility Tools
+          <i class="bi bi-universal-access me-1"></i>
+          Accessibility Tools
         </strong>
 
-        <button class="btn accessibility-button"
-                id="decreaseText"
-                type="button">
-            A-
+        <button
+          class="btn accessibility-button"
+          id="decreaseText"
+          type="button"
+        >
+          A-
         </button>
 
-        <button class="btn accessibility-button"
-                id="increaseText"
-                type="button">
-            A+
+        <button
+          class="btn accessibility-button"
+          id="increaseText"
+          type="button"
+        >
+          A+
         </button>
 
-        <button class="btn accessibility-button"
-                id="contrastButton"
-                type="button">
-
-            <i class="bi bi-circle-half me-1"></i>
-            High Contrast
+        <button
+          class="btn accessibility-button"
+          id="contrastButton"
+          type="button"
+        >
+          <i class="bi bi-circle-half me-1"></i>
+          High Contrast
         </button>
 
-        <button class="btn accessibility-button"
-                id="readPage"
-                type="button">
-
-            <i class="bi bi-volume-up me-1"></i>
-            Read Page
+        <button class="btn accessibility-button" id="readPage" type="button">
+          <i class="bi bi-volume-up me-1"></i>
+          Read Page
         </button>
+      </div>
+    </section>
 
-    </div>
-</section>
-
-<main class="register-page">
-
-    <div class="container">
+    <main class="register-page">
+      <div class="container">
         <div class="register-container">
+          <!-- Left Section -->
+          <section class="register-hero">
+            <div class="hero-circle hero-circle-one"></div>
+            <div class="hero-circle hero-circle-two"></div>
 
-            <!-- Left Section -->
-            <section class="register-hero">
+            <div class="hero-content">
+              <span class="hero-label"> ACCESSIBILITY FOR EVERYONE </span>
 
-                <div class="hero-circle hero-circle-one"></div>
-                <div class="hero-circle hero-circle-two"></div>
+              <h1>
+                Access Every Place
+                <span>With Confidence</span>
+              </h1>
 
-                <div class="hero-content">
+              <p>
+                Create your account to save accessible places, plan visits and
+                receive personalized accessibility recommendations.
+              </p>
 
-                    <span class="hero-label">
-                        ACCESSIBILITY FOR EVERYONE
+              <div class="benefits-list">
+                <div class="benefit-item">
+                  <i class="bi bi-check-circle-fill"></i>
+                  Save your favorite accessible places
+                </div>
+
+                <div class="benefit-item">
+                  <i class="bi bi-check-circle-fill"></i>
+                  Receive smart recommendations
+                </div>
+
+                <div class="benefit-item">
+                  <i class="bi bi-check-circle-fill"></i>
+                  Manage visits and accessibility preferences
+                </div>
+              </div>
+
+              <div class="hero-brand">
+                <div class="hero-logo">W</div>
+
+                <div>
+                  <strong>Wusool</strong>
+                  <small>Accessibility for everyone</small>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Right Section -->
+          <section class="register-form-section">
+            <div class="register-form-wrapper">
+              <div class="mobile-logo">
+                <span>W</span>
+                Wusool
+              </div>
+
+              <span class="form-label-top"> JOIN WUSOOL </span>
+
+              <h2>Create Account</h2>
+
+              <p class="form-description">
+                Enter your information to join Wusool.
+              </p>
+
+              <div id="registerAlert" class="alert d-none" role="alert"></div>
+
+              <form id="registerForm" novalidate>
+                <!-- Account Type -->
+                <fieldset class="mb-4">
+                  <legend class="form-label">Account Type</legend>
+
+                  <div class="account-type-grid">
+                    <label
+                      class="account-type-card active"
+                      id="personalAccountCard"
+                    >
+                      <input
+                        type="radio"
+                        name="accountType"
+                        value="personal"
+                        id="personalAccount"
+                        checked
+                      />
+
+                      <span class="account-icon">
+                        <i class="bi bi-person"></i>
+                      </span>
+
+                      <span>
+                        <strong>Personal Account</strong>
+                        <small> Find and review accessible places </small>
+                      </span>
+
+                      <i class="bi bi-check-circle-fill selected-check"> </i>
+                    </label>
+
+                    <label
+                      class="account-type-card"
+                      id="organizationAccountCard"
+                    >
+                      <input
+                        type="radio"
+                        name="accountType"
+                        value="organization"
+                        id="organizationAccount"
+                      />
+
+                      <span class="account-icon">
+                        <i class="bi bi-buildings"></i>
+                      </span>
+
+                      <span>
+                        <strong>Organization</strong>
+                        <small> Manage branches and accessibility </small>
+                      </span>
+
+                      <i class="bi bi-check-circle-fill selected-check"> </i>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <!-- Full Name and Phone -->
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="fullName" class="form-label"> Full Name </label>
+
+                    <div class="input-group custom-input-group">
+                      <span class="input-group-text">
+                        <i class="bi bi-person"></i>
+                      </span>
+
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="fullName"
+                        name="fullName"
+                        placeholder="Your name"
+                        autocomplete="name"
+                        minlength="3"
+                        required
+                      />
+                    </div>
+
+                    <div class="invalid-feedback" id="fullNameError">
+                      Please enter your full name.
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="phoneNumber" class="form-label">
+                      Phone Number
+                    </label>
+
+                    <div class="input-group custom-input-group">
+                      <span class="input-group-text">
+                        <i class="bi bi-telephone"></i>
+                      </span>
+
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="phoneNumber"
+                        name="phoneNumber"
+                        placeholder="07X XXX XXXX"
+                        autocomplete="tel"
+                        maxlength="10"
+                        required
+                      />
+                    </div>
+
+                    <div class="invalid-feedback" id="phoneError">
+                      Enter a valid phone number.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mt-3">
+                  <label for="email" class="form-label"> Email Address </label>
+
+                  <div class="input-group custom-input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-envelope"></i>
                     </span>
 
-                    <h1>
-                        Access Every Place
-                        <span>With Confidence</span>
-                    </h1>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="name@example.com"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
 
-                    <p>
-                        Create your account to save accessible
-                        places, plan visits and receive personalized
-                        accessibility recommendations.
-                    </p>
-
-                    <div class="benefits-list">
-
-                        <div class="benefit-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            Save your favorite accessible places
-                        </div>
-
-                        <div class="benefit-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            Receive smart recommendations
-                        </div>
-
-                        <div class="benefit-item">
-                            <i class="bi bi-check-circle-fill"></i>
-                            Manage visits and accessibility preferences
-                        </div>
-
-                    </div>
-
-                    <div class="hero-brand">
-
-                        <div class="hero-logo">
-                            W
-                        </div>
-
-                        <div>
-                            <strong>Wusool</strong>
-                            <small>Accessibility for everyone</small>
-                        </div>
-
-                    </div>
-
+                  <div class="invalid-feedback" id="emailError">
+                    Please enter a valid email address.
+                  </div>
                 </div>
-            </section>
 
-            <!-- Right Section -->
-            <section class="register-form-section">
+                <!-- Passwords -->
+                <div class="row g-3 mt-0">
+                  <div class="col-md-6">
+                    <label for="password" class="form-label"> Password </label>
 
-                <div class="register-form-wrapper">
+                    <div class="input-group custom-input-group">
+                      <span class="input-group-text">
+                        <i class="bi bi-lock"></i>
+                      </span>
 
-                    <div class="mobile-logo">
-                        <span>W</span>
-                        Wusool
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                        placeholder="Create password"
+                        autocomplete="new-password"
+                        minlength="8"
+                        required
+                      />
+
+                      <button
+                        type="button"
+                        class="btn password-toggle"
+                        id="togglePassword"
+                        aria-label="Show password"
+                      >
+                        <i class="bi bi-eye" id="passwordIcon"> </i>
+                      </button>
                     </div>
 
-                    <span class="form-label-top">
-                        JOIN WUSOOL
-                    </span>
+                    <div class="invalid-feedback" id="passwordError">
+                      Use at least 8 characters, one uppercase letter and one
+                      number.
+                    </div>
+                  </div>
 
-                    <h2>Create Account</h2>
+                  <div class="col-md-6">
+                    <label for="confirmPassword" class="form-label">
+                      Confirm Password
+                    </label>
 
-                    <p class="form-description">
-                        Enter your information to join Wusool.
-                    </p>
+                    <div class="input-group custom-input-group">
+                      <span class="input-group-text">
+                        <i class="bi bi-shield-lock"></i>
+                      </span>
 
-                    <div id="registerAlert"
-                         class="alert d-none"
-                         role="alert">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Repeat password"
+                        autocomplete="new-password"
+                        required
+                      />
+
+                      <button
+                        type="button"
+                        class="btn password-toggle"
+                        id="toggleConfirmPassword"
+                        aria-label="Show confirm password"
+                      >
+                        <i class="bi bi-eye" id="confirmPasswordIcon"> </i>
+                      </button>
                     </div>
 
-                    <form id="registerForm"
-                          novalidate>
-
-                        <!-- Account Type -->
-                        <fieldset class="mb-4">
-
-                            <legend class="form-label">
-                                Account Type
-                            </legend>
-
-                            <div class="account-type-grid">
-
-                                <label class="account-type-card active"
-                                       id="personalAccountCard">
-
-                                    <input type="radio"
-                                           name="accountType"
-                                           value="personal"
-                                           id="personalAccount"
-                                           checked>
-
-                                    <span class="account-icon">
-                                        <i class="bi bi-person"></i>
-                                    </span>
-
-                                    <span>
-                                        <strong>Personal Account</strong>
-                                        <small>
-                                            Find and review accessible places
-                                        </small>
-                                    </span>
-
-                                    <i class="bi bi-check-circle-fill
-                                              selected-check">
-                                    </i>
-
-                                </label>
-
-                                <label class="account-type-card"
-                                       id="organizationAccountCard">
-
-                                    <input type="radio"
-                                           name="accountType"
-                                           value="organization"
-                                           id="organizationAccount">
-
-                                    <span class="account-icon">
-                                        <i class="bi bi-buildings"></i>
-                                    </span>
-
-                                    <span>
-                                        <strong>Organization</strong>
-                                        <small>
-                                            Manage branches and accessibility
-                                        </small>
-                                    </span>
-
-                                    <i class="bi bi-check-circle-fill
-                                              selected-check">
-                                    </i>
-
-                                </label>
-
-                            </div>
-                        </fieldset>
-
-                        <!-- Full Name and Phone -->
-                        <div class="row g-3">
-
-                            <div class="col-md-6">
-
-                                <label for="fullName"
-                                       class="form-label">
-                                    Full Name
-                                </label>
-
-                                <div class="input-group custom-input-group">
-
-                                    <span class="input-group-text">
-                                        <i class="bi bi-person"></i>
-                                    </span>
-
-                                    <input type="text"
-                                           class="form-control"
-                                           id="fullName"
-                                           name="fullName"
-                                           placeholder="Your name"
-                                           autocomplete="name"
-                                           minlength="3"
-                                           required>
-
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     id="fullNameError">
-                                    Please enter your full name.
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <label for="phoneNumber"
-                                       class="form-label">
-                                    Phone Number
-                                </label>
-
-                                <div class="input-group custom-input-group">
-
-                                    <span class="input-group-text">
-                                        <i class="bi bi-telephone"></i>
-                                    </span>
-
-                                    <input type="tel"
-                                           class="form-control"
-                                           id="phoneNumber"
-                                           name="phoneNumber"
-                                           placeholder="07X XXX XXXX"
-                                           autocomplete="tel"
-                                           maxlength="10"
-                                           required>
-
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     id="phoneError">
-                                    Enter a valid phone number.
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Email -->
-                        <div class="mt-3">
-
-                            <label for="email"
-                                   class="form-label">
-                                Email Address
-                            </label>
-
-                            <div class="input-group custom-input-group">
-
-                                <span class="input-group-text">
-                                    <i class="bi bi-envelope"></i>
-                                </span>
-
-                                <input type="email"
-                                       class="form-control"
-                                       id="email"
-                                       name="email"
-                                       placeholder="name@example.com"
-                                       autocomplete="email"
-                                       required>
-
-                            </div>
-
-                            <div class="invalid-feedback"
-                                 id="emailError">
-                                Please enter a valid email address.
-                            </div>
-
-                        </div>
-
-                        <!-- Passwords -->
-                        <div class="row g-3 mt-0">
-
-                            <div class="col-md-6">
-
-                                <label for="password"
-                                       class="form-label">
-                                    Password
-                                </label>
-
-                                <div class="input-group custom-input-group">
-
-                                    <span class="input-group-text">
-                                        <i class="bi bi-lock"></i>
-                                    </span>
-
-                                    <input type="password"
-                                           class="form-control"
-                                           id="password"
-                                           name="password"
-                                           placeholder="Create password"
-                                           autocomplete="new-password"
-                                           minlength="8"
-                                           required>
-
-                                    <button type="button"
-                                            class="btn password-toggle"
-                                            id="togglePassword"
-                                            aria-label="Show password">
-
-                                        <i class="bi bi-eye"
-                                           id="passwordIcon">
-                                        </i>
-                                    </button>
-
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     id="passwordError">
-                                    Use at least 8 characters,
-                                    one uppercase letter and one number.
-                                </div>
-
-                            </div>
-
-                            <div class="col-md-6">
-
-                                <label for="confirmPassword"
-                                       class="form-label">
-                                    Confirm Password
-                                </label>
-
-                                <div class="input-group custom-input-group">
-
-                                    <span class="input-group-text">
-                                        <i class="bi bi-shield-lock"></i>
-                                    </span>
-
-                                    <input type="password"
-                                           class="form-control"
-                                           id="confirmPassword"
-                                           name="confirmPassword"
-                                           placeholder="Repeat password"
-                                           autocomplete="new-password"
-                                           required>
-
-                                    <button type="button"
-                                            class="btn password-toggle"
-                                            id="toggleConfirmPassword"
-                                            aria-label="Show confirm password">
-
-                                        <i class="bi bi-eye"
-                                           id="confirmPasswordIcon">
-                                        </i>
-                                    </button>
-
-                                </div>
-
-                                <div class="invalid-feedback"
-                                     id="confirmPasswordError">
-                                    Passwords do not match.
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Password Strength -->
-                        <div class="password-strength">
-
-                            <div class="strength-header">
-                                <span>Password Strength</span>
-                                <strong id="strengthText">
-                                    Not entered
-                                </strong>
-                            </div>
-
-                            <div class="progress"
-                                 role="progressbar"
-                                 aria-label="Password strength">
-
-                                <div class="progress-bar"
-                                     id="strengthBar"
-                                     style="width: 0%">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <!-- Terms -->
-                        <div class="terms-section">
-
-                            <div class="form-check">
-
-                                <input class="form-check-input"
-                                       type="checkbox"
-                                       id="terms"
-                                       name="terms"
-                                       required>
-
-                                <label class="form-check-label"
-                                       for="terms">
-
-                                    I agree to the
-                                    <button type="button"
-                                            class="terms-link"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#termsModal">
-                                        Terms and Conditions
-                                    </button>
-
-                                    and
-
-                                    <button type="button"
-                                            class="terms-link"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#privacyModal">
-                                        Privacy Policy
-                                    </button>.
-                                </label>
-
-                            </div>
-
-                            <div class="invalid-feedback"
-                                 id="termsError">
-                                You must accept the terms and privacy policy.
-                            </div>
-
-                        </div>
-
-                        <!-- Submit -->
-                        <button type="submit"
-                                class="btn btn-wusool register-button"
-                                id="registerButton">
-
-                            <span id="registerButtonText">
-                                Create Account
-                            </span>
-
-                            <span id="registerSpinner"
-                                  class="spinner-border spinner-border-sm d-none">
-                            </span>
-
-                        </button>
-
-                    </form>
-
-                    <div class="login-link">
-
-                        Already have an account?
-
-                        <a href="./login.html">
-                            Log in
-                        </a>
-
+                    <div class="invalid-feedback" id="confirmPasswordError">
+                      Passwords do not match.
                     </div>
-
-                    <div class="privacy-message">
-
-                        <i class="bi bi-shield-check"></i>
-
-                        Your personal information is protected
-                        and securely handled.
-
-                    </div>
-
+                  </div>
                 </div>
-            </section>
 
-        </div>
-    </div>
-</main>
+                <!-- Password Strength -->
+                <div class="password-strength">
+                  <div class="strength-header">
+                    <span>Password Strength</span>
+                    <strong id="strengthText"> Not entered </strong>
+                  </div>
 
-<!-- Terms Modal -->
-<div class="modal fade"
-     id="termsModal"
-     tabindex="-1"
-     aria-hidden="true">
+                  <div
+                    class="progress"
+                    role="progressbar"
+                    aria-label="Password strength"
+                  >
+                    <div
+                      class="progress-bar password-strength-bar"
+                      id="strengthBar"
+                    ></div>
+                  </div>
+                </div>
 
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content border-0">
+                <!-- Terms -->
+                <div class="terms-section">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="terms"
+                      name="terms"
+                      required
+                    />
 
-            <div class="modal-header">
+                    <div class="form-check-label">
+                      <label for="terms">I agree to the</label>
 
-                <h2 class="modal-title fs-5">
-                    Terms and Conditions
-                </h2>
+                      <button
+                        type="button"
+                        class="terms-link"
+                        data-bs-toggle="modal"
+                        data-bs-target="#termsModal"
+                      >
+                        Terms and Conditions
+                      </button>
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal">
+                      and
+
+                      <button
+                        type="button"
+                        class="terms-link"
+                        data-bs-toggle="modal"
+                        data-bs-target="#privacyModal"
+                      >
+                        Privacy Policy</button
+                      >.
+                    </div>
+                  </div>
+
+                  <div class="invalid-feedback" id="termsError">
+                    You must accept the terms and privacy policy.
+                  </div>
+                </div>
+
+                <!-- Submit -->
+                <button
+                  type="submit"
+                  class="btn btn-wusool register-button"
+                  id="registerButton"
+                >
+                  <span id="registerButtonText"> Create Account </span>
+
+                  <span
+                    id="registerSpinner"
+                    class="spinner-border spinner-border-sm d-none"
+                  >
+                  </span>
                 </button>
+              </form>
 
+              <div class="login-link">
+                Already have an account?
+
+                <a href="./login.html"> Log in </a>
+              </div>
+
+              <div class="privacy-message">
+                <i class="bi bi-shield-check"></i>
+
+                Your personal information is protected and securely handled.
+              </div>
             </div>
-
-            <div class="modal-body">
-
-                <p>
-                    By creating a Wusool account, you agree to provide
-                    accurate information and use the platform responsibly.
-                </p>
-
-                <p>
-                    Accessibility information is provided to help users
-                    plan visits and may be updated after verification.
-                </p>
-
-            </div>
-
+          </section>
         </div>
-    </div>
-</div>
+      </div>
+    </main>
 
-<!-- Privacy Modal -->
-<div class="modal fade"
-     id="privacyModal"
-     tabindex="-1"
-     aria-hidden="true">
-
-    <div class="modal-dialog modal-dialog-centered">
+    <!-- Terms Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content border-0">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5">Terms and Conditions</h2>
 
-            <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
-                <h2 class="modal-title fs-5">
-                    Privacy Policy
-                </h2>
+          <div class="modal-body">
+            <p>
+              By creating a Wusool account, you agree to provide accurate
+              information and use the platform responsibly.
+            </p>
 
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal">
-                </button>
-
-            </div>
-
-            <div class="modal-body">
-
-                <p>
-                    Wusool uses your information to manage your account,
-                    preferences and accessibility experience.
-                </p>
-
-                <p>
-                    Your information will not be shared without your
-                    permission except when required to provide the service.
-                </p>
-
-            </div>
-
+            <p>
+              Accessibility information is provided to help users plan visits
+              and may be updated after verification.
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="container">
+    <!-- Privacy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5">Privacy Policy</h2>
 
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <p>
+              Wusool uses your information to manage your account, preferences
+              and accessibility experience.
+            </p>
+
+            <p>
+              Your information will not be shared without your permission except
+              when required to provide the service.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
         <div class="row align-items-center g-4">
+          <div class="col-md-4">
+            <h2>Wusool</h2>
+            <p>Accessibility for everyone.</p>
+          </div>
 
-            <div class="col-md-4">
-                <h2>Wusool</h2>
-                <p>Accessibility for everyone.</p>
-            </div>
+          <div class="col-md-4 text-md-center">
+            <a href="./home.html">Home</a>
+            <a href="./accessibility-map.html">Map</a>
+            <a href="./home.html#contact">Contact</a>
+          </div>
 
-            <div class="col-md-4 text-md-center">
-                <a href="./home.html">Home</a>
-                <a href="./accessibility-map.html">Map</a>
-                <a href="./home.html#contact">Contact</a>
-            </div>
-
-            <div class="col-md-4 text-md-end">
-                <p>© 2026 Wusool</p>
-            </div>
-
+          <div class="col-md-4 text-md-end">
+            <p>© 2026 Wusool</p>
+          </div>
         </div>
+      </div>
+    </footer>
 
-    </div>
-</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="../../assets/site.js"></script>
-<script src="../js/register.js"></script>
-
-</body>
+    <script src="../../assets/site.js"></script>
+    <script src="../js/register.js"></script>
+  </body>
 </html>

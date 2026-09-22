@@ -1,0 +1,1168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content="Manage your Wusool user profile and personal information."
+    />
+
+    <title>User Profile | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Shared CSS -->
+    <link
+      rel="stylesheet"
+      href="../../assets/site.css"
+    />
+
+    <!-- Page CSS -->
+    <link
+      rel="stylesheet"
+      href="../css/user-profile.css"
+    />
+  </head>
+
+  <body>
+    <a
+      class="skip-link"
+      href="#mainContent"
+    >
+      Skip to main content
+    </a>
+
+    <header>
+      <!-- Main Navbar -->
+      <nav
+        class="navbar navbar-expand-xl main-navbar sticky-top"
+        aria-label="Main navigation"
+      >
+        <div class="container">
+          <a
+            class="navbar-brand wusool-logo"
+            href="../../visitor/html/home.html"
+          >
+            <span
+              class="logo-icon"
+              aria-hidden="true"
+            >
+              <i class="bi bi-universal-access"></i>
+            </span>
+
+            Wusool
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#userNavbar"
+            aria-controls="userNavbar"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse"
+            id="userNavbar"
+          >
+            <ul class="navbar-nav mx-auto gap-xl-1">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./user-dashboard.html"
+                >
+                  Dashboard
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="../../visitor/html/accessibility-map.html"
+                >
+                  Explore Places
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./visual-navigation-start.html"
+                >
+                  Visual Navigation
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./my-visits.html"
+                >
+                  My Visits
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="./saved-places.html"
+                >
+                  Saved Places
+                </a>
+              </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+              <a
+                class="btn btn-light position-relative"
+                href="./notifications.html"
+                aria-label="Notifications, 3 unread"
+              >
+                <i class="bi bi-bell"></i>
+
+                <span
+                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                >
+                  3
+                </span>
+              </a>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-wusool dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i class="bi bi-person-circle me-1"></i>
+                  <span id="navbarUserName">Tariq</span>
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                  <li>
+                    <a
+                      class="dropdown-item active"
+                      href="./user-profile.html"
+                    >
+                      <i class="bi bi-person me-2"></i>
+                      Profile
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./accessibility-preferences.html"
+                    >
+                      <i class="bi bi-sliders me-2"></i>
+                      Accessibility Preferences
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="./account-settings.html"
+                    >
+                      <i class="bi bi-gear me-2"></i>
+                      Settings
+                    </a>
+                  </li>
+
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      href="../../visitor/html/home.html"
+                    >
+                      <i class="bi bi-box-arrow-right me-2"></i>
+                      Log Out
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Accessibility Toolbar -->
+      <section
+        class="accessibility-toolbar py-2"
+        aria-label="Accessibility tools"
+      >
+        <div class="container d-flex flex-wrap align-items-center gap-2">
+          <span class="accessibility-toolbar-title me-2">
+            <i class="bi bi-universal-access-circle me-1"></i>
+            Accessibility Tools
+          </span>
+
+          <button
+            class="accessibility-button"
+            id="decreaseFont"
+            type="button"
+          >
+            A−
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="increaseFont"
+            type="button"
+          >
+            A+
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="highContrast"
+            type="button"
+            aria-pressed="false"
+          >
+            <i class="bi bi-circle-half me-1"></i>
+            High Contrast
+          </button>
+
+          <button
+            class="accessibility-button"
+            id="readPage"
+            type="button"
+          >
+            <i class="bi bi-volume-up me-1"></i>
+            Read Page
+          </button>
+        </div>
+      </section>
+    </header>
+
+    <main id="mainContent">
+      <!-- Page Heading -->
+      <section class="profile-heading py-5">
+        <div class="container">
+          <nav aria-label="Breadcrumb">
+            <ol class="breadcrumb mb-3">
+              <li class="breadcrumb-item">
+                <a href="./user-dashboard.html">
+                  Dashboard
+                </a>
+              </li>
+
+              <li
+                class="breadcrumb-item active"
+                aria-current="page"
+              >
+                Profile
+              </li>
+            </ol>
+          </nav>
+
+          <span class="profile-label">
+            My account
+          </span>
+
+          <h1 class="display-5 fw-bold mb-3">
+            Personal Profile
+          </h1>
+
+          <p class="text-secondary mb-0">
+            Keep your personal information updated to receive a more
+            personalized and accessible experience.
+          </p>
+        </div>
+      </section>
+
+      <!-- Profile Content -->
+      <section class="py-5">
+        <div class="container">
+          <div class="row g-4">
+            <!-- Profile Summary -->
+            <aside class="col-lg-4">
+              <article class="profile-card p-4 text-center">
+                <div
+                  class="profile-avatar mx-auto"
+                  id="profileAvatar"
+                  aria-label="User profile image"
+                >
+                  T
+                </div>
+
+                <h2
+                  class="h4 mt-3 mb-1"
+                  id="profileDisplayName"
+                >
+                  Tariq
+                </h2>
+
+                <p
+                  class="text-secondary mb-3"
+                  id="profileDisplayEmail"
+                >
+                  tariq@example.com
+                </p>
+
+                <span class="verified-badge">
+                  <i class="bi bi-patch-check-fill me-1"></i>
+                  Verified User
+                </span>
+
+                <hr class="my-4" />
+
+                <div class="text-start">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-semibold">
+                      Profile completion
+                    </span>
+
+                    <span
+                      class="fw-bold text-success"
+                      id="completionValue"
+                    >
+                      80%
+                    </span>
+                  </div>
+
+                  <div
+                    class="progress"
+                    role="progressbar"
+                    aria-label="Profile completion"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="80"
+                  >
+                    <div
+                      class="progress-bar bg-success"
+                      id="completionProgress"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                  <label
+                    class="btn btn-wusool-outline"
+                    for="profileImageInput"
+                  >
+                    <i class="bi bi-camera me-2"></i>
+                    Change Profile Image
+                  </label>
+
+                  <input
+                    class="visually-hidden"
+                    id="profileImageInput"
+                    type="file"
+                    accept="image/png, image/jpeg, image/webp"
+                  />
+
+                  <a
+                    class="btn btn-light"
+                    href="./accessibility-preferences.html"
+                  >
+                    <i class="bi bi-universal-access me-2"></i>
+                    Accessibility Preferences
+                  </a>
+                </div>
+              </article>
+
+              <article class="profile-card p-4 mt-4">
+                <h2 class="h5 mb-3">
+                  <i class="bi bi-shield-check text-success me-2"></i>
+                  Account Status
+                </h2>
+
+                <ul class="list-unstyled mb-0">
+                  <li class="d-flex justify-content-between py-2 border-bottom">
+                    <span class="text-secondary">
+                      Email
+                    </span>
+
+                    <span class="text-success fw-semibold">
+                      Verified
+                    </span>
+                  </li>
+
+                  <li class="d-flex justify-content-between py-2 border-bottom">
+                    <span class="text-secondary">
+                      Phone
+                    </span>
+
+                    <span class="text-success fw-semibold">
+                      Verified
+                    </span>
+                  </li>
+
+                  <li class="d-flex justify-content-between pt-2">
+                    <span class="text-secondary">
+                      Account Type
+                    </span>
+
+                    <span class="fw-semibold">
+                      Registered User
+                    </span>
+                  </li>
+                </ul>
+              </article>
+            </aside>
+
+            <!-- Edit Profile Form -->
+            <div class="col-lg-8">
+              <article class="profile-card p-4 p-md-5">
+                <div class="mb-4">
+                  <span class="profile-label">
+                    Profile details
+                  </span>
+
+                  <h2 class="h3 mb-2">
+                    Personal Information
+                  </h2>
+
+                  <p class="text-secondary mb-0">
+                    Update the information associated with your account.
+                  </p>
+                </div>
+
+                <form
+                     id="profileForm"
+  class="needs-validation"
+  enctype="multipart/form-data"
+  novalidate
+                >
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="firstName"
+                      >
+                        First Name
+                      </label>
+
+                      <input
+                        class="form-control"
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        value="Tariq"
+                        required
+                      />
+
+                      <div class="invalid-feedback">
+                        Enter your first name.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="lastName"
+                      >
+                        Last Name
+                      </label>
+
+                      <input
+                        class="form-control"
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        value="Bataineh"
+                        required
+                      />
+
+                      <div class="invalid-feedback">
+                        Enter your last name.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="emailAddress"
+                      >
+                        Email Address
+                      </label>
+
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="bi bi-envelope"></i>
+                        </span>
+
+                        <input
+                          class="form-control"
+                          id="emailAddress"
+                          name="emailAddress"
+                          type="email"
+                          value="tariq@example.com"
+                          required
+                        />
+                      </div>
+
+                      <div class="invalid-feedback">
+                        Enter a valid email address.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="phoneNumber"
+                      >
+                        Phone Number
+                      </label>
+
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="bi bi-telephone"></i>
+                        </span>
+
+                        <input
+                          class="form-control"
+                          id="phoneNumber"
+                          name="phoneNumber"
+                          type="tel"
+                          value="+962 7 9000 0000"
+                          required
+                        />
+                      </div>
+
+                      <div class="invalid-feedback">
+                        Enter your phone number.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="city"
+                      >
+                        City
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="city"
+                        name="city"
+                        required
+                      >
+                        <option value="">
+                          Select your city
+                        </option>
+
+                        <option value="Amman" selected>
+                          Amman
+                        </option>
+
+                        <option value="Irbid">
+                          Irbid
+                        </option>
+
+                        <option value="Zarqa">
+                          Zarqa
+                        </option>
+
+                        <option value="Salt">
+                          Salt
+                        </option>
+
+                        <option value="Madaba">
+                          Madaba
+                        </option>
+
+                        <option value="Aqaba">
+                          Aqaba
+                        </option>
+                      </select>
+
+                      <div class="invalid-feedback">
+                        Select your city.
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="preferredLanguage"
+                      >
+                        Preferred Language
+                      </label>
+
+                      <select
+                        class="form-select"
+                        id="preferredLanguage"
+                        name="preferredLanguage"
+                      >
+                        <option value="English" selected>
+                          English
+                        </option>
+
+                        <option value="Arabic">
+                          Arabic
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-12">
+                      <label
+                        class="form-label fw-semibold"
+                        for="address"
+                      >
+                        Address
+                      </label>
+
+                      <input
+                        class="form-control"
+                        id="address"
+                        name="address"
+                        type="text"
+                        placeholder="Enter your address"
+                      />
+                    </div>
+
+                    <div class="col-12">
+                      <label
+                        class="form-label fw-semibold"
+                        for="profileNote"
+                      >
+                        Additional Information
+                      </label>
+
+                      <textarea
+                        class="form-control"
+                        id="profileNote"
+                        name="profileNote"
+                        rows="4"
+                        placeholder="Add information that may help us personalize your experience"
+                      ></textarea>
+                    </div>
+                  </div>
+                    
+                
+                  <hr class="my-5" />
+
+<section aria-labelledby="professionalInformationTitle">
+  <div class="mb-4">
+    <span class="profile-label">
+      Career profile
+    </span>
+
+    <h2
+      class="h4 mb-2"
+      id="professionalInformationTitle"
+    >
+      Education, Career and CV
+    </h2>
+
+    <p class="text-secondary mb-0">
+      Complete your professional profile to apply for accessible
+      job opportunities through Wusool.
+    </p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Education Level -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="educationLevel"
+      >
+        Education Level
+      </label>
+
+      <select
+        class="form-select"
+        id="educationLevel"
+        name="educationLevel"
+      >
+        <option value="">
+          Select education level
+        </option>
+
+        <option value="High School">
+          High School
+        </option>
+
+        <option value="Diploma">
+          Diploma
+        </option>
+
+        <option value="Bachelor">
+          Bachelor's Degree
+        </option>
+
+        <option value="Master">
+          Master's Degree
+        </option>
+
+        <option value="PhD">
+          PhD
+        </option>
+      </select>
+    </div>
+
+    <!-- University -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="university"
+      >
+        University or Institution
+      </label>
+
+      <input
+        class="form-control"
+        id="university"
+        name="university"
+        type="text"
+        placeholder="Enter university or institution name"
+      />
+    </div>
+
+    <!-- Major -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="major"
+      >
+        Major
+      </label>
+
+      <input
+        class="form-control"
+        id="major"
+        name="major"
+        type="text"
+        placeholder="Example: Computer Science"
+      />
+    </div>
+
+    <!-- Graduation Year -->
+    <div class="col-md-3">
+      <label
+        class="form-label fw-semibold"
+        for="graduationYear"
+      >
+        Graduation Year
+      </label>
+
+      <input
+        class="form-control"
+        id="graduationYear"
+        name="graduationYear"
+        type="number"
+        min="1980"
+        max="2035"
+        placeholder="2026"
+      />
+    </div>
+
+    <!-- GPA -->
+    <div class="col-md-3">
+      <label
+        class="form-label fw-semibold"
+        for="gpa"
+      >
+        GPA
+        <span class="text-secondary fw-normal">
+          (Optional)
+        </span>
+      </label>
+
+      <input
+        class="form-control"
+        id="gpa"
+        name="gpa"
+        type="number"
+        min="0"
+        max="4"
+        step="0.01"
+        placeholder="3.00"
+      />
+    </div>
+
+    <!-- Employment Status -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="employmentStatus"
+      >
+        Employment Status
+      </label>
+
+      <select
+        class="form-select"
+        id="employmentStatus"
+        name="employmentStatus"
+      >
+        <option value="">
+          Select employment status
+        </option>
+
+        <option value="Student">
+          Student
+        </option>
+
+        <option value="Fresh Graduate">
+          Fresh Graduate
+        </option>
+
+        <option value="Employed">
+          Employed
+        </option>
+
+        <option value="Unemployed">
+          Unemployed
+        </option>
+
+        <option value="Freelancer">
+          Freelancer
+        </option>
+      </select>
+    </div>
+
+    <!-- Experience -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="yearsExperience"
+      >
+        Years of Experience
+      </label>
+
+      <input
+        class="form-control"
+        id="yearsExperience"
+        name="yearsExperience"
+        type="number"
+        min="0"
+        max="50"
+        placeholder="0"
+      />
+    </div>
+
+    <!-- Skills -->
+    <div class="col-12">
+      <label
+        class="form-label fw-semibold"
+        for="skills"
+      >
+        Skills
+      </label>
+
+      <input
+        class="form-control"
+        id="skills"
+        name="skills"
+        type="text"
+        placeholder="Example: C#, JavaScript, Communication, Microsoft Office"
+      />
+
+      <div class="form-text">
+        Separate each skill using a comma.
+      </div>
+    </div>
+
+    <!-- LinkedIn -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="linkedinUrl"
+      >
+        LinkedIn Profile
+        <span class="text-secondary fw-normal">
+          (Optional)
+        </span>
+      </label>
+
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-linkedin"></i>
+        </span>
+
+        <input
+          class="form-control"
+          id="linkedinUrl"
+          name="linkedinUrl"
+          type="url"
+          placeholder="https://linkedin.com/in/username"
+        />
+      </div>
+    </div>
+
+    <!-- Portfolio -->
+    <div class="col-md-6">
+      <label
+        class="form-label fw-semibold"
+        for="portfolioUrl"
+      >
+        Portfolio or GitHub
+        <span class="text-secondary fw-normal">
+          (Optional)
+        </span>
+      </label>
+
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-link-45deg"></i>
+        </span>
+
+        <input
+          class="form-control"
+          id="portfolioUrl"
+          name="portfolioUrl"
+          type="url"
+          placeholder="https://your-portfolio.com"
+        />
+      </div>
+    </div>
+
+    <!-- Professional Summary -->
+    <div class="col-12">
+      <label
+        class="form-label fw-semibold"
+        for="professionalSummary"
+      >
+        Professional Summary
+      </label>
+
+      <textarea
+        class="form-control"
+        id="professionalSummary"
+        name="professionalSummary"
+        rows="4"
+        maxlength="500"
+        placeholder="Write a short summary about your education, experience, and career goals"
+      ></textarea>
+
+      <div class="form-text">
+        Maximum 500 characters.
+      </div>
+    </div>
+
+    <!-- CV Upload -->
+    <div class="col-12">
+      <label class="form-label fw-semibold">
+        Curriculum Vitae
+      </label>
+
+      <div class="cv-upload-box p-4 text-center">
+        <span
+          class="cv-upload-icon mx-auto mb-3"
+          aria-hidden="true"
+        >
+          <i class="bi bi-file-earmark-person"></i>
+        </span>
+
+        <h3 class="h5">
+          Upload Your CV
+        </h3>
+
+        <p class="text-secondary mb-3">
+          Upload your latest CV as a PDF or Word document.
+        </p>
+
+        <label
+          class="btn btn-wusool"
+          for="cvFile"
+        >
+          <i class="bi bi-cloud-arrow-up me-2"></i>
+          Choose CV
+        </label>
+
+        <input
+          class="visually-hidden"
+          id="cvFile"
+          name="cvFile"
+          type="file"
+          accept=".pdf,.doc,.docx"
+        />
+
+        <p
+          class="small text-secondary mt-3 mb-0"
+          id="cvFileMessage"
+          aria-live="polite"
+        >
+          PDF, DOC, or DOCX. Maximum size: 5 MB.
+        </p>
+      </div>
+
+      <!-- Selected CV -->
+      <article
+        class="selected-cv d-none mt-3 p-3"
+        id="selectedCv"
+      >
+        <div class="d-flex align-items-center gap-3">
+          <span class="selected-cv-icon">
+            <i class="bi bi-file-earmark-pdf"></i>
+          </span>
+
+          <div class="flex-grow-1">
+            <h3
+              class="h6 mb-1"
+              id="selectedCvName"
+            >
+              CV.pdf
+            </h3>
+
+            <p class="small text-secondary mb-0">
+              Ready to use for job applications
+            </p>
+          </div>
+
+          <button
+            class="btn btn-outline-danger btn-sm"
+            id="removeCvButton"
+            type="button"
+            aria-label="Remove selected CV"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+                  <div class="mb-4">
+                    <span class="profile-label">
+                      Emergency contact
+                    </span>
+
+                    <h2 class="h4 mb-2">
+                      Emergency Contact Information
+                    </h2>
+
+                    <p class="text-secondary mb-0">
+                      This information can be used if you request urgent
+                      assistance during a visit.
+                    </p>
+                  </div>
+
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="emergencyName"
+                      >
+                        Contact Name
+                      </label>
+
+                      <input
+                        class="form-control"
+                        id="emergencyName"
+                        name="emergencyName"
+                        type="text"
+                        placeholder="Emergency contact name"
+                      />
+                    </div>
+
+                    <div class="col-md-6">
+                      <label
+                        class="form-label fw-semibold"
+                        for="emergencyPhone"
+                      >
+                        Contact Phone
+                      </label>
+
+                      <input
+                        class="form-control"
+                        id="emergencyPhone"
+                        name="emergencyPhone"
+                        type="tel"
+                        placeholder="+962"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-wrap justify-content-end gap-2 mt-5">
+                    <button
+                      class="btn btn-light px-4"
+                      id="cancelProfileChanges"
+                      type="button"
+                    >
+                      Cancel
+                    </button>
+
+                    <button
+                      class="btn btn-wusool px-4"
+                      type="submit"
+                    >
+                      <i class="bi bi-check-circle me-2"></i>
+                      Save Changes
+                    </button>
+                  </div>
+                </form>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer py-4">
+      <div
+        class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3"
+      >
+        <a
+          class="wusool-logo text-white"
+          href="../../visitor/html/home.html"
+        >
+          <span
+            class="logo-icon"
+            aria-hidden="true"
+          >
+            <i class="bi bi-universal-access"></i>
+          </span>
+
+          Wusool
+        </a>
+
+        <p class="footer-copyright mb-0">
+          © 2026 Wusool. Accessibility for everyone.
+        </p>
+
+        <nav
+          class="d-flex gap-3"
+          aria-label="Footer navigation"
+        >
+          <a href="./help-support.html">Help</a>
+
+          <a href="../../visitor/html/home.html#aboutWusool">
+            About
+          </a>
+
+          <a href="../../visitor/html/home.html#contact">
+            Contact
+          </a>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared JavaScript -->
+    <script src="../../assets/site.js"></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/user-profile.js"></script>
+  </body>
+</html>

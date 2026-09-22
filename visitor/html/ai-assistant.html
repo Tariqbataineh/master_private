@@ -1,542 +1,432 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>AI Assistant | Wusool</title>
 
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet">
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="../../assets/site.css">
-    <link rel="stylesheet" href="../css/ai-assistant.css">
-</head>
+    <link rel="stylesheet" href="../../assets/site.css" />
+    <link rel="stylesheet" href="../css/ai-assistant.css" />
+  </head>
 
-<body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
-    <div class="container">
-
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+      <div class="container">
         <a class="navbar-brand" href="./home.html">
+          <span class="brand-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
 
-            <span class="brand-icon">
-                <i class="bi bi-universal-access"></i>
-            </span>
-
-            Wusool
+          Wusool
         </a>
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#mainNavbar">
-
-            <span class="navbar-toggler-icon"></span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
+        >
+          <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse"
-             id="mainNavbar">
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav mx-auto gap-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html"> Home </a>
+            </li>
 
-            <ul class="navbar-nav mx-auto gap-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="./accessibility-map.html">
+                Accessibility Map
+              </a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./home.html">
-                        Home
-                    </a>
-                </li>
+            <li class="nav-item">
+              <a href="./ai-assistant.html" class="nav-link"> AI Assistant </a>
+            </li>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./accessibility-map.html">
-                        Accessibility Map
-                    </a>
-                </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html#aboutWusool"> About Us </a>
+            </li>
+          </ul>
 
-                <li class="nav-item">
-                   <a href="./ai-assistant.html"
-   class="nav-link">
-    AI Assistant
-</a>
-                </li>
+          <div class="d-flex gap-2">
+            <a href="./login.html" class="btn btn-outline-wusool"> Log In </a>
 
-                <li class="nav-item">
-                    <a class="nav-link"
-                       href="./home.html#about">
-                        About Us
-                    </a>
-                </li>
-
-            </ul>
-
-            <div class="d-flex gap-2">
-
-                <a href="./login.html"
-                   class="btn btn-outline-wusool">
-                    Log In
-                </a>
-
-                <a href="./register.html"
-                   class="btn btn-wusool">
-                    Get Started
-                </a>
-
-            </div>
-
+            <a href="./register.html" class="btn btn-wusool"> Get Started </a>
+          </div>
         </div>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<!-- Accessibility Toolbar -->
-<section class="accessibility-toolbar">
-    <div class="container d-flex flex-wrap align-items-center gap-2">
-
+    <!-- Accessibility Toolbar -->
+    <section class="accessibility-toolbar">
+      <div class="container d-flex flex-wrap align-items-center gap-2">
         <strong class="me-2">
-            <i class="bi bi-universal-access me-1"></i>
-            Accessibility Tools
+          <i class="bi bi-universal-access me-1"></i>
+          Accessibility Tools
         </strong>
 
-        <button class="btn accessibility-button"
-                id="decreaseText"
-                type="button">
-            A-
+        <button
+          class="btn accessibility-button"
+          id="decreaseText"
+          type="button"
+        >
+          A-
         </button>
 
-        <button class="btn accessibility-button"
-                id="increaseText"
-                type="button">
-            A+
+        <button
+          class="btn accessibility-button"
+          id="increaseText"
+          type="button"
+        >
+          A+
         </button>
 
-        <button class="btn accessibility-button"
-                id="contrastButton"
-                type="button">
-
-            <i class="bi bi-circle-half me-1"></i>
-            High Contrast
+        <button
+          class="btn accessibility-button"
+          id="contrastButton"
+          type="button"
+        >
+          <i class="bi bi-circle-half me-1"></i>
+          High Contrast
         </button>
 
-        <button class="btn accessibility-button"
-                id="readPage"
-                type="button">
-
-            <i class="bi bi-volume-up me-1"></i>
-            Read Page
+        <button class="btn accessibility-button" id="readPage" type="button">
+          <i class="bi bi-volume-up me-1"></i>
+          Read Page
         </button>
 
-        <button class="btn accessibility-button"
-                id="voiceInputButton"
-                type="button">
-
-            <i class="bi bi-mic me-1"></i>
-            Voice Input
+        <button
+          class="btn accessibility-button"
+          id="voiceInputButton"
+          type="button"
+        >
+          <i class="bi bi-mic me-1"></i>
+          Voice Input
         </button>
+      </div>
+    </section>
 
-    </div>
-</section>
-
-<main>
-
-    <!-- Heading -->
-    <section class="assistant-heading">
+    <main>
+      <!-- Heading -->
+      <section class="assistant-heading">
         <div class="container">
+          <span class="section-label"> SMART ACCESSIBILITY GUIDANCE </span>
 
-            <span class="section-label">
-                SMART ACCESSIBILITY GUIDANCE
-            </span>
+          <h1>Wusool AI Assistant</h1>
 
-            <h1>Wusool AI Assistant</h1>
+          <p>
+            Tell us what you need and receive explainable accessibility
+            recommendations.
+          </p>
+        </div>
+      </section>
+
+      <!-- Assistant Content -->
+      <section class="container pb-5">
+        <div class="row g-4">
+          <!-- Preferences -->
+          <div class="col-lg-4">
+            <aside class="preferences-card">
+              <div class="preferences-title">
+                <span class="preferences-icon">
+                  <i class="bi bi-sliders"></i>
+                </span>
+
+                <div>
+                  <span>PERSONALIZE RESULTS</span>
+                  <h2>Your Visit Preferences</h2>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="city" class="form-label"> City </label>
+
+                <select class="form-select" id="city" name="city">
+                  <option value="amman">Amman</option>
+                  <option value="irbid">Irbid</option>
+                  <option value="zarqa">Zarqa</option>
+                  <option value="salt">Salt</option>
+                </select>
+              </div>
+
+              <div class="mb-4">
+                <label for="placeType" class="form-label"> Place Type </label>
+
+                <select class="form-select" id="placeType" name="placeType">
+                  <option value="all">Bank or Government</option>
+
+                  <option value="bank">Bank</option>
+
+                  <option value="government">Government</option>
+
+                  <option value="medical">Medical Center</option>
+                </select>
+              </div>
+
+              <fieldset>
+                <legend class="form-label">Accessibility Needs</legend>
+
+                <div class="needs-list">
+                  <label class="need-option">
+                    <input
+                      type="checkbox"
+                      name="accessibilityNeed"
+                      value="step-free entrance"
+                      checked
+                    />
+
+                    <span>
+                      <i class="bi bi-signpost-split"></i>
+                      Step-Free Entrance
+                    </span>
+                  </label>
+
+                  <label class="need-option">
+                    <input
+                      type="checkbox"
+                      name="accessibilityNeed"
+                      value="wheelchair access"
+                    />
+
+                    <span>
+                      <i class="bi bi-person-wheelchair"></i>
+                      Wheelchair Access
+                    </span>
+                  </label>
+
+                  <label class="need-option">
+                    <input
+                      type="checkbox"
+                      name="accessibilityNeed"
+                      value="accessible parking"
+                    />
+
+                    <span>
+                      <i class="bi bi-p-square"></i>
+                      Accessible Parking
+                    </span>
+                  </label>
+
+                  <label class="need-option">
+                    <input
+                      type="checkbox"
+                      name="accessibilityNeed"
+                      value="staff assistance"
+                    />
+
+                    <span>
+                      <i class="bi bi-person-heart"></i>
+                      Staff Assistance
+                    </span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <button
+                type="button"
+                class="btn btn-wusool w-100 mt-4"
+                id="applyPreferencesButton"
+              >
+                Apply Preferences
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-outline-wusool w-100 mt-2"
+                id="savedProfileButton"
+              >
+                <i class="bi bi-lock-fill me-2"></i>
+                Use My Saved Profile
+              </button>
+
+              <p class="guest-note">
+                <i class="bi bi-info-circle"></i>
+                Visitors can try general recommendations.
+              </p>
+            </aside>
+          </div>
+
+          <!-- Chat -->
+          <div class="col-lg-8">
+            <section class="chat-card">
+              <!-- Chat Header -->
+              <div class="chat-header">
+                <div class="assistant-information">
+                  <div class="assistant-avatar">AI</div>
+
+                  <div>
+                    <h2>Accessibility Assistant</h2>
+
+                    <span>
+                      <i class="bi bi-circle-fill"></i>
+                      Online · Based on available data
+                    </span>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-outline-wusool btn-sm"
+                  id="newChatButton"
+                >
+                  <i class="bi bi-plus-lg me-1"></i>
+                  New Chat
+                </button>
+              </div>
+
+              <!-- Messages -->
+              <div class="chat-messages" id="chatMessages" aria-live="polite">
+                <article class="message assistant-message">
+                  <div class="message-avatar">AI</div>
+
+                  <div class="message-content">
+                    <p>
+                      Hello! I can help you find a place that matches your
+                      accessibility needs.
+                    </p>
+
+                    <p>What type of place are you looking for?</p>
+
+                    <small>Wusool AI Assistant</small>
+                  </div>
+                </article>
+
+                <!-- Suggestions -->
+                <div class="prompt-suggestions" id="promptSuggestions">
+                  <span>Try asking:</span>
+
+                  <button type="button" class="prompt-button">
+                    Find an accessible bank near me
+                  </button>
+
+                  <button type="button" class="prompt-button">
+                    Which branch supports wheelchairs?
+                  </button>
+
+                  <button type="button" class="prompt-button">
+                    I need parking and staff assistance
+                  </button>
+
+                  <button type="button" class="prompt-button">
+                    Explain an accessibility score
+                  </button>
+                </div>
+              </div>
+
+              <!-- Input -->
+              <form class="chat-input-area" id="chatForm">
+                <label for="messageInput" class="visually-hidden">
+                  Ask the AI assistant
+                </label>
+
+                <textarea
+                  class="form-control"
+                  id="messageInput"
+                  name="message"
+                  rows="1"
+                  maxlength="300"
+                  placeholder="Describe the place and accessibility features you need..."
+                  required
+                ></textarea>
+
+                <button
+                  type="submit"
+                  class="send-button"
+                  id="sendButton"
+                  aria-label="Send message"
+                >
+                  <i class="bi bi-arrow-up"></i>
+                </button>
+              </form>
+
+              <p class="assistant-disclaimer">
+                AI recommendations support your decision. Always review the
+                latest verified place information.
+              </p>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginRequiredModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content login-modal">
+          <div class="modal-body text-center">
+            <div class="modal-icon">
+              <i class="bi bi-person-lock"></i>
+            </div>
+
+            <h2>Sign In for Personalized Recommendations</h2>
 
             <p>
-                Tell us what you need and receive explainable
-                accessibility recommendations.
+              Log in to use your saved accessibility profile, save
+              recommendations and access your visit history.
             </p>
 
-        </div>
-    </section>
+            <div class="d-grid gap-2">
+              <a href="./login.html" class="btn btn-wusool"> Log In </a>
 
-    <!-- Assistant Content -->
-    <section class="container pb-5">
+              <a href="./register.html" class="btn btn-outline-wusool">
+                Create Account
+              </a>
 
-        <div class="row g-4">
-
-            <!-- Preferences -->
-            <div class="col-lg-4">
-
-                <aside class="preferences-card">
-
-                    <div class="preferences-title">
-
-                        <span class="preferences-icon">
-                            <i class="bi bi-sliders"></i>
-                        </span>
-
-                        <div>
-                            <span>PERSONALIZE RESULTS</span>
-                            <h2>Your Visit Preferences</h2>
-                        </div>
-
-                    </div>
-
-                    <div class="mb-3">
-
-                        <label for="city"
-                               class="form-label">
-                            City
-                        </label>
-
-                        <select class="form-select"
-                                id="city"
-                                name="city">
-
-                            <option value="amman">Amman</option>
-                            <option value="irbid">Irbid</option>
-                            <option value="zarqa">Zarqa</option>
-                            <option value="salt">Salt</option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label for="placeType"
-                               class="form-label">
-                            Place Type
-                        </label>
-
-                        <select class="form-select"
-                                id="placeType"
-                                name="placeType">
-
-                            <option value="all">
-                                Bank or Government
-                            </option>
-
-                            <option value="bank">
-                                Bank
-                            </option>
-
-                            <option value="government">
-                                Government
-                            </option>
-
-                            <option value="medical">
-                                Medical Center
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <fieldset>
-
-                        <legend class="form-label">
-                            Accessibility Needs
-                        </legend>
-
-                        <div class="needs-list">
-
-                            <label class="need-option">
-
-                                <input type="checkbox"
-                                       name="accessibilityNeed"
-                                       value="step-free entrance"
-                                       checked>
-
-                                <span>
-                                    <i class="bi bi-signpost-split"></i>
-                                    Step-Free Entrance
-                                </span>
-
-                            </label>
-
-                            <label class="need-option">
-
-                                <input type="checkbox"
-                                       name="accessibilityNeed"
-                                       value="wheelchair access">
-
-                                <span>
-                                    <i class="bi bi-person-wheelchair"></i>
-                                    Wheelchair Access
-                                </span>
-
-                            </label>
-
-                            <label class="need-option">
-
-                                <input type="checkbox"
-                                       name="accessibilityNeed"
-                                       value="accessible parking">
-
-                                <span>
-                                    <i class="bi bi-p-square"></i>
-                                    Accessible Parking
-                                </span>
-
-                            </label>
-
-                            <label class="need-option">
-
-                                <input type="checkbox"
-                                       name="accessibilityNeed"
-                                       value="staff assistance">
-
-                                <span>
-                                    <i class="bi bi-person-heart"></i>
-                                    Staff Assistance
-                                </span>
-
-                            </label>
-
-                        </div>
-
-                    </fieldset>
-
-                    <button type="button"
-                            class="btn btn-wusool w-100 mt-4"
-                            id="applyPreferencesButton">
-                        Apply Preferences
-                    </button>
-
-                    <button type="button"
-                            class="btn btn-outline-wusool w-100 mt-2"
-                            id="savedProfileButton">
-
-                        <i class="bi bi-lock-fill me-2"></i>
-                        Use My Saved Profile
-                    </button>
-
-                    <p class="guest-note">
-                        <i class="bi bi-info-circle"></i>
-                        Visitors can try general recommendations.
-                    </p>
-
-                </aside>
-
+              <button
+                type="button"
+                class="btn btn-link text-secondary"
+                data-bs-dismiss="modal"
+              >
+                Continue as Visitor
+              </button>
             </div>
-
-            <!-- Chat -->
-            <div class="col-lg-8">
-
-                <section class="chat-card">
-
-                    <!-- Chat Header -->
-                    <div class="chat-header">
-
-                        <div class="assistant-information">
-
-                            <div class="assistant-avatar">
-                                AI
-                            </div>
-
-                            <div>
-                                <h2>Accessibility Assistant</h2>
-
-                                <span>
-                                    <i class="bi bi-circle-fill"></i>
-                                    Online · Based on available data
-                                </span>
-                            </div>
-
-                        </div>
-
-                        <button type="button"
-                                class="btn btn-outline-wusool btn-sm"
-                                id="newChatButton">
-
-                            <i class="bi bi-plus-lg me-1"></i>
-                            New Chat
-                        </button>
-
-                    </div>
-
-                    <!-- Messages -->
-                    <div class="chat-messages"
-                         id="chatMessages"
-                         aria-live="polite">
-
-                        <article class="message assistant-message">
-
-                            <div class="message-avatar">
-                                AI
-                            </div>
-
-                            <div class="message-content">
-
-                                <p>
-                                    Hello! I can help you find a place
-                                    that matches your accessibility needs.
-                                </p>
-
-                                <p>
-                                    What type of place are you looking for?
-                                </p>
-
-                                <small>Wusool AI Assistant</small>
-
-                            </div>
-
-                        </article>
-
-                        <!-- Suggestions -->
-                        <div class="prompt-suggestions"
-                             id="promptSuggestions">
-
-                            <span>Try asking:</span>
-
-                            <button type="button"
-                                    class="prompt-button">
-                                Find an accessible bank near me
-                            </button>
-
-                            <button type="button"
-                                    class="prompt-button">
-                                Which branch supports wheelchairs?
-                            </button>
-
-                            <button type="button"
-                                    class="prompt-button">
-                                I need parking and staff assistance
-                            </button>
-
-                            <button type="button"
-                                    class="prompt-button">
-                                Explain an accessibility score
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                    <!-- Input -->
-                    <form class="chat-input-area"
-                          id="chatForm">
-
-                        <label for="messageInput"
-                               class="visually-hidden">
-                            Ask the AI assistant
-                        </label>
-
-                        <textarea class="form-control"
-                                  id="messageInput"
-                                  name="message"
-                                  rows="1"
-                                  maxlength="300"
-                                  placeholder="Describe the place and accessibility features you need..."
-                                  required></textarea>
-
-                        <button type="submit"
-                                class="send-button"
-                                id="sendButton"
-                                aria-label="Send message">
-
-                            <i class="bi bi-arrow-up"></i>
-                        </button>
-
-                    </form>
-
-                    <p class="assistant-disclaimer">
-                        AI recommendations support your decision.
-                        Always review the latest verified place information.
-                    </p>
-
-                </section>
-
-            </div>
-
+          </div>
         </div>
-
-    </section>
-
-</main>
-
-<!-- Login Modal -->
-<div class="modal fade"
-     id="loginRequiredModal"
-     tabindex="-1"
-     aria-hidden="true">
-
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content login-modal">
-
-            <div class="modal-body text-center">
-
-                <div class="modal-icon">
-                    <i class="bi bi-person-lock"></i>
-                </div>
-
-                <h2>Sign In for Personalized Recommendations</h2>
-
-                <p>
-                    Log in to use your saved accessibility profile,
-                    save recommendations and access your visit history.
-                </p>
-
-                <div class="d-grid gap-2">
-
-                    <a href="./login.html"
-                       class="btn btn-wusool">
-                        Log In
-                    </a>
-
-                    <a href="./register.html"
-                       class="btn btn-outline-wusool">
-                        Create Account
-                    </a>
-
-                    <button type="button"
-                            class="btn btn-link text-secondary"
-                            data-bs-dismiss="modal">
-                        Continue as Visitor
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
+      </div>
     </div>
-</div>
 
-<!-- Footer -->
-<footer class="site-footer">
-    <div class="container">
-
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
         <div class="row align-items-center g-4">
+          <div class="col-md-6">
+            <h2>Wusool</h2>
+            <p>Explainable accessibility recommendations.</p>
+          </div>
 
-            <div class="col-md-6">
-                <h2>Wusool</h2>
-                <p>
-                    Explainable accessibility recommendations.
-                </p>
-            </div>
-
-            <div class="col-md-6 text-md-end">
-                <p>© 2026 Wusool</p>
-            </div>
-
+          <div class="col-md-6 text-md-end">
+            <p>© 2026 Wusool</p>
+          </div>
         </div>
+      </div>
+    </footer>
 
-    </div>
-</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="../../assets/site.js"></script>
-<script src="../js/ai-assistant.js"></script>
-
-</body>
+    <script src="../../assets/site.js"></script>
+    <script src="../js/ai-assistant.js"></script>
+  </body>
 </html>
