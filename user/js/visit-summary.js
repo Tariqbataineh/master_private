@@ -28,6 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const supportList =
     document.getElementById("supportList");
 
+  const guidanceMethod =
+    document.getElementById(
+      "guidanceMethod",
+    );
+
   const notesContainer =
     document.getElementById("notesContainer");
 
@@ -181,6 +186,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderSupport(visit.support);
 
+    const guidanceLabels = {
+      text: "Text",
+      voice: "Voice",
+      both: "Text & Voice",
+    };
+
+    guidanceMethod.textContent =
+      guidanceLabels[visit.guidanceMethod] ||
+      guidanceLabels.both;
+
     if (visit.notes) {
       visitNotes.textContent =
         visit.notes;
@@ -198,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `./plan-visit.html?placeId=${visit.placeId}`;
 
     viewPlaceButton.href =
-      `../../visitor/html/place-details.html?id=${visit.placeId}`;
+      `./user-place-details.html?id=${visit.placeId}`;
 
     editVisitButton.href = editUrl;
     backToPlanButton.href = editUrl;
@@ -230,6 +245,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const confirmedVisit = {
       ...visit,
+      guidanceMethod:
+        visit.guidanceMethod || "both",
       status: "Confirmed",
       confirmedAt:
         new Date().toISOString(),

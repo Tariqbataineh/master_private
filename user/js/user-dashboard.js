@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const searchParameters = new URLSearchParams({ search: searchValue });
 
-    window.location.href = `../../visitor/html/accessibility-map.html?${searchParameters.toString()}`;
+    window.location.href = `./explore-places.html?${searchParameters.toString()}`;
   });
 
   savedButtons.forEach((button) => {

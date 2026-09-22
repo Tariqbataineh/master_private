@@ -1,0 +1,105 @@
+.review-hero {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(34, 197, 184, 0.22),
+            transparent 35%
+        ),
+        #f4fbfa;
+
+    border-bottom: 1px solid #d5e6e4;
+}
+
+.review-card {
+    border: 1px solid #d5e6e4;
+    border-radius: 1.25rem;
+    background-color: #ffffff;
+    box-shadow: 0 1rem 2.5rem rgba(11, 43, 75, 0.08);
+}
+
+.review-summary {
+    top: 6rem;
+}
+
+.rating-star {
+    padding: 0;
+    border: 0;
+    color: #ccd5dd;
+    background-color: transparent;
+    font-size: 2rem;
+    line-height: 1;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.rating-star:hover,
+.rating-star:focus-visible {
+    color: #f5a623;
+    transform: scale(1.1);
+}
+
+.rating-star.is-selected {
+    color: #f5a623;
+}
+
+.rating-message {
+    color: #617184;
+    font-size: 0.9rem;
+}
+
+.feature-option {
+    border: 1px solid #d5e6e4;
+    border-radius: 0.75rem;
+    background-color: #f8fbfb;
+    cursor: pointer;
+}
+
+.feature-option:has(input:checked) {
+    border-color: #0f7f75;
+    background-color: #eaf7f5;
+}
+
+.photo-upload-box {
+    border: 2px dashed #b8d4d1;
+    border-radius: 1rem;
+    background-color: #f8fbfb;
+}
+
+.photo-preview img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+}
+
+.summary-icon,
+.success-icon {
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background-color: #0f7f75;
+}
+
+.summary-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+}
+
+.success-icon {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    font-size: 2.5rem;
+}
+
+.text-wusool {
+    color: #0f7f75;
+}
+
+@media (max-width: 991.98px) {
+    .review-summary {
+        position: static !important;
+    }
+}

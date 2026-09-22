@@ -120,6 +120,11 @@ document.addEventListener("DOMContentLoaded", () => {
       'input[name="visitSupport"]',
     );
 
+  const guidanceInputs =
+    document.querySelectorAll(
+      'input[name="guidanceMethod"]',
+    );
+
   const useSavedPreferences =
     document.getElementById(
       "useSavedPreferences",
@@ -144,6 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const summarySupport =
     document.getElementById("summarySupport");
+
+  const summaryGuidance =
+    document.getElementById(
+      "summaryGuidance",
+    );
 
   const navbarUserName =
     document.getElementById("navbarUserName");
@@ -254,6 +264,91 @@ document.addEventListener("DOMContentLoaded", () => {
       .map((input) => input.value);
   };
 
+  const getSelectedGuidanceMethod = () => {
+    const selectedGuidance =
+      document.querySelector(
+        'input[name="guidanceMethod"]:checked',
+      );
+
+    return selectedGuidance?.value || "both";
+  };
+
+  const getGuidanceLabel = (method) => {
+    const labels = {
+      text: "Text",
+      voice: "Voice",
+      both: "Text & Voice",
+    };
+
+    return labels[method] || labels.both;
+  };
+
+  const selectGuidanceMethod = (method) => {
+    const validMethods = ["text", "voice", "both"];
+    const selectedMethod = validMethods.includes(method)
+      ? method
+      : "both";
+
+    guidanceInputs.forEach((input) => {
+      input.checked = input.value === selectedMethod;
+    });
+  };
+
+  const getSavedPreferences = () => {
+    const savedPreferences = localStorage.getItem(
+      "wusool-accessibility-preferences",
+    );
+
+    if (!savedPreferences) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(savedPreferences);
+    } catch {
+      return null;
+    }
+  };
+
+  const getDefaultGuidanceMethod = (preferences) => {
+    if (
+      ["text", "voice", "both"].includes(
+        preferences?.guidanceMethod,
+      )
+    ) {
+      return preferences.guidanceMethod;
+    }
+
+    const normalizedNeeds = (
+      preferences?.accessibilityNeeds || []
+    )
+      .join(" ")
+      .toLowerCase();
+
+    const hasVisualNeed =
+      normalizedNeeds.includes("visual") ||
+      normalizedNeeds.includes("blind") ||
+      normalizedNeeds.includes("low-vision");
+
+    const hasHearingNeed =
+      normalizedNeeds.includes("hearing") ||
+      normalizedNeeds.includes("deaf");
+
+    if (hasVisualNeed && hasHearingNeed) {
+      return "both";
+    }
+
+    if (hasVisualNeed) {
+      return "voice";
+    }
+
+    if (hasHearingNeed) {
+      return "text";
+    }
+
+    return "both";
+  };
+
   const formatDate = (dateValue) => {
     if (!dateValue) {
       return "Not selected";
@@ -324,24 +419,22 @@ document.addEventListener("DOMContentLoaded", () => {
       selectedSupport.length > 0
         ? selectedSupport.join(", ")
         : "No support selected";
+
+    summaryGuidance.textContent = getGuidanceLabel(
+      getSelectedGuidanceMethod(),
+    );
   };
 
   const applySavedPreferences = () => {
-    const savedPreferences =
-      localStorage.getItem(
-        "wusool-accessibility-preferences",
-      );
+    const preferences = getSavedPreferences();
 
-    if (!savedPreferences) {
+    if (!preferences) {
       showStatusMessage(
         "No saved accessibility preferences were found.",
       );
 
       return;
     }
-
-    const preferences =
-      JSON.parse(savedPreferences);
 
     const needs =
       preferences.accessibilityNeeds ||
@@ -374,13 +467,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "visualNavigation",
     ).checked = true;
 
-    document.getElementById(
-      "voiceGuidance",
-    ).checked =
-      preferences.guidanceMethod ===
-        "voice" ||
-      preferences.guidanceMethod ===
-        "both";
+    selectGuidanceMethod(
+      getDefaultGuidanceMethod(preferences),
+    );
 
     updateSummary();
 
@@ -404,6 +493,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: visitDate.value,
       time: visitTime.value,
       support: getSelectedSupport(),
+      guidanceMethod: getSelectedGuidanceMethod(),
       notes: visitNotes.value.trim(),
       status: "Pending Review",
     };
@@ -445,6 +535,10 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   });
 
+  guidanceInputs.forEach((input) => {
+    input.addEventListener("change", updateSummary);
+  });
+
   useSavedPreferences.addEventListener(
     "click",
     applySavedPreferences,
@@ -484,5 +578,8 @@ document.addEventListener("DOMContentLoaded", () => {
   populatePlaces();
   populateBranches();
   populateDestinations();
+  selectGuidanceMethod(
+    getDefaultGuidanceMethod(getSavedPreferences()),
+  );
   updateSummary();
 });

@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="Search and compare accessible places using Wusool."
+    />
+
+    <title>Explore Places | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="../../assets/site.css" />
+
+    <!-- Page and shared user layout CSS -->
+    <link rel="stylesheet" href="../css/explore-places.css" />
+    <link rel="stylesheet" href="../css/user-layout.css" />
+  </head>
+
+  <body class="user-sidebar-layout">
+    <a href="#mainContent" class="skip-link"> Skip to main content </a>
+
+    <!-- Navbar -->
+    <header class="sticky-top">
+      <nav
+        class="navbar navbar-expand-lg main-navbar"
+        aria-label="Main navigation"
+      >
+        <div class="container py-2">
+          <a class="navbar-brand wusool-logo" href="./user-dashboard.html">
+            <span class="logo-icon">
+              <i class="bi bi-universal-access"></i>
+            </span>
+
+            <span>Wusool</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav mx-auto gap-lg-2">
+              <li class="nav-item">
+                <a class="nav-link" href="./user-dashboard.html"> Home </a>
+              </li>
+
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="./explore-places.html"
+                  aria-current="page"
+                >
+                  Accessibility Map
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="./user-dashboard.html">
+                  How It Works
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="./user-dashboard.html">
+                  Organizations
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="./user-dashboard.html"> About Us </a>
+              </li>
+            </ul>
+
+            <div class="d-flex flex-wrap gap-2 mt-3 mt-lg-0">
+              <button class="btn btn-light border" type="button">
+                AR | EN
+              </button>
+
+              <a href="./user-dashboard.html" class="btn btn-wusool-outline"> Log In </a>
+
+              <a href="./user-dashboard.html" class="btn btn-wusool"> Join Now </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Accessibility Tools -->
+      <div class="accessibility-toolbar">
+        <div class="container d-flex flex-wrap align-items-center gap-2 py-2">
+          <span class="accessibility-toolbar-title me-2">
+            <i class="bi bi-universal-access-circle"></i>
+            Accessibility Tools
+          </span>
+
+          <button
+            id="decreaseFont"
+            class="accessibility-button"
+            type="button"
+            aria-label="Decrease text size"
+          >
+            A−
+          </button>
+
+          <button
+            id="increaseFont"
+            class="accessibility-button"
+            type="button"
+            aria-label="Increase text size"
+          >
+            A+
+          </button>
+
+          <button
+            id="highContrast"
+            class="accessibility-button"
+            type="button"
+            aria-pressed="false"
+          >
+            <i class="bi bi-circle-half"></i>
+            High Contrast
+          </button>
+
+          <button id="readPage" class="accessibility-button" type="button">
+            <i class="bi bi-volume-up"></i>
+            Read Page
+          </button>
+
+          <button id="voiceSearch" class="accessibility-button" type="button">
+            <i class="bi bi-mic"></i>
+            Voice Search
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="mainContent">
+      <!-- Page Header -->
+      <section class="map-page-header">
+        <div class="container">
+          <span class="page-label">
+            <i class="bi bi-geo-alt-fill"></i>
+            Explore accessible places
+          </span>
+
+          <h1>Find an Accessible Place</h1>
+
+          <p>
+            Search, filter, and compare places using trusted accessibility
+            information.
+          </p>
+
+          <!-- Main Search -->
+          <form id="mapSearchForm" class="map-search-form">
+            <div class="row g-3">
+              <div class="col-lg-9">
+                <label for="searchInput" class="form-label fw-bold">
+                  Search
+                </label>
+
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="bi bi-search"></i>
+                  </span>
+
+                  <input
+                    id="searchInput"
+                    type="search"
+                    class="form-control"
+                    placeholder="Organization or place name"
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-3 d-grid align-self-end">
+                <button class="btn btn-wusool map-search-button" type="submit">
+                  <i class="bi bi-search me-2"></i>
+                  Search
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Filters and Map -->
+      <section class="map-content-section">
+        <div class="container">
+          <div class="row g-4">
+            <!-- Filters -->
+            <aside class="col-lg-3">
+              <div class="filter-panel">
+                <div
+                  class="d-flex align-items-center justify-content-between mb-4"
+                >
+                  <h2>Filters</h2>
+
+                  <i class="bi bi-sliders"></i>
+                </div>
+
+                <!-- Location -->
+                <div class="mb-3">
+                  <label for="locationFilter" class="form-label fw-bold">
+                    Location
+                  </label>
+
+                  <select id="locationFilter" class="form-select">
+                    <option value="all">All cities</option>
+
+                    <option value="amman">Amman</option>
+
+                    <option value="irbid">Irbid</option>
+
+                    <option value="zarqa">Zarqa</option>
+
+                    <option value="aqaba">Aqaba</option>
+                  </select>
+                </div>
+
+                <!-- Place Type -->
+                <div class="mb-3">
+                  <label for="typeFilter" class="form-label fw-bold">
+                    Place Type
+                  </label>
+
+                  <select id="typeFilter" class="form-select">
+                    <option value="all">All types</option>
+
+                    <option value="government">Government</option>
+
+                    <option value="bank">Bank</option>
+
+                    <option value="clinic">Clinic</option>
+
+                    <option value="community">Community Center</option>
+                  </select>
+                </div>
+
+                <!-- Accessibility Feature -->
+                <div class="mb-3">
+                  <label for="accessibilityFilter" class="form-label fw-bold">
+                    Accessibility
+                  </label>
+
+                  <select id="accessibilityFilter" class="form-select">
+                    <option value="all">All features</option>
+
+                    <option value="ramp">Accessible Ramp</option>
+
+                    <option value="parking">Accessible Parking</option>
+
+                    <option value="elevator">Elevator</option>
+
+                    <option value="assistance">Staff Assistance</option>
+
+                    <option value="restroom">Accessible Restroom</option>
+                  </select>
+                </div>
+
+                <!-- Score -->
+                <div class="mb-4">
+                  <label for="scoreFilter" class="form-label fw-bold">
+                    Accessibility Score
+                  </label>
+
+                  <select id="scoreFilter" class="form-select">
+                    <option value="0">All scores</option>
+
+                    <option value="90">90 and above</option>
+
+                    <option value="80">80 and above</option>
+
+                    <option value="70">70 and above</option>
+                  </select>
+                </div>
+
+                <div class="row g-2">
+                  <div class="col-6 d-grid">
+                    <button
+                      id="applyFilters"
+                      class="btn btn-wusool"
+                      type="button"
+                    >
+                      Apply
+                    </button>
+                  </div>
+
+                  <div class="col-6 d-grid">
+                    <button
+                      id="clearFilters"
+                      class="btn btn-wusool-outline"
+                      type="button"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            <!-- Interactive Map -->
+            <div class="col-lg-9">
+              <div class="interactive-map">
+                <div class="map-header">
+                  <div>
+                    <span class="map-small-title"> Interactive map </span>
+
+                    <h2>Accessible Places Near You</h2>
+                  </div>
+
+                  <span id="mapResultCount" class="map-count"> 6 places </span>
+                </div>
+
+                <div
+                  id="mapCanvas"
+                  class="map-canvas"
+                  role="region"
+                  aria-label="Interactive accessibility map"
+                >
+                  <div class="map-pattern"></div>
+
+                  <span class="map-line map-line-one"></span>
+                  <span class="map-line map-line-two"></span>
+                  <span class="map-line map-line-three"></span>
+
+                  <button
+                    class="place-marker marker-one"
+                    type="button"
+                    data-place="amman-city-hall"
+                    aria-label="Amman City Hall"
+                  >
+                    <i class="bi bi-geo-alt-fill"></i>
+                  </button>
+
+                  <button
+                    class="place-marker marker-two"
+                    type="button"
+                    data-place="main-bank"
+                    aria-label="Amman Main Bank"
+                  >
+                    <i class="bi bi-geo-alt-fill"></i>
+                  </button>
+
+                  <button
+                    class="place-marker marker-three"
+                    type="button"
+                    data-place="medical-center"
+                    aria-label="Al Noor Medical Center"
+                  >
+                    <i class="bi bi-geo-alt-fill"></i>
+                  </button>
+
+                  <button
+                    class="place-marker marker-four"
+                    type="button"
+                    data-place="community-hub"
+                    aria-label="Community Hub"
+                  >
+                    <i class="bi bi-geo-alt-fill"></i>
+                  </button>
+
+                  <div class="map-controls">
+                    <button id="zoomIn" type="button" aria-label="Zoom in">
+                      <i class="bi bi-plus-lg"></i>
+                    </button>
+
+                    <button id="zoomOut" type="button" aria-label="Zoom out">
+                      <i class="bi bi-dash-lg"></i>
+                    </button>
+                  </div>
+
+                  <!-- Marker Information -->
+                  <div id="markerInformation" class="marker-information d-none">
+                    <button
+                      id="closeMarkerInformation"
+                      class="close-marker"
+                      type="button"
+                      aria-label="Close place information"
+                    >
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+
+                    <strong id="markerPlaceName"> Place Name </strong>
+
+                    <small id="markerPlaceScore"> Accessibility score </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Places Results -->
+      <section class="places-results-section">
+        <div class="container">
+          <div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4"
+          >
+            <div>
+              <span class="section-small-title"> Search results </span>
+
+              <h2 class="section-title mb-1">Featured Accessible Places</h2>
+
+              <p class="section-description mb-0">
+                Compare verified accessibility features.
+              </p>
+            </div>
+
+            <span id="resultsCount" class="results-count"> 6 results </span>
+          </div>
+
+          <div id="placesGrid" class="row g-4">
+            <!-- Place 1 -->
+            <div
+              class="col-md-6 col-xl-4 place-result"
+              data-id="amman-city-hall"
+              data-name="amman city hall"
+              data-city="amman"
+              data-type="government"
+              data-features="ramp parking elevator"
+              data-score="92"
+            >
+              <article class="result-card">
+                <div class="result-card-top">
+                  <span class="result-icon">
+                    <i class="bi bi-building"></i>
+                  </span>
+
+                  <span class="result-score">92</span>
+                </div>
+
+                <h3>Amman City Hall</h3>
+
+                <p class="result-location">
+                  <i class="bi bi-geo-alt"></i>
+                  Amman · Government
+                </p>
+
+                <div class="tag-list mb-4">
+                  <span class="wusool-tag">Ramp</span>
+                  <span class="wusool-tag">Parking</span>
+                  <span class="wusool-tag">Elevator</span>
+                </div>
+
+                <!-- Amman City Hall -->
+                <a href="./user-place-details.html?id=1" class="btn btn-wusool">
+                  View Details
+                </a>
+              </article>
+            </div>
+
+            <!-- Place 2 -->
+            <div
+              class="col-md-6 col-xl-4 place-result"
+              data-id="main-bank"
+              data-name="amman main bank"
+              data-city="amman"
+              data-type="bank"
+              data-features="ramp parking assistance"
+              data-score="94"
+            >
+              <article class="result-card">
+                <div class="result-card-top">
+                  <span class="result-icon">
+                    <i class="bi bi-bank"></i>
+                  </span>
+
+                  <span class="result-score">94</span>
+                </div>
+
+                <h3>Amman Main Bank</h3>
+
+                <p class="result-location">
+                  <i class="bi bi-geo-alt"></i>
+                  Amman · Bank
+                </p>
+
+                <div class="tag-list mb-4">
+                  <span class="wusool-tag">Ramp</span>
+                  <span class="wusool-tag">Parking</span>
+                  <span class="wusool-tag">Assistance</span>
+                </div>
+
+                <!-- Al Noor Medical Center -->
+                <a href="./user-place-details.html?id=2" class="btn btn-wusool">
+                  View Details
+                </a>
+              </article>
+            </div>
+
+            <!-- Place 3 -->
+            <div
+              class="col-md-6 col-xl-4 place-result"
+              data-id="medical-center"
+              data-name="al noor medical center"
+              data-city="irbid"
+              data-type="clinic"
+              data-features="ramp elevator restroom"
+              data-score="88"
+            >
+              <article class="result-card">
+                <div class="result-card-top">
+                  <span class="result-icon">
+                    <i class="bi bi-hospital"></i>
+                  </span>
+
+                  <span class="result-score">88</span>
+                </div>
+
+                <h3>Al Noor Medical Center</h3>
+
+                <p class="result-location">
+                  <i class="bi bi-geo-alt"></i>
+                  Irbid · Clinic
+                </p>
+
+                <div class="tag-list mb-4">
+                  <span class="wusool-tag">Ramp</span>
+                  <span class="wusool-tag">Elevator</span>
+                  <span class="wusool-tag">Restroom</span>
+                </div>
+
+                <!-- Community Hub -->
+                <a href="./user-place-details.html?id=3" class="btn btn-wusool">
+                  View Details
+                </a>
+              </article>
+            </div>
+
+            <!-- Place 4 -->
+            <div
+              class="col-md-6 col-xl-4 place-result"
+              data-id="community-hub"
+              data-name="community accessibility hub"
+              data-city="zarqa"
+              data-type="community"
+              data-features="ramp parking assistance"
+              data-score="86"
+            >
+              <article class="result-card">
+                <div class="result-card-top">
+                  <span class="result-icon">
+                    <i class="bi bi-people"></i>
+                  </span>
+
+                  <span class="result-score">86</span>
+                </div>
+
+                <h3>Community Accessibility Hub</h3>
+
+                <p class="result-location">
+                  <i class="bi bi-geo-alt"></i>
+                  Zarqa · Community Center
+                </p>
+
+                <div class="tag-list mb-4">
+                  <span class="wusool-tag">Ramp</span>
+                  <span class="wusool-tag">Parking</span>
+                  <span class="wusool-tag">Assistance</span>
+                </div>
+
+                <!-- البطاقة الرابعة -->
+                <a href="./user-place-details.html?id=4" class="btn btn-wusool">
+                  View Details
+                </a>
+              </article>
+            </div>
+
+            <!-- Place 5 -->
+            <div
+              class="col-md-6 col-xl-4 place-result"
+              data-id="aqaba-service-center"
+              data-name="aqaba public service center"
+              data-city="aqaba"
+              data-type="government"
+              data-features="parking elevator restroom"
+              data-score="82"
+            >
+              <article class="result-card">
+                <div class="result-card-top">
+                  <span class="result-icon">
+                    <i class="bi bi-buildings"></i>
+                  </span>
+
+                  <span class="result-score">82</span>
+                </div>
+
+                <h3>Aqaba Public Service Center</h3>
+
+                <p class="result-location">
+                  <i class="bi bi-geo-alt"></i>
+                  Aqaba · Government
+                </p>
+
+                <div class="tag-list mb-4">
+                  <span class="wusool-tag">Parking</span>
+                  <span class="wusool-tag">Elevator</span>
+                  <span class="wusool-tag">Restroom</span>
+                </div>
+
+                <!-- البطاقة الخامسة -->
+                <a href="./user-place-details.html?id=5" class="btn btn-wusool">
+                  View Details
+                </a>
+              </article>
+            </div>
+
+            <!-- Place 6 -->
+            <div
+              class="col-md-6 col-xl-4 place-result"
+              data-id="zarqa-bank"
+              data-name="zarqa inclusive bank"
+              data-city="zarqa"
+              data-type="bank"
+              data-features="ramp assistance elevator"
+              data-score="78"
+            >
+              <article class="result-card">
+                <div class="result-card-top">
+                  <span class="result-icon">
+                    <i class="bi bi-bank2"></i>
+                  </span>
+
+                  <span class="result-score">78</span>
+                </div>
+
+                <h3>Zarqa Inclusive Bank</h3>
+
+                <p class="result-location">
+                  <i class="bi bi-geo-alt"></i>
+                  Zarqa · Bank
+                </p>
+
+                <div class="tag-list mb-4">
+                  <span class="wusool-tag">Ramp</span>
+                  <span class="wusool-tag">Assistance</span>
+                  <span class="wusool-tag">Elevator</span>
+                </div>
+
+                <a href="./user-place-details.html?id=6" class="btn btn-wusool">
+                  View Details
+                </a>
+              </article>
+            </div>
+          </div>
+
+          <!-- Empty Results -->
+          <div id="emptyState" class="empty-state d-none">
+            <i class="bi bi-search"></i>
+
+            <h3>No matching places found</h3>
+
+            <p>Try changing the search text or clearing some filters.</p>
+
+            <button id="emptyClearFilters" class="btn btn-wusool" type="button">
+              Clear Filters
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container py-5">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-4">
+            <a class="wusool-logo text-white" href="./user-dashboard.html">
+              <span class="logo-icon">
+                <i class="bi bi-universal-access"></i>
+              </span>
+
+              <span>Wusool</span>
+            </a>
+
+            <p class="footer-description mt-3 mb-0">
+              Accessibility for everyone.
+            </p>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="d-flex flex-wrap gap-3">
+              <a href="./user-dashboard.html">Home</a>
+
+              <a href="./explore-places.html"> Explore Places </a>
+
+              <a href="./user-dashboard.html"> Organizations </a>
+
+              <a href="./user-dashboard.html"> About Us </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 text-lg-end">
+            <p class="footer-copyright mb-0">© 2026 Wusool</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared JavaScript -->
+    <script src="../../assets/site.js"></script>
+
+    <!-- Map JavaScript -->
+    <script src="../js/explore-places.js"></script>
+    <script src="../js/user-layout.js"></script>
+  </body>
+</html>

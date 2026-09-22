@@ -98,23 +98,54 @@ const simulateLogin = (email) => {
   setLoadingState(true);
 
   setTimeout(() => {
+    const registeredUser = getRegisteredUser(email);
+
     const demoUser = {
-      id: 1,
-      name: "Wusool User",
+      id: registeredUser?.id || 1,
+      name: registeredUser?.fullName || createNameFromEmail(email),
       email: email,
       role: "User",
     };
 
     sessionStorage.setItem("wusoolDemoUser", JSON.stringify(demoUser));
+    localStorage.setItem("wusool-user-name", demoUser.name);
 
     showAlert("Login successful! Redirecting to your dashboard...", "success");
 
     setLoadingState(false);
 
     setTimeout(() => {
-      window.location.href = "./accessibility-map.html";
+      window.location.href = "../../user/html/user-dashboard.html";
     }, 1200);
   }, 900);
+};
+
+const getRegisteredUser = (email) => {
+  try {
+    const registeredUser = JSON.parse(
+      localStorage.getItem("wusoolRegisteredUser"),
+    );
+
+    if (registeredUser?.email?.toLowerCase() === email.toLowerCase()) {
+      return registeredUser;
+    }
+
+    return null;
+  } catch (error) {
+    return null;
+  }
+};
+
+const createNameFromEmail = (email) => {
+  const emailName = email.split("@")[0].replace(/[._-]+/g, " ");
+
+  return emailName
+    .split(" ")
+    .filter(Boolean)
+    .map((namePart) => {
+      return namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    })
+    .join(" ") || "Wusool User";
 };
 
 const setLoadingState = (isLoading) => {

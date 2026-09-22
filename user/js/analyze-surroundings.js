@@ -45,21 +45,24 @@ const showMissingSession = () => {
 const renderRouteInformation = (navigationSession) => {
     document.getElementById(
         "routePlace"
-    ).textContent = navigationSession.placeName;
+    ).textContent =
+        navigationSession.placeName || "Not available";
 
     document.getElementById(
         "routeBranch"
-    ).textContent = navigationSession.branchName;
+    ).textContent =
+        navigationSession.branchName || "Not available";
 
     document.getElementById(
         "routeStartingPoint"
-    ).textContent = navigationSession.startingPoint;
+    ).textContent =
+        "Your current location";
 
     document.getElementById(
         "routeDestination"
-    ).textContent = navigationSession.destination;
+    ).textContent =
+        navigationSession.destination || "Not available";
 };
-
 const addPhotoEvents = () => {
     const uploadArea =
         document.getElementById("uploadArea");
@@ -415,26 +418,48 @@ const completePhotoAnalysis = () => {
     const navigationSession =
         getNavigationSession();
 
+    if (!navigationSession || !selectedPhoto) {
+        showPhotoStatus(
+            "Unable to complete the analysis.",
+            "danger"
+        );
+
+        analysisRunning = false;
+
+        return;
+    }
+
+    const aiAnalysis = createInitialAIAnalysis(
+        navigationSession
+    );
+
+    const previousStep = Number.isInteger(
+        navigationSession.navigationStep
+    )
+        ? navigationSession.navigationStep
+        : -1;
+
     const updatedSession = {
         ...navigationSession,
-
         photo: {
             name: selectedPhoto.name,
             size: selectedPhoto.size,
             type: selectedPhoto.type
         },
-
+        photoCount:
+            (navigationSession.photoCount || 0) + 1,
+        navigationStep:
+            Math.min(previousStep + 1, 3),
+        aiAnalysis,
         detectedLocation:
-            navigationSession.startingPoint,
-
-        locationConfidence: 94,
-
-        routeStatus: "safe",
-
-        detectedHazards: [],
-
+            aiAnalysis.detectedLocation,
+        locationConfidence:
+            aiAnalysis.confidence,
+        routeStatus:
+            aiAnalysis.routeStatus,
+        detectedHazards:
+            aiAnalysis.accessibility.obstacles,
         status: "ready-for-guidance",
-
         analyzedAt: new Date().toISOString()
     };
 
@@ -446,7 +471,7 @@ const completePhotoAnalysis = () => {
     document.getElementById(
         "analysisMessage"
     ).textContent =
-        "Location identified. Your accessible route is ready.";
+        "AI analysis completed. Your next safe direction is ready.";
 
     showPhotoStatus(
         "Analysis completed successfully. Opening navigation guidance...",
@@ -457,6 +482,96 @@ const completePhotoAnalysis = () => {
         window.location.href =
             "./navigation-guidance.html";
     }, 1200);
+};
+const createInitialAIAnalysis = (
+    navigationSession
+) => {
+
+    return {
+        detectedLocation:
+            "Current position from surroundings",
+
+        confidence:
+            null,
+
+        routeStatus:
+            "pending-ai-verification",
+
+        accessibility: {
+
+            accessible:
+                null,
+
+            ramp:
+                null,
+
+            stairs:
+                null,
+
+            elevator:
+                null,
+
+            obstacles:
+                []
+
+        },
+
+        route: [],
+
+        summary:
+            "The image is ready for AI vision analysis.",
+
+        analyzedBy:
+            "Wusool AI Vision",
+
+        analysisVersion:
+            "1.0",
+
+        destination:
+            navigationSession.destination || null
+    };
+};
+const analyzePhotoWithAI = async (
+    photoData,
+    navigationSession
+) => {
+
+    const response =
+        await fetch(
+            "/api/ai/analyze-surroundings",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    image: photoData,
+
+                    placeId:
+                        navigationSession.placeId,
+
+                    branchId:
+                        navigationSession.branchId,
+
+                    branchName:
+                        navigationSession.branchName,
+
+                    destination:
+                        navigationSession.destination
+                })
+            }
+        );
+
+    if (!response.ok) {
+        throw new Error(
+            "AI analysis request failed."
+        );
+    }
+
+    return await response.json();
 };
 
 const showPhotoStatus = (message, type) => {

@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Write an accessibility review about a completed visit."
+    >
+
+    <title>Write Review | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared CSS -->
+    <link
+        rel="stylesheet"
+        href="../../assets/site.css"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/write-review.css"
+    >
+  <link rel="stylesheet" href="../css/user-layout.css">
+</head>
+
+<body class="user-sidebar-layout">
+
+    <a
+        class="skip-link"
+        href="#mainContent"
+    >
+        Skip to main content
+    </a>
+
+    <!-- Header -->
+    <header>
+        <nav
+            class="navbar navbar-expand-lg main-navbar sticky-top"
+            aria-label="Main navigation"
+        >
+            <div class="container">
+
+                <a
+                    class="navbar-brand wusool-logo"
+                    href="./user-dashboard.html"
+                >
+                    <span
+                        class="logo-icon"
+                        aria-hidden="true"
+                    >
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    Wusool
+                </a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#userNavbar"
+                    aria-controls="userNavbar"
+                    aria-expanded="false"
+                    aria-label="Open navigation menu"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="userNavbar"
+                >
+                    <ul class="navbar-nav mx-auto">
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./user-dashboard.html"
+                            >
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./explore-places.html"
+                            >
+                                Explore Places
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./my-visits.html"
+                            >
+                                My Visits
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                href="./my-reviews.html"
+                            >
+                                My Reviews
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./saved-places.html"
+                            >
+                                Saved Places
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <a
+                        class="btn btn-wusool"
+                        href="./user-profile.html"
+                    >
+                        <i class="bi bi-person-circle me-1"></i>
+
+                        <span id="navbarUserName">
+                            User
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main id="mainContent">
+
+        <!-- Page Header -->
+        <section class="review-hero py-5">
+            <div class="container">
+
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item">
+                            <a href="./user-dashboard.html">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="breadcrumb-item">
+                            <a href="./my-visits.html">
+                                My Visits
+                            </a>
+                        </li>
+
+                        <li
+                            class="breadcrumb-item active"
+                            aria-current="page"
+                        >
+                            Write Review
+                        </li>
+
+                    </ol>
+                </nav>
+
+                <span class="section-label">
+                    SHARE YOUR EXPERIENCE
+                </span>
+
+                <h1 class="display-5 fw-bold mt-2">
+                    Write an Accessibility Review
+                </h1>
+
+                <p class="lead text-secondary mb-0">
+                    Help other visitors understand what to expect
+                    before visiting this place.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- Missing Visit -->
+        <section
+            class="container py-5 d-none"
+            id="missingVisit"
+        >
+            <article class="review-card p-5 text-center">
+
+                <i class="bi bi-calendar-x display-3 text-warning"></i>
+
+                <h2 class="h3 fw-bold mt-3">
+                    Visit Not Found
+                </h2>
+
+                <p class="text-secondary">
+                    Select a completed visit before writing a review.
+                </p>
+
+                <a
+                    class="btn btn-wusool"
+                    href="./my-visits.html"
+                >
+                    Return to My Visits
+                </a>
+
+            </article>
+        </section>
+
+        <!-- Review Content -->
+        <section
+            class="py-5"
+            id="reviewContent"
+        >
+            <div class="container">
+
+                <div class="row g-4">
+
+                    <!-- Review Form -->
+                    <div class="col-12 col-lg-8">
+
+                        <form
+                            class="review-card p-4 p-md-5"
+                            id="reviewForm"
+                            novalidate
+                        >
+
+                            <!-- Overall Rating -->
+                            <section class="mb-5">
+
+                                <span class="section-label">
+                                    OVERALL EXPERIENCE
+                                </span>
+
+                                <h2 class="h4 fw-bold mt-2">
+                                    How was your visit?
+                                </h2>
+
+                                <p class="text-secondary">
+                                    Select an overall rating from one to five stars.
+                                </p>
+
+                                <div
+                                    class="rating-stars d-flex gap-2"
+                                    id="ratingStars"
+                                    role="radiogroup"
+                                    aria-label="Overall rating"
+                                >
+
+                                    <button
+                                        class="rating-star"
+                                        type="button"
+                                        data-rating="1"
+                                        aria-label="1 star"
+                                    >
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
+
+                                    <button
+                                        class="rating-star"
+                                        type="button"
+                                        data-rating="2"
+                                        aria-label="2 stars"
+                                    >
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
+
+                                    <button
+                                        class="rating-star"
+                                        type="button"
+                                        data-rating="3"
+                                        aria-label="3 stars"
+                                    >
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
+
+                                    <button
+                                        class="rating-star"
+                                        type="button"
+                                        data-rating="4"
+                                        aria-label="4 stars"
+                                    >
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
+
+                                    <button
+                                        class="rating-star"
+                                        type="button"
+                                        data-rating="5"
+                                        aria-label="5 stars"
+                                    >
+                                        <i class="bi bi-star-fill"></i>
+                                    </button>
+
+                                </div>
+
+                                <input
+                                    id="overallRating"
+                                    name="overallRating"
+                                    type="hidden"
+                                    required
+                                >
+
+                                <p
+                                    class="rating-message mt-2 mb-0"
+                                    id="ratingMessage"
+                                >
+                                    No rating selected
+                                </p>
+
+                            </section>
+
+                            <hr class="my-5">
+
+                            <!-- Accessibility Features -->
+                            <section class="mb-5">
+
+                                <span class="section-label">
+                                    ACCESSIBILITY FEATURES
+                                </span>
+
+                                <h2 class="h4 fw-bold mt-2">
+                                    Which features did you find?
+                                </h2>
+
+                                <div class="row g-3 mt-1">
+
+                                    <div class="col-12 col-md-6">
+                                        <label class="feature-option p-3 w-100">
+
+                                            <input
+                                                class="form-check-input me-2"
+                                                type="checkbox"
+                                                name="features"
+                                                value="Accessible Entrance"
+                                            >
+
+                                            Accessible Entrance
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label class="feature-option p-3 w-100">
+
+                                            <input
+                                                class="form-check-input me-2"
+                                                type="checkbox"
+                                                name="features"
+                                                value="Entrance Ramp"
+                                            >
+
+                                            Entrance Ramp
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label class="feature-option p-3 w-100">
+
+                                            <input
+                                                class="form-check-input me-2"
+                                                type="checkbox"
+                                                name="features"
+                                                value="Accessible Parking"
+                                            >
+
+                                            Accessible Parking
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label class="feature-option p-3 w-100">
+
+                                            <input
+                                                class="form-check-input me-2"
+                                                type="checkbox"
+                                                name="features"
+                                                value="Elevator"
+                                            >
+
+                                            Elevator
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label class="feature-option p-3 w-100">
+
+                                            <input
+                                                class="form-check-input me-2"
+                                                type="checkbox"
+                                                name="features"
+                                                value="Accessible Restroom"
+                                            >
+
+                                            Accessible Restroom
+                                        </label>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label class="feature-option p-3 w-100">
+
+                                            <input
+                                                class="form-check-input me-2"
+                                                type="checkbox"
+                                                name="features"
+                                                value="Staff Assistance"
+                                            >
+
+                                            Staff Assistance
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                            <!-- Information Accuracy -->
+                            <section class="mb-5">
+
+                                <label
+                                    class="form-label h5 fw-bold"
+                                    for="informationAccuracy"
+                                >
+                                    Was the accessibility information accurate?
+                                </label>
+
+                                <select
+                                    class="form-select form-select-lg"
+                                    id="informationAccuracy"
+                                    name="informationAccuracy"
+                                    required
+                                >
+                                    <option value="">
+                                        Choose an answer
+                                    </option>
+
+                                    <option value="Accurate">
+                                        Yes, it was accurate
+                                    </option>
+
+                                    <option value="Partially Accurate">
+                                        It was partially accurate
+                                    </option>
+
+                                    <option value="Not Accurate">
+                                        No, it was not accurate
+                                    </option>
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    Select the information accuracy.
+                                </div>
+
+                            </section>
+
+                            <!-- Review Title -->
+                            <section class="mb-4">
+
+                                <label
+                                    class="form-label h5 fw-bold"
+                                    for="reviewTitle"
+                                >
+                                    Review Title
+                                </label>
+
+                                <input
+                                    class="form-control form-control-lg"
+                                    id="reviewTitle"
+                                    name="reviewTitle"
+                                    type="text"
+                                    maxlength="80"
+                                    placeholder="Example: Easy and accessible visit"
+                                    required
+                                >
+
+                                <div class="invalid-feedback">
+                                    Enter a short review title.
+                                </div>
+
+                            </section>
+
+                            <!-- Review Comment -->
+                            <section class="mb-4">
+
+                                <div class="d-flex justify-content-between gap-3">
+
+                                    <label
+                                        class="form-label h5 fw-bold"
+                                        for="reviewComment"
+                                    >
+                                        Tell us about your experience
+                                    </label>
+
+                                    <small
+                                        class="text-secondary"
+                                        id="commentCounter"
+                                    >
+                                        0 / 500
+                                    </small>
+
+                                </div>
+
+                                <textarea
+                                    class="form-control"
+                                    id="reviewComment"
+                                    name="reviewComment"
+                                    rows="6"
+                                    maxlength="500"
+                                    placeholder="Describe the entrance, pathways, elevator, staff assistance, or any obstacles you found."
+                                    required
+                                ></textarea>
+
+                                <div class="invalid-feedback">
+                                    Write a short description of your experience.
+                                </div>
+
+                            </section>
+
+                            <!-- Recommendation -->
+                            <section class="mb-4">
+
+                                <fieldset>
+
+                                    <legend class="h5 fw-bold">
+                                        Would you recommend this place?
+                                    </legend>
+
+                                    <div class="d-flex flex-column flex-sm-row gap-3">
+
+                                        <div class="form-check">
+
+                                            <input
+                                                class="form-check-input"
+                                                id="recommendYes"
+                                                name="recommendPlace"
+                                                type="radio"
+                                                value="Yes"
+                                                required
+                                            >
+
+                                            <label
+                                                class="form-check-label"
+                                                for="recommendYes"
+                                            >
+                                                Yes, I recommend it
+                                            </label>
+
+                                        </div>
+
+                                        <div class="form-check">
+
+                                            <input
+                                                class="form-check-input"
+                                                id="recommendNo"
+                                                name="recommendPlace"
+                                                type="radio"
+                                                value="No"
+                                                required
+                                            >
+
+                                            <label
+                                                class="form-check-label"
+                                                for="recommendNo"
+                                            >
+                                                No, I do not recommend it
+                                            </label>
+
+                                        </div>
+
+                                    </div>
+
+                                </fieldset>
+
+                            </section>
+
+                            <!-- Photo -->
+                            <section class="mb-4">
+
+                                <label
+                                    class="form-label h5 fw-bold"
+                                    for="reviewPhoto"
+                                >
+                                    Add a Photo
+                                    <span class="text-secondary fs-6">
+                                        (Optional)
+                                    </span>
+                                </label>
+
+                                <div class="photo-upload-box p-4 text-center">
+
+                                    <i class="bi bi-camera display-5 text-wusool"></i>
+
+                                    <p class="fw-semibold mt-2 mb-1">
+                                        Upload accessibility evidence
+                                    </p>
+
+                                    <p class="small text-secondary">
+                                        JPG, PNG or WEBP — maximum 8 MB
+                                    </p>
+
+                                    <input
+                                        class="form-control"
+                                        id="reviewPhoto"
+                                        name="reviewPhoto"
+                                        type="file"
+                                        accept="image/png,image/jpeg,image/webp"
+                                    >
+
+                                </div>
+
+                                <div
+                                    class="photo-preview d-none mt-3"
+                                    id="photoPreviewContainer"
+                                >
+                                    <img
+                                        class="img-fluid rounded"
+                                        id="photoPreview"
+                                        src=""
+                                        alt="Selected review photo preview"
+                                    >
+
+                                    <div class="d-flex justify-content-between align-items-center gap-3 mt-2">
+
+                                        <span
+                                            class="small text-secondary"
+                                            id="photoName"
+                                        ></span>
+
+                                        <button
+                                            class="btn btn-sm btn-outline-danger"
+                                            id="removePhotoButton"
+                                            type="button"
+                                        >
+                                            Remove
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="alert alert-danger d-none mt-3"
+                                    id="photoError"
+                                    role="alert"
+                                ></div>
+
+                            </section>
+
+                            <!-- Confirmation -->
+                            <section class="mb-4">
+
+                                <div class="form-check">
+
+                                    <input
+                                        class="form-check-input"
+                                        id="confirmReview"
+                                        name="confirmReview"
+                                        type="checkbox"
+                                        required
+                                    >
+
+                                    <label
+                                        class="form-check-label"
+                                        for="confirmReview"
+                                    >
+                                        I confirm that this review is based
+                                        on my real visit experience.
+                                    </label>
+
+                                    <div class="invalid-feedback">
+                                        Confirm that the review is based on your visit.
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                            <div
+                                class="alert alert-danger d-none"
+                                id="formStatus"
+                                role="alert"
+                            ></div>
+
+                            <!-- Actions -->
+                            <div class="d-grid d-sm-flex gap-3">
+
+                                <button
+                                    class="btn btn-wusool btn-lg"
+                                    type="submit"
+                                >
+                                    <i class="bi bi-send me-2"></i>
+                                    Publish Review
+                                </button>
+
+                                <a
+                                    class="btn btn-light btn-lg"
+                                    id="cancelReviewLink"
+                                    href="./my-visits.html"
+                                >
+                                    Cancel
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <!-- Visit Summary -->
+                    <aside class="col-12 col-lg-4">
+
+                        <article class="review-card p-4 sticky-lg-top review-summary">
+
+                            <span class="summary-icon mb-3">
+                                <i class="bi bi-building"></i>
+                            </span>
+
+                            <span class="section-label">
+                                COMPLETED VISIT
+                            </span>
+
+                            <h2
+                                class="h3 fw-bold mt-2"
+                                id="placeName"
+                            >
+                                Place Name
+                            </h2>
+
+                            <dl class="visit-summary mb-0">
+
+                                <div class="py-3 border-bottom">
+                                    <dt class="text-secondary">
+                                        Branch
+                                    </dt>
+
+                                    <dd
+                                        class="fw-semibold mb-0"
+                                        id="branchName"
+                                    >
+                                        Not available
+                                    </dd>
+                                </div>
+
+                                <div class="py-3 border-bottom">
+                                    <dt class="text-secondary">
+                                        Destination
+                                    </dt>
+
+                                    <dd
+                                        class="fw-semibold mb-0"
+                                        id="visitDestination"
+                                    >
+                                        Not available
+                                    </dd>
+                                </div>
+
+                                <div class="py-3">
+                                    <dt class="text-secondary">
+                                        Visit Date
+                                    </dt>
+
+                                    <dd
+                                        class="fw-semibold mb-0"
+                                        id="visitDate"
+                                    >
+                                        Not available
+                                    </dd>
+                                </div>
+
+                            </dl>
+
+                            <a
+                                class="btn btn-wusool-outline w-100 mt-3"
+                                id="visitDetailsLink"
+                                href="./my-visits.html"
+                            >
+                                View Visit Details
+                            </a>
+
+                        </article>
+
+                    </aside>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Success -->
+        <section
+            class="container py-5 d-none"
+            id="reviewSuccess"
+        >
+            <article class="review-card p-4 p-md-5 text-center">
+
+                <span class="success-icon mx-auto mb-4">
+                    <i class="bi bi-check-lg"></i>
+                </span>
+
+                <span class="section-label">
+                    REVIEW PUBLISHED
+                </span>
+
+                <h2 class="display-6 fw-bold mt-2">
+                    Thank You for Your Review
+                </h2>
+
+                <p class="lead text-secondary">
+                    Your experience will help other visitors
+                    plan a more accessible visit.
+                </p>
+
+                <div class="d-grid d-sm-flex justify-content-center gap-3 mt-4">
+
+                    <a
+                        class="btn btn-wusool btn-lg"
+                        id="successVisitLink"
+                        href="./my-visits.html"
+                    >
+                        View Visit
+                    </a>
+
+                    <a
+                        class="btn btn-wusool-outline btn-lg"
+                        href="./my-reviews.html"
+                    >
+                        My Reviews
+                    </a>
+
+                </div>
+
+            </article>
+        </section>
+
+    </main>
+
+    <footer class="main-footer py-4">
+        <div class="container text-center">
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared JS -->
+    <script src="../../assets/site.js"></script>
+
+    <!-- Page JS -->
+    <script src="../js/write-review.js"></script>
+
+  <script src="../js/user-layout.js"></script>
+</body>
+</html>

@@ -215,13 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
           View Details
         </a>
 
-        <a
-          class="btn btn-wusool-outline"
-          href="./visual-navigation-start.html?placeId=${visit.placeId}&visitId=${visit.id}"
-        >
-          Start Navigation
-        </a>
-
         <button
           class="btn btn-outline-danger"
           type="button"

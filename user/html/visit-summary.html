@@ -34,9 +34,10 @@
       rel="stylesheet"
       href="../css/visit-summary.css"
     />
-  </head>
+    <link rel="stylesheet" href="../css/user-layout.css">
+</head>
 
-  <body>
+  <body class="user-sidebar-layout">
     <a
       class="skip-link"
       href="#mainContent"
@@ -93,7 +94,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="../../visitor/html/accessibility-map.html"
+                  href="./explore-places.html"
                 >
                   Explore Places
                 </a>
@@ -102,7 +103,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  href="./visual-navigation-start.html"
+                  href="./my-visits.html"
                 >
                   Visual Navigation
                 </a>
@@ -339,7 +340,7 @@
                   <a
                     class="btn btn-wusool-outline"
                     id="viewPlaceButton"
-                    href="../../visitor/html/place-details.html"
+                    href="./user-place-details.html"
                   >
                     View Place
                   </a>
@@ -452,6 +453,20 @@
                   class="d-flex flex-wrap gap-2"
                   id="supportList"
                 ></div>
+
+                <div class="detail-item mt-4">
+                  <span class="detail-icon">
+                    <i class="bi bi-soundwave"></i>
+                  </span>
+
+                  <div>
+                    <small>Navigation Guidance</small>
+
+                    <strong id="guidanceMethod">
+                      Text &amp; Voice
+                    </strong>
+                  </div>
+                </div>
 
                 <div
                   class="visit-notes mt-4"
@@ -590,5 +605,6 @@
     <script src="../../assets/site.js"></script>
 
     <script src="../js/visit-summary.js"></script>
-  </body>
+    <script src="../js/user-layout.js"></script>
+</body>
 </html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Wusool navigation completion confirmation."
+    />
+    <title>Destination Reached | Wusool</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../assets/site.css" />
+    <link rel="stylesheet" href="../css/navigation-complete.css" />
+    <link rel="stylesheet" href="../css/user-layout.css">
+</head>
+
+  <body class="user-sidebar-layout">
+    <a class="skip-link" href="#mainContent">Skip to main content</a>
+
+    <header>
+      <nav class="navbar main-navbar" aria-label="Main navigation">
+        <div class="container">
+          <a class="navbar-brand wusool-logo" href="./user-dashboard.html">
+            <span class="logo-icon" aria-hidden="true">
+              <i class="bi bi-universal-access"></i>
+            </span>
+            Wusool
+          </a>
+
+          <a class="btn btn-wusool-outline" href="./my-visits.html">
+            My Visits
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="mainContent">
+      <section class="completion-section py-5">
+        <div class="container">
+          <article class="completion-card mx-auto text-center p-4 p-md-5">
+            <span class="completion-icon mx-auto mb-4" aria-hidden="true">
+              <i class="bi bi-check-lg"></i>
+            </span>
+
+            <span class="section-label">NAVIGATION COMPLETED</span>
+            <h1 class="display-5 fw-bold text-wusool-navy mt-2">
+              You Reached Your Destination
+            </h1>
+            <p class="lead text-secondary">
+              Your visit was marked as completed successfully.
+            </p>
+
+            <dl class="row g-3 text-start completion-summary my-4">
+              <div class="col-12 col-md-6">
+                <dt>Place</dt>
+                <dd id="completePlace">Not available</dd>
+              </div>
+              <div class="col-12 col-md-6">
+                <dt>Branch</dt>
+                <dd id="completeBranch">Not available</dd>
+              </div>
+              <div class="col-12 col-md-6">
+                <dt>Destination</dt>
+                <dd id="completeDestination">Not available</dd>
+              </div>
+              <div class="col-12 col-md-6">
+                <dt>Guidance</dt>
+                <dd id="completeGuidance">Not available</dd>
+              </div>
+            </dl>
+
+            <div class="d-grid d-sm-flex justify-content-center gap-3">
+              <a class="btn btn-wusool btn-lg" id="visitDetailsLink" href="./my-visits.html">
+                View Visit Details
+              </a>
+              <a class="btn btn-wusool-outline btn-lg" href="./my-visits.html">
+                Return to My Visits
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer py-4">
+      <div class="container text-center">
+        <p class="mb-0">© 2026 Wusool. Accessibility for everyone.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/site.js"></script>
+    <script src="../js/navigation-complete.js"></script>
+    <script src="../js/user-layout.js"></script>
+</body>
+</html>

@@ -435,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="d-flex gap-2">
             <a
               class="btn btn-wusool flex-grow-1"
-              href="../../visitor/html/place-details.html?id=${place.id}"
+              href="./user-place-details.html?id=${place.id}"
             >
               View Details
             </a>

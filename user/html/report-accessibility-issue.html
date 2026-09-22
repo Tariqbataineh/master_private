@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Report incorrect accessibility information to Wusool."
+    >
+
+    <title>Report Accessibility Issue | Wusool</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../assets/site.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/report-accessibility-issue.css"
+    >
+  <link rel="stylesheet" href="../css/user-layout.css">
+</head>
+
+<body class="user-sidebar-layout">
+
+    <a
+        class="skip-link"
+        href="#mainContent"
+    >
+        Skip to main content
+    </a>
+
+    <header>
+        <nav
+            class="navbar navbar-expand-lg main-navbar sticky-top"
+            aria-label="Main navigation"
+        >
+            <div class="container">
+
+                <a
+                    class="navbar-brand wusool-logo"
+                    href="./user-dashboard.html"
+                >
+                    <span class="logo-icon">
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    Wusool
+                </a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#userNavbar"
+                    aria-controls="userNavbar"
+                    aria-expanded="false"
+                    aria-label="Open navigation menu"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div
+                    class="collapse navbar-collapse"
+                    id="userNavbar"
+                >
+                    <ul class="navbar-nav mx-auto">
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./user-dashboard.html"
+                            >
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./explore-places.html"
+                            >
+                                Explore Places
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="./my-visits.html"
+                            >
+                                My Visits
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                href="./my-reports.html"
+                            >
+                                My Reports
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <a
+                        class="btn btn-wusool"
+                        href="./user-profile.html"
+                    >
+                        <i class="bi bi-person-circle me-1"></i>
+
+                        <span id="navbarUserName">
+                            User
+                        </span>
+                    </a>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main id="mainContent">
+
+        <section class="reports-hero py-5">
+            <div class="container">
+
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb">
+
+                        <li class="breadcrumb-item">
+                            <a href="./user-dashboard.html">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="breadcrumb-item">
+                            <a href="./my-reports.html">
+                                My Reports
+                            </a>
+                        </li>
+
+                        <li
+                            class="breadcrumb-item active"
+                            aria-current="page"
+                        >
+                            Report Issue
+                        </li>
+
+                    </ol>
+                </nav>
+
+                <span class="section-label">
+                    HELP IMPROVE ACCESSIBILITY
+                </span>
+
+                <h1 class="display-5 fw-bold mt-2">
+                    Report Accessibility Issue
+                </h1>
+
+                <p class="lead text-secondary mb-0">
+                    Report incorrect information, a new obstacle,
+                    or an unsafe accessibility feature.
+                </p>
+
+            </div>
+        </section>
+
+        <section
+            class="py-5"
+            id="reportContent"
+        >
+            <div class="container">
+
+                <div class="row g-4">
+
+                    <div class="col-12 col-lg-8">
+
+                        <form
+                            class="report-card p-4 p-md-5"
+                            id="reportForm"
+                            novalidate
+                        >
+
+                            <section class="mb-5">
+
+                                <span class="section-label">
+                                    PLACE INFORMATION
+                                </span>
+
+                                <h2 class="h4 fw-bold mt-2">
+                                    Where did you find the issue?
+                                </h2>
+
+                                <div class="row g-3 mt-1">
+
+                                    <div class="col-12 col-md-6">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="placeSelect"
+                                        >
+                                            Place
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <select
+                                            class="form-select form-select-lg"
+                                            id="placeSelect"
+                                            name="placeId"
+                                            required
+                                        >
+                                            <option value="">
+                                                Select a place
+                                            </option>
+                                        </select>
+
+                                        <div class="invalid-feedback">
+                                            Select a place.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="branchSelect"
+                                        >
+                                            Branch
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <select
+                                            class="form-select form-select-lg"
+                                            id="branchSelect"
+                                            name="branch"
+                                            required
+                                            disabled
+                                        >
+                                            <option value="">
+                                                Select a branch
+                                            </option>
+                                        </select>
+
+                                        <div class="invalid-feedback">
+                                            Select a branch.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="issueLocation"
+                                        >
+                                            Issue Location Inside the Place
+                                        </label>
+
+                                        <input
+                                            class="form-control"
+                                            id="issueLocation"
+                                            name="issueLocation"
+                                            type="text"
+                                            maxlength="100"
+                                            placeholder="Example: Main entrance, parking area, second floor"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                            <hr class="my-5">
+
+                            <section class="mb-5">
+
+                                <span class="section-label">
+                                    ISSUE DETAILS
+                                </span>
+
+                                <h2 class="h4 fw-bold mt-2">
+                                    What is the problem?
+                                </h2>
+
+                                <div class="row g-3 mt-1">
+
+                                    <div class="col-12 col-md-6">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="issueType"
+                                        >
+                                            Issue Type
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <select
+                                            class="form-select"
+                                            id="issueType"
+                                            name="issueType"
+                                            required
+                                        >
+                                            <option value="">
+                                                Select issue type
+                                            </option>
+
+                                            <option value="Incorrect Information">
+                                                Incorrect Information
+                                            </option>
+
+                                            <option value="Blocked Entrance">
+                                                Blocked Entrance
+                                            </option>
+
+                                            <option value="Unsafe Ramp">
+                                                Unsafe Ramp
+                                            </option>
+
+                                            <option value="Elevator Not Working">
+                                                Elevator Not Working
+                                            </option>
+
+                                            <option value="Missing Accessible Parking">
+                                                Missing Accessible Parking
+                                            </option>
+
+                                            <option value="Stairs or Obstacle">
+                                                Stairs or Obstacle
+                                            </option>
+
+                                            <option value="Accessible Restroom Issue">
+                                                Accessible Restroom Issue
+                                            </option>
+
+                                            <option value="Other">
+                                                Other
+                                            </option>
+                                        </select>
+
+                                        <div class="invalid-feedback">
+                                            Select the issue type.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="severity"
+                                        >
+                                            Severity
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <select
+                                            class="form-select"
+                                            id="severity"
+                                            name="severity"
+                                            required
+                                        >
+                                            <option value="">
+                                                Select severity
+                                            </option>
+
+                                            <option value="Low">
+                                                Low
+                                            </option>
+
+                                            <option value="Moderate">
+                                                Moderate
+                                            </option>
+
+                                            <option value="High">
+                                                High
+                                            </option>
+
+                                            <option value="Critical">
+                                                Critical
+                                            </option>
+                                        </select>
+
+                                        <div class="invalid-feedback">
+                                            Select the issue severity.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="observedDate"
+                                        >
+                                            Date Observed
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <input
+                                            class="form-control"
+                                            id="observedDate"
+                                            name="observedDate"
+                                            type="date"
+                                            required
+                                        >
+
+                                        <div class="invalid-feedback">
+                                            Select the date.
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+
+                                        <label
+                                            class="form-label fw-semibold"
+                                            for="issueDescription"
+                                        >
+                                            Issue Description
+                                            <span class="text-danger">*</span>
+                                        </label>
+
+                                        <textarea
+                                            class="form-control"
+                                            id="issueDescription"
+                                            name="description"
+                                            rows="6"
+                                            maxlength="500"
+                                            placeholder="Explain what you found and why it may be difficult or unsafe."
+                                            required
+                                        ></textarea>
+
+                                        <div class="d-flex justify-content-between mt-2">
+
+                                            <div class="invalid-feedback">
+                                                Describe the accessibility issue.
+                                            </div>
+
+                                            <small
+                                                class="text-secondary ms-auto"
+                                                id="descriptionCounter"
+                                            >
+                                                0 / 500
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                            <section class="mb-4">
+
+                                <label
+                                    class="form-label h5 fw-bold"
+                                    for="evidencePhoto"
+                                >
+                                    Add Photo Evidence
+                                    <span class="text-secondary fs-6">
+                                        (Optional)
+                                    </span>
+                                </label>
+
+                                <div class="photo-upload-box p-4 text-center">
+
+                                    <i class="bi bi-camera display-5 text-wusool"></i>
+
+                                    <p class="fw-semibold mt-2 mb-1">
+                                        Upload a clear photo of the issue
+                                    </p>
+
+                                    <p class="small text-secondary">
+                                        JPG, PNG or WEBP — maximum 8 MB
+                                    </p>
+
+                                    <input
+                                        class="form-control"
+                                        id="evidencePhoto"
+                                        name="evidencePhoto"
+                                        type="file"
+                                        accept="image/jpeg,image/png,image/webp"
+                                    >
+
+                                </div>
+
+                                <div
+                                    class="d-none mt-3"
+                                    id="photoPreviewContainer"
+                                >
+                                    <img
+                                        class="img-fluid rounded report-photo-preview"
+                                        id="photoPreview"
+                                        src=""
+                                        alt="Issue photo preview"
+                                    >
+
+                                    <div class="d-flex justify-content-between align-items-center gap-3 mt-2">
+
+                                        <span
+                                            class="small text-secondary"
+                                            id="photoName"
+                                        ></span>
+
+                                        <button
+                                            class="btn btn-sm btn-outline-danger"
+                                            id="removePhotoButton"
+                                            type="button"
+                                        >
+                                            Remove
+                                        </button>
+
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="alert alert-danger d-none mt-3"
+                                    id="photoError"
+                                    role="alert"
+                                ></div>
+
+                            </section>
+
+                            <section class="mb-4">
+
+                                <div class="form-check">
+
+                                    <input
+                                        class="form-check-input"
+                                        id="confirmReport"
+                                        name="confirmReport"
+                                        type="checkbox"
+                                        required
+                                    >
+
+                                    <label
+                                        class="form-check-label"
+                                        for="confirmReport"
+                                    >
+                                        I confirm that the information
+                                        in this report is accurate.
+                                    </label>
+
+                                    <div class="invalid-feedback">
+                                        Confirm the report information.
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+                            <div
+                                class="alert alert-danger d-none"
+                                id="formStatus"
+                                role="alert"
+                            ></div>
+
+                            <div class="d-grid d-sm-flex gap-3">
+
+                                <button
+                                    class="btn btn-wusool btn-lg"
+                                    type="submit"
+                                >
+                                    <i class="bi bi-send me-2"></i>
+
+                                    <span id="submitButtonText">
+                                        Submit Report
+                                    </span>
+                                </button>
+
+                                <a
+                                    class="btn btn-light btn-lg"
+                                    href="./my-reports.html"
+                                >
+                                    Cancel
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <aside class="col-12 col-lg-4">
+
+                        <article class="report-card p-4">
+
+                            <span class="report-info-icon mb-3">
+                                <i class="bi bi-shield-check"></i>
+                            </span>
+
+                            <h2 class="h4 fw-bold">
+                                What happens next?
+                            </h2>
+
+                            <ol class="report-process ps-3 mb-0">
+
+                                <li class="mb-3">
+                                    Your report is submitted as
+                                    <strong>Pending Review</strong>.
+                                </li>
+
+                                <li class="mb-3">
+                                    An admin or reviewer checks
+                                    the information and photo.
+                                </li>
+
+                                <li class="mb-3">
+                                    The report is approved or rejected.
+                                </li>
+
+                                <li>
+                                    Place information is updated only
+                                    after approval.
+                                </li>
+
+                            </ol>
+
+                        </article>
+
+                    </aside>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section
+            class="container py-5 d-none"
+            id="reportSuccess"
+        >
+            <article class="report-card p-4 p-md-5 text-center">
+
+                <span class="success-icon mx-auto mb-4">
+                    <i class="bi bi-check-lg"></i>
+                </span>
+
+                <span class="section-label">
+                    REPORT SUBMITTED
+                </span>
+
+                <h2 class="display-6 fw-bold mt-2">
+                    Thank You for Helping
+                </h2>
+
+                <p class="lead text-secondary">
+                    Your report was submitted and is waiting
+                    for review.
+                </p>
+
+                <div class="d-grid d-sm-flex justify-content-center gap-3">
+
+                    <a
+                        class="btn btn-wusool btn-lg"
+                        href="./my-reports.html"
+                    >
+                        View My Reports
+                    </a>
+
+                    <a
+                        class="btn btn-wusool-outline btn-lg"
+                        href="./explore-places.html"
+                    >
+                        Explore Places
+                    </a>
+
+                </div>
+
+            </article>
+        </section>
+
+    </main>
+
+    <footer class="main-footer py-4">
+        <div class="container text-center">
+
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../../assets/site.js"></script>
+
+    <script src="../js/report-accessibility-issue.js"></script>
+
+  <script src="../js/user-layout.js"></script>
+</body>
+</html>

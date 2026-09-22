@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="d-grid gap-2">
                   <a
                     class="btn btn-wusool"
-                    href="../../visitor/html/place-details.html?id=${place.id}"
+                    href="./user-place-details.html?id=${place.id}"
                   >
                     View Details
                   </a>

@@ -201,45 +201,193 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const saveGuidanceMethod = (
+    selectedVisitId,
+    guidanceMethod,
+  ) => {
+    const updatedVisits = getVisits().map((storedVisit) => {
+      if (storedVisit.id === selectedVisitId) {
+        return {
+          ...storedVisit,
+          guidanceMethod,
+        };
+      }
+
+      return storedVisit;
+    });
+
+    localStorage.setItem(
+      "wusool-visits",
+      JSON.stringify(updatedVisits),
+    );
+  };
+
   const renderActions = (visit) => {
     if (visit.status === "Confirmed") {
       visitActions.innerHTML = `
-        <a
-          class="btn btn-wusool"
-          href="./visual-navigation-start.html?placeId=${visit.placeId}&visitId=${visit.id}"
-        >
-          <i class="bi bi-camera me-2"></i>
-          Start Visual Navigation
-        </a>
+  <div class="guidance-selection">
+    <h3 class="h6 fw-bold mb-3">
+      How would you like to receive guidance?
+    </h3>
 
-        <a
-          class="btn btn-wusool-outline"
-          href="./plan-visit.html?placeId=${visit.placeId}"
-        >
-          <i class="bi bi-calendar-event me-2"></i>
-          Reschedule Visit
-        </a>
+    <div class="d-grid gap-2">
 
-        <button
-          class="btn btn-outline-danger"
-          id="cancelVisitButton"
-          type="button"
-        >
-          <i class="bi bi-x-circle me-2"></i>
-          Cancel Visit
-        </button>
-      `;
+      <button
+        class="btn btn-outline-secondary guidance-method ${
+          (visit.guidanceMethod || "both") === "text"
+            ? "active"
+            : ""
+        }"
+        type="button"
+        data-guidance="text"
+      >
+        <i class="bi bi-chat-left-text me-2"></i>
+        Text
+      </button>
 
-      document
-        .getElementById(
-          "cancelVisitButton",
-        )
-        .addEventListener(
-          "click",
-          () => {
-            cancelModal.show();
-          },
-        );
+      <button
+        class="btn btn-outline-secondary guidance-method ${
+          (visit.guidanceMethod || "both") === "voice"
+            ? "active"
+            : ""
+        }"
+        type="button"
+        data-guidance="voice"
+      >
+        <i class="bi bi-volume-up me-2"></i>
+        Voice
+      </button>
+
+      <button
+        class="btn btn-outline-secondary guidance-method ${
+          (visit.guidanceMethod || "both") === "both"
+            ? "active"
+            : ""
+        }"
+        type="button"
+        data-guidance="both"
+      >
+        <i class="bi bi-stars me-2"></i>
+        Text & Voice
+      </button>
+
+    </div>
+  </div>
+
+  <button
+    class="btn btn-wusool"
+    id="arrivedButton"
+    type="button"
+  >
+    <i class="bi bi-geo-alt-fill me-2"></i>
+    I Have Arrived – Start AI Navigation
+  </button>
+
+  <a
+    class="btn btn-wusool-outline"
+    href="./plan-visit.html?placeId=${visit.placeId}"
+  >
+    <i class="bi bi-calendar-event me-2"></i>
+    Reschedule Visit
+  </a>
+
+  <button
+    class="btn btn-outline-danger"
+    id="cancelVisitButton"
+    type="button"
+  >
+    <i class="bi bi-x-circle me-2"></i>
+    Cancel Visit
+  </button>
+`;
+document
+  .getElementById(
+    "cancelVisitButton",
+  )
+  .addEventListener(
+    "click",
+    () => {
+      cancelModal.show();
+    },
+  );
+  let selectedGuidanceMethod =
+    visit.guidanceMethod || "both";
+
+const guidanceButtons =
+  document.querySelectorAll(
+    ".guidance-method",
+  );
+
+guidanceButtons.forEach((button) => {
+  button.addEventListener(
+    "click",
+    () => {
+      guidanceButtons.forEach(
+        (item) => {
+          item.classList.remove(
+            "active",
+          );
+        },
+      );
+
+      button.classList.add(
+        "active",
+      );
+
+      selectedGuidanceMethod =
+        button.dataset.guidance;
+
+      saveGuidanceMethod(
+        visit.id,
+        selectedGuidanceMethod,
+      );
+    },
+  );
+});
+const arrivedButton =
+  document.getElementById(
+    "arrivedButton",
+  );
+
+arrivedButton.addEventListener(
+  "click",
+  () => {
+    const navigationSession = {
+      sessionId: Date.now(),
+
+      visitId: visit.id,
+
+      placeId: visit.placeId,
+
+      placeName: visit.placeName,
+
+      branchName: visit.branch,
+
+      destination: visit.destination,
+
+      guidanceMethod:
+        selectedGuidanceMethod,
+
+      status:
+        "waiting-for-photo",
+
+      navigationStep: -1,
+
+      createdAt:
+        new Date().toISOString(),
+    };
+
+    localStorage.setItem(
+      "wusool-navigation-session",
+      JSON.stringify(
+        navigationSession,
+      ),
+    );
+
+    window.location.href =
+      `./analyze-surroundings.html?visitId=${visit.id}`;
+  },
+);
 
       return;
     }
@@ -259,6 +407,14 @@ document.addEventListener("DOMContentLoaded", () => {
           href="./plan-visit.html?placeId=${visit.placeId}"
         >
           Plan Another Visit
+        </a>
+
+        <a
+          class="btn btn-outline-danger"
+          href="./report-accessibility-issue.html?placeId=${visit.placeId}&visitId=${visit.id}"
+        >
+          <i class="bi bi-flag me-2"></i>
+          Report Accessibility Issue
         </a>
       `;
 
@@ -314,7 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `visit-status ${getStatusClass(visit.status)}`;
 
     placeDetailsButton.href =
-      `../../visitor/html/place-details.html?id=${visit.placeId}`;
+      `./user-place-details.html?id=${visit.placeId}`;
 
     const directionsQuery =
       encodeURIComponent(
