@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Organization administrator login page for Wusool."
+    >
+
+    <title>Organization Login | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Organization Login CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/organization-login.css"
+    >
+</head>
+
+<body>
+
+    <main
+        class="login-page d-flex align-items-center justify-content-center min-vh-100 p-3 p-md-4"
+    >
+
+        <section class="login-container container">
+
+            <div class="login-card row g-0 overflow-hidden">
+
+                <!-- Login Form -->
+                <section class="col-12 col-lg-6 bg-white">
+
+                    <div class="login-form-section p-4 p-md-5">
+
+                        <!-- Logo -->
+                        <a
+                            href="../../visitor/html/home.html"
+                            class="navbar-logo d-inline-flex align-items-center gap-3 mb-5"
+                            aria-label="Go to Wusool home page"
+                        >
+
+                            <span
+                                class="logo-icon d-flex align-items-center justify-content-center"
+                            >
+                                <i class="bi bi-universal-access"></i>
+                            </span>
+
+                            <span class="logo-text">
+                                Wusool
+                            </span>
+
+                        </a>
+
+                        <!-- Page Heading -->
+                        <header class="mb-4">
+
+                            <p class="section-label mb-2">
+                                ORGANIZATION PORTAL
+                            </p>
+
+                            <h1 class="login-title mb-3">
+                                Welcome Back
+                            </h1>
+
+                            <p class="login-description mb-0">
+                                Log in to manage your organization,
+                                branches, accessibility information,
+                                visits, and reports.
+                            </p>
+
+                        </header>
+
+                        <!-- Alert Message -->
+                        <div
+                            id="loginAlert"
+                            class="alert d-none"
+                            role="alert"
+                            aria-live="polite"
+                        ></div>
+
+                        <!-- Login Form -->
+                        <form
+                            id="organizationLoginForm"
+                            class="needs-validation"
+                            novalidate
+                        >
+
+                            <!-- Email -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="email"
+                                    class="form-label"
+                                >
+                                    Organization Email
+                                </label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        class="form-control"
+                                        placeholder="admin@organization.com"
+                                        autocomplete="email"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Password -->
+                            <div class="mb-3">
+
+                                <label
+                                    for="password"
+                                    class="form-label"
+                                >
+                                    Password
+                                </label>
+
+                                <div class="input-group">
+
+                                    <span class="input-group-text">
+                                        <i class="bi bi-lock"></i>
+                                    </span>
+
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        class="form-control"
+                                        placeholder="Enter your password"
+                                        autocomplete="current-password"
+                                        minlength="6"
+                                        required
+                                    >
+
+                                    <button
+                                        type="button"
+                                        id="togglePasswordButton"
+                                        class="btn password-toggle-button"
+                                        aria-label="Show password"
+                                        aria-pressed="false"
+                                    >
+                                        <i
+                                            id="passwordIcon"
+                                            class="bi bi-eye"
+                                        ></i>
+                                    </button>
+
+                                    <div class="invalid-feedback">
+                                        Password must contain at least
+                                        6 characters.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Remember and Forgot Password -->
+                            <div
+                                class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4"
+                            >
+
+                                <div class="form-check">
+
+                                    <input
+                                        type="checkbox"
+                                        id="rememberMe"
+                                        class="form-check-input"
+                                    >
+
+                                    <label
+                                        for="rememberMe"
+                                        class="form-check-label"
+                                    >
+                                        Remember me
+                                    </label>
+
+                                </div>
+
+                                <a
+                                    href="./forgot-password.html"
+                                    class="forgot-password-link"
+                                >
+                                    Forgot Password?
+                                </a>
+
+                            </div>
+
+                            <!-- Login Button -->
+                            <div class="d-grid">
+
+                                <button
+                                    type="submit"
+                                    id="loginButton"
+                                    class="btn btn-wusool btn-lg"
+                                >
+
+                                    <span id="loginButtonText">
+                                        Log In
+                                    </span>
+
+                                    <span
+                                        id="loginSpinner"
+                                        class="spinner-border spinner-border-sm d-none"
+                                        aria-hidden="true"
+                                    ></span>
+
+                                    <i
+                                        id="loginButtonIcon"
+                                        class="bi bi-arrow-right"
+                                    ></i>
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                        <!-- Register Link -->
+                        <footer
+                            class="login-footer text-center mt-4 pt-4"
+                        >
+
+                            <p class="mb-2">
+                                Your organization does not have
+                                an account?
+                            </p>
+
+                            <a
+                                href="./organization-register.html"
+                                class="register-link"
+                            >
+                                Register Your Organization
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                            <p class="visitor-link-text mt-4 mb-0">
+
+                                Are you a visitor or registered user?
+
+                                <a href="../../visitor/html/login.html">
+                                    User Login
+                                </a>
+
+                            </p>
+
+                        </footer>
+
+                    </div>
+
+                </section>
+
+                <!-- Visual Information -->
+                <aside
+                    class="col-lg-6 d-none d-lg-flex login-visual-section"
+                >
+
+                    <div
+                        class="d-flex flex-column justify-content-center h-100 p-5"
+                    >
+
+                        <span
+                            class="visual-icon d-flex align-items-center justify-content-center mb-4"
+                        >
+                            <i class="bi bi-buildings"></i>
+                        </span>
+
+                        <p class="visual-label mb-2">
+                            WUSOOL FOR ORGANIZATIONS
+                        </p>
+
+                        <h2 class="visual-title mb-4">
+                            Make every branch more accessible.
+                        </h2>
+
+                        <p class="visual-description mb-4">
+                            Manage your branches, upload verified
+                            accessibility information, follow reviews,
+                            and improve visitor experiences.
+                        </p>
+
+                        <ul class="visual-features list-unstyled mb-0">
+
+                            <li class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                <span>
+                                    Manage all organization branches
+                                </span>
+
+                            </li>
+
+                            <li class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                <span>
+                                    Upload accessibility information
+                                    and branch photos
+                                </span>
+
+                            </li>
+
+                            <li class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                <span>
+                                    Receive AI analysis and improvement
+                                    suggestions
+                                </span>
+
+                            </li>
+
+                            <li class="d-flex align-items-start gap-3">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                <span>
+                                    Follow branch approvals, visits,
+                                    reports, and subscriptions
+                                </span>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+            <!-- Copyright -->
+            <footer class="page-footer text-center mt-4">
+
+                <p class="mb-0">
+                    © 2026 Wusool. Accessibility for everyone.
+                </p>
+
+            </footer>
+
+        </section>
+
+    </main>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Organization Login JavaScript -->
+    <script src="../js/organization-login.js"></script>
+
+</body>
+
+</html>

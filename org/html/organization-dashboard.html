@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Wusool organization administration dashboard."
+    >
+
+    <title>Organization Dashboard | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/organization-dashboard.css"
+    >
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside
+        id="organizationSidebar"
+        class="organization-sidebar"
+        aria-label="Organization navigation"
+    >
+
+        <!-- Sidebar Logo -->
+        <a
+            href="./organization-dashboard.html"
+            class="sidebar-logo"
+        >
+
+            <span class="logo-icon">
+                <i class="bi bi-universal-access"></i>
+            </span>
+
+            <span class="logo-content">
+
+                <strong>Wusool</strong>
+
+                <small>
+                    Organization Portal
+                </small>
+
+            </span>
+
+        </a>
+
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar-navigation">
+
+            <a
+                href="./organization-dashboard.html"
+                class="sidebar-link active"
+            >
+                <i class="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a
+                href="./branches.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-buildings"></i>
+                <span>Branches</span>
+            </a>
+
+            <a
+                href="./branch-visits.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-calendar-check"></i>
+                <span>Visits</span>
+            </a>
+
+            <a
+                href="./organization-reviews.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-chat-square-text"></i>
+                <span>Reviews & Reports</span>
+            </a>
+
+            <a
+                href="./organization-reports.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-bar-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+
+            <a
+                href="./current-subscription.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-credit-card"></i>
+                <span>Subscription</span>
+            </a>
+
+            <a
+                href="./organization-notifications.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-bell"></i>
+                <span>Notifications</span>
+
+                <span
+                    id="sidebarNotificationCount"
+                    class="sidebar-count"
+                >
+                    4
+                </span>
+            </a>
+
+            <a
+                href="./organization-profile.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-building-gear"></i>
+                <span>Organization Profile</span>
+            </a>
+
+            <a
+                href="./organization-settings.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a
+                href="./organization-help.html"
+                class="sidebar-link"
+            >
+                <i class="bi bi-question-circle"></i>
+                <span>Help & Support</span>
+            </a>
+
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <footer class="sidebar-footer">
+
+            <div class="organization-summary">
+
+                <span
+                    id="sidebarOrganizationInitials"
+                    class="organization-avatar"
+                >
+                    OR
+                </span>
+
+                <div class="organization-text">
+
+                    <strong id="sidebarOrganizationName">
+                        Organization
+                    </strong>
+
+                    <small>
+                        Organization Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+            <a
+    href="./organization-login.html"
+    id="logoutButton"
+    class="sidebar-link"
+>
+    <i class="bi bi-box-arrow-right"></i>
+    <span>Log Out</span>
+</a>
+
+        </footer>
+
+    </aside>
+
+    <!-- Sidebar Overlay -->
+    <div
+        id="sidebarOverlay"
+        class="sidebar-overlay"
+    ></div>
+
+    <!-- Topbar -->
+    <header class="organization-topbar">
+
+        <button
+            type="button"
+            id="sidebarToggleButton"
+            class="sidebar-toggle-button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+        >
+            <i class="bi bi-list"></i>
+        </button>
+
+        <div class="topbar-title">
+
+            <span>
+                Organization Admin
+            </span>
+
+        </div>
+
+        <div class="topbar-actions">
+
+            <a
+                href="./organization-notifications.html"
+                class="notification-button"
+                aria-label="Open notifications"
+            >
+                <i class="bi bi-bell"></i>
+
+                <span
+                    id="topbarNotificationCount"
+                    class="notification-count"
+                >
+                    4
+                </span>
+            </a>
+
+            <div class="dropdown">
+
+                <button
+                    type="button"
+                    class="profile-button dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+
+                    <span id="topbarOrganizationInitials">
+                        OR
+                    </span>
+
+                    <span
+                        id="topbarOrganizationName"
+                        class="d-none d-md-inline"
+                    >
+                        Organization
+                    </span>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <a
+                            class="dropdown-item"
+                            href="./organization-profile.html"
+                        >
+                            <i class="bi bi-building-gear"></i>
+                            Organization Profile
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            class="dropdown-item"
+                            href="./organization-settings.html"
+                        >
+                            <i class="bi bi-gear"></i>
+                            Account Settings
+                        </a>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <button
+                            type="button"
+                            id="dropdownLogoutButton"
+                            class="dropdown-item text-danger"
+                        >
+                            <i class="bi bi-box-arrow-left"></i>
+                            Log Out
+                        </button>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- Main Content -->
+    <main class="organization-main">
+
+        <div class="container-fluid">
+
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+
+                <div
+                    class="d-flex flex-column flex-xl-row justify-content-between gap-4"
+                >
+
+                    <div>
+
+                        <p class="section-label mb-2">
+                            ORGANIZATION OVERVIEW
+                        </p>
+
+                        <h1 class="welcome-title mb-2">
+
+                            Welcome,
+                            <span id="welcomeOrganizationName">
+                                Organization
+                            </span>
+
+                        </h1>
+
+                        <p class="welcome-description mb-0">
+                            Manage your branches, accessibility
+                            information, visits, reports, and subscription.
+                        </p>
+
+                    </div>
+
+                    <div class="welcome-actions">
+
+                        <p
+                            id="currentDate"
+                            class="current-date mb-3"
+                        ></p>
+
+                        <a
+                            href="./add-branch.html"
+                            class="btn btn-wusool"
+                        >
+                            <i class="bi bi-plus-lg"></i>
+                            Add New Branch
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Account Status -->
+            <section class="account-status-section mt-4">
+
+                <div
+                    class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3"
+                >
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <span class="account-status-icon">
+                            <i class="bi bi-patch-check-fill"></i>
+                        </span>
+
+                        <div>
+
+                            <h2 class="h6 mb-1">
+                                Organization Account
+                            </h2>
+
+                            <p class="mb-0">
+                                Your organization account is approved
+                                and verified.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <span class="status-badge status-approved">
+                        Approved / Verified
+                    </span>
+
+                </div>
+
+            </section>
+
+            <!-- Statistics -->
+            <section class="row g-4 mt-1">
+
+                <div class="col-sm-6 col-xl-3">
+
+                    <article class="stat-card h-100">
+
+                        <span class="stat-icon">
+                            <i class="bi bi-buildings"></i>
+                        </span>
+
+                        <div class="stat-content">
+
+                            <p>Total Branches</p>
+
+                            <strong id="totalBranches">
+                                12
+                            </strong>
+
+                            <small>
+                                Registered branches
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="col-sm-6 col-xl-3">
+
+                    <article class="stat-card h-100">
+
+                        <span class="stat-icon warning-icon">
+                            <i class="bi bi-hourglass-split"></i>
+                        </span>
+
+                        <div class="stat-content">
+
+                            <p>Pending Review</p>
+
+                            <strong id="pendingBranches">
+                                3
+                            </strong>
+
+                            <small>
+                                Branches waiting for review
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="col-sm-6 col-xl-3">
+
+                    <article class="stat-card h-100">
+
+                        <span class="stat-icon score-icon">
+                            <i class="bi bi-universal-access"></i>
+                        </span>
+
+                        <div class="stat-content">
+
+                            <p>Accessibility Score</p>
+
+                            <strong id="accessibilityScore">
+                                86%
+                            </strong>
+
+                            <small>
+                                Organization average
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <div class="col-sm-6 col-xl-3">
+
+                    <article class="stat-card h-100">
+
+                        <span class="stat-icon visit-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </span>
+
+                        <div class="stat-content">
+
+                            <p>Upcoming Visits</p>
+
+                            <strong id="upcomingVisits">
+                                24
+                            </strong>
+
+                            <small>
+                                Next 30 days
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="content-card mt-4">
+
+                <div
+                    class="d-flex justify-content-between align-items-center mb-4"
+                >
+
+                    <div>
+
+                        <p class="section-label mb-1">
+                            COMMON TASKS
+                        </p>
+
+                        <h2 class="section-title mb-0">
+                            Quick Actions
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="row g-3">
+
+                    <div class="col-sm-6 col-xl-3">
+
+                        <a
+                            href="./add-branch.html"
+                            class="quick-action-card"
+                        >
+
+                            <span class="quick-action-icon">
+                                <i class="bi bi-building-add"></i>
+                            </span>
+
+                            <span>
+                                <strong>Add New Branch</strong>
+                                <small>Register another branch</small>
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-sm-6 col-xl-3">
+
+                        <a
+                            href="./upload-branch-photos.html"
+                            class="quick-action-card"
+                        >
+
+                            <span class="quick-action-icon">
+                                <i class="bi bi-images"></i>
+                            </span>
+
+                            <span>
+                                <strong>Upload Photos</strong>
+                                <small>Add branch evidence</small>
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-sm-6 col-xl-3">
+
+                        <a
+                            href="./ai-analysis.html"
+                            class="quick-action-card"
+                        >
+
+                            <span class="quick-action-icon">
+                                <i class="bi bi-stars"></i>
+                            </span>
+
+                            <span>
+                                <strong>Run AI Analysis</strong>
+                                <small>Analyze branch accessibility</small>
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-sm-6 col-xl-3">
+
+                        <a
+                            href="./organization-reports.html"
+                            class="quick-action-card"
+                        >
+
+                            <span class="quick-action-icon">
+                                <i class="bi bi-bar-chart-line"></i>
+                            </span>
+
+                            <span>
+                                <strong>View Reports</strong>
+                                <small>Review branch performance</small>
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="row g-4 mt-1">
+
+                <!-- Branches Table -->
+                <section class="col-12 col-xl-8">
+
+                    <article class="content-card h-100">
+
+                        <header
+                            class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4"
+                        >
+
+                            <div>
+
+                                <p class="section-label mb-1">
+                                    ORGANIZATION BRANCHES
+                                </p>
+
+                                <h2 class="section-title mb-0">
+                                    Branch Overview
+                                </h2>
+
+                            </div>
+
+                            <div
+                                class="d-flex flex-column flex-sm-row gap-2"
+                            >
+
+                                <div class="search-box">
+
+                                    <i class="bi bi-search"></i>
+
+                                    <input
+                                        type="search"
+                                        id="branchSearch"
+                                        class="form-control"
+                                        placeholder="Search branches"
+                                        aria-label="Search branches"
+                                    >
+
+                                </div>
+
+                                <a
+                                    href="./branches.html"
+                                    class="btn btn-outline-wusool"
+                                >
+                                    View All
+                                </a>
+
+                            </div>
+
+                        </header>
+
+                        <div class="table-responsive">
+
+                            <table
+                                id="branchesTable"
+                                class="table align-middle"
+                            >
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Branch</th>
+                                        <th>City</th>
+                                        <th>Score</th>
+                                        <th>Status</th>
+                                        <th>Visits</th>
+                                        <th>Action</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>Main Branch</strong>
+                                        </td>
+
+                                        <td>Amman</td>
+
+                                        <td>
+                                            <span class="score-value">
+                                                92%
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span
+                                                class="status-badge status-approved"
+                                            >
+                                                Approved
+                                            </span>
+                                        </td>
+
+                                        <td>12 upcoming</td>
+
+                                        <td>
+                                            <a
+                                                href="./branch-details.html?id=1"
+                                                class="table-action"
+                                            >
+                                                View
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>North Branch</strong>
+                                        </td>
+
+                                        <td>Irbid</td>
+
+                                        <td>
+                                            <span class="score-value">
+                                                78%
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span
+                                                class="status-badge status-changes"
+                                            >
+                                                Changes Requested
+                                            </span>
+                                        </td>
+
+                                        <td>5 upcoming</td>
+
+                                        <td>
+                                            <a
+                                                href="./requested-changes.html?id=2"
+                                                class="table-action"
+                                            >
+                                                Update
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td>
+                                            <strong>Airport Branch</strong>
+                                        </td>
+
+                                        <td>Amman</td>
+
+                                        <td>
+                                            <span class="score-value">
+                                                86%
+                                            </span>
+                                        </td>
+
+                                        <td>
+                                            <span
+                                                class="status-badge status-pending"
+                                            >
+                                                Pending Review
+                                            </span>
+                                        </td>
+
+                                        <td>3 upcoming</td>
+
+                                        <td>
+                                            <a
+                                                href="./branch-review-status.html?id=3"
+                                                class="table-action"
+                                            >
+                                                Track
+                                            </a>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                            <div
+                                id="noBranchesMessage"
+                                class="empty-table-message d-none"
+                            >
+                                <i class="bi bi-search"></i>
+                                No matching branches found.
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+                <!-- Subscription -->
+                <section class="col-12 col-xl-4">
+
+                    <article class="content-card subscription-card h-100">
+
+                        <header class="mb-4">
+
+                            <p class="section-label mb-1">
+                                CURRENT SUBSCRIPTION
+                            </p>
+
+                            <div
+                                class="d-flex justify-content-between align-items-center"
+                            >
+
+                                <h2 class="section-title mb-0">
+                                    Business Annual
+                                </h2>
+
+                                <span
+                                    class="status-badge status-approved"
+                                >
+                                    Active
+                                </span>
+
+                            </div>
+
+                        </header>
+
+                        <div class="subscription-usage">
+
+                            <div
+                                class="d-flex justify-content-between mb-2"
+                            >
+                                <span>Branch Usage</span>
+                                <strong>3 of 5</strong>
+                            </div>
+
+                            <div
+                                class="progress"
+                                role="progressbar"
+                                aria-label="Branch subscription usage"
+                                aria-valuenow="60"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                            >
+                                <div
+                                    class="progress-bar"
+                                    style="width: 60%"
+                                ></div>
+                            </div>
+
+                            <small class="d-block mt-2">
+                                2 additional branches available
+                            </small>
+
+                        </div>
+
+                        <dl class="subscription-information mt-4">
+
+                            <div>
+                                <dt>Billing Cycle</dt>
+                                <dd>Annual</dd>
+                            </div>
+
+                            <div>
+                                <dt>Renewal Date</dt>
+                                <dd>September 22, 2027</dd>
+                            </div>
+
+                            <div>
+                                <dt>Next Payment</dt>
+                                <dd>324 JOD</dd>
+                            </div>
+
+                        </dl>
+
+                        <div class="d-grid mt-4">
+
+                            <a
+                                href="./current-subscription.html"
+                                class="btn btn-outline-wusool"
+                            >
+                                Manage Subscription
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+            </div>
+
+            <div class="row g-4 mt-1">
+
+                <!-- Recent Activity -->
+                <section class="col-12 col-lg-6">
+
+                    <article class="content-card h-100">
+
+                        <header class="mb-4">
+
+                            <p class="section-label mb-1">
+                                LATEST UPDATES
+                            </p>
+
+                            <h2 class="section-title mb-0">
+                                Recent Activity
+                            </h2>
+
+                        </header>
+
+                        <div class="activity-list">
+
+                            <article class="activity-item">
+
+                                <span class="activity-icon approved-activity">
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <div>
+                                    <h3>Main Branch approved</h3>
+
+                                    <p>
+                                        The branch is now publicly visible.
+                                    </p>
+
+                                    <small>
+                                        10 minutes ago
+                                    </small>
+                                </div>
+
+                            </article>
+
+                            <article class="activity-item">
+
+                                <span class="activity-icon changes-activity">
+                                    <i class="bi bi-exclamation-lg"></i>
+                                </span>
+
+                                <div>
+                                    <h3>Changes requested</h3>
+
+                                    <p>
+                                        North Branch requires updated
+                                        ramp photos.
+                                    </p>
+
+                                    <small>
+                                        2 hours ago
+                                    </small>
+                                </div>
+
+                            </article>
+
+                            <article class="activity-item">
+
+                                <span class="activity-icon visit-activity">
+                                    <i class="bi bi-calendar-plus"></i>
+                                </span>
+
+                                <div>
+                                    <h3>New visit scheduled</h3>
+
+                                    <p>
+                                        A visitor booked Main Branch.
+                                    </p>
+
+                                    <small>
+                                        Yesterday
+                                    </small>
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+                <!-- Notifications -->
+                <section class="col-12 col-lg-6">
+
+                    <article class="content-card h-100">
+
+                        <header
+                            class="d-flex justify-content-between align-items-center mb-4"
+                        >
+
+                            <div>
+
+                                <p class="section-label mb-1">
+                                    IMPORTANT
+                                </p>
+
+                                <h2 class="section-title mb-0">
+                                    Notifications
+                                </h2>
+
+                            </div>
+
+                            <a
+                                href="./organization-notifications.html"
+                                class="view-all-link"
+                            >
+                                View All
+                            </a>
+
+                        </header>
+
+                        <div class="dashboard-notifications">
+
+                            <a
+                                href="./branch-review-status.html?id=3"
+                                class="dashboard-notification unread"
+                            >
+
+                                <span>
+                                    <i class="bi bi-hourglass-split"></i>
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Airport Branch is under review
+                                    </strong>
+
+                                    <small>
+                                        Expected response within
+                                        2–3 business days.
+                                    </small>
+                                </div>
+
+                            </a>
+
+                            <a
+                                href="./requested-changes.html?id=2"
+                                class="dashboard-notification unread"
+                            >
+
+                                <span>
+                                    <i class="bi bi-exclamation-circle"></i>
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        Accessibility evidence required
+                                    </strong>
+
+                                    <small>
+                                        Upload updated evidence for
+                                        North Branch.
+                                    </small>
+                                </div>
+
+                            </a>
+
+                            <a
+                                href="./branch-visits.html"
+                                class="dashboard-notification"
+                            >
+
+                                <span>
+                                    <i class="bi bi-calendar-check"></i>
+                                </span>
+
+                                <div>
+                                    <strong>
+                                        4 visits scheduled tomorrow
+                                    </strong>
+
+                                    <small>
+                                        Review the upcoming visit list.
+                                    </small>
+                                </div>
+
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </section>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/organization-dashboard.js"></script>
+
+</body>
+
+</html>

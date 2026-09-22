@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Your Wusool subscription payment was successful."
+    >
+
+    <title>Payment Successful | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/payment-success.css"
+    >
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="success-header">
+        <nav class="container py-3">
+            <a
+                href="../../visitor/html/home.html"
+                class="navbar-brand d-flex align-items-center gap-2 m-0"
+                aria-label="Wusool home"
+            >
+                <span class="brand-icon">
+                    <i class="bi bi-universal-access"></i>
+                </span>
+
+                <span class="brand-name">Wusool</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="success-main">
+
+        <section class="container py-5">
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9 col-xl-8">
+
+                    <article class="success-card">
+
+                        <!-- Success Heading -->
+                        <header class="text-center">
+
+                            <div class="success-icon">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+
+                            <p class="section-label mb-2">
+                                PAYMENT COMPLETED
+                            </p>
+
+                            <h1>Subscription Activated!</h1>
+
+                            <p class="success-description">
+                                Your payment was completed successfully.
+                                Your organization can now access the
+                                Wusool management dashboard.
+                            </p>
+
+                        </header>
+
+                        <!-- Completed Progress -->
+                        <section
+                            class="registration-progress my-5"
+                            aria-label="Registration progress"
+                        >
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Registered</small>
+                            </div>
+
+                            <div class="progress-line"></div>
+
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Approved</small>
+                            </div>
+
+                            <div class="progress-line"></div>
+
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Plan Selected</small>
+                            </div>
+
+                            <div class="progress-line"></div>
+
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Activated</small>
+                            </div>
+                        </section>
+
+                        <!-- Subscription Information -->
+                        <section class="subscription-details">
+
+                            <div
+                                class="d-flex flex-column flex-sm-row
+                                       justify-content-between
+                                       align-items-sm-center gap-3 mb-4"
+                            >
+                                <div
+                                    class="d-flex align-items-center gap-3"
+                                >
+                                    <span class="section-icon">
+                                        <i class="bi bi-patch-check"></i>
+                                    </span>
+
+                                    <div>
+                                        <p class="section-label mb-1">
+                                            SUBSCRIPTION DETAILS
+                                        </p>
+
+                                        <h2 class="details-title mb-0">
+                                            Payment Receipt
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <span class="active-badge">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Active
+                                </span>
+                            </div>
+
+                            <!-- Plan Summary -->
+                            <article class="plan-summary mb-4">
+
+                                <div
+                                    class="d-flex align-items-center gap-3"
+                                >
+                                    <span class="plan-icon">
+                                        <i class="bi bi-buildings"></i>
+                                    </span>
+
+                                    <div>
+                                        <p class="mb-1">
+                                            Selected Plan
+                                        </p>
+
+                                        <h3
+                                            id="planName"
+                                            class="mb-0"
+                                        >
+                                            Multi Branch
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="text-sm-end">
+                                    <strong id="paymentAmount">
+                                        JOD 75.00
+                                    </strong>
+
+                                    <small id="billingCycle">
+                                        Monthly billing
+                                    </small>
+                                </div>
+
+                            </article>
+
+                            <!-- Receipt Information -->
+                            <dl class="row g-0 receipt-information">
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Organization</dt>
+
+                                    <dd id="organizationName">
+                                        Your Organization
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Transaction ID</dt>
+
+                                    <dd id="transactionId">
+                                        WSL-PAY-00000000
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Payment Date</dt>
+
+                                    <dd id="paymentDate">
+                                        September 22, 2026
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Payment Method</dt>
+
+                                    <dd id="paymentMethod">
+                                        Card ending in 4242
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Branch Limit</dt>
+
+                                    <dd id="branchLimit">
+                                        Up to 5 branches
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Next Renewal</dt>
+
+                                    <dd id="renewalDate">
+                                        October 22, 2026
+                                    </dd>
+                                </div>
+
+                            </dl>
+
+                        </section>
+
+                        <!-- What Happens Next -->
+                        <section class="next-steps mt-4">
+
+                            <div
+                                class="d-flex align-items-center gap-2 mb-3"
+                            >
+                                <i class="bi bi-stars"></i>
+
+                                <h2 class="mb-0">
+                                    What happens next?
+                                </h2>
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12 col-md-4">
+                                    <article class="next-step-item">
+                                        <span>1</span>
+
+                                        <div>
+                                            <h3>Open Dashboard</h3>
+
+                                            <p>
+                                                Access your organization
+                                                management area.
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <article class="next-step-item">
+                                        <span>2</span>
+
+                                        <div>
+                                            <h3>Add Branches</h3>
+
+                                            <p>
+                                                Add branches according to
+                                                your subscription limit.
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <article class="next-step-item">
+                                        <span>3</span>
+
+                                        <div>
+                                            <h3>Submit for Review</h3>
+
+                                            <p>
+                                                Complete branch information
+                                                before publishing.
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                        <!-- Actions -->
+                        <div
+                            class="d-flex flex-column flex-sm-row
+                                   justify-content-center gap-3 mt-5"
+                        >
+                            <a
+                                href="./organization-dashboard.html"
+                                id="dashboardButton"
+                                class="btn btn-wusool btn-lg"
+                            >
+                                Go to Organization Dashboard
+
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+
+                            <button
+                                type="button"
+                                id="printReceiptButton"
+                                class="btn btn-light btn-lg"
+                            >
+                                <i class="bi bi-printer me-2"></i>
+                                Print Receipt
+                            </button>
+                        </div>
+
+                        <p class="email-notice text-center mt-4 mb-0">
+                            <i class="bi bi-envelope-check me-1"></i>
+
+                            A payment confirmation will be sent to
+
+                            <strong id="billingEmail">
+                                billing@example.com
+                            </strong>.
+                        </p>
+
+                    </article>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="success-footer">
+        <div
+            class="container py-4 d-flex flex-column flex-md-row
+                   justify-content-between align-items-center gap-2"
+        >
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+
+            <nav aria-label="Footer navigation">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/payment-success.js"></script>
+
+</body>
+</html>

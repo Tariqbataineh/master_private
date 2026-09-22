@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Choose a Wusool organization subscription plan."
+    >
+
+    <title>Subscription Plans | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/subscription-plans.css"
+    >
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="plans-header">
+        <nav class="container py-3">
+            <div class="d-flex justify-content-between align-items-center">
+
+                <a
+                    href="../../visitor/html/home.html"
+                    class="navbar-brand d-flex align-items-center gap-2 m-0"
+                    aria-label="Wusool home"
+                >
+                    <span class="brand-icon">
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    <span class="brand-name">Wusool</span>
+                </a>
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="approved-badge d-none d-sm-inline-flex">
+                        <i class="bi bi-patch-check-fill"></i>
+                        Organization Approved
+                    </span>
+
+                    <a
+                        href="./organization-approved.html"
+                        class="btn btn-light"
+                    >
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Back
+                    </a>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Page Hero -->
+        <section class="plans-hero">
+            <div class="container py-5 text-center">
+
+                <p class="section-label mb-2">
+                    FLEXIBLE ORGANIZATION PLANS
+                </p>
+
+                <h1 class="display-5 fw-bold">
+                    Choose the Right Plan
+                </h1>
+
+                <p class="hero-description mx-auto">
+                    Select a plan based on the number of branches
+                    your organization wants to manage.
+                </p>
+
+                <!-- Registration Progress -->
+                <div
+                    class="registration-progress mx-auto mt-4"
+                    aria-label="Registration progress"
+                >
+                    <div class="progress-item completed">
+                        <span>
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+
+                        <small>Register</small>
+                    </div>
+
+                    <div class="progress-line completed"></div>
+
+                    <div class="progress-item completed">
+                        <span>
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+
+                        <small>Approved</small>
+                    </div>
+
+                    <div class="progress-line active"></div>
+
+                    <div class="progress-item active">
+                        <span>3</span>
+                        <small>Subscription</small>
+                    </div>
+
+                    <div class="progress-line"></div>
+
+                    <div class="progress-item">
+                        <span>4</span>
+                        <small>Payment</small>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Plans Section -->
+        <section class="container py-5">
+
+            <!-- Billing Selection -->
+            <div
+                class="d-flex flex-column flex-md-row
+                       justify-content-between align-items-center
+                       gap-3 mb-5"
+            >
+                <div>
+                    <p class="section-label mb-1">
+                        BILLING PREFERENCE
+                    </p>
+
+                    <h2 class="h4 fw-bold mb-0">
+                        How would you like to pay?
+                    </h2>
+                </div>
+
+                <div
+                    class="billing-switch btn-group"
+                    role="group"
+                    aria-label="Select billing cycle"
+                >
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        name="billingCycle"
+                        id="monthlyBilling"
+                        value="monthly"
+                        checked
+                    >
+
+                    <label
+                        class="btn btn-outline-wusool"
+                        for="monthlyBilling"
+                    >
+                        Monthly
+                    </label>
+
+                    <input
+                        type="radio"
+                        class="btn-check"
+                        name="billingCycle"
+                        id="annualBilling"
+                        value="annual"
+                    >
+
+                    <label
+                        class="btn btn-outline-wusool"
+                        for="annualBilling"
+                    >
+                        Annual
+                        <span class="discount-badge">
+                            Save 10%
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Subscription Cards -->
+            <div class="row g-4" id="plansContainer">
+
+                <!-- Single Branch -->
+                <div class="col-12 col-lg-4">
+                    <article
+                        class="plan-card h-100"
+                        data-plan-id="single"
+                        data-plan-name="Single Branch"
+                        data-monthly-price="25"
+                        data-branch-limit="1"
+                    >
+                        <header class="plan-card-header">
+                            <span class="plan-icon">
+                                <i class="bi bi-building"></i>
+                            </span>
+
+                            <p class="plan-label">FOR SMALL PLACES</p>
+
+                            <h2>Single Branch</h2>
+
+                            <p class="plan-description">
+                                A simple plan for an organization
+                                managing one location.
+                            </p>
+                        </header>
+
+                        <div class="plan-price">
+                            <span class="currency">JOD</span>
+
+                            <strong class="price-value">
+                                25
+                            </strong>
+
+                            <span class="price-period">
+                                / month
+                            </span>
+                        </div>
+
+                        <p class="annual-total d-none">
+                            Billed JOD
+                            <strong class="annual-total-value">
+                                270
+                            </strong>
+                            annually
+                        </p>
+
+                        <div class="branch-limit">
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            <span>
+                                Manage
+                                <strong>1 branch</strong>
+                            </span>
+                        </div>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Branch accessibility profile
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Working hours management
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Photo uploads and AI analysis
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Visitor reviews and reports
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Basic accessibility analytics
+                            </li>
+                        </ul>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-wusool
+                                   select-plan-button w-100"
+                        >
+                            Choose Single Branch
+                        </button>
+                    </article>
+                </div>
+
+                <!-- Multi Branch -->
+                <div class="col-12 col-lg-4">
+                    <article
+                        class="plan-card featured h-100"
+                        data-plan-id="multi"
+                        data-plan-name="Multi Branch"
+                        data-monthly-price="75"
+                        data-branch-limit="5"
+                    >
+                        <span class="popular-badge">
+                            MOST POPULAR
+                        </span>
+
+                        <header class="plan-card-header">
+                            <span class="plan-icon">
+                                <i class="bi bi-buildings"></i>
+                            </span>
+
+                            <p class="plan-label">
+                                FOR GROWING ORGANIZATIONS
+                            </p>
+
+                            <h2>Multi Branch</h2>
+
+                            <p class="plan-description">
+                                Manage several branches from one
+                                organization account.
+                            </p>
+                        </header>
+
+                        <div class="plan-price">
+                            <span class="currency">JOD</span>
+
+                            <strong class="price-value">
+                                75
+                            </strong>
+
+                            <span class="price-period">
+                                / month
+                            </span>
+                        </div>
+
+                        <p class="annual-total d-none">
+                            Billed JOD
+                            <strong class="annual-total-value">
+                                810
+                            </strong>
+                            annually
+                        </p>
+
+                        <div class="branch-limit">
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            <span>
+                                Manage up to
+                                <strong>5 branches</strong>
+                            </span>
+                        </div>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Everything in Single Branch
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Manage up to five branches
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Organization-level dashboard
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Advanced accessibility reports
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Team member management
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Priority support
+                            </li>
+                        </ul>
+
+                        <button
+                            type="button"
+                            class="btn btn-wusool
+                                   select-plan-button w-100"
+                        >
+                            Choose Multi Branch
+                        </button>
+                    </article>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="col-12 col-lg-4">
+                    <article
+                        class="plan-card h-100"
+                        data-plan-id="enterprise"
+                        data-plan-name="Enterprise"
+                        data-monthly-price="150"
+                        data-branch-limit="15"
+                    >
+                        <header class="plan-card-header">
+                            <span class="plan-icon">
+                                <i class="bi bi-bank"></i>
+                            </span>
+
+                            <p class="plan-label">
+                                FOR LARGE ORGANIZATIONS
+                            </p>
+
+                            <h2>Enterprise</h2>
+
+                            <p class="plan-description">
+                                Full accessibility management for
+                                large organizations.
+                            </p>
+                        </header>
+
+                        <div class="plan-price">
+                            <span class="currency">JOD</span>
+
+                            <strong class="price-value">
+                                150
+                            </strong>
+
+                            <span class="price-period">
+                                / month
+                            </span>
+                        </div>
+
+                        <p class="annual-total d-none">
+                            Billed JOD
+                            <strong class="annual-total-value">
+                                1620
+                            </strong>
+                            annually
+                        </p>
+
+                        <div class="branch-limit">
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                            <span>
+                                Manage up to
+                                <strong>15 branches</strong>
+                            </span>
+                        </div>
+
+                        <ul class="plan-features">
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Everything in Multi Branch
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Manage up to fifteen branches
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Detailed AI accessibility insights
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Custom organization reports
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Audit history and activity logs
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Dedicated organization support
+                            </li>
+                        </ul>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-wusool
+                                   select-plan-button w-100"
+                        >
+                            Choose Enterprise
+                        </button>
+                    </article>
+                </div>
+
+            </div>
+
+            <!-- Plan Information -->
+            <aside class="plan-information mt-5">
+                <div class="row g-4">
+
+                    <div class="col-12 col-md-4">
+                        <article class="information-item">
+                            <span>
+                                <i class="bi bi-arrow-repeat"></i>
+                            </span>
+
+                            <div>
+                                <h2>Change Anytime</h2>
+
+                                <p>
+                                    Upgrade your plan as your
+                                    organization grows.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <article class="information-item">
+                            <span>
+                                <i class="bi bi-shield-check"></i>
+                            </span>
+
+                            <div>
+                                <h2>Secure Payment</h2>
+
+                                <p>
+                                    Your billing information is
+                                    protected securely.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <article class="information-item">
+                            <span>
+                                <i class="bi bi-headset"></i>
+                            </span>
+
+                            <div>
+                                <h2>Support Included</h2>
+
+                                <p>
+                                    Get help with your subscription
+                                    and branches.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                </div>
+            </aside>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="plans-footer">
+        <div
+            class="container py-4 d-flex flex-column flex-md-row
+                   justify-content-between align-items-center gap-2"
+        >
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+
+            <nav aria-label="Footer navigation">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/subscription-plans.js"></script>
+
+</body>
+</html>

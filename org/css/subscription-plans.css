@@ -1,0 +1,433 @@
+:root {
+    --wusool-primary: #087f78;
+    --wusool-primary-dark: #055c57;
+    --wusool-secondary: #0b2341;
+    --wusool-light: #edf8f7;
+    --wusool-border: #cfe3e1;
+    --wusool-text: #102746;
+    --wusool-muted: #64748b;
+    --wusool-white: #ffffff;
+    --wusool-warning: #f59e0b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: var(--wusool-text);
+    background-color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.plans-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--wusool-white);
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.navbar-brand {
+    color: var(--wusool-secondary);
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: var(--wusool-secondary);
+}
+
+.brand-icon {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--wusool-white);
+    background: linear-gradient(
+        135deg,
+        #16b7b0,
+        #1687e8
+    );
+    border-radius: 14px;
+    font-size: 1.45rem;
+    box-shadow: 0 8px 20px rgba(8, 127, 120, 0.18);
+}
+
+.brand-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.approved-badge {
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 0.8rem;
+    color: #15803d;
+    background-color: #dcfce7;
+    border-radius: 50rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.plans-hero {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(34, 197, 183, 0.18),
+            transparent 38%
+        ),
+        linear-gradient(
+            180deg,
+            #f1fbfa,
+            #ffffff
+        );
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.section-label,
+.plan-label {
+    color: var(--wusool-primary);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.11rem;
+}
+
+.plans-hero h1 {
+    color: var(--wusool-secondary);
+}
+
+.hero-description {
+    max-width: 650px;
+    color: var(--wusool-muted);
+    line-height: 1.7;
+}
+
+.registration-progress {
+    max-width: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.progress-item {
+    min-width: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--wusool-muted);
+}
+
+.progress-item span {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--wusool-muted);
+    background-color: #e2e8f0;
+    border-radius: 50%;
+    font-weight: 800;
+}
+
+.progress-item small {
+    margin-top: 0.5rem;
+    font-weight: 700;
+}
+
+.progress-item.completed span,
+.progress-item.active span {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+}
+
+.progress-item.completed,
+.progress-item.active {
+    color: var(--wusool-primary);
+}
+
+.progress-line {
+    width: 90px;
+    height: 3px;
+    margin-top: 18px;
+    background-color: #dce7e6;
+}
+
+.progress-line.completed,
+.progress-line.active {
+    background-color: var(--wusool-primary);
+}
+
+.billing-switch {
+    padding: 0.3rem;
+    background-color: var(--wusool-light);
+    border-radius: 14px;
+}
+
+.billing-switch .btn {
+    min-width: 140px;
+    border-radius: 10px;
+}
+
+.btn-outline-wusool {
+    color: var(--wusool-primary);
+    background-color: transparent;
+    border: 1px solid var(--wusool-primary);
+    font-weight: 700;
+}
+
+.btn-outline-wusool:hover,
+.btn-check:checked + .btn-outline-wusool {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+    border-color: var(--wusool-primary);
+}
+
+.btn-wusool {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+    border: 1px solid var(--wusool-primary);
+    font-weight: 700;
+}
+
+.btn-wusool:hover,
+.btn-wusool:focus {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary-dark);
+    border-color: var(--wusool-primary-dark);
+}
+
+.discount-badge {
+    display: inline-block;
+    margin-left: 0.25rem;
+    padding: 0.15rem 0.4rem;
+    color: #7c4a03;
+    background-color: #fef3c7;
+    border-radius: 50rem;
+    font-size: 0.68rem;
+}
+
+.btn-check:checked +
+.btn-outline-wusool .discount-badge {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.plan-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 24px;
+    box-shadow: 0 14px 35px rgba(11, 35, 65, 0.08);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.plan-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--wusool-primary);
+    box-shadow: 0 22px 45px rgba(11, 35, 65, 0.13);
+}
+
+.plan-card.featured {
+    border: 2px solid var(--wusool-primary);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    padding: 0.45rem 1rem;
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+    border-radius: 50rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06rem;
+    transform: translateX(-50%);
+}
+
+.plan-icon {
+    width: 58px;
+    height: 58px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 16px;
+    font-size: 1.65rem;
+}
+
+.plan-card h2 {
+    margin-bottom: 0.75rem;
+    color: var(--wusool-secondary);
+    font-size: 1.65rem;
+    font-weight: 800;
+}
+
+.plan-description {
+    min-height: 52px;
+    color: var(--wusool-muted);
+    line-height: 1.6;
+}
+
+.plan-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    margin: 1.25rem 0 0.5rem;
+}
+
+.currency {
+    color: var(--wusool-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.price-value {
+    color: var(--wusool-secondary);
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.price-period {
+    color: var(--wusool-muted);
+}
+
+.annual-total {
+    min-height: 24px;
+    margin-bottom: 1rem;
+    color: var(--wusool-primary);
+    font-size: 0.86rem;
+}
+
+.branch-limit {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 1rem 0;
+    padding: 0.9rem;
+    color: var(--wusool-primary-dark);
+    background-color: var(--wusool-light);
+    border-radius: 12px;
+}
+
+.plan-features {
+    flex-grow: 1;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 0.8rem;
+    color: #46566d;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.plan-features i {
+    margin-top: 0.1rem;
+    color: var(--wusool-primary);
+}
+
+.select-plan-button {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+}
+
+.plan-information {
+    padding: 1.5rem;
+    background-color: #f8fbfb;
+    border: 1px solid var(--wusool-border);
+    border-radius: 20px;
+}
+
+.information-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.information-item > span {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 14px;
+    font-size: 1.25rem;
+}
+
+.information-item h2 {
+    margin-bottom: 0.3rem;
+    color: var(--wusool-secondary);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.information-item p {
+    margin-bottom: 0;
+    color: var(--wusool-muted);
+    font-size: 0.86rem;
+    line-height: 1.6;
+}
+
+.plans-footer {
+    color: #c9d7e8;
+    background-color: var(--wusool-secondary);
+    font-size: 0.85rem;
+}
+
+.plans-footer nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.plans-footer a {
+    color: #c9d7e8;
+    text-decoration: none;
+}
+
+.plans-footer a:hover {
+    color: var(--wusool-white);
+}
+
+@media (max-width: 767.98px) {
+    .registration-progress {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+    }
+
+    .progress-line {
+        min-width: 35px;
+    }
+
+    .billing-switch {
+        width: 100%;
+    }
+
+    .billing-switch .btn {
+        min-width: auto;
+        width: 50%;
+    }
+
+    .plan-card {
+        padding: 1.5rem;
+    }
+}

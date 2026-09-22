@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Register a bank or government organization on Wusool."
+    >
+
+    <title>Register Organization | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/organization-register.css"
+    >
+</head>
+
+<body>
+
+    <main class="register-page py-4 py-lg-5">
+
+        <div class="container register-container">
+
+            <!-- Top Navigation -->
+            <header
+                class="d-flex justify-content-between align-items-center mb-4"
+            >
+
+                <a
+                    href="../../visitor/html/home.html"
+                    class="navbar-logo d-inline-flex align-items-center gap-3"
+                >
+
+                    <span
+                        class="logo-icon d-flex justify-content-center align-items-center"
+                    >
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    <span class="logo-text">
+                        Wusool
+                    </span>
+
+                </a>
+
+                <a
+                    href="./organization-login.html"
+                    class="btn btn-outline-wusool"
+                >
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Log In
+                </a>
+
+            </header>
+
+            <!-- Registration Card -->
+            <section class="register-card">
+
+                <div class="row g-0">
+
+                    <!-- Registration Information -->
+                    <aside
+                        class="col-lg-4 d-none d-lg-flex register-information"
+                    >
+
+                        <div class="p-5">
+
+                            <span
+                                class="information-icon d-flex align-items-center justify-content-center mb-4"
+                            >
+                                <i class="bi bi-building-add"></i>
+                            </span>
+
+                            <p class="information-label mb-2">
+                                JOIN WUSOOL
+                            </p>
+
+                            <h1 class="information-title mb-4">
+                                Register your organization.
+                            </h1>
+
+                            <p class="information-description">
+                                Create an official organization account
+                                to manage branches and provide trusted
+                                accessibility information.
+                            </p>
+
+                            <div class="registration-steps mt-5">
+
+                                <article class="registration-step">
+
+                                    <span class="step-number">
+                                        1
+                                    </span>
+
+                                    <div>
+                                        <h2>Organization Details</h2>
+
+                                        <p>
+                                            Enter official organization
+                                            and contact information.
+                                        </p>
+                                    </div>
+
+                                </article>
+
+                                <article class="registration-step">
+
+                                    <span class="step-number">
+                                        2
+                                    </span>
+
+                                    <div>
+                                        <h2>Verification Document</h2>
+
+                                        <p>
+                                            Upload an official document
+                                            for account verification.
+                                        </p>
+                                    </div>
+
+                                </article>
+
+                                <article class="registration-step">
+
+                                    <span class="step-number">
+                                        3
+                                    </span>
+
+                                    <div>
+                                        <h2>Admin Approval</h2>
+
+                                        <p>
+                                            Wusool administration reviews
+                                            the request before activation.
+                                        </p>
+                                    </div>
+
+                                </article>
+
+                            </div>
+
+                        </div>
+
+                    </aside>
+
+                    <!-- Registration Form -->
+                    <section class="col-12 col-lg-8 bg-white">
+
+                        <div class="register-form-section p-4 p-md-5">
+
+                            <header class="mb-4">
+
+                                <p class="section-label mb-2">
+                                    ORGANIZATION REGISTRATION
+                                </p>
+
+                                <h2 class="register-title mb-3">
+                                    Create Organization Account
+                                </h2>
+
+                                <p class="register-description mb-0">
+                                    Registration is available for approved
+                                    private and government organizations.
+                                </p>
+
+                            </header>
+
+                            <!-- Alert -->
+                            <div
+                                id="registerAlert"
+                                class="alert d-none"
+                                role="alert"
+                                aria-live="polite"
+                            ></div>
+
+                            <!-- Form -->
+                            <form
+                                id="organizationRegisterForm"
+                                class="row g-4 needs-validation"
+                                novalidate
+                            >
+
+                                <!-- Organization Type -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="organizationType"
+                                        class="form-label"
+                                    >
+                                        Organization Type
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <select
+                                        id="organizationType"
+                                        class="form-select"
+                                        required
+                                    >
+                                        <option value="">
+                                            Select organization type
+                                        </option>
+
+                                        <option value="private">
+                                            Private Organization
+                                        </option>
+
+                                        <option value="government">
+                                            Government Organization
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        Please select the organization type.
+                                    </div>
+
+                                </div>
+
+                                <!-- Organization Category -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="organizationCategory"
+                                        class="form-label"
+                                    >
+                                        Organization Category
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <select
+                                        id="organizationCategory"
+                                        class="form-select"
+                                        disabled
+                                        required
+                                    >
+                                        <option value="">
+                                            Select the type first
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        Please select the organization category.
+                                    </div>
+
+                                </div>
+
+                                <!-- Organization Name -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="organizationName"
+                                        class="form-label"
+                                    >
+                                        Official Organization Name
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="organizationName"
+                                        class="form-control"
+                                        placeholder="Enter official name"
+                                        minlength="3"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the official organization name.
+                                    </div>
+
+                                </div>
+
+                                <!-- Registration Number -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="registrationNumber"
+                                        class="form-label"
+                                    >
+                                        Registration Number
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="registrationNumber"
+                                        class="form-control"
+                                        placeholder="Official registration number"
+                                        minlength="4"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter a valid registration number.
+                                    </div>
+
+                                </div>
+
+                                <!-- Representative Name -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="representativeName"
+                                        class="form-label"
+                                    >
+                                        Responsible Person Name
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="representativeName"
+                                        class="form-control"
+                                        placeholder="Full name"
+                                        minlength="3"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the responsible person’s name.
+                                    </div>
+
+                                </div>
+
+                                <!-- Job Title -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="jobTitle"
+                                        class="form-label"
+                                    >
+                                        Job Title
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="jobTitle"
+                                        class="form-control"
+                                        placeholder="Organization Administrator"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the responsible person’s job title.
+                                    </div>
+
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="email"
+                                        class="form-label"
+                                    >
+                                        Official Email
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        class="form-control"
+                                        placeholder="admin@organization.com"
+                                        autocomplete="email"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter a valid official email.
+                                    </div>
+
+                                </div>
+
+                                <!-- Phone -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="phoneNumber"
+                                        class="form-label"
+                                    >
+                                        Phone Number
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="phoneNumber"
+                                        class="form-control"
+                                        placeholder="+962 6 000 0000"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter a valid phone number.
+                                    </div>
+
+                                </div>
+
+                                <!-- Address -->
+                                <div class="col-12">
+
+                                    <label
+                                        for="address"
+                                        class="form-label"
+                                    >
+                                        Head Office Address
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="address"
+                                        class="form-control"
+                                        placeholder="City, street, building and landmark"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the head office address.
+                                    </div>
+
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="password"
+                                        class="form-label"
+                                    >
+                                        Password
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <div class="input-group">
+
+                                        <input
+                                            type="password"
+                                            id="password"
+                                            class="form-control"
+                                            placeholder="Create password"
+                                            autocomplete="new-password"
+                                            minlength="8"
+                                            required
+                                        >
+
+                                        <button
+                                            type="button"
+                                            id="togglePasswordButton"
+                                            class="btn password-toggle-button"
+                                            aria-label="Show password"
+                                        >
+                                            <i
+                                                id="passwordIcon"
+                                                class="bi bi-eye"
+                                            ></i>
+                                        </button>
+
+                                        <div class="invalid-feedback">
+                                            Password must contain at least
+                                            8 characters.
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Password Strength -->
+                                    <div class="password-strength mt-2">
+
+                                        <div class="progress">
+
+                                            <div
+                                                id="passwordStrengthBar"
+                                                class="progress-bar"
+                                                role="progressbar"
+                                                style="width: 0%"
+                                            ></div>
+
+                                        </div>
+
+                                        <small
+                                            id="passwordStrengthText"
+                                            class="text-secondary"
+                                        >
+                                            Use uppercase, lowercase,
+                                            number and special character.
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="col-md-6">
+
+                                    <label
+                                        for="confirmPassword"
+                                        class="form-label"
+                                    >
+                                        Confirm Password
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <input
+                                        type="password"
+                                        id="confirmPassword"
+                                        class="form-control"
+                                        placeholder="Repeat password"
+                                        autocomplete="new-password"
+                                        required
+                                    >
+
+                                    <div
+                                        id="confirmPasswordFeedback"
+                                        class="invalid-feedback"
+                                    >
+                                        Passwords must match.
+                                    </div>
+
+                                </div>
+
+                                <!-- Verification Document -->
+                                <div class="col-12">
+
+                                    <label
+                                        for="verificationDocument"
+                                        class="form-label"
+                                    >
+                                        Official Verification Document
+                                        <span class="required-mark">*</span>
+                                    </label>
+
+                                    <div class="document-upload-section">
+
+                                        <i class="bi bi-cloud-arrow-up"></i>
+
+                                        <div class="flex-grow-1">
+
+                                            <strong>
+                                                Upload verification document
+                                            </strong>
+
+                                            <p class="mb-2">
+                                                Accepted formats: PDF,
+                                                JPG or PNG. Maximum size: 5 MB.
+                                            </p>
+
+                                            <input
+                                                type="file"
+                                                id="verificationDocument"
+                                                class="form-control"
+                                                accept=".pdf,.jpg,.jpeg,.png"
+                                                required
+                                            >
+
+                                        </div>
+
+                                    </div>
+
+                                    <small
+                                        id="documentName"
+                                        class="document-name"
+                                    ></small>
+
+                                    <div
+                                        id="documentFeedback"
+                                        class="text-danger small mt-2 d-none"
+                                    ></div>
+
+                                </div>
+
+                                <!-- Terms -->
+                                <div class="col-12">
+
+                                    <div class="form-check terms-check">
+
+                                        <input
+                                            type="checkbox"
+                                            id="termsCheckbox"
+                                            class="form-check-input"
+                                            required
+                                        >
+
+                                        <label
+                                            for="termsCheckbox"
+                                            class="form-check-label"
+                                        >
+                                            I confirm that all provided
+                                            information is accurate and
+                                            that I am authorized to register
+                                            this organization.
+                                        </label>
+
+                                        <div class="invalid-feedback">
+                                            You must confirm the information.
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Buttons -->
+                                <div
+                                    class="col-12 d-flex flex-column flex-sm-row gap-3"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        id="registerButton"
+                                        class="btn btn-wusool"
+                                    >
+
+                                        <span id="registerButtonText">
+                                            Submit Registration
+                                        </span>
+
+                                        <span
+                                            id="registerSpinner"
+                                            class="spinner-border spinner-border-sm d-none"
+                                        ></span>
+
+                                        <i
+                                            id="registerButtonIcon"
+                                            class="bi bi-arrow-right"
+                                        ></i>
+
+                                    </button>
+
+                                    <a
+                                        href="./organization-login.html"
+                                        class="btn btn-outline-secondary"
+                                    >
+                                        Cancel
+                                    </a>
+
+                                </div>
+
+                            </form>
+
+                            <!-- Login Link -->
+                            <footer
+                                class="register-footer text-center mt-5 pt-4"
+                            >
+
+                                <p class="mb-0">
+
+                                    Already have an approved account?
+
+                                    <a href="./organization-login.html">
+                                        Log In
+                                    </a>
+
+                                </p>
+
+                            </footer>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+            <footer class="page-footer text-center mt-4">
+
+                <p class="mb-0">
+                    © 2026 Wusool. Accessibility for everyone.
+                </p>
+
+            </footer>
+
+        </div>
+
+    </main>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/organization-register.js"></script>
+
+</body>
+
+</html>

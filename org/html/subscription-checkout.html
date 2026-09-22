@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Complete your Wusool organization subscription."
+    >
+
+    <title>Subscription Checkout | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/subscription-checkout.css"
+    >
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="checkout-header">
+        <nav class="container py-3">
+            <div class="d-flex justify-content-between align-items-center">
+
+                <a
+                    href="../../visitor/html/home.html"
+                    class="navbar-brand d-flex align-items-center gap-2 m-0"
+                    aria-label="Wusool home"
+                >
+                    <span class="brand-icon">
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    <span class="brand-name">Wusool</span>
+                </a>
+
+                <div class="secure-checkout">
+                    <i class="bi bi-lock-fill"></i>
+                    Secure Checkout
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Page Heading -->
+        <section class="checkout-hero">
+            <div class="container py-5">
+
+                <div class="row align-items-end g-4">
+
+                    <div class="col-12 col-lg-8">
+                        <p class="section-label mb-2">
+                            COMPLETE YOUR SUBSCRIPTION
+                        </p>
+
+                        <h1 class="display-5 fw-bold">
+                            Checkout
+                        </h1>
+
+                        <p class="hero-description mb-0">
+                            Review your selected plan and enter
+                            your billing information.
+                        </p>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div
+                            class="d-flex justify-content-lg-end"
+                        >
+                            <a
+                                href="./subscription-plans.html"
+                                class="btn btn-light"
+                            >
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Change Plan
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Progress -->
+                <div
+                    class="registration-progress mt-4"
+                    aria-label="Registration progress"
+                >
+                    <div class="progress-item completed">
+                        <span>
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <small>Register</small>
+                    </div>
+
+                    <div class="progress-line completed"></div>
+
+                    <div class="progress-item completed">
+                        <span>
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <small>Approved</small>
+                    </div>
+
+                    <div class="progress-line completed"></div>
+
+                    <div class="progress-item completed">
+                        <span>
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <small>Subscription</small>
+                    </div>
+
+                    <div class="progress-line active"></div>
+
+                    <div class="progress-item active">
+                        <span>4</span>
+                        <small>Payment</small>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Checkout Content -->
+        <section class="container py-5">
+
+            <div class="row g-4 align-items-start">
+
+                <!-- Payment Form -->
+                <div class="col-12 col-lg-7">
+
+                    <form
+                        id="checkoutForm"
+                        class="checkout-card"
+                        novalidate
+                    >
+
+                        <!-- Billing Information -->
+                        <section>
+                            <div
+                                class="d-flex align-items-center
+                                       gap-3 mb-4"
+                            >
+                                <span class="section-icon">
+                                    <i class="bi bi-receipt"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        BILLING DETAILS
+                                    </p>
+
+                                    <h2 class="form-section-title mb-0">
+                                        Organization Information
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <label
+                                        for="organizationName"
+                                        class="form-label"
+                                    >
+                                        Organization Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="organizationName"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the organization name.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        for="billingEmail"
+                                        class="form-label"
+                                    >
+                                        Billing Email
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="billingEmail"
+                                        placeholder="billing@example.com"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter a valid billing email.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        for="phoneNumber"
+                                        class="form-label"
+                                    >
+                                        Phone Number
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        id="phoneNumber"
+                                        placeholder="+962 7X XXX XXXX"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the organization phone number.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        for="country"
+                                        class="form-label"
+                                    >
+                                        Country
+                                    </label>
+
+                                    <select
+                                        class="form-select"
+                                        id="country"
+                                        required
+                                    >
+                                        <option value="">
+                                            Select country
+                                        </option>
+
+                                        <option value="Jordan" selected>
+                                            Jordan
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        Select a country.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        for="city"
+                                        class="form-label"
+                                    >
+                                        City
+                                    </label>
+
+                                    <select
+                                        class="form-select"
+                                        id="city"
+                                        required
+                                    >
+                                        <option value="">
+                                            Select city
+                                        </option>
+
+                                        <option value="Amman">
+                                            Amman
+                                        </option>
+
+                                        <option value="Irbid">
+                                            Irbid
+                                        </option>
+
+                                        <option value="Zarqa">
+                                            Zarqa
+                                        </option>
+
+                                        <option value="Salt">
+                                            Salt
+                                        </option>
+
+                                        <option value="Aqaba">
+                                            Aqaba
+                                        </option>
+
+                                        <option value="Other">
+                                            Other
+                                        </option>
+                                    </select>
+
+                                    <div class="invalid-feedback">
+                                        Select a city.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <hr class="my-5">
+
+                        <!-- Payment Information -->
+                        <section>
+                            <div
+                                class="d-flex align-items-center
+                                       justify-content-between
+                                       gap-3 mb-4"
+                            >
+                                <div
+                                    class="d-flex align-items-center gap-3"
+                                >
+                                    <span class="section-icon">
+                                        <i class="bi bi-credit-card"></i>
+                                    </span>
+
+                                    <div>
+                                        <p class="section-label mb-1">
+                                            PAYMENT METHOD
+                                        </p>
+
+                                        <h2 class="form-section-title mb-0">
+                                            Card Information
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <div class="card-types">
+                                    <span>VISA</span>
+                                    <span>MC</span>
+                                </div>
+                            </div>
+
+                            <div class="demo-notice mb-4">
+                                <i class="bi bi-info-circle-fill"></i>
+
+                                <span>
+                                    Front-End demonstration only.
+                                    Do not enter real card information.
+                                </span>
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <label
+                                        for="cardholderName"
+                                        class="form-label"
+                                    >
+                                        Cardholder Name
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="cardholderName"
+                                        placeholder="Name shown on card"
+                                        autocomplete="cc-name"
+                                        required
+                                    >
+
+                                    <div class="invalid-feedback">
+                                        Enter the cardholder name.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label
+                                        for="cardNumber"
+                                        class="form-label"
+                                    >
+                                        Card Number
+                                    </label>
+
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="bi bi-credit-card"></i>
+                                        </span>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="cardNumber"
+                                            placeholder="0000 0000 0000 0000"
+                                            maxlength="19"
+                                            inputmode="numeric"
+                                            autocomplete="cc-number"
+                                            required
+                                        >
+                                    </div>
+
+                                    <div
+                                        id="cardNumberFeedback"
+                                        class="custom-invalid-feedback"
+                                    >
+                                        Enter a valid 16-digit card number.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        for="expiryDate"
+                                        class="form-label"
+                                    >
+                                        Expiry Date
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="expiryDate"
+                                        placeholder="MM/YY"
+                                        maxlength="5"
+                                        inputmode="numeric"
+                                        autocomplete="cc-exp"
+                                        required
+                                    >
+
+                                    <div
+                                        id="expiryFeedback"
+                                        class="custom-invalid-feedback"
+                                    >
+                                        Enter a valid future expiry date.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label
+                                        for="securityCode"
+                                        class="form-label"
+                                    >
+                                        Security Code
+                                    </label>
+
+                                    <div class="input-group">
+                                        <input
+                                            type="password"
+                                            class="form-control"
+                                            id="securityCode"
+                                            placeholder="CVV"
+                                            maxlength="4"
+                                            inputmode="numeric"
+                                            autocomplete="cc-csc"
+                                            required
+                                        >
+
+                                        <button
+                                            type="button"
+                                            class="btn btn-outline-secondary"
+                                            id="toggleSecurityCode"
+                                            aria-label="Show security code"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+
+                                    <div
+                                        id="securityCodeFeedback"
+                                        class="custom-invalid-feedback"
+                                    >
+                                        Enter a valid 3 or 4-digit code.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <hr class="my-4">
+
+                        <!-- Agreement -->
+                        <div class="form-check mb-4">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="termsAgreement"
+                                required
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="termsAgreement"
+                            >
+                                I agree to the
+                                <a href="#">subscription terms</a>
+                                and automatic renewal policy.
+                            </label>
+
+                            <div class="invalid-feedback">
+                                You must accept the subscription terms.
+                            </div>
+                        </div>
+
+                        <button
+                            type="submit"
+                            id="paymentButton"
+                            class="btn btn-wusool btn-lg w-100"
+                        >
+                            <span id="paymentButtonText">
+                                <i class="bi bi-lock-fill me-2"></i>
+                                Complete Secure Payment
+                            </span>
+
+                            <span
+                                id="paymentButtonLoading"
+                                class="d-none"
+                            >
+                                <span
+                                    class="spinner-border
+                                           spinner-border-sm me-2"
+                                    aria-hidden="true"
+                                ></span>
+
+                                Processing Payment...
+                            </span>
+                        </button>
+
+                        <p class="payment-security-note text-center mt-3 mb-0">
+                            <i class="bi bi-shield-lock-fill me-1"></i>
+                            Your payment information is securely protected.
+                        </p>
+
+                    </form>
+
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-12 col-lg-5">
+
+                    <aside class="order-summary">
+
+                        <div
+                            class="d-flex justify-content-between
+                                   align-items-start gap-3 mb-4"
+                        >
+                            <div>
+                                <p class="section-label mb-1">
+                                    ORDER SUMMARY
+                                </p>
+
+                                <h2 class="summary-title mb-0">
+                                    Selected Subscription
+                                </h2>
+                            </div>
+
+                            <a
+                                href="./subscription-plans.html"
+                                class="change-plan-link"
+                            >
+                                Change
+                            </a>
+                        </div>
+
+                        <article class="selected-plan">
+
+                            <div
+                                class="d-flex align-items-center gap-3"
+                            >
+                                <span class="selected-plan-icon">
+                                    <i class="bi bi-buildings"></i>
+                                </span>
+
+                                <div>
+                                    <h3 id="planName">
+                                        Multi Branch
+                                    </h3>
+
+                                    <p id="billingCycleText">
+                                        Monthly billing
+                                    </p>
+                                </div>
+                            </div>
+
+                            <span
+                                id="planBadge"
+                                class="plan-badge"
+                            >
+                                Up to 5 branches
+                            </span>
+
+                        </article>
+
+                        <dl class="price-summary">
+
+                            <div>
+                                <dt>Plan price</dt>
+
+                                <dd>
+                                    <span id="planPrice">
+                                        JOD 75.00
+                                    </span>
+                                </dd>
+                            </div>
+
+                            <div
+                                id="discountRow"
+                                class="discount-row d-none"
+                            >
+                                <dt>Annual discount</dt>
+
+                                <dd id="discountAmount">
+                                    - JOD 90.00
+                                </dd>
+                            </div>
+
+                            <div>
+                                <dt>Billing cycle</dt>
+
+                                <dd id="billingCycle">
+                                    Monthly
+                                </dd>
+                            </div>
+
+                            <div>
+                                <dt>Branch limit</dt>
+
+                                <dd id="branchLimit">
+                                    5 branches
+                                </dd>
+                            </div>
+
+                        </dl>
+
+                        <div class="total-row">
+                            <div>
+                                <span>Total Due Today</span>
+
+                                <small id="renewalText">
+                                    Renews monthly
+                                </small>
+                            </div>
+
+                            <strong id="totalPrice">
+                                JOD 75.00
+                            </strong>
+                        </div>
+
+                        <div class="summary-information mt-4">
+
+                            <p>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Subscription starts immediately
+                            </p>
+
+                            <p>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Branch limit applies to active branches
+                            </p>
+
+                            <p>
+                                <i class="bi bi-check-circle-fill"></i>
+                                You can upgrade your plan later
+                            </p>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="checkout-footer">
+        <div
+            class="container py-4 d-flex flex-column flex-md-row
+                   justify-content-between align-items-center gap-2"
+        >
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+
+            <nav aria-label="Footer navigation">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Support</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/subscription-checkout.js"></script>
+
+</body>
+</html>
