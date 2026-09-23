@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Organization Settings | Wusool</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../css/organization-settings.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+<div class="organization-layout">
+
+    <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+    <!-- Main Content -->
+    <div class="organization-content">
+
+        <header class="organization-header">
+
+            <button
+                type="button"
+                class="btn sidebar-toggle d-lg-none"
+                id="sidebarToggle"
+                aria-label="Open navigation"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div>
+                <p class="header-eyebrow mb-1">
+                    ACCOUNT MANAGEMENT
+                </p>
+
+                <h1 class="h4 mb-0">
+                    Organization Settings
+                </h1>
+            </div>
+
+            <div class="organization-account">
+                <span class="account-avatar">
+                    <i class="bi bi-building"></i>
+                </span>
+
+                <div class="d-none d-sm-block">
+                    <strong id="headerOrganizationName">
+                        Organization
+                    </strong>
+
+                    <small class="d-block text-secondary">
+                        Organization Manager
+                    </small>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="organization-main">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+
+                    <li class="breadcrumb-item">
+                        <a href="./organization-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li
+                        class="breadcrumb-item active"
+                        aria-current="page"
+                    >
+                        Settings
+                    </li>
+
+                </ol>
+            </nav>
+
+            <!-- Heading -->
+            <section class="mb-4">
+                <span class="section-label">
+                    ORGANIZATION ACCOUNT
+                </span>
+
+                <h2 class="page-title mt-2 mb-2">
+                    Account Settings
+                </h2>
+
+                <p class="text-secondary mb-0">
+                    Manage the organization profile, manager information,
+                    notifications, and security.
+                </p>
+            </section>
+
+            <div class="row g-4">
+
+                <!-- Settings Navigation -->
+                <aside class="col-12 col-lg-3">
+
+                    <nav
+                        class="settings-navigation nav nav-pills"
+                        id="settingsTabs"
+                        role="tablist"
+                        aria-label="Settings sections"
+                    >
+                        <button
+                            type="button"
+                            class="nav-link active"
+                            id="organization-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#organization-panel"
+                            role="tab"
+                            aria-controls="organization-panel"
+                            aria-selected="true"
+                        >
+                            <i class="bi bi-building"></i>
+                            Organization Profile
+                        </button>
+
+                        <button
+                            type="button"
+                            class="nav-link"
+                            id="manager-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#manager-panel"
+                            role="tab"
+                            aria-controls="manager-panel"
+                            aria-selected="false"
+                        >
+                            <i class="bi bi-person"></i>
+                            Manager Profile
+                        </button>
+
+                        <button
+                            type="button"
+                            class="nav-link"
+                            id="notifications-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#notifications-panel"
+                            role="tab"
+                            aria-controls="notifications-panel"
+                            aria-selected="false"
+                        >
+                            <i class="bi bi-bell"></i>
+                            Notifications
+                        </button>
+
+                        <button
+                            type="button"
+                            class="nav-link"
+                            id="security-tab"
+                            data-bs-toggle="pill"
+                            data-bs-target="#security-panel"
+                            role="tab"
+                            aria-controls="security-panel"
+                            aria-selected="false"
+                        >
+                            <i class="bi bi-shield-lock"></i>
+                            Security
+                        </button>
+                    </nav>
+
+                    <article class="verification-card mt-4">
+
+                        <span class="verification-icon">
+                            <i class="bi bi-patch-check-fill"></i>
+                        </span>
+
+                        <div>
+                            <strong>Verified Organization</strong>
+
+                            <p class="mb-0">
+                                Approved by Wusool admin.
+                            </p>
+                        </div>
+
+                    </article>
+
+                </aside>
+
+                <!-- Settings Forms -->
+                <section class="col-12 col-lg-9">
+
+                    <div class="tab-content">
+
+                        <!-- Organization Profile -->
+                        <section
+                            class="tab-pane fade show active"
+                            id="organization-panel"
+                            role="tabpanel"
+                            aria-labelledby="organization-tab"
+                            tabindex="0"
+                        >
+                            <form
+                                class="settings-card"
+                                id="organizationForm"
+                                novalidate
+                            >
+                                <header class="settings-card-header">
+
+                                    <span class="settings-icon">
+                                        <i class="bi bi-building"></i>
+                                    </span>
+
+                                    <div>
+                                        <h3 class="h4 mb-1">
+                                            Organization Profile
+                                        </h3>
+
+                                        <p class="text-secondary mb-0">
+                                            Update the public contact
+                                            information for your organization.
+                                        </p>
+                                    </div>
+
+                                </header>
+
+                                <div class="row g-4">
+
+                                    <div class="col-12">
+                                        <label
+                                            for="organizationName"
+                                            class="form-label"
+                                        >
+                                            Organization Name
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="organizationName"
+                                            required
+                                            maxlength="100"
+                                        >
+
+                                        <div class="invalid-feedback">
+                                            Enter the organization name.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="organizationType"
+                                            class="form-label"
+                                        >
+                                            Organization Type
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="organizationType"
+                                            readonly
+                                        >
+
+                                        <small class="form-text">
+                                            Verified information cannot
+                                            be changed here.
+                                        </small>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="registrationNumber"
+                                            class="form-label"
+                                        >
+                                            Registration Number
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="registrationNumber"
+                                            readonly
+                                        >
+
+                                        <small class="form-text">
+                                            Contact support to update it.
+                                        </small>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="organizationEmail"
+                                            class="form-label"
+                                        >
+                                            Organization Email
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            class="form-control"
+                                            id="organizationEmail"
+                                            required
+                                        >
+
+                                        <div class="invalid-feedback">
+                                            Enter a valid email address.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="organizationPhone"
+                                            class="form-label"
+                                        >
+                                            Phone Number
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            class="form-control"
+                                            id="organizationPhone"
+                                            required
+                                        >
+
+                                        <div class="invalid-feedback">
+                                            Enter the organization phone.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label
+                                            for="organizationAddress"
+                                            class="form-label"
+                                        >
+                                            Main Office Address
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="organizationAddress"
+                                            maxlength="150"
+                                        >
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label
+                                            for="organizationWebsite"
+                                            class="form-label"
+                                        >
+                                            Website
+                                        </label>
+
+                                        <input
+                                            type="url"
+                                            class="form-control"
+                                            id="organizationWebsite"
+                                            placeholder="https://example.com"
+                                        >
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label
+                                            for="organizationDescription"
+                                            class="form-label"
+                                        >
+                                            Organization Description
+                                        </label>
+
+                                        <textarea
+                                            class="form-control"
+                                            id="organizationDescription"
+                                            rows="4"
+                                            maxlength="500"
+                                        ></textarea>
+                                    </div>
+
+                                </div>
+
+                                <footer class="form-actions">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-wusool"
+                                    >
+                                        <i class="bi bi-check-lg me-2"></i>
+                                        Save Organization Profile
+                                    </button>
+                                </footer>
+
+                            </form>
+                        </section>
+
+                        <!-- Manager Profile -->
+                        <section
+                            class="tab-pane fade"
+                            id="manager-panel"
+                            role="tabpanel"
+                            aria-labelledby="manager-tab"
+                            tabindex="0"
+                        >
+                            <form
+                                class="settings-card"
+                                id="managerForm"
+                                novalidate
+                            >
+                                <header class="settings-card-header">
+
+                                    <span class="settings-icon">
+                                        <i class="bi bi-person"></i>
+                                    </span>
+
+                                    <div>
+                                        <h3 class="h4 mb-1">
+                                            Manager Profile
+                                        </h3>
+
+                                        <p class="text-secondary mb-0">
+                                            Information for the person
+                                            responsible for all branches.
+                                        </p>
+                                    </div>
+
+                                </header>
+
+                                <div class="manager-profile-summary">
+
+                                    <span
+                                        class="manager-avatar"
+                                        id="managerAvatar"
+                                    >
+                                        OM
+                                    </span>
+
+                                    <div>
+                                        <strong id="managerSummaryName">
+                                            Organization Manager
+                                        </strong>
+
+                                        <p class="mb-0">
+                                            Responsible for all branches
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                <div class="row g-4 mt-1">
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="managerFullName"
+                                            class="form-label"
+                                        >
+                                            Full Name
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="managerFullName"
+                                            required
+                                        >
+
+                                        <div class="invalid-feedback">
+                                            Enter the manager name.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="managerPosition"
+                                            class="form-label"
+                                        >
+                                            Position
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            id="managerPosition"
+                                            value="Organization Manager"
+                                        >
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="managerEmail"
+                                            class="form-label"
+                                        >
+                                            Login Email
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <input
+                                            type="email"
+                                            class="form-control"
+                                            id="managerEmail"
+                                            required
+                                        >
+
+                                        <div class="invalid-feedback">
+                                            Enter a valid email address.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="managerPhone"
+                                            class="form-label"
+                                        >
+                                            Phone Number
+                                        </label>
+
+                                        <input
+                                            type="tel"
+                                            class="form-control"
+                                            id="managerPhone"
+                                        >
+                                    </div>
+
+                                </div>
+
+                                <footer class="form-actions">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-wusool"
+                                    >
+                                        <i class="bi bi-check-lg me-2"></i>
+                                        Save Manager Profile
+                                    </button>
+                                </footer>
+
+                            </form>
+                        </section>
+
+                        <!-- Notifications -->
+                        <section
+                            class="tab-pane fade"
+                            id="notifications-panel"
+                            role="tabpanel"
+                            aria-labelledby="notifications-tab"
+                            tabindex="0"
+                        >
+                            <form
+                                class="settings-card"
+                                id="notificationsForm"
+                            >
+                                <header class="settings-card-header">
+
+                                    <span class="settings-icon">
+                                        <i class="bi bi-bell"></i>
+                                    </span>
+
+                                    <div>
+                                        <h3 class="h4 mb-1">
+                                            Notification Preferences
+                                        </h3>
+
+                                        <p class="text-secondary mb-0">
+                                            Choose which organization
+                                            notifications you want to receive.
+                                        </p>
+                                    </div>
+
+                                </header>
+
+                                <div class="notification-setting">
+
+                                    <div>
+                                        <strong>
+                                            Branch Review Decisions
+                                        </strong>
+
+                                        <p>
+                                            Receive notifications when a branch
+                                            is approved or needs changes.
+                                        </p>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            id="branchReviewNotifications"
+                                            checked
+                                        >
+                                    </div>
+
+                                </div>
+
+                                <div class="notification-setting">
+
+                                    <div>
+                                        <strong>
+                                            Visitor Bookings
+                                        </strong>
+
+                                        <p>
+                                            Receive notifications for new,
+                                            updated, or cancelled visits.
+                                        </p>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            id="bookingNotifications"
+                                            checked
+                                        >
+                                    </div>
+
+                                </div>
+
+                                <div class="notification-setting">
+
+                                    <div>
+                                        <strong>
+                                            Accessibility Reports
+                                        </strong>
+
+                                        <p>
+                                            Receive notifications when new
+                                            reports or recommendations are ready.
+                                        </p>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            id="reportNotifications"
+                                            checked
+                                        >
+                                    </div>
+
+                                </div>
+
+                                <div class="notification-setting">
+
+                                    <div>
+                                        <strong>
+                                            Subscription and Payments
+                                        </strong>
+
+                                        <p>
+                                            Receive renewal, payment, and
+                                            subscription limit alerts.
+                                        </p>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            id="paymentNotifications"
+                                            checked
+                                        >
+                                    </div>
+
+                                </div>
+
+                                <div class="notification-setting">
+
+                                    <div>
+                                        <strong>
+                                            Email Notifications
+                                        </strong>
+
+                                        <p>
+                                            Send important notifications to
+                                            the manager email address.
+                                        </p>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input
+                                            type="checkbox"
+                                            class="form-check-input"
+                                            id="emailNotifications"
+                                            checked
+                                        >
+                                    </div>
+
+                                </div>
+
+                                <footer class="form-actions">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-wusool"
+                                    >
+                                        <i class="bi bi-check-lg me-2"></i>
+                                        Save Notifications
+                                    </button>
+                                </footer>
+
+                            </form>
+                        </section>
+
+                        <!-- Security -->
+                        <section
+                            class="tab-pane fade"
+                            id="security-panel"
+                            role="tabpanel"
+                            aria-labelledby="security-tab"
+                            tabindex="0"
+                        >
+                            <form
+                                class="settings-card"
+                                id="passwordForm"
+                                novalidate
+                            >
+                                <header class="settings-card-header">
+
+                                    <span class="settings-icon">
+                                        <i class="bi bi-shield-lock"></i>
+                                    </span>
+
+                                    <div>
+                                        <h3 class="h4 mb-1">
+                                            Change Password
+                                        </h3>
+
+                                        <p class="text-secondary mb-0">
+                                            Use a strong password to protect
+                                            the organization account.
+                                        </p>
+                                    </div>
+
+                                </header>
+
+                                <div class="security-information mb-4">
+                                    <i class="bi bi-info-circle-fill"></i>
+
+                                    <span>
+                                        Password must contain at least
+                                        8 characters, one uppercase letter,
+                                        one lowercase letter, and one number.
+                                    </span>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label
+                                        for="currentPassword"
+                                        class="form-label"
+                                    >
+                                        Current Password
+                                    </label>
+
+                                    <div class="input-group">
+                                        <input
+                                            type="password"
+                                            class="form-control"
+                                            id="currentPassword"
+                                            required
+                                        >
+
+                                        <button
+                                            type="button"
+                                            class="btn password-toggle"
+                                            data-password-target="currentPassword"
+                                            aria-label="Show current password"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="row g-4">
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="newPassword"
+                                            class="form-label"
+                                        >
+                                            New Password
+                                        </label>
+
+                                        <div class="input-group">
+                                            <input
+                                                type="password"
+                                                class="form-control"
+                                                id="newPassword"
+                                                required
+                                            >
+
+                                            <button
+                                                type="button"
+                                                class="btn password-toggle"
+                                                data-password-target="newPassword"
+                                                aria-label="Show new password"
+                                            >
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label
+                                            for="confirmPassword"
+                                            class="form-label"
+                                        >
+                                            Confirm New Password
+                                        </label>
+
+                                        <div class="input-group">
+                                            <input
+                                                type="password"
+                                                class="form-control"
+                                                id="confirmPassword"
+                                                required
+                                            >
+
+                                            <button
+                                                type="button"
+                                                class="btn password-toggle"
+                                                data-password-target="confirmPassword"
+                                                aria-label="Show confirmed password"
+                                            >
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="alert alert-danger d-none mt-4"
+                                    id="passwordError"
+                                    role="alert"
+                                ></div>
+
+                                <footer class="form-actions">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-wusool"
+                                    >
+                                        <i class="bi bi-shield-check me-2"></i>
+                                        Update Password
+                                    </button>
+                                </footer>
+
+                            </form>
+                        </section>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div
+        class="toast"
+        id="settingsToast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <i class="bi bi-check-circle-fill text-success me-2"></i>
+
+            <strong class="me-auto">Wusool</strong>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            ></button>
+        </div>
+
+        <div
+            class="toast-body"
+            id="toastMessage"
+        ></div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../js/organization-settings.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

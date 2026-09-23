@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Add branch accessibility information in Wusool."
+    >
+
+    <title>Branch Accessibility | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/branch-accessibility.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+    <div class="d-flex min-vh-100">
+
+        <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+        <!-- Page Content -->
+        <div class="page-content flex-grow-1">
+
+            <!-- Mobile Header -->
+            <header class="mobile-header d-lg-none">
+                <div
+                    class="container-fluid py-3 d-flex
+                           justify-content-between
+                           align-items-center"
+                >
+                    <button
+                        type="button"
+                        id="openSidebarButton"
+                        class="btn btn-light"
+                        aria-label="Open sidebar"
+                    >
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+
+                    <strong>Wusool Organization</strong>
+
+                    <span class="organization-avatar">
+                        <i class="bi bi-building"></i>
+                    </span>
+                </div>
+            </header>
+
+            <main>
+
+                <!-- Page Heading -->
+                <section class="page-heading">
+                    <div class="container-fluid p-4 p-xl-5">
+
+                        <nav
+                            aria-label="breadcrumb"
+                            class="mb-3"
+                        >
+                            <ol class="breadcrumb mb-0">
+
+                                <li class="breadcrumb-item">
+                                    <a
+                                        href="./organization-dashboard.html"
+                                    >
+                                        Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="breadcrumb-item">
+                                    <a href="./branches.html">
+                                        Branches
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="breadcrumb-item active"
+                                    aria-current="page"
+                                >
+                                    Accessibility
+                                </li>
+
+                            </ol>
+                        </nav>
+
+                        <p class="section-label mb-2">
+                            BRANCH REGISTRATION
+                        </p>
+
+                        <h1 id="pageTitle" class="mb-2">
+                            Accessibility Information
+                        </h1>
+
+                        <p class="text-secondary mb-0">
+                            Tell visitors which accessibility
+                            facilities are available at this branch.
+                        </p>
+
+                    </div>
+                </section>
+
+                <div class="container-fluid p-4 p-xl-5">
+
+                    <!-- Wizard Progress -->
+                    <section
+                        class="wizard-progress mb-4"
+                        aria-label="Branch registration steps"
+                    >
+                        <div class="wizard-step completed">
+                            <span>
+                                <i class="bi bi-check-lg"></i>
+                            </span>
+                            <small>Branch Details</small>
+                        </div>
+
+                        <div class="wizard-line completed"></div>
+
+                        <div class="wizard-step completed">
+                            <span>
+                                <i class="bi bi-check-lg"></i>
+                            </span>
+                            <small>Working Hours</small>
+                        </div>
+
+                        <div class="wizard-line completed"></div>
+
+                        <div class="wizard-step active">
+                            <span>3</span>
+                            <small>Accessibility</small>
+                        </div>
+
+                        <div class="wizard-line"></div>
+
+                        <div class="wizard-step">
+                            <span>4</span>
+                            <small>Photos</small>
+                        </div>
+
+                        <div class="wizard-line"></div>
+
+                        <div class="wizard-step">
+                            <span>5</span>
+                            <small>Review</small>
+                        </div>
+                    </section>
+
+                    <div class="row g-4 align-items-start">
+
+                        <!-- Accessibility Form -->
+                        <div class="col-12 col-xl-9">
+
+                            <form
+                                id="accessibilityForm"
+                                class="form-card"
+                                novalidate
+                            >
+
+                                <header
+                                    class="d-flex flex-column
+                                           flex-md-row
+                                           justify-content-between
+                                           align-items-md-center
+                                           gap-3 mb-4"
+                                >
+                                    <div
+                                        class="d-flex
+                                               align-items-center gap-3"
+                                    >
+                                        <span class="section-icon">
+                                            <i class="bi bi-universal-access"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="section-label mb-1">
+                                                ACCESSIBILITY CHECKLIST
+                                            </p>
+
+                                            <h2 class="form-title mb-0">
+                                                Available Facilities
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="completion-summary">
+                                        <span id="completedFeatures">
+                                            0
+                                        </span>
+                                        /
+                                        <span id="totalFeatures">
+                                            0
+                                        </span>
+                                        completed
+                                    </div>
+                                </header>
+
+                                <div
+                                    class="progress mb-4"
+                                    role="progressbar"
+                                    aria-label="Accessibility checklist completion"
+                                >
+                                    <div
+                                        id="accessibilityProgress"
+                                        class="progress-bar"
+                                        style="width: 0%"
+                                    ></div>
+                                </div>
+
+                                <div
+                                    id="accessibilityFeatures"
+                                    class="row g-3"
+                                ></div>
+
+                                <div
+                                    id="accessibilityValidation"
+                                    class="alert alert-danger d-none mt-4"
+                                    role="alert"
+                                >
+                                    <i class="bi bi-exclamation-circle me-2"></i>
+                                    Select a status for every
+                                    accessibility feature.
+                                </div>
+
+                                <hr class="my-5">
+
+                                <!-- Extra Information -->
+                                <section>
+
+                                    <div
+                                        class="d-flex
+                                               align-items-center gap-3 mb-4"
+                                    >
+                                        <span class="section-icon">
+                                            <i class="bi bi-card-text"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="section-label mb-1">
+                                                ADDITIONAL INFORMATION
+                                            </p>
+
+                                            <h2 class="form-title mb-0">
+                                                Accessibility Notes
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    <label
+                                        for="accessibilityNotes"
+                                        class="form-label"
+                                    >
+                                        Additional Notes
+                                    </label>
+
+                                    <textarea
+                                        id="accessibilityNotes"
+                                        class="form-control"
+                                        rows="5"
+                                        maxlength="700"
+                                        placeholder="Example: Visitors can request staff assistance at the main reception desk."
+                                    ></textarea>
+
+                                    <div
+                                        class="d-flex
+                                               justify-content-between mt-2"
+                                    >
+                                        <small class="text-secondary">
+                                            Add information visitors
+                                            should know before arriving.
+                                        </small>
+
+                                        <small
+                                            id="notesCounter"
+                                            class="text-secondary"
+                                        >
+                                            0 / 700
+                                        </small>
+                                    </div>
+
+                                </section>
+
+                                <!-- Actions -->
+                                <footer
+                                    class="d-flex flex-column-reverse
+                                           flex-sm-row
+                                           justify-content-between
+                                           gap-3 mt-5"
+                                >
+                                    <a
+                                        href="./branch-working-hours.html"
+                                        id="backButton"
+                                        class="btn btn-light btn-lg"
+                                    >
+                                        <i class="bi bi-arrow-left me-2"></i>
+                                        Back
+                                    </a>
+
+                                    <div
+                                        class="d-flex flex-column
+                                               flex-sm-row gap-2"
+                                    >
+                                        <button
+                                            type="button"
+                                            id="saveAccessibilityDraftButton"
+                                            class="btn btn-outline-wusool btn-lg"
+                                        >
+                                            <i class="bi bi-save me-2"></i>
+                                            Save Draft
+                                        </button>
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-wusool btn-lg"
+                                        >
+                                            Save & Continue
+
+                                            <i class="bi bi-arrow-right ms-2"></i>
+                                        </button>
+                                    </div>
+                                </footer>
+
+                            </form>
+
+                        </div>
+
+                        <!-- Help Panel -->
+                        <div class="col-12 col-xl-3">
+
+                            <aside class="branch-summary-card">
+
+                                <span class="summary-icon">
+                                    <i class="bi bi-building"></i>
+                                </span>
+
+                                <p class="section-label mt-3 mb-1">
+                                    CURRENT BRANCH
+                                </p>
+
+                                <h2 id="summaryBranchName">
+                                    Branch Name
+                                </h2>
+
+                                <p id="summaryBranchLocation">
+                                    Branch location
+                                </p>
+
+                                <span class="draft-badge">
+                                    Draft
+                                </span>
+
+                            </aside>
+
+                            <aside class="help-card mt-4">
+
+                                <h2>
+                                    <i class="bi bi-info-circle me-2"></i>
+                                    How to Answer
+                                </h2>
+
+                                <ul>
+                                    <li>
+                                        Select <strong>Available</strong>
+                                        when the facility exists.
+                                    </li>
+
+                                    <li>
+                                        Select <strong>Not Available</strong>
+                                        when it does not exist.
+                                    </li>
+
+                                    <li>
+                                        Select <strong>Not Sure</strong>
+                                        when it needs verification.
+                                    </li>
+                                </ul>
+
+                            </aside>
+
+                            <aside class="verification-card mt-4">
+                                <i class="bi bi-stars"></i>
+
+                                <h2>AI Verification</h2>
+
+                                <p>
+                                    The information will later be
+                                    compared with uploaded branch photos.
+                                </p>
+                            </aside>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+            id="accessibilityToast"
+            class="toast"
+            role="status"
+            aria-live="polite"
+        >
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong class="me-auto">Wusool</strong>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
+            </div>
+
+            <div
+                id="toastMessage"
+                class="toast-body"
+            ></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/branch-accessibility.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

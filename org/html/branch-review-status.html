@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Branch Review Status | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared CSS -->
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/branch-review-status.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+<div class="organization-layout">
+
+    <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+    <!-- Main Content -->
+    <div class="organization-content">
+
+        <!-- Header -->
+        <header class="organization-header">
+
+            <button
+                type="button"
+                class="btn sidebar-toggle d-lg-none"
+                id="sidebarToggle"
+                aria-label="Open navigation"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div>
+                <p class="header-eyebrow mb-1">
+                    BRANCH MANAGEMENT
+                </p>
+
+                <h1 class="h4 mb-0">
+                    Review Status
+                </h1>
+            </div>
+
+            <div class="organization-account">
+                <span class="account-avatar">
+                    <i class="bi bi-building"></i>
+                </span>
+
+                <div class="d-none d-sm-block">
+                    <strong id="organizationName">
+                        Organization
+                    </strong>
+
+                    <small class="d-block text-secondary">
+                        Organization Manager
+                    </small>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="organization-main">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+
+                    <li class="breadcrumb-item">
+                        <a href="./organization-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="./branches.html">
+                            Branches
+                        </a>
+                    </li>
+
+                    <li
+                        class="breadcrumb-item active"
+                        aria-current="page"
+                    >
+                        Review Status
+                    </li>
+
+                </ol>
+            </nav>
+
+            <!-- Status Hero -->
+            <section
+                class="status-hero pending"
+                id="statusHero"
+            >
+                <span
+                    class="status-main-icon"
+                    id="statusMainIcon"
+                >
+                    <i class="bi bi-hourglass-split"></i>
+                </span>
+
+                <span
+                    class="status-badge pending"
+                    id="statusBadge"
+                >
+                    Pending Review
+                </span>
+
+                <h2 id="statusTitle">
+                    Your Branch Is Under Review
+                </h2>
+
+                <p id="statusDescription">
+                    The Wusool admin team is reviewing the branch
+                    details and accessibility information.
+                </p>
+            </section>
+
+            <div class="row g-4">
+
+                <!-- Main Status Information -->
+                <section class="col-12 col-xl-8">
+
+                    <!-- Branch Information -->
+                    <article class="content-card mb-4">
+
+                        <header class="card-header-section">
+                            <div class="d-flex align-items-center gap-3">
+
+                                <span class="card-icon">
+                                    <i class="bi bi-building"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        BRANCH INFORMATION
+                                    </p>
+
+                                    <h2
+                                        class="h4 mb-0"
+                                        id="branchName"
+                                    >
+                                        Branch Name
+                                    </h2>
+                                </div>
+
+                            </div>
+
+                            <a
+                                href="./organization-branch-details.html"
+                                class="btn btn-sm btn-outline-wusool"
+                                id="viewBranchLink"
+                            >
+                                View Details
+                            </a>
+                        </header>
+
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Reference Number</span>
+
+                                    <strong id="referenceNumber">
+                                        —
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Submitted On</span>
+
+                                    <strong id="submittedDate">
+                                        —
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Location</span>
+
+                                    <strong id="branchLocation">
+                                        —
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Accessibility Score</span>
+
+                                    <strong id="accessibilityScore">
+                                        —
+                                    </strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Review Timeline -->
+                    <article class="content-card mb-4">
+
+                        <header class="mb-4">
+                            <p class="section-label mb-1">
+                                REVIEW PROGRESS
+                            </p>
+
+                            <h2 class="h4 mb-1">
+                                Branch Review Timeline
+                            </h2>
+
+                            <p class="text-secondary mb-0">
+                                Follow the branch verification process.
+                            </p>
+                        </header>
+
+                        <div
+                            class="review-timeline"
+                            id="reviewTimeline"
+                        ></div>
+
+                    </article>
+
+                    <!-- Admin Feedback -->
+                    <article
+                        class="content-card d-none"
+                        id="adminFeedbackCard"
+                    >
+                        <header class="card-header-section">
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <span class="card-icon feedback-icon">
+                                    <i class="bi bi-chat-left-text"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        ADMIN FEEDBACK
+                                    </p>
+
+                                    <h2 class="h4 mb-0">
+                                        Requested Changes
+                                    </h2>
+                                </div>
+
+                            </div>
+
+                        </header>
+
+                        <div
+                            class="feedback-list"
+                            id="adminFeedbackList"
+                        ></div>
+
+                    </article>
+
+                </section>
+
+                <!-- Side Panel -->
+                <aside class="col-12 col-xl-4">
+
+                    <!-- Current Status -->
+                    <article class="content-card mb-4">
+
+                        <h2 class="h5 mb-3">
+                            Current Status
+                        </h2>
+
+                        <div class="current-status-box">
+
+                            <span
+                                class="current-status-icon"
+                                id="currentStatusIcon"
+                            >
+                                <i class="bi bi-clock"></i>
+                            </span>
+
+                            <div>
+                                <strong id="currentStatusLabel">
+                                    Pending Review
+                                </strong>
+
+                                <p
+                                    class="text-secondary mb-0"
+                                    id="currentStatusDate"
+                                >
+                                    Waiting for admin decision
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Next Action -->
+                    <article class="content-card mb-4">
+
+                        <h2 class="h5 mb-3">
+                            What Should You Do?
+                        </h2>
+
+                        <p
+                            class="text-secondary"
+                            id="nextActionDescription"
+                        >
+                            No action is required while the branch is
+                            being reviewed.
+                        </p>
+
+                        <div id="dynamicActionContainer"></div>
+
+                    </article>
+
+                    <!-- Notifications -->
+                    <article class="content-card">
+
+                        <span class="notification-icon">
+                            <i class="bi bi-bell"></i>
+                        </span>
+
+                        <h2 class="h5 mt-3">
+                            Status Notifications
+                        </h2>
+
+                        <p class="text-secondary mb-0">
+                            Your organization will receive a notification
+                            whenever the review status changes.
+                        </p>
+
+                    </article>
+
+                </aside>
+
+            </div>
+
+            <!-- Bottom Actions -->
+            <footer
+                class="d-flex flex-column flex-sm-row
+                       justify-content-between gap-3 mt-4"
+            >
+                <a
+                    href="./branches.html"
+                    class="btn btn-light"
+                >
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Back to Branches
+                </a>
+
+                <button
+                    type="button"
+                    class="btn btn-outline-wusool"
+                    id="refreshStatusButton"
+                >
+                    <i class="bi bi-arrow-clockwise me-2"></i>
+                    Refresh Status
+                </button>
+            </footer>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div
+        class="toast"
+        id="statusToast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <i class="bi bi-arrow-clockwise text-success me-2"></i>
+
+            <strong class="me-auto">Wusool</strong>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            ></button>
+        </div>
+
+        <div class="toast-body">
+            Branch status refreshed successfully.
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../js/branch-review-status.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

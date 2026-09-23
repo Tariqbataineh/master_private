@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Submit Branch | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared CSS -->
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/branch-submit-review.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+<div class="organization-layout">
+
+    <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+    <!-- Main Content -->
+    <div class="organization-content">
+
+        <!-- Header -->
+        <header class="organization-header">
+
+            <button
+                type="button"
+                class="btn sidebar-toggle d-lg-none"
+                id="sidebarToggle"
+                aria-label="Open navigation"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div>
+                <p class="header-eyebrow mb-1">
+                    BRANCH SETUP
+                </p>
+
+                <h1 class="h4 mb-0">
+                    Final Review
+                </h1>
+            </div>
+
+            <div class="organization-account">
+                <span class="account-avatar">
+                    <i class="bi bi-building"></i>
+                </span>
+
+                <div class="d-none d-sm-block">
+                    <strong id="organizationName">
+                        Organization
+                    </strong>
+
+                    <small class="d-block text-secondary">
+                        Organization Manager
+                    </small>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="organization-main">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+
+                    <li class="breadcrumb-item">
+                        <a href="./organization-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="./branches.html">
+                            Branches
+                        </a>
+                    </li>
+
+                    <li
+                        class="breadcrumb-item active"
+                        aria-current="page"
+                    >
+                        Submit Branch
+                    </li>
+
+                </ol>
+            </nav>
+
+            <!-- Heading -->
+            <section class="mb-4">
+
+                <div
+                    class="d-flex flex-column flex-md-row
+                           justify-content-between
+                           align-items-md-center gap-3"
+                >
+                    <div>
+                        <span class="section-label">
+                            FINAL STEP
+                        </span>
+
+                        <h2 class="page-title mt-2 mb-2">
+                            Review and Submit Branch
+                        </h2>
+
+                        <p class="text-secondary mb-0">
+                            Verify the information before sending the
+                            branch to the Wusool admin.
+                        </p>
+                    </div>
+
+                    <span class="pending-badge">
+                        <i class="bi bi-clock me-2"></i>
+                        Not Submitted
+                    </span>
+                </div>
+
+            </section>
+
+            <!-- Review Progress -->
+            <section class="setup-progress-card mb-4">
+
+                <div class="setup-steps">
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Details</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Working Hours</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Accessibility</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Photos</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>AI Review</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <div class="row g-4">
+
+                <!-- Review Information -->
+                <section class="col-12 col-xl-8">
+
+                    <!-- Branch Details -->
+                    <article class="review-card mb-4">
+
+                        <header class="review-card-header">
+
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="review-icon">
+                                    <i class="bi bi-building"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        BRANCH INFORMATION
+                                    </p>
+
+                                    <h2 class="h4 mb-0">
+                                        Branch Details
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <a
+                                href="./add-branch.html"
+                                class="btn btn-sm btn-outline-wusool"
+                                id="editDetailsLink"
+                            >
+                                <i class="bi bi-pencil me-1"></i>
+                                Edit
+                            </a>
+
+                        </header>
+
+                        <div class="row g-3" id="branchDetailsContainer">
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Branch Name</span>
+                                    <strong id="branchName">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Branch Code</span>
+                                    <strong id="branchCode">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Branch Type</span>
+                                    <strong id="branchType">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>City</span>
+                                    <strong id="branchCity">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="information-item">
+                                    <span>Address</span>
+                                    <strong id="branchAddress">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Phone Number</span>
+                                    <strong id="branchPhone">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Email Address</span>
+                                    <strong id="branchEmail">—</strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Working Hours -->
+                    <article class="review-card mb-4">
+
+                        <header class="review-card-header">
+
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="review-icon">
+                                    <i class="bi bi-clock"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        AVAILABILITY
+                                    </p>
+
+                                    <h2 class="h4 mb-0">
+                                        Working Hours
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <a
+                                href="./branch-working-hours.html"
+                                class="btn btn-sm btn-outline-wusool"
+                                id="editHoursLink"
+                            >
+                                <i class="bi bi-pencil me-1"></i>
+                                Edit
+                            </a>
+
+                        </header>
+
+                        <div
+                            class="working-hours-list"
+                            id="workingHoursContainer"
+                        ></div>
+
+                    </article>
+
+                    <!-- Accessibility -->
+                    <article class="review-card mb-4">
+
+                        <header class="review-card-header">
+
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="review-icon">
+                                    <i class="bi bi-universal-access"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        ACCESSIBILITY
+                                    </p>
+
+                                    <h2 class="h4 mb-0">
+                                        Accessibility Features
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <a
+                                href="./branch-accessibility.html"
+                                class="btn btn-sm btn-outline-wusool"
+                                id="editAccessibilityLink"
+                            >
+                                <i class="bi bi-pencil me-1"></i>
+                                Edit
+                            </a>
+
+                        </header>
+
+                        <div
+                            class="row g-3"
+                            id="accessibilityContainer"
+                        ></div>
+
+                    </article>
+
+                    <!-- Photos -->
+                    <article class="review-card">
+
+                        <header class="review-card-header">
+
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="review-icon">
+                                    <i class="bi bi-images"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        AI REFERENCES
+                                    </p>
+
+                                    <h2 class="h4 mb-0">
+                                        Branch Photos
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <a
+                                href="./branch-photos.html"
+                                class="btn btn-sm btn-outline-wusool"
+                                id="editPhotosLink"
+                            >
+                                <i class="bi bi-pencil me-1"></i>
+                                Edit
+                            </a>
+
+                        </header>
+
+                        <div
+                            class="row g-3"
+                            id="photosContainer"
+                        ></div>
+
+                    </article>
+
+                </section>
+
+                <!-- Submission Panel -->
+                <aside class="col-12 col-xl-4">
+
+                    <!-- AI Score -->
+                    <article class="review-card mb-4 text-center">
+
+                        <p class="section-label mb-3">
+                            AI ACCESSIBILITY SCORE
+                        </p>
+
+                        <div
+                            class="score-circle mx-auto"
+                            id="scoreCircle"
+                        >
+                            <div>
+                                <strong id="aiScore">0</strong>
+                                <span>/ 100</span>
+                            </div>
+                        </div>
+
+                        <h2
+                            class="h5 mt-3 mb-1"
+                            id="scoreLabel"
+                        >
+                            Analysis Result
+                        </h2>
+
+                        <p class="text-secondary small mb-3">
+                            Preliminary score before admin verification.
+                        </p>
+
+                        <a
+                            href="./branch-ai-review.html"
+                            class="btn btn-outline-wusool w-100"
+                            id="viewAiReviewLink"
+                        >
+                            View AI Review
+                        </a>
+
+                    </article>
+
+                    <!-- Submission Checklist -->
+                    <article class="review-card mb-4">
+
+                        <h2 class="h5 mb-3">
+                            Submission Checklist
+                        </h2>
+
+                        <div
+                            class="submission-checklist"
+                            id="submissionChecklist"
+                        ></div>
+
+                    </article>
+
+                    <!-- Confirmation -->
+                    <article class="review-card submission-card">
+
+                        <span class="submission-main-icon">
+                            <i class="bi bi-send-check"></i>
+                        </span>
+
+                        <h2 class="h4 mt-3">
+                            Ready to Submit?
+                        </h2>
+
+                        <p class="text-secondary">
+                            After submission, the branch will be sent
+                            to the Wusool admin for verification.
+                        </p>
+
+                        <div class="submission-information">
+                            <i class="bi bi-info-circle-fill"></i>
+
+                            <p class="mb-0">
+                                You cannot directly publish the branch.
+                                It will remain pending until approved
+                                by an admin.
+                            </p>
+                        </div>
+
+                        <div class="form-check confirmation-check mt-4">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="informationConfirmation"
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="informationConfirmation"
+                            >
+                                I confirm that the submitted branch
+                                information is accurate and up to date.
+                            </label>
+                        </div>
+
+                        <div
+                            class="alert alert-danger d-none mt-3"
+                            id="confirmationAlert"
+                            role="alert"
+                        >
+                            Please confirm that the information is correct.
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-wusool btn-lg w-100 mt-4"
+                            id="submitBranchButton"
+                            disabled
+                        >
+                            <i class="bi bi-send me-2"></i>
+                            Submit Branch for Review
+                        </button>
+
+                    </article>
+
+                </aside>
+
+            </div>
+
+            <!-- Back Button -->
+            <footer class="mt-4">
+                <a
+                    href="./branch-ai-review.html"
+                    class="btn btn-light"
+                    id="backButton"
+                >
+                    <i class="bi bi-arrow-left me-2"></i>
+                    Back to AI Review
+                </a>
+            </footer>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- Submit Modal -->
+<div
+    class="modal fade"
+    id="submitConfirmationModal"
+    tabindex="-1"
+    aria-labelledby="submitConfirmationTitle"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content confirmation-modal">
+
+            <div class="modal-body text-center p-4 p-md-5">
+
+                <span class="modal-icon">
+                    <i class="bi bi-send-check"></i>
+                </span>
+
+                <h2
+                    class="h3 mt-4"
+                    id="submitConfirmationTitle"
+                >
+                    Submit This Branch?
+                </h2>
+
+                <p class="text-secondary">
+                    The branch information will be sent to the Wusool
+                    admin and its status will become Pending Review.
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+
+                    <button
+                        type="button"
+                        class="btn btn-light flex-fill"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-wusool flex-fill"
+                        id="confirmSubmissionButton"
+                    >
+                        Confirm Submission
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../js/branch-submit-review.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

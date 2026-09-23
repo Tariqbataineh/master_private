@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Accessibility Review | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared CSS -->
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../css/branch-ai-review.css">
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+<div class="organization-layout">
+
+    <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+    <!-- Main Content -->
+    <div class="organization-content">
+
+        <!-- Header -->
+        <header class="organization-header">
+
+            <button
+                type="button"
+                class="btn sidebar-toggle d-lg-none"
+                id="sidebarToggle"
+                aria-label="Open navigation"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div>
+                <p class="header-eyebrow mb-1">
+                    BRANCH SETUP
+                </p>
+
+                <h1 class="h4 mb-0">
+                    AI Accessibility Review
+                </h1>
+            </div>
+
+            <div class="organization-account">
+                <span class="account-avatar">
+                    <i class="bi bi-building"></i>
+                </span>
+
+                <div class="d-none d-sm-block">
+                    <strong id="organizationName">
+                        Organization
+                    </strong>
+
+                    <small class="d-block text-secondary">
+                        Organization Manager
+                    </small>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="organization-main">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+
+                    <li class="breadcrumb-item">
+                        <a href="./organization-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="./branches.html">
+                            Branches
+                        </a>
+                    </li>
+
+                    <li
+                        class="breadcrumb-item active"
+                        aria-current="page"
+                    >
+                        AI Review
+                    </li>
+
+                </ol>
+            </nav>
+
+            <!-- Page Heading -->
+            <section class="mb-4">
+
+                <div
+                    class="d-flex flex-column flex-md-row
+                           justify-content-between
+                           align-items-md-center gap-3"
+                >
+                    <div>
+                        <span class="section-label">
+                            STEP 5 OF 5
+                        </span>
+
+                        <h2 class="page-title mt-2 mb-2">
+                            Review AI Accessibility Analysis
+                        </h2>
+
+                        <p class="text-secondary mb-0">
+                            Review the preliminary accessibility results
+                            before submitting the branch for admin approval.
+                        </p>
+                    </div>
+
+                    <span
+                        class="branch-name-badge"
+                        id="branchNameBadge"
+                    >
+                        New Branch
+                    </span>
+                </div>
+
+            </section>
+
+            <!-- Progress Steps -->
+            <section class="setup-progress-card mb-4">
+
+                <div class="setup-steps">
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Details</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Working Hours</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Accessibility</span>
+                    </div>
+
+                    <div class="step-line completed"></div>
+
+                    <div class="setup-step completed">
+                        <span class="step-number">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+                        <span>Photos</span>
+                    </div>
+
+                    <div class="step-line active"></div>
+
+                    <div class="setup-step active">
+                        <span class="step-number">5</span>
+                        <span>AI Review</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Analysis Loading -->
+            <section
+                class="analysis-loading-card"
+                id="analysisLoading"
+            >
+                <div class="ai-loader">
+                    <i class="bi bi-stars"></i>
+                </div>
+
+                <h2 class="h3 mt-4">
+                    Analyzing Branch Information
+                </h2>
+
+                <p
+                    class="text-secondary text-center
+                           analysis-loading-text"
+                    id="analysisLoadingText"
+                >
+                    Reviewing accessibility features...
+                </p>
+
+                <div
+                    class="progress analysis-progress"
+                    role="progressbar"
+                    aria-label="AI analysis progress"
+                >
+                    <div
+                        class="progress-bar"
+                        id="analysisProgressBar"
+                        style="width: 0%"
+                    ></div>
+                </div>
+
+                <span
+                    class="analysis-percentage"
+                    id="analysisPercentage"
+                >
+                    0%
+                </span>
+            </section>
+
+            <!-- Analysis Results -->
+            <section
+                class="d-none"
+                id="analysisResults"
+            >
+
+                <!-- Prototype Alert -->
+                <div
+                    class="alert prototype-alert
+                           d-flex align-items-start gap-3"
+                    role="alert"
+                >
+                    <i class="bi bi-info-circle-fill fs-5"></i>
+
+                    <div>
+                        <strong>Preliminary AI analysis</strong>
+
+                        <p class="mb-0 mt-1">
+                            These results are generated from the branch
+                            checklist and uploaded photo information.
+                            The branch will still be reviewed by an admin
+                            before it becomes publicly available.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <section class="row g-4 mb-4">
+
+                    <article class="col-12 col-md-6 col-xl-3">
+                        <div class="stat-card">
+
+                            <span class="stat-icon score-icon">
+                                <i class="bi bi-speedometer2"></i>
+                            </span>
+
+                            <div>
+                                <p class="stat-label">
+                                    Accessibility Score
+                                </p>
+
+                                <strong
+                                    class="stat-value"
+                                    id="accessibilityScore"
+                                >
+                                    0%
+                                </strong>
+
+                                <span
+                                    class="stat-status"
+                                    id="scoreStatus"
+                                >
+                                    Processing
+                                </span>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <article class="col-12 col-md-6 col-xl-3">
+                        <div class="stat-card">
+
+                            <span class="stat-icon">
+                                <i class="bi bi-images"></i>
+                            </span>
+
+                            <div>
+                                <p class="stat-label">
+                                    Uploaded Photos
+                                </p>
+
+                                <strong
+                                    class="stat-value"
+                                    id="uploadedPhotosCount"
+                                >
+                                    0
+                                </strong>
+
+                                <span class="stat-status">
+                                    Reference images
+                                </span>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <article class="col-12 col-md-6 col-xl-3">
+                        <div class="stat-card">
+
+                            <span class="stat-icon">
+                                <i class="bi bi-check-circle"></i>
+                            </span>
+
+                            <div>
+                                <p class="stat-label">
+                                    Available Features
+                                </p>
+
+                                <strong
+                                    class="stat-value"
+                                    id="availableFeaturesCount"
+                                >
+                                    0
+                                </strong>
+
+                                <span class="stat-status">
+                                    Declared available
+                                </span>
+                            </div>
+
+                        </div>
+                    </article>
+
+                    <article class="col-12 col-md-6 col-xl-3">
+                        <div class="stat-card">
+
+                            <span class="stat-icon warning-icon">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </span>
+
+                            <div>
+                                <p class="stat-label">
+                                    Items to Review
+                                </p>
+
+                                <strong
+                                    class="stat-value"
+                                    id="reviewItemsCount"
+                                >
+                                    0
+                                </strong>
+
+                                <span class="stat-status">
+                                    Need verification
+                                </span>
+                            </div>
+
+                        </div>
+                    </article>
+
+                </section>
+
+                <div class="row g-4">
+
+                    <!-- Main Analysis -->
+                    <section class="col-12 col-xl-8">
+
+                        <!-- Score -->
+                        <article class="content-card mb-4">
+
+                            <header class="card-heading">
+                                <span class="heading-icon">
+                                    <i class="bi bi-bar-chart"></i>
+                                </span>
+
+                                <div>
+                                    <h2 class="h4 mb-1">
+                                        Overall Accessibility
+                                    </h2>
+
+                                    <p class="text-secondary mb-0">
+                                        Estimated from the submitted branch
+                                        information.
+                                    </p>
+                                </div>
+                            </header>
+
+                            <div class="score-section">
+
+                                <div
+                                    class="score-circle"
+                                    id="scoreCircle"
+                                >
+                                    <div>
+                                        <strong id="scoreCircleValue">
+                                            0
+                                        </strong>
+
+                                        <span>/ 100</span>
+                                    </div>
+                                </div>
+
+                                <div class="score-details">
+
+                                    <h3
+                                        class="h4 mb-2"
+                                        id="scoreHeading"
+                                    >
+                                        Analysis Complete
+                                    </h3>
+
+                                    <p
+                                        class="text-secondary"
+                                        id="scoreDescription"
+                                    >
+                                        The preliminary analysis has been
+                                        completed.
+                                    </p>
+
+                                    <div class="progress score-progress">
+                                        <div
+                                            class="progress-bar"
+                                            id="scoreProgressBar"
+                                            style="width: 0%"
+                                        ></div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                        <!-- Detected Features -->
+                        <article class="content-card mb-4">
+
+                            <header class="card-heading">
+                                <span class="heading-icon success-heading-icon">
+                                    <i class="bi bi-check2-circle"></i>
+                                </span>
+
+                                <div>
+                                    <h2 class="h4 mb-1">
+                                        Available Accessibility Features
+                                    </h2>
+
+                                    <p class="text-secondary mb-0">
+                                        Features marked as available by the
+                                        organization.
+                                    </p>
+                                </div>
+                            </header>
+
+                            <div
+                                class="row g-3"
+                                id="availableFeaturesContainer"
+                            ></div>
+
+                        </article>
+
+                        <!-- Warnings -->
+                        <article class="content-card mb-4">
+
+                            <header class="card-heading">
+                                <span class="heading-icon warning-heading-icon">
+                                    <i class="bi bi-exclamation-triangle"></i>
+                                </span>
+
+                                <div>
+                                    <h2 class="h4 mb-1">
+                                        Items Requiring Verification
+                                    </h2>
+
+                                    <p class="text-secondary mb-0">
+                                        Missing or uncertain information that
+                                        should be checked.
+                                    </p>
+                                </div>
+                            </header>
+
+                            <div id="warningsContainer"></div>
+
+                        </article>
+
+                        <!-- Suggestions -->
+                        <article class="content-card">
+
+                            <header class="card-heading">
+                                <span class="heading-icon">
+                                    <i class="bi bi-lightbulb"></i>
+                                </span>
+
+                                <div>
+                                    <h2 class="h4 mb-1">
+                                        AI Improvement Suggestions
+                                    </h2>
+
+                                    <p class="text-secondary mb-0">
+                                        Recommended actions to improve branch
+                                        accessibility.
+                                    </p>
+                                </div>
+                            </header>
+
+                            <div id="suggestionsContainer"></div>
+
+                        </article>
+
+                    </section>
+
+                    <!-- Summary -->
+                    <aside class="col-12 col-xl-4">
+
+                        <article class="content-card mb-4">
+
+                            <div class="side-card-icon">
+                                <i class="bi bi-building-check"></i>
+                            </div>
+
+                            <p class="section-label mb-2">
+                                CURRENT BRANCH
+                            </p>
+
+                            <h2
+                                class="h5 mb-1"
+                                id="currentBranchName"
+                            >
+                                New Branch
+                            </h2>
+
+                            <p
+                                class="text-secondary mb-0"
+                                id="currentBranchLocation"
+                            >
+                                Location not specified
+                            </p>
+
+                        </article>
+
+                        <!-- Photo Coverage -->
+                        <article class="content-card mb-4">
+
+                            <h2 class="h5 mb-3">
+                                Photo Coverage
+                            </h2>
+
+                            <div
+                                class="coverage-list"
+                                id="photoCoverageContainer"
+                            ></div>
+
+                        </article>
+
+                        <!-- Review Status -->
+                        <article class="content-card">
+
+                            <h2 class="h5 mb-3">
+                                Submission Status
+                            </h2>
+
+                            <div class="submission-status">
+
+                                <span class="submission-status-icon">
+                                    <i class="bi bi-file-earmark-check"></i>
+                                </span>
+
+                                <div>
+                                    <strong>Ready for final review</strong>
+
+                                    <p class="text-secondary mb-0 mt-1">
+                                        Check the information before
+                                        submitting it to the Wusool admin.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <hr>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-wusool w-100"
+                                id="runAnalysisButton"
+                            >
+                                <i class="bi bi-arrow-clockwise me-2"></i>
+                                Run Analysis Again
+                            </button>
+
+                        </article>
+
+                    </aside>
+
+                </div>
+
+                <!-- Actions -->
+                <footer
+                    class="page-actions d-flex flex-column
+                           flex-sm-row justify-content-between
+                           gap-3 mt-4"
+                >
+                    <a
+                        href="./branch-photos.html"
+                        class="btn btn-light"
+                        id="backButton"
+                    >
+                        <i class="bi bi-arrow-left me-2"></i>
+                        Back to Photos
+                    </a>
+
+                    <button
+                        type="button"
+                        class="btn btn-wusool"
+                        id="continueButton"
+                    >
+                        Continue to Final Review
+
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </button>
+                </footer>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../js/branch-ai-review.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

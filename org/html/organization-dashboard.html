@@ -33,175 +33,15 @@
         rel="stylesheet"
         href="../css/organization-dashboard.css"
     >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
 </head>
 
 <body>
 
-    <!-- Sidebar -->
-    <aside
-        id="organizationSidebar"
-        class="organization-sidebar"
-        aria-label="Organization navigation"
-    >
-
-        <!-- Sidebar Logo -->
-        <a
-            href="./organization-dashboard.html"
-            class="sidebar-logo"
-        >
-
-            <span class="logo-icon">
-                <i class="bi bi-universal-access"></i>
-            </span>
-
-            <span class="logo-content">
-
-                <strong>Wusool</strong>
-
-                <small>
-                    Organization Portal
-                </small>
-
-            </span>
-
-        </a>
-
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar-navigation">
-
-            <a
-                href="./organization-dashboard.html"
-                class="sidebar-link active"
-            >
-                <i class="bi bi-speedometer2"></i>
-                <span>Dashboard</span>
-            </a>
-
-            <a
-                href="./branches.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-buildings"></i>
-                <span>Branches</span>
-            </a>
-
-            <a
-                href="./branch-visits.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-calendar-check"></i>
-                <span>Visits</span>
-            </a>
-
-            <a
-                href="./organization-reviews.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-chat-square-text"></i>
-                <span>Reviews & Reports</span>
-            </a>
-
-            <a
-                href="./organization-reports.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-bar-chart-line"></i>
-                <span>Analytics</span>
-            </a>
-
-            <a
-                href="./current-subscription.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-credit-card"></i>
-                <span>Subscription</span>
-            </a>
-
-            <a
-                href="./organization-notifications.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-bell"></i>
-                <span>Notifications</span>
-
-                <span
-                    id="sidebarNotificationCount"
-                    class="sidebar-count"
-                >
-                    4
-                </span>
-            </a>
-
-            <a
-                href="./organization-profile.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-building-gear"></i>
-                <span>Organization Profile</span>
-            </a>
-
-            <a
-                href="./organization-settings.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-gear"></i>
-                <span>Settings</span>
-            </a>
-
-            <a
-                href="./organization-help.html"
-                class="sidebar-link"
-            >
-                <i class="bi bi-question-circle"></i>
-                <span>Help & Support</span>
-            </a>
-
-        </nav>
-
-        <!-- Sidebar Footer -->
-        <footer class="sidebar-footer">
-
-            <div class="organization-summary">
-
-                <span
-                    id="sidebarOrganizationInitials"
-                    class="organization-avatar"
-                >
-                    OR
-                </span>
-
-                <div class="organization-text">
-
-                    <strong id="sidebarOrganizationName">
-                        Organization
-                    </strong>
-
-                    <small>
-                        Organization Admin
-                    </small>
-
-                </div>
-
-            </div>
-
-            <a
-    href="./organization-login.html"
-    id="logoutButton"
-    class="sidebar-link"
->
-    <i class="bi bi-box-arrow-right"></i>
-    <span>Log Out</span>
-</a>
-
-        </footer>
-
-    </aside>
-
-    <!-- Sidebar Overlay -->
-    <div
-        id="sidebarOverlay"
-        class="sidebar-overlay"
-    ></div>
+   
+    <!-- Shared Organization Sidebar -->
+    <div id="organizationSidebarContainer"></div>
 
     <!-- Topbar -->
     <header class="organization-topbar">
@@ -227,7 +67,7 @@
         <div class="topbar-actions">
 
             <a
-                href="./organization-notifications.html"
+                href="./notifications.html"
                 class="notification-button"
                 aria-label="Open notifications"
             >
@@ -268,7 +108,7 @@
                     <li>
                         <a
                             class="dropdown-item"
-                            href="./organization-profile.html"
+                            href="./organization-settings.html#manager-profile"
                         >
                             <i class="bi bi-building-gear"></i>
                             Organization Profile
@@ -554,7 +394,7 @@
                     <div class="col-sm-6 col-xl-3">
 
                         <a
-                            href="./upload-branch-photos.html"
+                            href="./branch-photos-management.html"
                             class="quick-action-card"
                         >
 
@@ -574,7 +414,7 @@
                     <div class="col-sm-6 col-xl-3">
 
                         <a
-                            href="./ai-analysis.html"
+                            href="./organization-ai-reports.html"
                             class="quick-action-card"
                         >
 
@@ -594,7 +434,7 @@
                     <div class="col-sm-6 col-xl-3">
 
                         <a
-                            href="./organization-reports.html"
+                            href="./organization-ai-reports.html"
                             class="quick-action-card"
                         >
 
@@ -715,7 +555,7 @@
 
                                         <td>
                                             <a
-                                                href="./branch-details.html?id=1"
+                                                href="./organization-branch-details.html?id=1"
                                                 class="table-action"
                                             >
                                                 View
@@ -750,7 +590,7 @@
 
                                         <td>
                                             <a
-                                                href="./requested-changes.html?id=2"
+                                                href="./branch-review-status.html?id=2"
                                                 class="table-action"
                                             >
                                                 Update
@@ -892,7 +732,7 @@
                         <div class="d-grid mt-4">
 
                             <a
-                                href="./current-subscription.html"
+                                href="./subscription-management.html"
                                 class="btn btn-outline-wusool"
                             >
                                 Manage Subscription
@@ -1016,7 +856,7 @@
                             </div>
 
                             <a
-                                href="./organization-notifications.html"
+                                href="./notifications.html"
                                 class="view-all-link"
                             >
                                 View All
@@ -1049,7 +889,7 @@
                             </a>
 
                             <a
-                                href="./requested-changes.html?id=2"
+                                href="./branch-review-status.html?id=2"
                                 class="dashboard-notification unread"
                             >
 
@@ -1071,7 +911,7 @@
                             </a>
 
                             <a
-                                href="./branch-visits.html"
+                                href="./visitor-tickets.html"
                                 class="dashboard-notification"
                             >
 
@@ -1111,6 +951,9 @@
     <!-- Page JavaScript -->
     <script src="../js/organization-dashboard.js"></script>
 
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
 </body>
 
 </html>

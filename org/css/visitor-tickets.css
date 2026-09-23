@@ -1,0 +1,339 @@
+:root {
+    --wusool-primary: #087f78;
+    --wusool-primary-dark: #05645f;
+    --wusool-navy: #0b2545;
+    --wusool-light: #edf8f7;
+    --wusool-border: #d4e5e3;
+    --wusool-muted: #64748b;
+    --wusool-white: #ffffff;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--wusool-navy);
+    background-color: #f7fafb;
+}
+
+.organization-content {
+    min-height: 100vh;
+}
+
+.organization-header {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 78px;
+    padding: 0.875rem 2rem;
+    background-color: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid var(--wusool-border);
+    backdrop-filter: blur(12px);
+}
+
+.organization-header > div {
+    flex-grow: 1;
+}
+
+.header-label,
+.modal-label {
+    color: var(--wusool-primary);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+}
+
+.sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border: 1px solid var(--wusool-border);
+    border-radius: 0.75rem;
+}
+
+.page-heading {
+    padding: 1.75rem;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(22, 182, 176, 0.2),
+            transparent 38%
+        ),
+        var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 1.25rem;
+}
+
+.breadcrumb-item a {
+    color: var(--wusool-primary);
+}
+
+.btn-wusool {
+    color: #ffffff;
+    background-color: var(--wusool-primary);
+    border-color: var(--wusool-primary);
+    font-weight: 700;
+}
+
+.btn-wusool:hover,
+.btn-wusool:focus {
+    color: #ffffff;
+    background-color: var(--wusool-primary-dark);
+    border-color: var(--wusool-primary-dark);
+}
+
+.btn-outline-wusool {
+    color: var(--wusool-primary);
+    background-color: transparent;
+    border-color: var(--wusool-primary);
+    font-weight: 700;
+}
+
+.btn-outline-wusool:hover,
+.btn-outline-wusool:focus {
+    color: #ffffff;
+    background-color: var(--wusool-primary);
+    border-color: var(--wusool-primary);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(11, 37, 69, 0.05);
+}
+
+.stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 0.9rem;
+    font-size: 1.3rem;
+}
+
+.stat-icon.confirmed {
+    color: #0d6efd;
+    background-color: #eaf2ff;
+}
+
+.stat-icon.active {
+    color: #a56300;
+    background-color: #fff4df;
+}
+
+.stat-icon.completed {
+    color: #198754;
+    background-color: #e8f7ef;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.65rem;
+    line-height: 1;
+}
+
+.filter-card {
+    padding: 1.25rem;
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 1rem;
+}
+
+.input-group-text {
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-color: var(--wusool-border);
+}
+
+.form-control,
+.form-select {
+    min-height: 48px;
+    border-color: var(--wusool-border);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--wusool-primary);
+    box-shadow: 0 0 0 0.2rem rgba(8, 127, 120, 0.13);
+}
+
+.tickets-table-card {
+    overflow: hidden;
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 1rem;
+    box-shadow: 0 14px 35px rgba(11, 37, 69, 0.05);
+}
+
+.table thead th {
+    padding: 1rem;
+    color: var(--wusool-muted);
+    background-color: #f5f9f9;
+    border-bottom-color: var(--wusool-border);
+    font-size: 0.74rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    text-transform: uppercase;
+}
+
+.table tbody td {
+    padding: 1rem;
+    border-color: #edf2f2;
+}
+
+.visitor-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    color: var(--wusool-primary-dark);
+    background-color: #d9f4f2;
+    border-radius: 50%;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.ticket-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.42rem 0.7rem;
+    border-radius: 2rem;
+    font-size: 0.74rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.ticket-status.confirmed {
+    color: #075a9c;
+    background-color: #e5f2ff;
+}
+
+.ticket-status.in-progress {
+    color: #875500;
+    background-color: #fff2d8;
+}
+
+.ticket-status.completed {
+    color: #12653c;
+    background-color: #e5f6ec;
+}
+
+.ticket-status.cancelled {
+    color: #a61e2d;
+    background-color: #fdebee;
+}
+
+.ticket-card {
+    padding: 1.25rem;
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 1rem;
+    box-shadow: 0 12px 30px rgba(11, 37, 69, 0.05);
+}
+
+.ticket-information {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.ticket-information div {
+    padding: 0.75rem;
+    background-color: #f7fbfb;
+    border-radius: 0.75rem;
+}
+
+.ticket-information small,
+.ticket-information strong {
+    display: block;
+}
+
+.ticket-information small {
+    margin-bottom: 0.25rem;
+    color: var(--wusool-muted);
+}
+
+.ticket-reference-card,
+.details-section {
+    padding: 1rem;
+    background-color: #f7fbfb;
+    border: 1px solid var(--wusool-border);
+    border-radius: 0.9rem;
+}
+
+.details-list div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #e3eceb;
+}
+
+.details-list div:last-child {
+    border-bottom: 0;
+}
+
+.details-list dt {
+    color: var(--wusool-muted);
+    font-weight: 500;
+}
+
+.details-list dd {
+    margin: 0;
+    font-weight: 700;
+    text-align: right;
+}
+
+.empty-state {
+    padding: 4rem 1.5rem;
+    background-color: var(--wusool-white);
+    border: 1px dashed var(--wusool-border);
+    border-radius: 1rem;
+}
+
+.empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+@media (max-width: 991.98px) {
+    .organization-header {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .page-heading {
+        padding: 1.25rem;
+    }
+
+    .ticket-information {
+        grid-template-columns: 1fr;
+    }
+}

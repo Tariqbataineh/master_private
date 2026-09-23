@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Add a new organization branch to Wusool."
+    >
+
+    <title>Add New Branch | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/add-branch.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+    <div class="d-flex min-vh-100">
+
+        <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+        <!-- Page Content -->
+        <div class="page-content flex-grow-1">
+
+            <!-- Mobile Header -->
+            <header class="mobile-header d-lg-none">
+                <div
+                    class="container-fluid py-3 d-flex
+                           justify-content-between
+                           align-items-center"
+                >
+                    <button
+                        type="button"
+                        id="openSidebarButton"
+                        class="btn btn-light"
+                        aria-label="Open sidebar"
+                    >
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+
+                    <strong>Wusool Organization</strong>
+
+                    <span class="organization-avatar">
+                        <i class="bi bi-building"></i>
+                    </span>
+                </div>
+            </header>
+
+            <main>
+
+                <!-- Page Header -->
+                <section class="page-heading">
+                    <div class="container-fluid p-4 p-xl-5">
+
+                        <nav
+                            aria-label="breadcrumb"
+                            class="mb-3"
+                        >
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a
+                                        href="./organization-dashboard.html"
+                                    >
+                                        Dashboard
+                                    </a>
+                                </li>
+
+                                <li class="breadcrumb-item">
+                                    <a href="./branches.html">
+                                        Branches
+                                    </a>
+                                </li>
+
+                                <li
+                                    class="breadcrumb-item active"
+                                    aria-current="page"
+                                >
+                                    Add Branch
+                                </li>
+                            </ol>
+                        </nav>
+
+                        <p class="section-label mb-2">
+                            NEW ORGANIZATION LOCATION
+                        </p>
+
+                        <h1 class="mb-2">
+                            Add New Branch
+                        </h1>
+
+                        <p class="text-secondary mb-0">
+                            Complete the branch information before
+                            submitting it for accessibility review.
+                        </p>
+
+                    </div>
+                </section>
+
+                <div class="container-fluid p-4 p-xl-5">
+
+                    <!-- Wizard Progress -->
+                    <section
+                        class="wizard-progress mb-4"
+                        aria-label="Branch registration steps"
+                    >
+                        <div class="wizard-step active">
+                            <span>1</span>
+                            <small>Branch Details</small>
+                        </div>
+
+                        <div class="wizard-line"></div>
+
+                        <div class="wizard-step">
+                            <span>2</span>
+                            <small>Working Hours</small>
+                        </div>
+
+                        <div class="wizard-line"></div>
+
+                        <div class="wizard-step">
+                            <span>3</span>
+                            <small>Accessibility</small>
+                        </div>
+
+                        <div class="wizard-line"></div>
+
+                        <div class="wizard-step">
+                            <span>4</span>
+                            <small>Photos</small>
+                        </div>
+
+                        <div class="wizard-line"></div>
+
+                        <div class="wizard-step">
+                            <span>5</span>
+                            <small>Review</small>
+                        </div>
+                    </section>
+
+                    <div class="row g-4 align-items-start">
+
+                        <!-- Form -->
+                        <div class="col-12 col-xl-8">
+
+                            <form
+                                id="branchForm"
+                                class="form-card"
+                                novalidate
+                            >
+
+                                <!-- Basic Information -->
+                                <section>
+
+                                    <div
+                                        class="d-flex align-items-center
+                                               gap-3 mb-4"
+                                    >
+                                        <span class="section-icon">
+                                            <i class="bi bi-building-add"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="section-label mb-1">
+                                                BASIC INFORMATION
+                                            </p>
+
+                                            <h2 class="form-title mb-0">
+                                                Branch Identity
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+
+                                        <div class="col-12 col-md-8">
+                                            <label
+                                                for="branchName"
+                                                class="form-label"
+                                            >
+                                                Branch Name
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="branchName"
+                                                class="form-control"
+                                                placeholder="Example: Main Branch"
+                                                maxlength="100"
+                                                required
+                                            >
+
+                                            <div class="invalid-feedback">
+                                                Enter the branch name.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-4">
+                                            <label
+                                                for="branchCode"
+                                                class="form-label"
+                                            >
+                                                Branch Code
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="branchCode"
+                                                class="form-control"
+                                                placeholder="Example: AMM-01"
+                                                maxlength="20"
+                                            >
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="branchType"
+                                                class="form-label"
+                                            >
+                                                Branch Type
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <select
+                                                id="branchType"
+                                                class="form-select"
+                                                required
+                                            >
+                                                <option value="">
+                                                    Select branch type
+                                                </option>
+
+                                                <option value="Main Location">
+                                                    Main Location
+                                                </option>
+
+                                                <option value="Service Branch">
+                                                    Service Branch
+                                                </option>
+
+                                                <option value="Customer Service Center">
+                                                    Customer Service Center
+                                                </option>
+
+                                                <option value="Office">
+                                                    Office
+                                                </option>
+                                            </select>
+
+                                            <div class="invalid-feedback">
+                                                Select a branch type.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="branchServices"
+                                                class="form-label"
+                                            >
+                                                Main Service
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="branchServices"
+                                                class="form-control"
+                                                placeholder="Example: Banking services"
+                                                maxlength="100"
+                                            >
+                                        </div>
+
+                                    </div>
+
+                                </section>
+
+                                <hr class="my-5">
+
+                                <!-- Location -->
+                                <section>
+
+                                    <div
+                                        class="d-flex align-items-center
+                                               gap-3 mb-4"
+                                    >
+                                        <span class="section-icon">
+                                            <i class="bi bi-geo-alt"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="section-label mb-1">
+                                                LOCATION INFORMATION
+                                            </p>
+
+                                            <h2 class="form-title mb-0">
+                                                Branch Address
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="branchCity"
+                                                class="form-label"
+                                            >
+                                                City
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <select
+                                                id="branchCity"
+                                                class="form-select"
+                                                required
+                                            >
+                                                <option value="">
+                                                    Select city
+                                                </option>
+
+                                                <option value="Amman">
+                                                    Amman
+                                                </option>
+
+                                                <option value="Irbid">
+                                                    Irbid
+                                                </option>
+
+                                                <option value="Zarqa">
+                                                    Zarqa
+                                                </option>
+
+                                                <option value="Salt">
+                                                    Salt
+                                                </option>
+
+                                                <option value="Aqaba">
+                                                    Aqaba
+                                                </option>
+
+                                                <option value="Madaba">
+                                                    Madaba
+                                                </option>
+
+                                                <option value="Jerash">
+                                                    Jerash
+                                                </option>
+
+                                                <option value="Ajloun">
+                                                    Ajloun
+                                                </option>
+
+                                                <option value="Mafraq">
+                                                    Mafraq
+                                                </option>
+
+                                                <option value="Karak">
+                                                    Karak
+                                                </option>
+
+                                                <option value="Tafilah">
+                                                    Tafilah
+                                                </option>
+
+                                                <option value="Ma'an">
+                                                    Ma'an
+                                                </option>
+                                            </select>
+
+                                            <div class="invalid-feedback">
+                                                Select a city.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="branchDistrict"
+                                                class="form-label"
+                                            >
+                                                District / Area
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="branchDistrict"
+                                                class="form-control"
+                                                placeholder="Example: Shmeisani"
+                                                required
+                                            >
+
+                                            <div class="invalid-feedback">
+                                                Enter the district or area.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label
+                                                for="branchAddress"
+                                                class="form-label"
+                                            >
+                                                Full Address
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <textarea
+                                                id="branchAddress"
+                                                class="form-control"
+                                                rows="3"
+                                                placeholder="Street, building number, and nearest landmark"
+                                                required
+                                            ></textarea>
+
+                                            <div class="invalid-feedback">
+                                                Enter the full address.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="latitude"
+                                                class="form-label"
+                                            >
+                                                Latitude
+                                            </label>
+
+                                            <input
+                                                type="number"
+                                                id="latitude"
+                                                class="form-control"
+                                                placeholder="31.9539"
+                                                min="-90"
+                                                max="90"
+                                                step="any"
+                                            >
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="longitude"
+                                                class="form-label"
+                                            >
+                                                Longitude
+                                            </label>
+
+                                            <input
+                                                type="number"
+                                                id="longitude"
+                                                class="form-control"
+                                                placeholder="35.9106"
+                                                min="-180"
+                                                max="180"
+                                                step="any"
+                                            >
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button
+                                                type="button"
+                                                id="useLocationButton"
+                                                class="btn btn-outline-wusool"
+                                            >
+                                                <i class="bi bi-crosshair me-2"></i>
+                                                Use My Current Location
+                                            </button>
+
+                                            <small
+                                                id="locationMessage"
+                                                class="d-block text-secondary mt-2"
+                                            >
+                                                Location access is optional.
+                                                You can enter coordinates manually.
+                                            </small>
+                                        </div>
+
+                                    </div>
+
+                                </section>
+
+                                <hr class="my-5">
+
+                                <!-- Contact -->
+                                <section>
+
+                                    <div
+                                        class="d-flex align-items-center
+                                               gap-3 mb-4"
+                                    >
+                                        <span class="section-icon">
+                                            <i class="bi bi-telephone"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="section-label mb-1">
+                                                CONTACT INFORMATION
+                                            </p>
+
+                                            <h2 class="form-title mb-0">
+                                                Branch Contact
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3">
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="branchPhone"
+                                                class="form-label"
+                                            >
+                                                Phone Number
+                                                <span class="required">*</span>
+                                            </label>
+
+                                            <input
+                                                type="tel"
+                                                id="branchPhone"
+                                                class="form-control"
+                                                placeholder="+962 6 XXX XXXX"
+                                                required
+                                            >
+
+                                            <div class="invalid-feedback">
+                                                Enter the branch phone number.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="branchEmail"
+                                                class="form-label"
+                                            >
+                                                Branch Email
+                                            </label>
+
+                                            <input
+                                                type="email"
+                                                id="branchEmail"
+                                                class="form-control"
+                                                placeholder="branch@example.com"
+                                            >
+
+                                            <div class="invalid-feedback">
+                                                Enter a valid email address.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label
+                                                for="branchDescription"
+                                                class="form-label"
+                                            >
+                                                Branch Description
+                                            </label>
+
+                                            <textarea
+                                                id="branchDescription"
+                                                class="form-control"
+                                                rows="4"
+                                                maxlength="500"
+                                                placeholder="Briefly describe this branch and its services"
+                                            ></textarea>
+
+                                            <div
+                                                class="d-flex
+                                                       justify-content-end mt-1"
+                                            >
+                                                <small
+                                                    id="descriptionCounter"
+                                                    class="text-secondary"
+                                                >
+                                                    0 / 500
+                                                </small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </section>
+
+                                <!-- Actions -->
+                                <footer
+                                    class="d-flex flex-column-reverse
+                                           flex-sm-row
+                                           justify-content-between
+                                           gap-3 mt-5"
+                                >
+                                    <a
+                                        href="./branches.html"
+                                        class="btn btn-light btn-lg"
+                                    >
+                                        Cancel
+                                    </a>
+
+                                    <div
+                                        class="d-flex flex-column
+                                               flex-sm-row gap-2"
+                                    >
+                                        <button
+                                            type="button"
+                                            id="saveDraftButton"
+                                            class="btn btn-outline-wusool btn-lg"
+                                        >
+                                            <i class="bi bi-save me-2"></i>
+                                            Save Draft
+                                        </button>
+
+                                        <button
+                                            type="submit"
+                                            class="btn btn-wusool btn-lg"
+                                        >
+                                            Save & Continue
+
+                                            <i class="bi bi-arrow-right ms-2"></i>
+                                        </button>
+                                    </div>
+                                </footer>
+
+                            </form>
+
+                        </div>
+
+                        <!-- Help Panel -->
+                        <div class="col-12 col-xl-4">
+
+                            <aside class="help-card">
+
+                                <span class="help-icon">
+                                    <i class="bi bi-lightbulb"></i>
+                                </span>
+
+                                <h2>Before You Continue</h2>
+
+                                <p>
+                                    Enter accurate branch information.
+                                    Visitors will use this information
+                                    when searching for accessible places.
+                                </p>
+
+                                <ul>
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Use the official branch name.
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Enter a complete address.
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Add accurate map coordinates.
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        Use an active phone number.
+                                    </li>
+                                </ul>
+
+                            </aside>
+
+                            <aside class="draft-information mt-4">
+
+                                <div
+                                    class="d-flex align-items-center gap-2 mb-2"
+                                >
+                                    <i class="bi bi-save"></i>
+
+                                    <h2 class="mb-0">
+                                        Draft Saving
+                                    </h2>
+                                </div>
+
+                                <p class="mb-0">
+                                    You can save the branch as a draft
+                                    and complete the remaining steps later.
+                                </p>
+
+                            </aside>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div
+            id="branchToast"
+            class="toast"
+            role="status"
+            aria-live="polite"
+        >
+            <div class="toast-header">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+
+                <strong class="me-auto">Wusool</strong>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
+            </div>
+
+            <div
+                id="toastMessage"
+                class="toast-body"
+            ></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/add-branch.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

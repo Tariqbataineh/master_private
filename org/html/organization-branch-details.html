@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Branch Details | Wusool</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="../css/organization-branch-details.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+<div class="organization-layout">
+
+    <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+    <!-- Main Content -->
+    <div class="organization-content">
+
+        <!-- Header -->
+        <header class="organization-header">
+
+            <button
+                type="button"
+                class="btn sidebar-toggle d-lg-none"
+                id="sidebarToggle"
+                aria-label="Open navigation"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <div>
+                <p class="header-eyebrow mb-1">
+                    BRANCH MANAGEMENT
+                </p>
+
+                <h1 class="h4 mb-0">
+                    Branch Details
+                </h1>
+            </div>
+
+            <div class="organization-account">
+                <span class="account-avatar">
+                    <i class="bi bi-building"></i>
+                </span>
+
+                <div class="d-none d-sm-block">
+                    <strong id="organizationName">
+                        Organization
+                    </strong>
+
+                    <small class="d-block text-secondary">
+                        Organization Manager
+                    </small>
+                </div>
+            </div>
+
+        </header>
+
+        <main class="organization-main">
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+
+                    <li class="breadcrumb-item">
+                        <a href="./organization-dashboard.html">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a href="./branches.html">
+                            Branches
+                        </a>
+                    </li>
+
+                    <li
+                        class="breadcrumb-item active"
+                        aria-current="page"
+                    >
+                        Branch Details
+                    </li>
+
+                </ol>
+            </nav>
+
+            <!-- Branch Hero -->
+            <section class="branch-hero mb-4">
+
+                <div class="row align-items-center g-4">
+
+                    <div class="col-12 col-lg-8">
+
+                        <div class="d-flex align-items-start gap-3">
+
+                            <span class="branch-main-icon">
+                                <i class="bi bi-building"></i>
+                            </span>
+
+                            <div>
+                                <span
+                                    class="branch-status-badge"
+                                    id="branchStatusBadge"
+                                >
+                                    Draft
+                                </span>
+
+                                <h2
+                                    class="branch-title mt-3 mb-2"
+                                    id="branchName"
+                                >
+                                    Branch Name
+                                </h2>
+
+                                <p class="branch-location mb-0">
+                                    <i class="bi bi-geo-alt me-2"></i>
+
+                                    <span id="branchLocation">
+                                        Location not provided
+                                    </span>
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+
+                        <div
+                            class="d-flex flex-column
+                                   flex-sm-row
+                                   flex-lg-column
+                                   flex-xl-row
+                                   justify-content-lg-end gap-2"
+                        >
+                            <a
+                                href="./branch-review-status.html"
+                                class="btn btn-outline-wusool"
+                                id="statusActionLink"
+                            >
+                                <i class="bi bi-clock-history me-2"></i>
+                                Review Status
+                            </a>
+
+                           <a
+    href="./edit-branch.html"
+    class="btn btn-wusool"
+    id="editBranchLink"
+>
+    <i class="bi bi-pencil-square me-2"></i>
+    Edit Branch
+</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Statistics -->
+            <section class="row g-4 mb-4">
+
+                <article class="col-12 col-md-6 col-xl-3">
+                    <div class="stat-card">
+                        <span class="stat-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </span>
+
+                        <div>
+                            <small>Accessibility Score</small>
+
+                            <strong id="accessibilityScore">
+                                0%
+                            </strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-12 col-md-6 col-xl-3">
+                    <div class="stat-card">
+                        <span class="stat-icon">
+                            <i class="bi bi-images"></i>
+                        </span>
+
+                        <div>
+                            <small>Reference Photos</small>
+
+                            <strong id="photosCount">
+                                0
+                            </strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-12 col-md-6 col-xl-3">
+                    <div class="stat-card">
+                        <span class="stat-icon">
+                            <i class="bi bi-universal-access"></i>
+                        </span>
+
+                        <div>
+                            <small>Available Features</small>
+
+                            <strong id="featuresCount">
+                                0
+                            </strong>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-12 col-md-6 col-xl-3">
+                    <div class="stat-card">
+                        <span class="stat-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </span>
+
+                        <div>
+                            <small>Upcoming Visits</small>
+
+                            <strong id="upcomingVisits">
+                                0
+                            </strong>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+
+            <div class="row g-4">
+
+                <!-- Main Information -->
+                <section class="col-12 col-xl-8">
+
+                    <!-- General Information -->
+                    <article class="content-card mb-4">
+
+                        <header class="card-heading">
+                            <span class="heading-icon">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+
+                            <div>
+                                <p class="section-label mb-1">
+                                    OVERVIEW
+                                </p>
+
+                                <h2 class="h4 mb-0">
+                                    General Information
+                                </h2>
+                            </div>
+                        </header>
+
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Branch Code</span>
+                                    <strong id="branchCode">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Branch Type</span>
+                                    <strong id="branchType">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Service Type</span>
+                                    <strong id="serviceType">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>City and District</span>
+                                    <strong id="cityDistrict">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="information-item">
+                                    <span>Full Address</span>
+                                    <strong id="branchAddress">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Phone Number</span>
+                                    <strong id="branchPhone">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="information-item">
+                                    <span>Email Address</span>
+                                    <strong id="branchEmail">—</strong>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="information-item">
+                                    <span>Description</span>
+                                    <strong id="branchDescription">—</strong>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Working Hours -->
+                    <article class="content-card mb-4">
+
+                        <header class="card-heading">
+                            <span class="heading-icon">
+                                <i class="bi bi-clock"></i>
+                            </span>
+
+                            <div>
+                                <p class="section-label mb-1">
+                                    AVAILABILITY
+                                </p>
+
+                                <h2 class="h4 mb-0">
+                                    Working Hours
+                                </h2>
+                            </div>
+                        </header>
+
+                        <div
+                            class="working-hours-list"
+                            id="workingHoursContainer"
+                        ></div>
+
+                    </article>
+
+                    <!-- Accessibility Features -->
+                    <article class="content-card mb-4">
+
+                        <header class="card-heading">
+                            <span class="heading-icon">
+                                <i class="bi bi-universal-access"></i>
+                            </span>
+
+                            <div>
+                                <p class="section-label mb-1">
+                                    ACCESSIBILITY
+                                </p>
+
+                                <h2 class="h4 mb-0">
+                                    Accessibility Features
+                                </h2>
+                            </div>
+                        </header>
+
+                        <div
+                            class="row g-3"
+                            id="accessibilityContainer"
+                        ></div>
+
+                    </article>
+
+                    <!-- Branch Photos -->
+                    <article class="content-card">
+
+                        <header class="card-heading">
+
+                            <span class="heading-icon">
+                                <i class="bi bi-images"></i>
+                            </span>
+
+                            <div>
+                                <p class="section-label mb-1">
+                                    AI REFERENCE PHOTOS
+                                </p>
+
+                                <h2 class="h4 mb-0">
+                                    Uploaded Photos
+                                </h2>
+                            </div>
+
+                        </header>
+
+                        <div
+                            class="row g-3"
+                            id="photosContainer"
+                        ></div>
+
+                    </article>
+
+                </section>
+
+                <!-- Side Information -->
+                <aside class="col-12 col-xl-4">
+
+                    <!-- Review Status -->
+                    <article class="content-card mb-4">
+
+                        <h2 class="h5 mb-3">
+                            Review Information
+                        </h2>
+
+                        <div class="review-information-item">
+                            <span>Current Status</span>
+
+                            <strong id="reviewStatus">
+                                Draft
+                            </strong>
+                        </div>
+
+                        <div class="review-information-item">
+                            <span>Reference Number</span>
+
+                            <strong id="referenceNumber">
+                                Not submitted
+                            </strong>
+                        </div>
+
+                        <div class="review-information-item">
+                            <span>Submitted On</span>
+
+                            <strong id="submittedDate">
+                                Not submitted
+                            </strong>
+                        </div>
+
+                        <a
+                            href="./branch-review-status.html"
+                            class="btn btn-outline-wusool w-100 mt-3"
+                            id="trackReviewLink"
+                        >
+                            Track Review Status
+                        </a>
+
+                    </article>
+
+                    <!-- AI Result -->
+                    <article class="content-card mb-4 text-center">
+
+                        <p class="section-label mb-3">
+                            AI ACCESSIBILITY ANALYSIS
+                        </p>
+
+                        <div
+                            class="score-circle mx-auto"
+                            id="scoreCircle"
+                        >
+                            <div>
+                                <strong id="scoreCircleValue">
+                                    0
+                                </strong>
+
+                                <span>/ 100</span>
+                            </div>
+                        </div>
+
+                        <h2
+                            class="h5 mt-3 mb-2"
+                            id="scoreLabel"
+                        >
+                            Not Analyzed
+                        </h2>
+
+                        <p
+                            class="text-secondary small"
+                            id="scoreDescription"
+                        >
+                            Complete the branch information to generate
+                            an accessibility score.
+                        </p>
+
+                        <a
+                            href="./branch-ai-review.html"
+                            class="btn btn-outline-wusool w-100"
+                            id="aiReportLink"
+                        >
+                            View AI Report
+                        </a>
+
+                    </article>
+
+                    <!-- Quick Actions -->
+                    <article class="content-card">
+
+                        <h2 class="h5 mb-3">
+                            Quick Actions
+                        </h2>
+
+                        <div class="d-grid gap-2">
+
+                            <a
+                                href="./branch-working-hours.html"
+                                class="btn btn-light text-start"
+                                id="editHoursLink"
+                            >
+                                <i class="bi bi-clock me-2"></i>
+                                Edit Working Hours
+                            </a>
+
+                            <a
+                                href="./branch-photos.html"
+                                class="btn btn-light text-start"
+                                id="managePhotosLink"
+                            >
+                                <i class="bi bi-images me-2"></i>
+                                Manage Photos
+                            </a>
+
+                            <a
+                                href="./branch-accessibility.html"
+                                class="btn btn-light text-start"
+                                id="editAccessibilityLink"
+                            >
+                                <i class="bi bi-universal-access me-2"></i>
+                                Edit Accessibility
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </aside>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../js/organization-branch-details.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

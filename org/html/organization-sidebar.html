@@ -1,0 +1,204 @@
+﻿<aside
+    class="offcanvas-lg offcanvas-start organization-sidebar"
+    tabindex="-1"
+    id="organizationSidebar"
+    aria-labelledby="organizationSidebarTitle"
+>
+    <!-- Mobile Sidebar Header -->
+    <header class="offcanvas-header d-lg-none">
+        <h2
+            class="offcanvas-title fs-5"
+            id="organizationSidebarTitle"
+        >
+            Organization Menu
+        </h2>
+
+        <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="offcanvas"
+            data-bs-target="#organizationSidebar"
+            aria-label="Close menu"
+        ></button>
+    </header>
+
+    <div class="offcanvas-body d-flex flex-column p-0">
+
+        <!-- Logo -->
+        <header class="sidebar-brand p-4">
+            <a
+                href="./organization-dashboard.html"
+                class="brand-link d-flex align-items-center gap-2 text-decoration-none"
+            >
+                <span class="brand-icon">
+                    <i class="bi bi-universal-access"></i>
+                </span>
+
+                <span class="fs-4 fw-bold">
+                    Wusool
+                </span>
+            </a>
+
+            <p class="small mb-0 mt-2">
+                Organization Portal
+            </p>
+        </header>
+
+        <!-- Navigation -->
+        <nav
+            class="sidebar-navigation flex-grow-1 px-3"
+            aria-label="Organization navigation"
+        >
+            <ul class="nav nav-pills flex-column gap-2">
+
+                <li class="nav-item">
+                    <a
+                        href="./organization-dashboard.html"
+                        class="nav-link"
+                    >
+                        <i class="bi bi-grid"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        href="./branches.html"
+                        class="nav-link"
+                    >
+                        <i class="bi bi-building"></i>
+                        <span>Branches</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+    href="./branch-photos-management.html"
+    class="sidebar-link"
+    data-page="branch-photos-management.html"
+>
+    <i class="bi bi-images"></i>
+    <span>Branch Photos</span>
+</a>
+                </li>
+
+                <li class="nav-item">
+                   <a
+    href="./organization-ai-reports.html"
+    class="sidebar-link"
+    data-page="organization-ai-reports.html"
+>
+    <i class="bi bi-stars"></i>
+    <span>AI Reports</span>
+</a>
+                </li>
+
+                <li class="nav-item">
+                  <a
+    href="./visitor-tickets.html"
+    class="sidebar-link"
+    data-page="visitor-tickets.html"
+>
+    <i class="bi bi-ticket-perforated"></i>
+    <span>User Tickets</span>
+</a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+    href="./notifications.html"
+    class="sidebar-link"
+    data-page="notifications.html"
+>
+    <i class="bi bi-bell"></i>
+    <span>Notifications</span>
+</a>
+                </li>
+
+                <li class="nav-item">
+                   <a
+    href="./review-history.html"
+    class="sidebar-link"
+    data-page="review-history.html"
+>
+    <i class="bi bi-clock-history"></i>
+    <span>Review History</span>
+</a>
+                </li>
+
+                <li class="nav-item">
+                   <a
+    href="./audit-log.html"
+    class="sidebar-link"
+    data-page="audit-log.html"
+>
+    <i class="bi bi-journal-text"></i>
+    <span>Audit Log</span>
+</a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        href="./subscription-management.html"
+                        class="nav-link"
+                    >
+                        <i class="bi bi-credit-card"></i>
+                        <span>Subscription</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        href="./organization-settings.html"
+                        class="nav-link"
+                    >
+                        <i class="bi bi-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        href="./help-support.html"
+                        class="nav-link"
+                    >
+                        <i class="bi bi-question-circle"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <!-- Organization Account -->
+        <section class="sidebar-account p-3 m-3">
+            <div class="d-flex align-items-center gap-2">
+
+                <span class="account-avatar">
+                    <i class="bi bi-person"></i>
+                </span>
+
+                <div class="flex-grow-1 overflow-hidden">
+                    <p class="fw-semibold mb-0 text-truncate">
+                        Organization Manager
+                    </p>
+
+                    <small class="d-block text-truncate">
+                        manager@organization.com
+                    </small>
+                </div>
+
+            </div>
+
+            <a
+                href="./organization-login.html"
+                class="btn btn-outline-light w-100 mt-3"
+                id="organizationLogoutButton"
+            >
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Log Out
+            </a>
+        </section>
+
+    </div>
+</aside>

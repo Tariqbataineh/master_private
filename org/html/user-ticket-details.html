@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>User Ticket Details | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared CSS -->
+
+    <!-- Sidebar CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/organization-sidebar.css"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/user-ticket-details.css"
+    >
+</head>
+
+<body>
+    <!-- Shared Sidebar -->
+    <div id="organizationSidebarContainer"></div>
+
+    <main class="organization-content">
+        <!-- Mobile Header -->
+        <header class="organization-header">
+            <button
+                type="button"
+                class="btn sidebar-toggle d-lg-none"
+                id="sidebarToggle"
+                aria-label="Open organization navigation"
+                aria-expanded="false"
+            >
+                <i class="bi bi-list"></i>
+            </button>
+
+            <span class="fw-bold">Organization Admin</span>
+        </header>
+
+        <!-- Page Heading -->
+        <section class="page-heading py-4 py-lg-5">
+            <div class="container-fluid px-3 px-lg-5">
+                <nav aria-label="Breadcrumb">
+                    <ol class="breadcrumb mb-3">
+                        <li class="breadcrumb-item">
+                            <a href="./organization-dashboard.html">
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li class="breadcrumb-item">
+                            <a href="./visitor-tickets.html">
+                                User Tickets
+                            </a>
+                        </li>
+
+                        <li
+                            class="breadcrumb-item active"
+                            aria-current="page"
+                        >
+                            Ticket Details
+                        </li>
+                    </ol>
+                </nav>
+
+                <div
+                    class="d-flex flex-column flex-md-row
+                           justify-content-between align-items-md-center gap-3"
+                >
+                    <div>
+                        <p class="section-label mb-2">
+                            USER SUPPORT REQUEST
+                        </p>
+
+                        <h1 class="display-6 fw-bold mb-2">
+                            Ticket
+                            <span id="ticketNumber">#---</span>
+                        </h1>
+
+                        <p class="text-secondary mb-0">
+                            Review the user report and send an official response.
+                        </p>
+                    </div>
+
+                    <span
+                        class="ticket-status status-open"
+                        id="ticketStatusBadge"
+                    >
+                        Open
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid px-3 px-lg-5 py-4">
+            <!-- Success Alert -->
+            <div
+                class="alert alert-success d-none"
+                id="successAlert"
+                role="alert"
+            >
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span id="successMessage">
+                    Changes saved successfully.
+                </span>
+            </div>
+
+            <div class="row g-4">
+                <!-- Ticket Content -->
+                <div class="col-12 col-xl-8">
+                    <!-- Report Information -->
+                    <section class="content-card mb-4">
+                        <div class="card-heading">
+                            <div class="heading-icon">
+                                <i class="bi bi-exclamation-circle"></i>
+                            </div>
+
+                            <div>
+                                <p class="section-label mb-1">
+                                    REPORTED ISSUE
+                                </p>
+
+                                <h2
+                                    class="h4 fw-bold mb-0"
+                                    id="ticketSubject"
+                                >
+                                    Loading ticket...
+                                </h2>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row g-4">
+                            <div class="col-12 col-md-6">
+                                <p class="information-label">
+                                    Issue Type
+                                </p>
+
+                                <p
+                                    class="information-value"
+                                    id="ticketType"
+                                ></p>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <p class="information-label">
+                                    Submitted On
+                                </p>
+
+                                <p
+                                    class="information-value"
+                                    id="ticketDate"
+                                ></p>
+                            </div>
+
+                            <div class="col-12">
+                                <p class="information-label">
+                                    Description
+                                </p>
+
+                                <p
+                                    class="ticket-description mb-0"
+                                    id="ticketDescription"
+                                ></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Attached Evidence -->
+                    <section class="content-card mb-4">
+                        <div class="card-heading">
+                            <div class="heading-icon">
+                                <i class="bi bi-image"></i>
+                            </div>
+
+                            <div>
+                                <h2 class="h4 fw-bold mb-1">
+                                    Attached Evidence
+                                </h2>
+
+                                <p class="text-secondary mb-0">
+                                    Images provided by the registered user.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="row g-3 mt-1"
+                            id="ticketImagesContainer"
+                        ></div>
+
+                        <div
+                            class="empty-attachments d-none"
+                            id="emptyAttachments"
+                        >
+                            <i class="bi bi-image"></i>
+                            <p class="mb-0">
+                                No images were attached to this ticket.
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- Reply -->
+                    <section class="content-card">
+                        <div class="card-heading">
+                            <div class="heading-icon">
+                                <i class="bi bi-reply"></i>
+                            </div>
+
+                            <div>
+                                <h2 class="h4 fw-bold mb-1">
+                                    Reply to User
+                                </h2>
+
+                                <p class="text-secondary mb-0">
+                                    The registered user will receive your response.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form
+                            class="mt-4"
+                            id="ticketReplyForm"
+                            novalidate
+                        >
+                            <label
+                                for="ticketReply"
+                                class="form-label fw-bold"
+                            >
+                                Organization Response
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="ticketReply"
+                                rows="6"
+                                maxlength="1000"
+                                placeholder="Write your response to the user..."
+                                required
+                            ></textarea>
+
+                            <div class="invalid-feedback">
+                                Please write a response before sending.
+                            </div>
+
+                            <div
+                                class="d-flex flex-column flex-sm-row
+                                       justify-content-between
+                                       align-items-sm-center gap-3 mt-2"
+                            >
+                                <span class="form-text">
+                                    <span id="replyCharacterCount">0</span>/1000
+                                </span>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-wusool"
+                                >
+                                    <i class="bi bi-send me-2"></i>
+                                    Send Response
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <!-- Side Information -->
+                <aside class="col-12 col-xl-4">
+                    <!-- User Information -->
+                    <section class="content-card mb-4">
+                        <p class="section-label mb-3">
+                            REGISTERED USER
+                        </p>
+
+                        <div class="user-information">
+                            <div class="user-avatar">
+                                <i class="bi bi-person"></i>
+                            </div>
+
+                            <div>
+                                <h2
+                                    class="h5 fw-bold mb-1"
+                                    id="userName"
+                                ></h2>
+
+                                <p
+                                    class="text-secondary mb-0"
+                                    id="userEmail"
+                                ></p>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="information-row">
+                            <i class="bi bi-telephone"></i>
+
+                            <div>
+                                <span>Phone Number</span>
+                                <strong id="userPhone"></strong>
+                            </div>
+                        </div>
+
+                        <div class="information-row">
+                            <i class="bi bi-person-check"></i>
+
+                            <div>
+                                <span>Account Type</span>
+                                <strong>Registered User</strong>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Branch Information -->
+                    <section class="content-card mb-4">
+                        <p class="section-label mb-3">
+                            RELATED BRANCH
+                        </p>
+
+                        <h2
+                            class="h5 fw-bold"
+                            id="branchName"
+                        ></h2>
+
+                        <p class="text-secondary">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            <span id="branchLocation"></span>
+                        </p>
+
+                        <a
+                            href="./organization-branch-details.html"
+                            class="btn btn-outline-wusool w-100"
+                            id="viewBranchLink"
+                        >
+                            View Branch
+                        </a>
+                    </section>
+
+                    <!-- Ticket Actions -->
+                    <section class="content-card ticket-actions">
+                        <p class="section-label mb-3">
+                            TICKET ACTIONS
+                        </p>
+
+                        <label
+                            for="ticketStatus"
+                            class="form-label fw-bold"
+                        >
+                            Ticket Status
+                        </label>
+
+                        <select
+                            class="form-select mb-3"
+                            id="ticketStatus"
+                        >
+                            <option value="open">Open</option>
+                            <option value="in-progress">
+                                In Progress
+                            </option>
+                            <option value="resolved">
+                                Resolved
+                            </option>
+                        </select>
+
+                        <button
+                            type="button"
+                            class="btn btn-wusool w-100 mb-2"
+                            id="saveStatusButton"
+                        >
+                            <i class="bi bi-check-lg me-2"></i>
+                            Save Status
+                        </button>
+
+                        <a
+                            href="./visitor-tickets.html"
+                            class="btn btn-light border w-100"
+                        >
+                            Back to User Tickets
+                        </a>
+                    </section>
+                </aside>
+            </div>
+
+            <!-- Response History -->
+            <section class="content-card mt-4">
+                <div class="card-heading">
+                    <div class="heading-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                    <div>
+                        <h2 class="h4 fw-bold mb-1">
+                            Response History
+                        </h2>
+
+                        <p class="text-secondary mb-0">
+                            Previous responses and ticket updates.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="response-history mt-4"
+                    id="responseHistory"
+                ></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Shared JS -->
+
+    <!-- Page JS -->
+    <script src="../js/user-ticket-details.js"></script>
+
+    <!-- Sidebar JS -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>

@@ -1,8 +1,10 @@
+
 "use strict";
 
 /* ========================================
    Wusool - Shared JavaScript
 ======================================== */
+
 
 const body = document.body;
 
@@ -258,7 +260,6 @@ if (savedHighContrast === "enabled") {
         "true"
     );
 }
-
 /* ========================================
    Stop Speech Before Leaving Page
 ======================================== */

@@ -1,0 +1,342 @@
+/* ==================================================
+   Wusool - Shared Organization Sidebar
+   ================================================== */
+
+:root {
+    --organization-sidebar-width: 280px;
+    --sidebar-width: var(--organization-sidebar-width);
+    --organization-sidebar-background: #09213c;
+    --organization-sidebar-surface: #102d4b;
+    --organization-sidebar-text: #ffffff;
+    --organization-sidebar-muted: #a9bfd2;
+    --organization-sidebar-accent: #16b6b0;
+    --organization-sidebar-border: rgba(255, 255, 255, 0.12);
+}
+
+.organization-sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;
+    z-index: 1045 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: var(--organization-sidebar-width) !important;
+    max-width: 86vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    color: var(--organization-sidebar-text) !important;
+    background: var(--organization-sidebar-background) !important;
+    border: 0 !important;
+    box-shadow: 10px 0 35px rgba(9, 33, 60, 0.12);
+    visibility: visible !important;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 96px;
+    padding: 1.25rem 1.35rem;
+    border-bottom: 1px solid var(--organization-sidebar-border);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    color: var(--organization-sidebar-text) !important;
+    text-decoration: none !important;
+}
+
+.sidebar-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.35rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #16b6b0, #1388e7);
+    border-radius: 0.85rem;
+    box-shadow: 0 8px 20px rgba(19, 136, 231, 0.25);
+}
+
+.sidebar-brand strong,
+.sidebar-brand small {
+    display: block;
+}
+
+.sidebar-brand strong {
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.sidebar-brand small {
+    margin-top: 0.2rem;
+    color: var(--organization-sidebar-muted);
+    font-size: 0.75rem;
+}
+
+.sidebar-close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--organization-sidebar-border);
+    border-radius: 0.7rem;
+}
+/* Profile Link */
+
+.sidebar-organization {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sidebar-organization:hover,
+.sidebar-organization:focus-visible {
+    color: #ffffff;
+    background-color: rgba(22, 182, 176, 0.15);
+    border-color: rgba(112, 217, 212, 0.55);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.sidebar-organization-details {
+    flex-grow: 1;
+}
+
+.sidebar-profile-arrow {
+    flex-shrink: 0;
+    color: #70d9d4;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-organization:hover .sidebar-profile-arrow {
+    transform: translateX(3px);
+}
+
+
+/* Sidebar Scrollbar */
+
+.organization-sidebar .sidebar-navigation {
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(112, 217, 212, 0.55)
+        transparent;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-thumb {
+    background-color: rgba(112, 217, 212, 0.45);
+    border-radius: 20px;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-thumb:hover {
+    background-color: #70d9d4;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+}
+.sidebar-organization {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 1rem 0;
+    padding: 0.85rem;
+    background: var(--organization-sidebar-surface);
+    border: 1px solid var(--organization-sidebar-border);
+    border-radius: 0.9rem;
+}
+
+.sidebar-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    color: #062d3a;
+    font-size: 0.8rem;
+    font-weight: 800;
+    background: #b9f2ef;
+    border-radius: 50%;
+}
+
+.sidebar-organization-details {
+    min-width: 0;
+}
+
+.sidebar-organization-details strong,
+.sidebar-organization-details small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-organization-details strong {
+    color: #ffffff;
+    font-size: 0.86rem;
+}
+
+.sidebar-organization-details small {
+    margin-top: 0.2rem;
+    color: var(--organization-sidebar-muted);
+    font-size: 0.72rem;
+}
+
+.organization-sidebar .sidebar-navigation {
+    flex: 1 1 auto;
+    padding: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar-label {
+    margin: 0 0.6rem 0.55rem;
+    color: var(--organization-sidebar-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.sidebar-label-secondary {
+    margin-top: 1.2rem;
+}
+
+.organization-sidebar .sidebar-link {
+    display: flex !important;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    min-height: 46px;
+    margin-bottom: 0.25rem;
+    padding: 0.72rem 0.85rem !important;
+    color: #dce9f3 !important;
+    font-size: 0.91rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 0.75rem !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.organization-sidebar .sidebar-link i {
+    flex: 0 0 1.15rem;
+    color: #70d9d4;
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+.organization-sidebar .sidebar-link:hover,
+.organization-sidebar .sidebar-link:focus-visible {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.organization-sidebar .sidebar-link.active,
+.organization-sidebar .sidebar-link[aria-current="page"] {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, rgba(22, 182, 176, 0.28), rgba(19, 136, 231, 0.12)) !important;
+    border-color: rgba(112, 217, 212, 0.34) !important;
+    box-shadow: inset 3px 0 0 var(--organization-sidebar-accent);
+}
+
+.sidebar-footer {
+    flex: 0 0 auto;
+    padding: 0.85rem 1rem 1rem;
+    border-top: 1px solid var(--organization-sidebar-border);
+}
+
+.organization-sidebar .sidebar-logout {
+    margin: 0;
+    color: #ffd8d8 !important;
+}
+
+.organization-sidebar .sidebar-logout i {
+    color: #ffaaaa;
+}
+
+/* Offset only the outer page wrapper.
+   Nested .organization-main elements must not receive a second sidebar margin. */
+body.has-organization-sidebar > .main-content,
+body.has-organization-sidebar > .organization-main-content,
+body.has-organization-sidebar > .organization-main,
+body.has-organization-sidebar > .organization-content,
+body.has-organization-sidebar > .page-content {
+    width: calc(100% - var(--organization-sidebar-width));
+    max-width: none;
+    margin-left: var(--organization-sidebar-width) !important;
+}
+
+.sidebar-overlay,
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    display: none;
+    background: rgba(4, 18, 32, 0.58);
+    backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.show,
+.sidebar-backdrop.show {
+    display: block;
+}
+
+@media (max-width: 991.98px) {
+    .organization-sidebar {
+        transform: translateX(-105%) !important;
+        transition: transform 0.25s ease !important;
+    }
+
+    .organization-sidebar.open,
+    .organization-sidebar.show {
+        transform: translateX(0) !important;
+    }
+
+    body.has-organization-sidebar > .main-content,
+    body.has-organization-sidebar > .organization-main-content,
+    body.has-organization-sidebar > .organization-main,
+    body.has-organization-sidebar > .organization-content,
+    body.has-organization-sidebar > .page-content {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    body.organization-sidebar-open {
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 992px) {
+    .organization-sidebar {
+        transform: none !important;
+    }
+}

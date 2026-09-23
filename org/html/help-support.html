@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Help & Support | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Website CSS -->
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/help-support.css"
+    >
+    <!-- Shared Organization Sidebar CSS -->
+    <link rel="stylesheet" href="../css/organization-sidebar.css">
+</head>
+
+<body>
+
+    <!-- Mobile Header -->
+    <header
+        class="mobile-header d-lg-none d-flex align-items-center justify-content-between px-3 py-2"
+    >
+        <a
+            href="./organization-dashboard.html"
+            class="brand-link d-flex align-items-center gap-2 text-decoration-none"
+        >
+            <span class="brand-icon">
+                <i class="bi bi-universal-access"></i>
+            </span>
+
+            <span class="fw-bold fs-4">
+                Wusool
+            </span>
+        </a>
+
+        <button
+            class="btn btn-outline-light"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#organizationSidebar"
+            aria-controls="organizationSidebar"
+            aria-label="Open navigation menu"
+        >
+            <i class="bi bi-list fs-4"></i>
+        </button>
+    </header>
+
+    <div class="d-flex min-vh-100">
+
+        <!-- Shared Organization Sidebar -->
+        <div id="organizationSidebarContainer"></div>
+
+        <!-- Main Content -->
+        <main class="main-content flex-grow-1">
+
+            <!-- Page Header -->
+            <header class="page-header border-bottom">
+                <div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-2">
+                            <li class="breadcrumb-item">
+                                <a
+                                    href="./organization-dashboard.html"
+                                    class="text-decoration-none"
+                                >
+                                    Dashboard
+                                </a>
+                            </li>
+
+                            <li
+                                class="breadcrumb-item active"
+                                aria-current="page"
+                            >
+                                Help & Support
+                            </li>
+                        </ol>
+                    </nav>
+
+                    <div
+                        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3"
+                    >
+                        <div>
+                            <p class="page-label mb-2">
+                                SUPPORT CENTER
+                            </p>
+
+                            <h1 class="display-6 fw-bold mb-2">
+                                How Can We Help?
+                            </h1>
+
+                            <p class="text-secondary mb-0">
+                                Find answers or send a support request to the Wusool team.
+                            </p>
+                        </div>
+
+                        <a
+                            href="#supportForm"
+                            class="btn btn-wusool"
+                        >
+                            <i class="bi bi-headset me-2"></i>
+                            Contact Support
+                        </a>
+                    </div>
+
+                </div>
+            </header>
+
+            <div class="container-fluid px-3 px-md-4 px-xl-5 py-4 py-lg-5">
+
+                <!-- Quick Support Cards -->
+                <section aria-labelledby="quickSupportTitle">
+                    <h2
+                        class="h4 fw-bold mb-4"
+                        id="quickSupportTitle"
+                    >
+                        Quick Support
+                    </h2>
+
+                    <div class="row g-4">
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <article class="support-card card h-100">
+                                <div class="card-body p-4">
+                                    <span class="support-icon">
+                                        <i class="bi bi-building-add"></i>
+                                    </span>
+
+                                    <h3 class="h5 fw-bold mt-4">
+                                        Branch Management
+                                    </h3>
+
+                                    <p class="text-secondary mb-0">
+                                        Learn how to add branches, update information,
+                                        working hours, and accessibility details.
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <article class="support-card card h-100">
+                                <div class="card-body p-4">
+                                    <span class="support-icon">
+                                        <i class="bi bi-stars"></i>
+                                    </span>
+
+                                    <h3 class="h5 fw-bold mt-4">
+                                        AI Review Support
+                                    </h3>
+
+                                    <p class="text-secondary mb-0">
+                                        Understand AI accessibility reports,
+                                        detected facilities, and improvement suggestions.
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <article class="support-card card h-100">
+                                <div class="card-body p-4">
+                                    <span class="support-icon">
+                                        <i class="bi bi-credit-card"></i>
+                                    </span>
+
+                                    <h3 class="h5 fw-bold mt-4">
+                                        Subscription Support
+                                    </h3>
+
+                                    <p class="text-secondary mb-0">
+                                        Get help with your subscription plan,
+                                        billing information, and branch limits.
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+
+                    </div>
+                </section>
+
+                <div class="row g-4 mt-2">
+
+                    <!-- Frequently Asked Questions -->
+                    <section
+                        class="col-12 col-xl-7"
+                        aria-labelledby="faqTitle"
+                    >
+                        <article class="content-card card h-100">
+                            <div class="card-body p-4 p-lg-5">
+
+                                <div class="mb-4">
+                                    <p class="page-label mb-2">
+                                        COMMON QUESTIONS
+                                    </p>
+
+                                    <h2
+                                        class="h3 fw-bold mb-2"
+                                        id="faqTitle"
+                                    >
+                                        Frequently Asked Questions
+                                    </h2>
+
+                                    <p class="text-secondary mb-0">
+                                        Quick answers about managing your organization.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="accordion"
+                                    id="supportAccordion"
+                                >
+
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header">
+                                            <button
+                                                class="accordion-button"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faqOne"
+                                                aria-expanded="true"
+                                                aria-controls="faqOne"
+                                            >
+                                                How do I add a new branch?
+                                            </button>
+                                        </h3>
+
+                                        <div
+                                            id="faqOne"
+                                            class="accordion-collapse collapse show"
+                                            data-bs-parent="#supportAccordion"
+                                        >
+                                            <div class="accordion-body">
+                                                Open the Branches page, select
+                                                <strong>Add New Branch</strong>,
+                                                complete the branch information,
+                                                then continue through the accessibility
+                                                and photo steps.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header">
+                                            <button
+                                                class="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faqTwo"
+                                                aria-expanded="false"
+                                                aria-controls="faqTwo"
+                                            >
+                                                Why is my branch still pending review?
+                                            </button>
+                                        </h3>
+
+                                        <div
+                                            id="faqTwo"
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent="#supportAccordion"
+                                        >
+                                            <div class="accordion-body">
+                                                A submitted branch must be reviewed
+                                                by the Wusool administrator before it
+                                                becomes visible to visitors and users.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header">
+                                            <button
+                                                class="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faqThree"
+                                                aria-expanded="false"
+                                                aria-controls="faqThree"
+                                            >
+                                                Can I update branch information after approval?
+                                            </button>
+                                        </h3>
+
+                                        <div
+                                            id="faqThree"
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent="#supportAccordion"
+                                        >
+                                            <div class="accordion-body">
+                                                Yes. Open the branch details page and
+                                                select the section you want to edit.
+                                                Important changes may require another review.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header">
+                                            <button
+                                                class="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faqFour"
+                                                aria-expanded="false"
+                                                aria-controls="faqFour"
+                                            >
+                                                How does the AI accessibility score work?
+                                            </button>
+                                        </h3>
+
+                                        <div
+                                            id="faqFour"
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent="#supportAccordion"
+                                        >
+                                            <div class="accordion-body">
+                                                AI analyzes the uploaded branch photos
+                                                and accessibility information to identify
+                                                facilities, possible risks, and suggested
+                                                improvements.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h3 class="accordion-header">
+                                            <button
+                                                class="accordion-button collapsed"
+                                                type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#faqFive"
+                                                aria-expanded="false"
+                                                aria-controls="faqFive"
+                                            >
+                                                What happens when I reach my branch limit?
+                                            </button>
+                                        </h3>
+
+                                        <div
+                                            id="faqFive"
+                                            class="accordion-collapse collapse"
+                                            data-bs-parent="#supportAccordion"
+                                        >
+                                            <div class="accordion-body">
+                                                You will need to upgrade your subscription
+                                                plan before adding more branches.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </article>
+                    </section>
+
+                    <!-- Contact Information -->
+                    <section
+                        class="col-12 col-xl-5"
+                        aria-labelledby="contactInformationTitle"
+                    >
+                        <article class="content-card card h-100">
+                            <div class="card-body p-4 p-lg-5">
+
+                                <p class="page-label mb-2">
+                                    CONTACT INFORMATION
+                                </p>
+
+                                <h2
+                                    class="h3 fw-bold mb-3"
+                                    id="contactInformationTitle"
+                                >
+                                    Contact Wusool
+                                </h2>
+
+                                <p class="text-secondary">
+                                    Our support team will help you with technical,
+                                    branch, review, and subscription questions.
+                                </p>
+
+                                <address class="contact-list mb-0">
+
+                                    <div class="d-flex gap-3 py-3 border-bottom">
+                                        <span class="contact-icon">
+                                            <i class="bi bi-envelope"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="fw-semibold mb-1">
+                                                Email Support
+                                            </p>
+
+                                            <a
+                                                href="mailto:support@wusool.com"
+                                                class="text-decoration-none"
+                                            >
+                                                support@wusool.com
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex gap-3 py-3 border-bottom">
+                                        <span class="contact-icon">
+                                            <i class="bi bi-telephone"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="fw-semibold mb-1">
+                                                Phone Support
+                                            </p>
+
+                                            <a
+                                                href="tel:+96265000000"
+                                                class="text-decoration-none"
+                                            >
+                                                +962 6 500 0000
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex gap-3 py-3">
+                                        <span class="contact-icon">
+                                            <i class="bi bi-clock"></i>
+                                        </span>
+
+                                        <div>
+                                            <p class="fw-semibold mb-1">
+                                                Working Hours
+                                            </p>
+
+                                            <p class="text-secondary mb-0">
+                                                Sunday – Thursday
+                                                <br>
+                                                8:00 AM – 5:00 PM
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </address>
+                            </div>
+                        </article>
+                    </section>
+
+                </div>
+
+                <!-- Support Request Form -->
+                <section
+                    class="content-card card mt-4"
+                    id="supportForm"
+                    aria-labelledby="supportFormTitle"
+                >
+                    <div class="card-body p-4 p-lg-5">
+
+                        <div class="row g-4">
+
+                            <div class="col-12 col-lg-4">
+                                <p class="page-label mb-2">
+                                    SEND A REQUEST
+                                </p>
+
+                                <h2
+                                    class="h3 fw-bold mb-3"
+                                    id="supportFormTitle"
+                                >
+                                    Contact Support
+                                </h2>
+
+                                <p class="text-secondary mb-0">
+                                    Describe your issue clearly and our team
+                                    will contact you as soon as possible.
+                                </p>
+                            </div>
+
+                            <div class="col-12 col-lg-8">
+
+                                <form
+                                    id="helpSupportForm"
+                                    novalidate
+                                >
+                                    <div class="row g-3">
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="supportCategory"
+                                                class="form-label fw-semibold"
+                                            >
+                                                Support Category
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="supportCategory"
+                                                required
+                                            >
+                                                <option value="">
+                                                    Choose a category
+                                                </option>
+
+                                                <option value="branch">
+                                                    Branch Management
+                                                </option>
+
+                                                <option value="review">
+                                                    Branch Review
+                                                </option>
+
+                                                <option value="ai-report">
+                                                    AI Accessibility Report
+                                                </option>
+
+                                                <option value="subscription">
+                                                    Subscription and Billing
+                                                </option>
+
+                                                <option value="technical">
+                                                    Technical Problem
+                                                </option>
+
+                                                <option value="other">
+                                                    Other
+                                                </option>
+                                            </select>
+
+                                            <div class="invalid-feedback">
+                                                Please choose a support category.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-6">
+                                            <label
+                                                for="supportPriority"
+                                                class="form-label fw-semibold"
+                                            >
+                                                Priority
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <select
+                                                class="form-select"
+                                                id="supportPriority"
+                                                required
+                                            >
+                                                <option value="">
+                                                    Choose priority
+                                                </option>
+
+                                                <option value="low">
+                                                    Low
+                                                </option>
+
+                                                <option value="medium">
+                                                    Medium
+                                                </option>
+
+                                                <option value="high">
+                                                    High
+                                                </option>
+                                            </select>
+
+                                            <div class="invalid-feedback">
+                                                Please choose the request priority.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label
+                                                for="supportSubject"
+                                                class="form-label fw-semibold"
+                                            >
+                                                Subject
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="supportSubject"
+                                                placeholder="Enter a short request subject"
+                                                required
+                                            >
+
+                                            <div class="invalid-feedback">
+                                                Please enter the request subject.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label
+                                                for="supportMessage"
+                                                class="form-label fw-semibold"
+                                            >
+                                                Message
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <textarea
+                                                class="form-control"
+                                                id="supportMessage"
+                                                rows="6"
+                                                placeholder="Explain the issue and include any important details"
+                                                required
+                                            ></textarea>
+
+                                            <div class="invalid-feedback">
+                                                Please enter your support message.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label
+                                                for="supportAttachment"
+                                                class="form-label fw-semibold"
+                                            >
+                                                Attachment
+                                                <span class="text-secondary fw-normal">
+                                                    (Optional)
+                                                </span>
+                                            </label>
+
+                                            <input
+                                                type="file"
+                                                class="form-control"
+                                                id="supportAttachment"
+                                                accept=".jpg,.jpeg,.png,.pdf"
+                                            >
+
+                                            <div class="form-text">
+                                                Accepted files: JPG, PNG, or PDF.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div
+                                                class="alert alert-success d-none"
+                                                id="supportSuccessMessage"
+                                                role="alert"
+                                            >
+                                                <i class="bi bi-check-circle-fill me-2"></i>
+
+                                                Your support request was submitted successfully.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button
+                                                type="submit"
+                                                class="btn btn-wusool px-4"
+                                            >
+                                                <i class="bi bi-send me-2"></i>
+                                                Submit Request
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="page-footer border-top mt-auto">
+                <div
+                    class="container-fluid px-3 px-md-4 px-xl-5 py-3 d-flex flex-column flex-md-row justify-content-between gap-2"
+                >
+                    <p class="mb-0">
+                        © 2026 Wusool. Accessibility for everyone.
+                    </p>
+
+                    <a
+                        href="./help-support.html"
+                        class="text-decoration-none"
+                    >
+                        Help & Support
+                    </a>
+                </div>
+            </footer>
+
+        </main>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/help-support.js"></script>
+
+    <!-- Shared Organization Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+</body>
+</html>
