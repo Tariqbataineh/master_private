@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audit Log | Wusool</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/admin-sidebar.css">
+    <link rel="stylesheet" href="../css/admin-common.css">
+    <link rel="stylesheet" href="../css/admin-audit-log.css">
+</head>
+<body>
+
+<header class="mobile-header d-lg-none d-flex align-items-center justify-content-between px-3 py-2">
+    <a href="./admin-dashboard.html" class="brand-link d-flex align-items-center gap-2 text-decoration-none">
+        <span class="brand-icon"><i class="bi bi-universal-access"></i></span>
+        <span class="fw-bold fs-4">Wusool</span>
+    </a>
+
+    <button class="btn btn-outline-light" type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#adminSidebar"
+        aria-controls="adminSidebar">
+        <i class="bi bi-list fs-4"></i>
+    </button>
+</header>
+
+<div class="admin-layout">
+    <div id="adminSidebarContainer"></div>
+
+    <main class="main-content">
+        <header class="page-header border-bottom">
+            <div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
+                <p class="page-label mb-2">TRACEABILITY</p>
+                <h1 class="display-6 fw-bold mb-2">Audit Log</h1>
+                <p class="text-secondary mb-0">Track actor, action, entity, old/new values and timestamp for important changes.</p>
+            </div>
+        </header>
+
+        <div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
+            <div class="row g-4">
+        <div class="col-12 col-md-6 col-xl-4">
+            <article class="builder-card">
+                <span class="builder-icon"><i class="bi bi-person-badge"></i></span>
+                <h2 class="h5 fw-bold mt-4">Actor</h2>
+                <p class="text-secondary">Who performed the action.</p>
+                <button class="btn btn-outline-secondary btn-sm" data-demo-action="actor">
+                    Configure
+                </button>
+            </article>
+        </div>
+        
+        <div class="col-12 col-md-6 col-xl-4">
+            <article class="builder-card">
+                <span class="builder-icon"><i class="bi bi-arrow-left-right"></i></span>
+                <h2 class="h5 fw-bold mt-4">Old / New Values</h2>
+                <p class="text-secondary">Review exact changes made.</p>
+                <button class="btn btn-outline-secondary btn-sm" data-demo-action="diff">
+                    Configure
+                </button>
+            </article>
+        </div>
+        
+        <div class="col-12 col-md-6 col-xl-4">
+            <article class="builder-card">
+                <span class="builder-icon"><i class="bi bi-clock"></i></span>
+                <h2 class="h5 fw-bold mt-4">Timestamp</h2>
+                <p class="text-secondary">See when each change happened.</p>
+                <button class="btn btn-outline-secondary btn-sm" data-demo-action="time">
+                    Configure
+                </button>
+            </article>
+        </div>
+        </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/admin-api.js"></script>
+    <script src="../../assets/data-service.js"></script>
+    <script src="../../assets/version-service.js"></script>
+    <script src="../js/admin-core.js"></script>
+<script src="../js/admin-sidebar.js"></script>
+<script src="../js/admin-audit-log.js"></script>
+    <script src="../../assets/behavior-service.js"></script>
+    <script src="../../assets/behavior-runtime.js"></script>
+    <script src="../../assets/feature-store.js"></script>
+    <script src="../../assets/error-runtime.js"></script>
+    <script src="../../assets/maintenance-runtime.js"></script>
+</body>
+</html>

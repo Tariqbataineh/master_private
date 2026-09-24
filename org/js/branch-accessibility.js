@@ -1,4 +1,5 @@
-const accessibilityFeatures = [
+const defaultAccessibilityFeatures = [
+
     {
         key: "accessibleEntrance",
         title: "Accessible Entrance",
@@ -71,7 +72,22 @@ const accessibilityFeatures = [
         description: "Staff members can provide accessibility support.",
         icon: "bi-people"
     }
+
 ];
+
+const accessibilityFeatures =
+    window.WusoolAccessibilityConfig
+        ?.getRequirements?.()
+        ?.map((item) => ({
+            key: item.key || item.id,
+            title: item.title,
+            description: item.description,
+            icon: item.icon || "bi-universal-access",
+            weight: Number(item.weight || 1),
+            required: Boolean(item.required),
+            category: item.category || "General"
+        }))
+        || defaultAccessibilityFeatures;
 
 let currentBranch = null;
 

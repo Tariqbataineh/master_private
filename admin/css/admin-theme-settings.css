@@ -1,0 +1,58 @@
+
+.form-control-color {
+    width: 100%;
+    min-height: 52px;
+}
+
+.theme-preview {
+    --preview-primary: #087f75;
+    --preview-sidebar: #0b2a43;
+    --preview-bg: #f8fbfb;
+    --preview-radius: 16px;
+
+    display: grid;
+    min-height: 430px;
+    grid-template-columns: 180px 1fr;
+    overflow: hidden;
+    background-color: var(--preview-bg);
+    border: 1px solid var(--wusool-border);
+    border-radius: 18px;
+}
+
+.preview-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 24px 18px;
+    color: #ffffff;
+    background-color: var(--preview-sidebar);
+}
+
+.preview-content {
+    padding: 34px;
+}
+
+.preview-button {
+    padding: 10px 18px;
+    color: #ffffff;
+    background-color: var(--preview-primary);
+    border: 0;
+    border-radius: 10px;
+}
+
+.preview-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #d4e5e3;
+    border-radius: var(--preview-radius);
+}
+
+@media (max-width: 575.98px) {
+    .theme-preview {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-sidebar {
+        display: none;
+    }
+}

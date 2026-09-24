@@ -1,0 +1,111 @@
+
+:root {
+    --wusool-primary: #087f75;
+    --wusool-primary-dark: #075f59;
+    --wusool-sidebar: #0b2a43;
+    --wusool-white: #ffffff;
+}
+
+.admin-sidebar {
+    --bs-offcanvas-bg: var(--wusool-sidebar);
+    width: 280px !important;
+    color: var(--wusool-white) !important;
+    background-color: var(--wusool-sidebar) !important;
+}
+
+.admin-sidebar .offcanvas-header,
+.admin-sidebar .offcanvas-body {
+    color: var(--wusool-white) !important;
+    background-color: var(--wusool-sidebar) !important;
+}
+
+.sidebar-brand { border-bottom: 1px solid rgba(255,255,255,.12); }
+.sidebar-brand .brand-link { color: var(--wusool-white) !important; }
+
+.sidebar-brand small,
+.sidebar-account small { color: rgba(255,255,255,.65); }
+
+.brand-icon {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: linear-gradient(135deg,#18b7a5,#168bea);
+    border-radius: 12px;
+}
+
+.sidebar-navigation {
+    padding-top: 18px;
+    padding-bottom: 18px;
+    overflow-y: auto;
+}
+
+.sidebar-section-title {
+    margin: 16px 14px 8px;
+    color: rgba(255,255,255,.48);
+    font-size: .7rem;
+    font-weight: 800;
+    letter-spacing: .08rem;
+}
+
+.sidebar-navigation .nav-link {
+    margin-bottom: 3px;
+    padding: 10px 14px;
+    color: rgba(255,255,255,.78) !important;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.sidebar-navigation .nav-link:hover {
+    color: #fff !important;
+    background-color: rgba(255,255,255,.10) !important;
+}
+
+.sidebar-navigation .nav-link.active {
+    color: #fff !important;
+    background-color: var(--wusool-primary) !important;
+}
+
+.sidebar-account {
+    background-color: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 14px;
+}
+
+.account-avatar {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--wusool-primary-dark);
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+@media (min-width: 992px) {
+    .admin-sidebar.offcanvas-lg {
+        position: sticky !important;
+        top: 0;
+        width: 280px !important;
+        min-width: 280px !important;
+        height: 100vh !important;
+        flex: 0 0 280px !important;
+        color: #fff !important;
+        background-color: #0b2a43 !important;
+        visibility: visible !important;
+        transform: none !important;
+        border: 0 !important;
+    }
+
+    .admin-sidebar .offcanvas-body {
+        width: 100%;
+        height: 100%;
+        color: #fff !important;
+        background-color: #0b2a43 !important;
+    }
+}

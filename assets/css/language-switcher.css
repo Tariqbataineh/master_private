@@ -1,0 +1,20 @@
+
+.language-switcher-floating{
+ position:fixed;
+ top:20px;
+ right:20px;
+ z-index:9999;
+ font-family:inherit;
+}
+.language-switcher-floating select{
+ padding:8px 14px;
+ border-radius:12px;
+ border:1px solid #ddd;
+ background:#fff;
+ cursor:pointer;
+ box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+html[dir="rtl"] .language-switcher-floating{
+ right:auto;
+ left:20px;
+}

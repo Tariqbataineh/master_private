@@ -1,0 +1,91 @@
+
+/* =========================================
+   Wusool Dynamic Platform Runtime
+   Values are controlled by the Admin portal.
+========================================= */
+
+:root {
+    --wusool-primary-runtime: var(--wusool-primary, #087f75);
+    --wusool-secondary-runtime: #168bea;
+    --wusool-sidebar-runtime: #0b2a43;
+    --wusool-background-runtime: #f8fbfb;
+    --wusool-text-runtime: #0b2545;
+    --wusool-card-radius-runtime: 16px;
+    --wusool-button-radius-runtime: 10px;
+}
+
+[data-wusool-admin-hidden="true"] {
+    display: none !important;
+}
+
+.wusool-global-announcement {
+    position: relative;
+    z-index: 1030;
+    padding: 10px 18px;
+    color: #ffffff;
+    background-color: var(--wusool-primary-runtime);
+    text-align: center;
+    font-weight: 600;
+}
+
+.wusool-global-announcement a {
+    color: inherit;
+}
+
+.wusool-dynamic-section {
+    border-radius: var(--wusool-card-radius-runtime);
+}
+
+body {
+    background-color: var(
+        --wusool-background-runtime,
+        #f8fbfb
+    );
+}
+
+/*
+   These selectors intentionally use common project classes.
+   Existing page-specific CSS remains in control of layout.
+*/
+.btn-wusool,
+.wusool-primary-button {
+    border-radius: var(--wusool-button-radius-runtime) !important;
+}
+
+.card,
+.content-card,
+.support-card,
+.place-card,
+.dashboard-card,
+.stat-card {
+    border-radius: var(--wusool-card-radius-runtime);
+}
+
+
+.wusool-impersonation-bar {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 18px;
+    color: #ffffff;
+    background: #7f1d1d;
+    box-shadow: 0 4px 14px rgba(0,0,0,.12);
+}
+
+.wusool-impersonation-bar span {
+    margin-left: 10px;
+    opacity: .9;
+}
+
+.wusool-impersonation-bar button {
+    padding: 6px 12px;
+    color: #7f1d1d;
+    background: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    font-weight: 700;
+}

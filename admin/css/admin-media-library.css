@@ -1,0 +1,27 @@
+
+.media-card {
+    height: 100%;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid var(--wusool-border);
+    border-radius: 14px;
+}
+
+.media-preview {
+    display: flex;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    color: var(--wusool-primary);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(8, 127, 117, 0.10),
+            rgba(22, 139, 234, 0.10)
+        );
+    font-size: 2rem;
+}
+
+.media-card-body {
+    padding: 14px;
+}

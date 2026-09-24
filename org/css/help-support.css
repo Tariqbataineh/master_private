@@ -140,6 +140,8 @@ body {
 
 .main-content {
     min-width: 0;
+   
+      flex: 1;
 }
 
 .page-header {
@@ -167,7 +169,20 @@ body {
 .breadcrumb-item.active {
     color: var(--wusool-text-muted);
 }
+.page-layout {
+    display: flex;
+    min-height: 100vh;
+}
 
+.organization-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
 /* ================================
    Cards
 ================================ */
@@ -314,38 +329,38 @@ textarea.form-control {
     color: #ffffff !important;
     background-color: #087f75 !important;
 }
-
+#organizationSidebarContainer {
+    flex-shrink: 0;
+}
 /* ================================
    Desktop
 ================================ */
 
+/* ================================
+   Fix Desktop Sidebar Layout
+================================ */
+
 @media (min-width: 992px) {
-    .organization-sidebar {
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        flex-shrink: 0;
+
+    body.has-organization-sidebar .main-content {
+        width: calc(100% - 280px) !important;
+        flex: 0 0 calc(100% - 280px) !important;
+        margin-left: 280px !important;
     }
 
-    .main-content {
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-    }
 }
-
 /* ================================
    Mobile and Tablet
 ================================ */
 
 @media (max-width: 991.98px) {
-    .organization-sidebar {
-        color: var(--wusool-white);
+
+    body.has-organization-sidebar .main-content {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        margin-left: 0 !important;
     }
 
-    .offcanvas-header {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-    }
 }
 
 @media (max-width: 575.98px) {

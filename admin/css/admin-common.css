@@ -1,0 +1,198 @@
+
+:root {
+    --wusool-primary: #087f75;
+    --wusool-primary-dark: #075f59;
+    --wusool-navy: #0b2545;
+    --wusool-light: #eef8f7;
+    --wusool-border: #d4e5e3;
+    --wusool-sidebar: #0b2a43;
+    --wusool-white: #ffffff;
+    --wusool-text-muted: #667085;
+    --wusool-danger: #b42318;
+    --wusool-warning: #b54708;
+    --wusool-success: #067647;
+    --wusool-card-radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    color: var(--wusool-navy);
+    background-color: #f8fbfb;
+}
+
+.mobile-header {
+    min-height: 72px;
+    color: var(--wusool-white);
+    background-color: var(--wusool-sidebar);
+}
+
+.mobile-header .brand-link { color: var(--wusool-white); }
+
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+#adminSidebarContainer {
+    width: 280px;
+    flex: 0 0 280px;
+}
+
+.main-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.page-header {
+    background:
+        radial-gradient(circle at top right, rgba(49, 200, 184, 0.22), transparent 38%),
+        var(--wusool-light);
+    border-color: var(--wusool-border) !important;
+}
+
+.page-label {
+    color: var(--wusool-primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08rem;
+}
+
+.content-card,
+.builder-card,
+.stat-card,
+.data-card {
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: var(--wusool-card-radius);
+    box-shadow: 0 10px 28px rgba(11, 37, 69, 0.05);
+}
+
+.content-card,
+.builder-card,
+.data-card { padding: 24px; }
+
+.stat-card { height: 100%; padding: 20px; }
+
+.builder-card {
+    height: 100%;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.builder-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 34px rgba(11, 37, 69, 0.09);
+}
+
+.stat-icon,
+.builder-icon,
+.item-icon {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 12px;
+    font-size: 1.15rem;
+}
+
+.btn-wusool {
+    color: #fff;
+    background-color: var(--wusool-primary);
+    border-color: var(--wusool-primary);
+    font-weight: 600;
+}
+
+.btn-wusool:hover,
+.btn-wusool:focus {
+    color: #fff;
+    background-color: var(--wusool-primary-dark);
+    border-color: var(--wusool-primary-dark);
+}
+
+.form-control,
+.form-select {
+    min-height: 46px;
+    border-color: var(--wusool-border);
+    border-radius: 10px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--wusool-primary);
+    box-shadow: 0 0 0 .25rem rgba(8,127,117,.15);
+}
+
+.table > :not(caption) > * > * { vertical-align: middle; }
+.table thead th { white-space: nowrap; }
+
+.badge-soft-success { color: var(--wusool-success); background-color: #ecfdf3; }
+.badge-soft-warning { color: var(--wusool-warning); background-color: #fffaeb; }
+.badge-soft-danger { color: var(--wusool-danger); background-color: #fef3f2; }
+.badge-soft-info { color: #175cd3; background-color: #eff8ff; }
+
+.admin-list-item {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.admin-list-item:last-child { border-bottom: 0; }
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-box { min-width: min(100%, 360px); }
+
+.preview-shell {
+    overflow: hidden;
+    border: 1px solid var(--wusool-border);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.preview-toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #f2f4f7;
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.preview-canvas {
+    min-height: 440px;
+    padding: 24px;
+    background: #fff;
+}
+
+.sortable-item { cursor: grab; user-select: none; }
+
+.code-chip {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #f2f4f7;
+    color: #344054;
+    font-size: .78rem;
+}
+
+.metric { font-size: 1.8rem; font-weight: 800; }
+
+@media (max-width: 991.98px) {
+    .admin-layout { display: block; }
+    #adminSidebarContainer { width: 0; flex: 0 0 0; }
+    .main-content { width: 100%; }
+}
