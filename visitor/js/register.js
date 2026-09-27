@@ -296,4 +296,28 @@ const showAlert = (message, type) => {
     behavior: "smooth",
     block: "center",
   });
+
+  "use strict";
+
+document.addEventListener("DOMContentLoaded", () => {
+    const personalAccount =
+        document.getElementById("personalAccount");
+
+    const organizationAccount =
+        document.getElementById("organizationAccount");
+
+    organizationAccount.addEventListener("change", () => {
+        if (organizationAccount.checked) {
+            window.location.href =
+                "../../org/html/organization-login.html";
+        }
+    });
+
+    personalAccount.addEventListener("change", () => {
+        if (personalAccount.checked) {
+            // المستخدم يبقى في الصفحة ويكمل التسجيل الشخصي
+            console.log("Personal account selected");
+        }
+    });
+});
 };

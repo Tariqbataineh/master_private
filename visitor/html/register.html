@@ -185,58 +185,63 @@
               <form id="registerForm" novalidate>
                 <!-- Account Type -->
                 <fieldset class="mb-4">
-                  <legend class="form-label">Account Type</legend>
+  <legend class="form-label">Account Type</legend>
 
-                  <div class="account-type-grid">
-                    <label
-                      class="account-type-card active"
-                      id="personalAccountCard"
-                    >
-                      <input
-                        type="radio"
-                        name="accountType"
-                        value="personal"
-                        id="personalAccount"
-                        checked
-                      />
+  <div class="account-type-grid">
 
-                      <span class="account-icon">
-                        <i class="bi bi-person"></i>
-                      </span>
+    <!-- Personal Account -->
+    <label
+      class="account-type-card active"
+      id="personalAccountCard"
+      for="personalAccount"
+    >
+      <input
+        type="radio"
+        name="accountType"
+        value="personal"
+        id="personalAccount"
+        checked
+      />
 
-                      <span>
-                        <strong>Personal Account</strong>
-                        <small> Find and review accessible places </small>
-                      </span>
+      <span class="account-icon">
+        <i class="bi bi-person"></i>
+      </span>
 
-                      <i class="bi bi-check-circle-fill selected-check"> </i>
-                    </label>
+      <span>
+        <strong>Personal Account</strong>
 
-                    <label
-                      class="account-type-card"
-                      id="organizationAccountCard"
-                    >
-                      <input
-                        type="radio"
-                        name="accountType"
-                        value="organization"
-                        id="organizationAccount"
-                      />
+        <small>
+          Find and review accessible places
+        </small>
+      </span>
 
-                      <span class="account-icon">
-                        <i class="bi bi-buildings"></i>
-                      </span>
+      <i class="bi bi-check-circle-fill selected-check"></i>
+    </label>
 
-                      <span>
-                        <strong>Organization</strong>
-                        <small> Manage branches and accessibility </small>
-                      </span>
+    <!-- Organization Account -->
+    <a
+      href="../../org/html/organization-login.html"
+      class="account-type-card text-decoration-none text-reset"
+      id="organizationAccountCard"
+      aria-label="Continue to organization login"
+    >
+      <span class="account-icon">
+        <i class="bi bi-buildings"></i>
+      </span>
 
-                      <i class="bi bi-check-circle-fill selected-check"> </i>
-                    </label>
-                  </div>
-                </fieldset>
+      <span>
+        <strong>Organization</strong>
 
+        <small>
+          Manage branches and accessibility
+        </small>
+      </span>
+
+      <i class="bi bi-arrow-right-circle-fill"></i>
+    </a>
+
+  </div>
+</fieldset>
                 <!-- Full Name and Phone -->
                 <div class="row g-3">
                   <div class="col-md-6">
