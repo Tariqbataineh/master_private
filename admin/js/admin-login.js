@@ -3,7 +3,7 @@
 
 const loginForm = document.querySelector("form");
 const passwordToggle = document.getElementById("togglePassword");
-const passwordInput = document.getElementById("password");
+const passwordInput = document.getElementById("adminPassword");
 const errorAlert = document.getElementById("loginError");
 
 passwordToggle?.addEventListener("click", () => {
@@ -32,11 +32,15 @@ const recordFailedLogin = (email) => {
 loginForm?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const email =
-        document.getElementById("email")?.value.trim() || "";
+const email =
+    document
+        .getElementById("adminEmail")
+        ?.value.trim() || "";
 
-    const password =
-        document.getElementById("password")?.value || "";
+const password =
+    document
+        .getElementById("adminPassword")
+        ?.value || "";
 
     if (!email || !password) {
         errorAlert?.classList.remove("d-none");
