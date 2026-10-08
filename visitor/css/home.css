@@ -361,19 +361,19 @@
 .place-image-one {
   background-image:
     linear-gradient(rgba(15, 118, 110, 0.12), rgba(15, 118, 110, 0.12)),
-    url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80");
+    url("../../assets/images/orange_home.jpg");
 }
 
 .place-image-two {
   background-image:
     linear-gradient(rgba(15, 118, 110, 0.08), rgba(15, 118, 110, 0.08)),
-    url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=80");
+    url("../../assets/images/path_room.jpg");
 }
 
 .place-image-three {
   background-image:
     linear-gradient(rgba(15, 118, 110, 0.08), rgba(15, 118, 110, 0.08)),
-    url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80");
+    url("../../assets/images/door_path_room.jpg");
 }
 
 .place-score {

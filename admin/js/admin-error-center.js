@@ -1,20 +1,18 @@
-
 "use strict";
 
-const list = document.getElementById("errorsList");
-
-const render = () => {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const list = document.getElementById("errorsList");
+  const render = () => {
     const errors = WusoolErrorRuntime.read();
-
-    list.innerHTML = errors.length
-        ? errors.map((item) => `
+    WusoolUI.html(list, errors.length ? errors.map(item => `
             <div class="admin-feature-row">
                 <span class="item-icon text-danger"><i class="bi bi-bug"></i></span>
 
                 <div class="flex-grow-1">
-                    <strong class="d-block">${item.type}: ${item.message}</strong>
+                    <strong class="d-block">${WusoolUI.escape(item.type)}: ${WusoolUI.escape(item.message)}</strong>
                     <small class="text-secondary">
-                        ${item.source || ""} ${item.line ? `· line ${item.line}` : ""}
+                        ${WusoolUI.escape(item.source || "")} ${item.line ? `· line ${WusoolUI.escape(item.line)}` : ""}
                     </small>
                 </div>
 
@@ -22,13 +20,11 @@ const render = () => {
                     ${new Date(item.createdAt).toLocaleString()}
                 </small>
             </div>
-        `).join("")
-        : `<div class="alert alert-success mb-0">No captured runtime errors.</div>`;
-};
-
-document.getElementById("clearErrors").addEventListener("click", () => {
-    localStorage.removeItem(WusoolErrorRuntime.KEY);
+        `).join("") : `<div class="alert alert-success mb-0">No captured runtime errors.</div>`);
+  };
+  WusoolUI.listen(document.getElementById("clearErrors"), "click", async () => {
+    await WusoolServices.rawRemove(WusoolErrorRuntime.KEY);
     render();
+  });
+  render();
 });
-
-render();

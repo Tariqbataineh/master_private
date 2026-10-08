@@ -1,230 +1,108 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const detailsContent =
-    document.getElementById(
-      "detailsContent",
-    );
-
-  const missingVisit =
-    document.getElementById(
-      "missingVisit",
-    );
-
-  const navbarUserName =
-    document.getElementById(
-      "navbarUserName",
-    );
-
-  const visitReference =
-    document.getElementById(
-      "visitReference",
-    );
-
-  const headingPlaceName =
-    document.getElementById(
-      "headingPlaceName",
-    );
-
-  const visitStatus =
-    document.getElementById(
-      "visitStatus",
-    );
-
-  const placeName =
-    document.getElementById("placeName");
-
-  const branchName =
-    document.getElementById("branchName");
-
-  const visitDate =
-    document.getElementById("visitDate");
-
-  const visitTime =
-    document.getElementById("visitTime");
-
-  const destination =
-    document.getElementById("destination");
-
-  const visitPurpose =
-    document.getElementById(
-      "visitPurpose",
-    );
-
-  const supportList =
-    document.getElementById("supportList");
-
-  const notesCard =
-    document.getElementById("notesCard");
-
-  const visitNotes =
-    document.getElementById("visitNotes");
-
-  const visitActions =
-    document.getElementById(
-      "visitActions",
-    );
-
-  const placeDetailsButton =
-    document.getElementById(
-      "placeDetailsButton",
-    );
-
-  const directionsButton =
-    document.getElementById(
-      "directionsButton",
-    );
-
-  const confirmCancelButton =
-    document.getElementById(
-      "confirmCancelButton",
-    );
-
-  const cancelModal =
-    new bootstrap.Modal(
-      document.getElementById(
-        "cancelVisitModal",
-      ),
-    );
-
-  navbarUserName.textContent =
-    localStorage.getItem(
-      "wusool-user-name",
-    ) || "User";
-
-  const parameters =
-    new URLSearchParams(
-      window.location.search,
-    );
-
-  const visitId =
-    Number(parameters.get("id"));
-
-  const getVisits = () => {
-    const savedVisits =
-      localStorage.getItem(
-        "wusool-visits",
-      );
-
-    if (!savedVisits) {
-      return [];
-    }
-
-    try {
-      return JSON.parse(savedVisits);
-    } catch {
-      return [];
-    }
-  };
-
-  const getSelectedVisit = () => {
-    return getVisits().find((visit) => {
-      return visit.id === visitId;
-    });
-  };
-
-  const formatDate = (dateValue) => {
-    return new Intl.DateTimeFormat(
-      "en-US",
-      {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  WusoolUI.ready(async () => {
+    const detailsContent = document.getElementById("detailsContent");
+    const missingVisit = document.getElementById("missingVisit");
+    const navbarUserName = document.getElementById("navbarUserName");
+    const visitReference = document.getElementById("visitReference");
+    const headingPlaceName = document.getElementById("headingPlaceName");
+    const visitStatus = document.getElementById("visitStatus");
+    const placeName = document.getElementById("placeName");
+    const branchName = document.getElementById("branchName");
+    const visitDate = document.getElementById("visitDate");
+    const visitTime = document.getElementById("visitTime");
+    const destination = document.getElementById("destination");
+    const visitPurpose = document.getElementById("visitPurpose");
+    const supportList = document.getElementById("supportList");
+    const notesCard = document.getElementById("notesCard");
+    const visitNotes = document.getElementById("visitNotes");
+    const visitActions = document.getElementById("visitActions");
+    const placeDetailsButton = document.getElementById("placeDetailsButton");
+    const directionsButton = document.getElementById("directionsButton");
+    const confirmCancelButton = document.getElementById("confirmCancelButton");
+    const cancelModal = new bootstrap.Modal(document.getElementById("cancelVisitModal"));
+    navbarUserName.textContent = (await WusoolServices.rawRead("wusool-user-name")) || "User";
+    const parameters = new URLSearchParams(window.location.search);
+    const visitId = parameters.get("id");
+    const getVisits = async () => {
+      const savedVisits = await WusoolServices.rawRead("wusool-visits");
+      if (!savedVisits) {
+        return [];
+      }
+      try {
+        return JSON.parse(savedVisits);
+      } catch (error) {
+        if (WusoolServices.mode === "api") throw error;
+        return [];
+      }
+    };
+    const getSelectedVisit = async () => {
+      return (await getVisits()).find(visit => {
+        return visit.id === visitId;
+      });
+    };
+    const formatDate = dateValue => {
+      return new Intl.DateTimeFormat("en-US", {
         weekday: "long",
         day: "numeric",
         month: "long",
-        year: "numeric",
-      },
-    ).format(
-      new Date(`${dateValue}T00:00:00`),
-    );
-  };
-
-  const formatTime = (timeValue) => {
-    const [hours, minutes] =
-      timeValue.split(":");
-
-    const timeDate = new Date();
-
-    timeDate.setHours(
-      Number(hours),
-      Number(minutes),
-    );
-
-    return new Intl.DateTimeFormat(
-      "en-US",
-      {
-        hour: "numeric",
-        minute: "2-digit",
-      },
-    ).format(timeDate);
-  };
-
-  const getStatusClass = (status) => {
-    const statusClasses = {
-      Confirmed: "status-confirmed",
-      Completed: "status-completed",
-      Cancelled: "status-cancelled",
+        year: "numeric"
+      }).format(new Date(`${dateValue}T00:00:00`));
     };
-
-    return (
-      statusClasses[status] ||
-      "status-confirmed"
-    );
-  };
-
-  const renderSupport = (support) => {
-    supportList.innerHTML = "";
-
-    if (!support || support.length === 0) {
-      supportList.innerHTML = `
+    const formatTime = timeValue => {
+      const [hours, minutes] = timeValue.split(":");
+      const timeDate = new Date();
+      timeDate.setHours(Number(hours), Number(minutes));
+      return new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "2-digit"
+      }).format(timeDate);
+    };
+    const getStatusClass = status => {
+      const statusClasses = {
+        Confirmed: "status-confirmed",
+        Completed: "status-completed",
+        Cancelled: "status-cancelled"
+      };
+      return statusClasses[status] || "status-confirmed";
+    };
+    const renderSupport = support => {
+      WusoolUI.html(supportList, "");
+      if (!support || support.length === 0) {
+        WusoolUI.html(supportList, `
         <span class="text-secondary">
           No additional support selected.
         </span>
-      `;
-
-      return;
-    }
-
-    support.forEach((supportItem) => {
-      const supportTag =
-        document.createElement("span");
-
-      supportTag.className =
-        "support-tag";
-
-      supportTag.innerHTML = `
+      `);
+        return;
+      }
+      support.forEach(supportItem => {
+        const supportTag = document.createElement("span");
+        supportTag.className = "support-tag";
+        WusoolUI.html(supportTag, `
         <i class="bi bi-check-circle-fill me-1"></i>
         ${supportItem}
-      `;
-
-      supportList.appendChild(
-        supportTag,
-      );
-    });
-  };
-
-  const saveGuidanceMethod = (
-    selectedVisitId,
-    guidanceMethod,
-  ) => {
-    const updatedVisits = getVisits().map((storedVisit) => {
-      if (storedVisit.id === selectedVisitId) {
-        return {
-          ...storedVisit,
-          guidanceMethod,
-        };
-      }
-
-      return storedVisit;
-    });
-
-    localStorage.setItem(
-      "wusool-visits",
-      JSON.stringify(updatedVisits),
-    );
-  };
-
-  const renderActions = (visit) => {
-    if (visit.status === "Confirmed") {
-      visitActions.innerHTML = `
+      `);
+        supportList.appendChild(supportTag);
+      });
+    };
+    const saveGuidanceMethod = async (selectedVisitId, guidanceMethod) => {
+      const updatedVisits = (await getVisits()).map(storedVisit => {
+        if (storedVisit.id === selectedVisitId) {
+          return {
+            ...storedVisit,
+            guidanceMethod
+          };
+        }
+        return storedVisit;
+      });
+      await WusoolServices.rawWrite("wusool-visits", JSON.stringify(updatedVisits));
+    };
+    const renderActions = visit => {
+      if (visit.status === "Confirmed") {
+        WusoolUI.html(visitActions, `
   <div class="guidance-selection">
     <h3 class="h6 fw-bold mb-3">
       How would you like to receive guidance?
@@ -233,11 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="d-grid gap-2">
 
       <button
-        class="btn btn-outline-secondary guidance-method ${
-          (visit.guidanceMethod || "both") === "text"
-            ? "active"
-            : ""
-        }"
+        class="btn btn-outline-secondary guidance-method ${(visit.guidanceMethod || "both") === "text" ? "active" : ""}"
         type="button"
         data-guidance="text"
       >
@@ -246,11 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </button>
 
       <button
-        class="btn btn-outline-secondary guidance-method ${
-          (visit.guidanceMethod || "both") === "voice"
-            ? "active"
-            : ""
-        }"
+        class="btn btn-outline-secondary guidance-method ${(visit.guidanceMethod || "both") === "voice" ? "active" : ""}"
         type="button"
         data-guidance="voice"
       >
@@ -259,11 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </button>
 
       <button
-        class="btn btn-outline-secondary guidance-method ${
-          (visit.guidanceMethod || "both") === "both"
-            ? "active"
-            : ""
-        }"
+        class="btn btn-outline-secondary guidance-method ${(visit.guidanceMethod || "both") === "both" ? "active" : ""}"
         type="button"
         data-guidance="both"
       >
@@ -299,101 +165,43 @@ document.addEventListener("DOMContentLoaded", () => {
     <i class="bi bi-x-circle me-2"></i>
     Cancel Visit
   </button>
-`;
-document
-  .getElementById(
-    "cancelVisitButton",
-  )
-  .addEventListener(
-    "click",
-    () => {
-      cancelModal.show();
-    },
-  );
-  let selectedGuidanceMethod =
-    visit.guidanceMethod || "both";
-
-const guidanceButtons =
-  document.querySelectorAll(
-    ".guidance-method",
-  );
-
-guidanceButtons.forEach((button) => {
-  button.addEventListener(
-    "click",
-    () => {
-      guidanceButtons.forEach(
-        (item) => {
-          item.classList.remove(
-            "active",
-          );
-        },
-      );
-
-      button.classList.add(
-        "active",
-      );
-
-      selectedGuidanceMethod =
-        button.dataset.guidance;
-
-      saveGuidanceMethod(
-        visit.id,
-        selectedGuidanceMethod,
-      );
-    },
-  );
-});
-const arrivedButton =
-  document.getElementById(
-    "arrivedButton",
-  );
-
-arrivedButton.addEventListener(
-  "click",
-  () => {
-    const navigationSession = {
-      sessionId: Date.now(),
-
-      visitId: visit.id,
-
-      placeId: visit.placeId,
-
-      placeName: visit.placeName,
-
-      branchName: visit.branch,
-
-      destination: visit.destination,
-
-      guidanceMethod:
-        selectedGuidanceMethod,
-
-      status:
-        "waiting-for-photo",
-
-      navigationStep: -1,
-
-      createdAt:
-        new Date().toISOString(),
-    };
-
-    localStorage.setItem(
-      "wusool-navigation-session",
-      JSON.stringify(
-        navigationSession,
-      ),
-    );
-
-    window.location.href =
-      `./analyze-surroundings.html?visitId=${visit.id}`;
-  },
-);
-
-      return;
-    }
-
-    if (visit.status === "Completed") {
-      visitActions.innerHTML = `
+`);
+        WusoolUI.listen(document.getElementById("cancelVisitButton"), "click", () => {
+          cancelModal.show();
+        });
+        let selectedGuidanceMethod = visit.guidanceMethod || "both";
+        const guidanceButtons = document.querySelectorAll(".guidance-method");
+        guidanceButtons.forEach(button => {
+          WusoolUI.listen(button, "click", async () => {
+            guidanceButtons.forEach(item => {
+              item.classList.remove("active");
+            });
+            button.classList.add("active");
+            selectedGuidanceMethod = button.dataset.guidance;
+            await saveGuidanceMethod(visit.id, selectedGuidanceMethod);
+          });
+        });
+        const arrivedButton = document.getElementById("arrivedButton");
+        WusoolUI.listen(arrivedButton, "click", async () => {
+          const navigationSession = {
+            sessionId: Date.now(),
+            visitId: visit.id,
+            placeId: visit.placeId,
+            placeName: visit.placeName,
+            branchName: visit.branch,
+            destination: visit.destination,
+            guidanceMethod: selectedGuidanceMethod,
+            status: "waiting-for-photo",
+            navigationStep: -1,
+            createdAt: new Date().toISOString()
+          };
+          await WusoolServices.rawWrite("wusool-navigation-session", JSON.stringify(navigationSession));
+          window.location.href = `./analyze-surroundings.html?visitId=${visit.id}`;
+        });
+        return;
+      }
+      if (visit.status === "Completed") {
+        WusoolUI.html(visitActions, `
         <a
           class="btn btn-wusool"
           href="./write-review.html?visitId=${visit.id}"
@@ -416,12 +224,10 @@ arrivedButton.addEventListener(
           <i class="bi bi-flag me-2"></i>
           Report Accessibility Issue
         </a>
-      `;
-
-      return;
-    }
-
-    visitActions.innerHTML = `
+      `);
+        return;
+      }
+      WusoolUI.html(visitActions, `
       <a
         class="btn btn-wusool"
         href="./plan-visit.html?placeId=${visit.placeId}"
@@ -435,122 +241,58 @@ arrivedButton.addEventListener(
       >
         Return to My Visits
       </a>
-    `;
-  };
-
-  const renderVisit = (visit) => {
-    visitReference.textContent =
-      `WUSOOL-${visit.id}`;
-
-    headingPlaceName.textContent =
-      visit.placeName;
-
-    placeName.textContent =
-      visit.placeName;
-
-    branchName.textContent =
-      visit.branch;
-
-    visitDate.textContent =
-      formatDate(visit.date);
-
-    visitTime.textContent =
-      formatTime(visit.time);
-
-    destination.textContent =
-      visit.destination;
-
-    visitPurpose.textContent =
-      visit.purpose;
-
-    visitStatus.textContent =
-      visit.status;
-
-    visitStatus.className =
-      `visit-status ${getStatusClass(visit.status)}`;
-
-    placeDetailsButton.href =
-      `./user-place-details.html?id=${visit.placeId}`;
-
-    const directionsQuery =
-      encodeURIComponent(
-        `${visit.placeName} ${visit.branch}`,
-      );
-
-    directionsButton.href =
-      `https://www.google.com/maps/search/?api=1&query=${directionsQuery}`;
-
-    renderSupport(visit.support);
-    renderActions(visit);
-
-    if (visit.notes) {
-      visitNotes.textContent =
-        visit.notes;
-
-      notesCard.classList.remove(
-        "d-none",
-      );
-    } else {
-      notesCard.classList.add(
-        "d-none",
-      );
-    }
-
-    document.title =
-      `${visit.placeName} Visit | Wusool`;
-  };
-
-  const cancelVisit = () => {
-    const visits = getVisits();
-
-    const updatedVisits =
-      visits.map((visit) => {
+    `);
+    };
+    const renderVisit = visit => {
+      visitReference.textContent = `WUSOOL-${visit.id}`;
+      headingPlaceName.textContent = visit.placeName;
+      placeName.textContent = visit.placeName;
+      branchName.textContent = visit.branch;
+      visitDate.textContent = formatDate(visit.date);
+      visitTime.textContent = formatTime(visit.time);
+      destination.textContent = visit.destination;
+      visitPurpose.textContent = visit.purpose;
+      visitStatus.textContent = visit.status;
+      visitStatus.className = `visit-status ${getStatusClass(visit.status)}`;
+      placeDetailsButton.href = `./user-place-details.html?id=${visit.placeId}`;
+      const directionsQuery = encodeURIComponent(`${visit.placeName} ${visit.branch}`);
+      directionsButton.href = `https://www.google.com/maps/search/?api=1&query=${directionsQuery}`;
+      renderSupport(visit.support);
+      renderActions(visit);
+      if (visit.notes) {
+        visitNotes.textContent = visit.notes;
+        notesCard.classList.remove("d-none");
+      } else {
+        notesCard.classList.add("d-none");
+      }
+      document.title = `${visit.placeName} Visit | Wusool`;
+    };
+    const cancelVisit = async () => {
+      const visits = await getVisits();
+      const updatedVisits = visits.map(visit => {
         if (visit.id === visitId) {
           return {
             ...visit,
-            status: "Cancelled",
+            status: "Cancelled"
           };
         }
-
         return visit;
       });
-
-    localStorage.setItem(
-      "wusool-visits",
-      JSON.stringify(updatedVisits),
-    );
-
-    cancelModal.hide();
-
-    const updatedVisit =
-      updatedVisits.find((visit) => {
+      await WusoolServices.rawWrite("wusool-visits", JSON.stringify(updatedVisits));
+      cancelModal.hide();
+      const updatedVisit = updatedVisits.find(visit => {
         return visit.id === visitId;
       });
-
-    renderVisit(updatedVisit);
-
-    showStatusMessage(
-      "Visit cancelled successfully.",
-    );
-  };
-
-  confirmCancelButton.addEventListener(
-    "click",
-    cancelVisit,
-  );
-
-  const selectedVisit =
-    getSelectedVisit();
-
-  if (!selectedVisit) {
-    detailsContent.classList.add(
-      "d-none",
-    );
-
-    missingVisit.classList.remove(
-      "d-none",
-    );
-  } else {
-    renderVisit(selectedVisit);
-  }
+      renderVisit(updatedVisit);
+      showStatusMessage("Visit cancelled successfully.");
+    };
+    WusoolUI.listen(confirmCancelButton, "click", cancelVisit);
+    const selectedVisit = await getSelectedVisit();
+    if (!selectedVisit) {
+      detailsContent.classList.add("d-none");
+      missingVisit.classList.remove("d-none");
+    } else {
+      renderVisit(selectedVisit);
+    }
+  });
 });

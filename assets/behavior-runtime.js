@@ -1,46 +1,26 @@
-
 "use strict";
 
 /* =========================================
    Wusool Behavior Runtime
 ========================================= */
-
-(() => {
-    const service =
-        window.WusoolBehaviorService;
-
+WusoolUI.enqueue(async () => {
+  (() => {
+    const service = window.WusoolBehaviorService;
     if (!service) {
-        return;
+      return;
     }
-
-    const showImpersonationBar = () => {
-        const session =
-            service.getImpersonation();
-
-        if (!session) {
-            return;
-        }
-
-        if (
-            document.getElementById(
-                "wusoolImpersonationBar"
-            )
-        ) {
-            return;
-        }
-
-        const bar =
-            document.createElement(
-                "div"
-            );
-
-        bar.id =
-            "wusoolImpersonationBar";
-
-        bar.className =
-            "wusool-impersonation-bar";
-
-        bar.innerHTML = `
+    const showImpersonationBar = async () => {
+      const session = await service.getImpersonation();
+      if (!session) {
+        return;
+      }
+      if (document.getElementById("wusoolImpersonationBar")) {
+        return;
+      }
+      const bar = document.createElement("div");
+      bar.id = "wusoolImpersonationBar";
+      bar.className = "wusool-impersonation-bar";
+      WusoolUI.html(bar, `
             <div>
                 <strong>
                     Admin Preview Mode
@@ -57,62 +37,25 @@
             >
                 Exit Preview
             </button>
-        `;
-
-        document.body.prepend(bar);
-
-        document.getElementById(
-            "wusoolExitImpersonation"
-        )
-            .addEventListener(
-                "click",
-                () => {
-                    service
-                        .stopImpersonation();
-
-                    window.location.href =
-                        "../../admin/html/admin-impersonation.html";
-                }
-            );
+        `);
+      document.body.prepend(bar);
+      WusoolUI.listen(document.getElementById("wusoolExitImpersonation"), "click", async () => {
+        await service.stopImpersonation();
+        window.location.href = "../../admin/html/admin-impersonation.html";
+      });
     };
-
-    const applyPermissionVisibility = () => {
-        const role =
-            sessionStorage.getItem(
-                "wusoolAdminRole"
-            ) ||
-            "super-admin";
-
-        document
-            .querySelectorAll(
-                "[data-permission]"
-            )
-            .forEach(
-                (element) => {
-                    const permission =
-                        element.dataset
-                            .permission;
-
-                    if (
-                        !service
-                            .hasPermission(
-                                role,
-                                permission
-                            )
-                    ) {
-                        element.style
-                            .display =
-                            "none";
-                    }
-                }
-            );
-    };
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        () => {
-            showImpersonationBar();
-            applyPermissionVisibility();
+    const applyPermissionVisibility = async () => {
+      const role = (await WusoolServices.rawRead("wusoolAdminRole")) || "super-admin";
+      await WusoolUI.each(document.querySelectorAll("[data-permission]"), async element => {
+        const permission = element.dataset.permission;
+        if (!(await service.hasPermission(role, permission))) {
+          element.style.display = "none";
         }
-    );
-})();
+      });
+    };
+    WusoolUI.ready(async () => {
+      await showImpersonationBar();
+      await applyPermissionVisibility();
+    });
+  })();
+});

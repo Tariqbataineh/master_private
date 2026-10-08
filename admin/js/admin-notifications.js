@@ -1,21 +1,19 @@
-
 "use strict";
 
-const list = document.getElementById("notificationList");
-
-const render = () => {
-    const items = WusoolBehaviorService.getNotifications();
-
-    list.innerHTML = items.length
-        ? items.map((item) => `
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const list = document.getElementById("notificationList");
+  const render = async () => {
+    const items = await WusoolBehaviorService.getNotifications();
+    WusoolUI.html(list, items.length ? items.map(item => `
             <div class="admin-list-item">
                 <span class="item-icon">
                     <i class="bi bi-bell${item.read ? "" : "-fill"}"></i>
                 </span>
 
                 <div class="flex-grow-1">
-                    <strong class="d-block">${item.title}</strong>
-                    <p class="text-secondary mb-1">${item.message}</p>
+                    <strong class="d-block">${WusoolUI.escape(item.title)}</strong>
+                    <p class="text-secondary mb-1">${WusoolUI.escape(item.message)}</p>
                     <small class="text-secondary">
                         ${new Date(item.createdAt).toLocaleString()}
                     </small>
@@ -25,43 +23,30 @@ const render = () => {
                     ${item.read ? "Read" : "New"}
                 </span>
             </div>
-        `).join("")
-        : `<p class="text-secondary mb-0">No notifications yet.</p>`;
-};
-
-document.getElementById("createNotification").addEventListener("click", () => {
+        `).join("") : `<p class="text-secondary mb-0">No notifications yet.</p>`);
+  };
+  WusoolUI.listen(document.getElementById("createNotification"), "click", async () => {
     const title = document.getElementById("notificationTitle").value.trim();
     const message = document.getElementById("notificationMessage").value.trim();
-
     if (!title || !message) {
-        WusoolAdmin.toast("Enter title and message.", "warning");
-        return;
+      WusoolAdmin.toast("Enter title and message.", "warning");
+      return;
     }
-
-    WusoolBehaviorService.pushNotification({
-        title,
-        message
+    await WusoolBehaviorService.pushNotification({
+      title,
+      message
     });
-
     document.getElementById("notificationTitle").value = "";
     document.getElementById("notificationMessage").value = "";
-
-    render();
-});
-
-document.getElementById("markAllRead").addEventListener("click", () => {
-    const items = WusoolBehaviorService.getNotifications();
-
-    items.forEach((item) => {
-        item.read = true;
+    await render();
+  });
+  WusoolUI.listen(document.getElementById("markAllRead"), "click", async () => {
+    const items = await WusoolBehaviorService.getNotifications();
+    items.forEach(item => {
+      item.read = true;
     });
-
-    localStorage.setItem(
-        WusoolBehaviorService.KEYS.notifications,
-        JSON.stringify(items)
-    );
-
-    render();
+    await WusoolServices.rawWrite(WusoolBehaviorService.KEYS.notifications, JSON.stringify(items));
+    await render();
+  });
+  await render();
 });
-
-render();

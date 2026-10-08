@@ -1,3 +1,4 @@
+/* UNUSED LEGACY SOURCE COPY. Not loaded by active HTML. Authoritative controller: user/js/my-reviews.js. Do not add this file to the active script graph. */
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {

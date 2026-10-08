@@ -1,60 +1,44 @@
-
 "use strict";
 
-const service = WusoolDataService;
-const tbody = document.getElementById("subscriptionsTableBody");
-const search = document.getElementById("subscriptionSearch");
-const statusFilter = document.getElementById("subscriptionStatusFilter");
-const stats = document.getElementById("subscriptionStats");
-const modal = new bootstrap.Modal(document.getElementById("subscriptionModal"));
-
-const organizationSelect = document.getElementById("subscriptionOrganization");
-
-const badgeClass = (status) => {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  WusoolUI.message('Local subscription status changes are development administration demonstrations. They do not confirm a processed payment.', 'info');
+  const service = WusoolDataService;
+  const tbody = document.getElementById("subscriptionsTableBody");
+  const search = document.getElementById("subscriptionSearch");
+  const statusFilter = document.getElementById("subscriptionStatusFilter");
+  const stats = document.getElementById("subscriptionStats");
+  const modal = new bootstrap.Modal(document.getElementById("subscriptionModal"));
+  const organizationSelect = document.getElementById("subscriptionOrganization");
+  const badgeClass = status => {
     const normalized = String(status).toLowerCase();
-
     if (normalized === "active") {
-        return "badge-soft-success";
+      return "badge-soft-success";
     }
-
     if (normalized === "paused") {
-        return "badge-soft-warning";
+      return "badge-soft-warning";
     }
-
     return "badge-soft-danger";
-};
-
-const loadOrganizations = () => {
-    organizationSelect.innerHTML = service.getOrganizations()
-        .map((item) => `
-            <option value="${item.id}">${item.name}</option>
-        `)
-        .join("");
-};
-
-const renderStats = () => {
-    const items = service.getSubscriptions();
-    const active = items.filter((item) => item.status === "Active").length;
-    const enterprise = items.filter((item) => item.plan === "Enterprise").length;
-    const expiring = items.filter((item) => {
-        if (!item.endDate) {
-            return false;
-        }
-
-        const ms = new Date(item.endDate).getTime() - Date.now();
-        const days = ms / 86400000;
-
-        return days >= 0 && days <= 7;
+  };
+  const loadOrganizations = async () => {
+    WusoolUI.html(organizationSelect, (await service.getOrganizations()).map(item => `
+            <option value="${WusoolUI.escape(item.id)}">${WusoolUI.escape(item.name)}</option>
+        `).join(""));
+  };
+  const renderStats = async () => {
+    const items = await service.getSubscriptions();
+    const active = items.filter(item => item.status === "Active").length;
+    const enterprise = items.filter(item => item.plan === "Enterprise").length;
+    const expiring = items.filter(item => {
+      if (!item.endDate) {
+        return false;
+      }
+      const ms = new Date(item.endDate).getTime() - Date.now();
+      const days = ms / 86400000;
+      return days >= 0 && days <= 7;
     }).length;
-
-    const cards = [
-        ["Subscriptions", items.length, "bi-credit-card"],
-        ["Active", active, "bi-check-circle"],
-        ["Enterprise", enterprise, "bi-stars"],
-        ["Expiring Soon", expiring, "bi-calendar-x"]
-    ];
-
-    stats.innerHTML = cards.map(([label, value, icon]) => `
+    const cards = [["Subscriptions", items.length, "bi-credit-card"], ["Active", active, "bi-check-circle"], ["Enterprise", enterprise, "bi-stars"], ["Expiring Soon", expiring, "bi-calendar-x"]];
+    WusoolUI.html(stats, cards.map(([label, value, icon]) => `
         <div class="col-12 col-sm-6 col-xl-3">
             <article class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
@@ -66,75 +50,65 @@ const renderStats = () => {
                 </div>
             </article>
         </div>
-    `).join("");
-};
-
-const render = () => {
-    const items = service.getSubscriptions({
-        search: search.value.trim(),
-        status: statusFilter.value
+    `).join(""));
+  };
+  const render = async () => {
+    const items = await service.getSubscriptions({
+      search: search.value.trim(),
+      status: statusFilter.value
     });
-
-    tbody.innerHTML = items.length
-        ? items.map((item) => {
-            const organization = service.getOrganizationById(item.organizationId);
-
-            return `
+    WusoolUI.html(tbody, items.length ? (await WusoolUI.mapAsync(items, async item => {
+      const organization = await service.getOrganizationById(item.organizationId);
+      return `
                 <tr>
                     <td>
-                        <strong>${organization?.name || "Unknown Organization"}</strong>
+                        <strong>${WusoolUI.escape(organization?.name || "Unknown Organization")}</strong>
                     </td>
 
-                    <td>${item.plan}</td>
+                    <td>${WusoolUI.escape(item.plan)}</td>
 
                     <td>
                         <span class="badge ${badgeClass(item.status)}">
-                            ${item.status}
+                            ${WusoolUI.escape(item.status)}
                         </span>
                     </td>
 
-                    <td>${item.branchLimit}</td>
-                    <td>${item.billingCycle}</td>
-                    <td>${item.endDate || "-"}</td>
+                    <td>${WusoolUI.escape(item.branchLimit)}</td>
+                    <td>${WusoolUI.escape(item.billingCycle)}</td>
+                    <td>${WusoolUI.escape(item.endDate || "-")}</td>
 
                     <td>
                         <div class="action-menu">
-                            <button class="btn btn-sm btn-outline-primary" data-edit="${item.id}">
+                            <button class="btn btn-sm btn-outline-primary" data-edit="${WusoolUI.escape(item.id)}">
                                 Edit
                             </button>
 
-                            ${
-                                item.status === "Active"
-                                    ? `
-                                        <button class="btn btn-sm btn-outline-warning" data-status="${item.id}" data-value="Paused">
+                            ${item.status === "Active" ? `
+                                        <button class="btn btn-sm btn-outline-warning" data-status="${WusoolUI.escape(item.id)}" data-value="Paused">
                                             Pause
                                         </button>
-                                    `
-                                    : `
-                                        <button class="btn btn-sm btn-outline-success" data-status="${item.id}" data-value="Active">
+                                    ` : `
+                                        <button class="btn btn-sm btn-outline-success" data-status="${WusoolUI.escape(item.id)}" data-value="Active">
                                             Activate
                                         </button>
-                                    `
-                            }
+                                    `}
 
-                            <button class="btn btn-sm btn-outline-danger" data-delete="${item.id}">
+                            <button class="btn btn-sm btn-outline-danger" data-delete="${WusoolUI.escape(item.id)}">
                                 Delete
                             </button>
                         </div>
                     </td>
                 </tr>
             `;
-        }).join("")
-        : `
+    })).join("") : `
             <tr>
                 <td colspan="7" class="text-center py-5 text-secondary">
                     No subscriptions found.
                 </td>
             </tr>
-        `;
-};
-
-const clearForm = () => {
+        `);
+  };
+  const clearForm = () => {
     document.getElementById("subscriptionModalTitle").textContent = "Add Subscription";
     document.getElementById("subscriptionId").value = "";
     document.getElementById("subscriptionPlan").value = "Standard";
@@ -146,9 +120,8 @@ const clearForm = () => {
     document.getElementById("subscriptionEnd").value = "";
     document.getElementById("subscriptionAutoRenew").checked = true;
     document.getElementById("subscriptionNotes").value = "";
-};
-
-const fillForm = (item) => {
+  };
+  const fillForm = item => {
     document.getElementById("subscriptionModalTitle").textContent = "Edit Subscription";
     document.getElementById("subscriptionId").value = item.id;
     organizationSelect.value = item.organizationId;
@@ -161,79 +134,63 @@ const fillForm = (item) => {
     document.getElementById("subscriptionEnd").value = item.endDate;
     document.getElementById("subscriptionAutoRenew").checked = item.autoRenew;
     document.getElementById("subscriptionNotes").value = item.notes;
-};
-
-document.getElementById("addSubscriptionButton").addEventListener("click", () => {
+  };
+  WusoolUI.listen(document.getElementById("addSubscriptionButton"), "click", () => {
     clearForm();
     modal.show();
-});
-
-document.getElementById("subscriptionForm").addEventListener("submit", (event) => {
+  });
+  WusoolUI.listen(document.getElementById("subscriptionForm"), "submit", async event => {
     event.preventDefault();
-
-    service.saveSubscription({
-        id: document.getElementById("subscriptionId").value || undefined,
-        organizationId: organizationSelect.value,
-        plan: document.getElementById("subscriptionPlan").value,
-        status: document.getElementById("subscriptionStatus").value,
-        branchLimit: Number(document.getElementById("subscriptionBranchLimit").value),
-        price: Number(document.getElementById("subscriptionPrice").value),
-        billingCycle: document.getElementById("subscriptionBilling").value,
-        startDate: document.getElementById("subscriptionStart").value,
-        endDate: document.getElementById("subscriptionEnd").value,
-        autoRenew: document.getElementById("subscriptionAutoRenew").checked,
-        notes: document.getElementById("subscriptionNotes").value.trim()
+    await service.saveSubscription({
+      id: document.getElementById("subscriptionId").value || undefined,
+      organizationId: organizationSelect.value,
+      plan: document.getElementById("subscriptionPlan").value,
+      status: document.getElementById("subscriptionStatus").value,
+      branchLimit: Number(document.getElementById("subscriptionBranchLimit").value),
+      price: Number(document.getElementById("subscriptionPrice").value),
+      billingCycle: document.getElementById("subscriptionBilling").value,
+      startDate: document.getElementById("subscriptionStart").value,
+      endDate: document.getElementById("subscriptionEnd").value,
+      autoRenew: document.getElementById("subscriptionAutoRenew").checked,
+      notes: document.getElementById("subscriptionNotes").value.trim()
     });
-
     modal.hide();
-    renderStats();
-    render();
+    await renderStats();
+    await render();
     WusoolAdmin.toast("Subscription saved.");
-});
-
-tbody.addEventListener("click", (event) => {
+  });
+  WusoolUI.listen(tbody, "click", async event => {
     const edit = event.target.closest("[data-edit]");
     const status = event.target.closest("[data-status]");
     const remove = event.target.closest("[data-delete]");
-
     if (edit) {
-        const item = service.getSubscriptionById(edit.dataset.edit);
-        if (!item) {
-            return;
-        }
-
-        fillForm(item);
-        modal.show();
+      const item = await service.getSubscriptionById(edit.dataset.edit);
+      if (!item) {
+        return;
+      }
+      fillForm(item);
+      modal.show();
     }
-
     if (status) {
-        service.setSubscriptionStatus(
-            status.dataset.status,
-            status.dataset.value
-        );
-
-        renderStats();
-        render();
-        WusoolAdmin.toast("Subscription status updated.");
+      await service.setSubscriptionStatus(status.dataset.status, status.dataset.value);
+      await renderStats();
+      await render();
+      WusoolAdmin.toast("Subscription status updated.");
     }
-
     if (remove) {
-        const item = service.getSubscriptionById(remove.dataset.delete);
-
-        if (!item || !WusoolAdmin.confirm("Move this subscription to Recovery Center?")) {
-            return;
-        }
-
-        service.deleteSubscription(item.id, "Deleted from Admin Subscriptions");
-        renderStats();
-        render();
-        WusoolAdmin.toast("Subscription moved to Recovery Center.");
+      const item = await service.getSubscriptionById(remove.dataset.delete);
+      if (!item || !WusoolAdmin.confirm("Move this subscription to Recovery Center?")) {
+        return;
+      }
+      await service.deleteSubscription(item.id, "Deleted from Admin Subscriptions");
+      await renderStats();
+      await render();
+      WusoolAdmin.toast("Subscription moved to Recovery Center.");
     }
+  });
+  WusoolUI.listen(search, "input", render);
+  WusoolUI.listen(statusFilter, "change", render);
+  await loadOrganizations();
+  await renderStats();
+  await render();
 });
-
-search.addEventListener("input", render);
-statusFilter.addEventListener("change", render);
-
-loadOrganizations();
-renderStats();
-render();

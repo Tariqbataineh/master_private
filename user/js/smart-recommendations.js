@@ -1,382 +1,123 @@
 "use strict";
 
-const recommendationPlaces = [
-  {
-    id: 1,
-    name: "Amman City Hall",
-    category: "Government",
-    city: "Amman",
-    accessibilityScore: 92,
-    image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80",
-    supports: [
-      "wheelchair",
-      "limited-mobility",
-      "staff-assistance",
-      "avoid-stairs",
-      "prefer-elevator",
-      "step-free-route",
-      "wide-pathways",
-      "accessible-parking",
-      "rest-areas",
-    ],
-  },
-  {
-    id: 2,
-    name: "Al Noor Medical Center",
-    category: "Medical",
-    city: "Amman",
-    accessibilityScore: 88,
-    image:
-      "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=900&q=80",
-    supports: [
-      "wheelchair",
-      "limited-mobility",
-      "visual-support",
-      "staff-assistance",
-      "avoid-stairs",
-      "prefer-elevator",
-      "step-free-route",
-      "wide-pathways",
-      "accessible-parking",
-    ],
-  },
-  {
-    id: 3,
-    name: "Community Hub",
-    category: "Community",
-    city: "Amman",
-    accessibilityScore: 86,
-    image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80",
-    supports: [
-      "limited-mobility",
-      "hearing-support",
-      "simple-instructions",
-      "staff-assistance",
-      "step-free-route",
-      "wide-pathways",
-      "rest-areas",
-    ],
-  },
-  {
-    id: 4,
-    name: "Jordan National Bank",
-    category: "Bank",
-    city: "Amman",
-    accessibilityScore: 90,
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80",
-    supports: [
-      "wheelchair",
-      "visual-support",
-      "hearing-support",
-      "staff-assistance",
-      "avoid-stairs",
-      "prefer-elevator",
-      "step-free-route",
-      "accessible-parking",
-    ],
-  },
-  {
-    id: 5,
-    name: "Knowledge Center",
-    category: "Education",
-    city: "Irbid",
-    accessibilityScore: 84,
-    image:
-      "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=900&q=80",
-    supports: [
-      "wheelchair",
-      "visual-support",
-      "simple-instructions",
-      "avoid-stairs",
-      "prefer-elevator",
-      "wide-pathways",
-      "rest-areas",
-    ],
-  },
-  {
-    id: 6,
-    name: "Public Services Center",
-    category: "Government",
-    city: "Zarqa",
-    accessibilityScore: 82,
-    image:
-      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=900&q=80",
-    supports: [
-      "limited-mobility",
-      "staff-assistance",
-      "step-free-route",
-      "wide-pathways",
-      "rest-areas",
-    ],
-  },
-];
-
-const preferenceLabels = {
-  wheelchair: "Wheelchair access",
-  "limited-mobility": "Limited mobility support",
-  "visual-support": "Visual support",
-  "hearing-support": "Hearing support",
-  "simple-instructions": "Simple instructions",
-  "staff-assistance": "Staff assistance",
-  "avoid-stairs": "Avoid stairs",
-  "prefer-elevator": "Elevator available",
-  "step-free-route": "Step-free route",
-  "wide-pathways": "Wide pathways",
-  "accessible-parking": "Accessible parking",
-  "rest-areas": "Rest areas",
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-  const recommendationsContainer =
-    document.getElementById(
-      "recommendationsContainer",
-    );
-
-  const activePreferences =
-    document.getElementById(
-      "activePreferences",
-    );
-
-  const guidanceMethod =
-    document.getElementById(
-      "guidanceMethod",
-    );
-
-  const categoryFilter =
-    document.getElementById(
-      "categoryFilter",
-    );
-
-  const cityFilter =
-    document.getElementById("cityFilter");
-
-  const sortFilter =
-    document.getElementById("sortFilter");
-
-  const resultCount =
-    document.getElementById("resultCount");
-
-  const emptyRecommendations =
-    document.getElementById(
-      "emptyRecommendations",
-    );
-
-  const resetFilters =
-    document.getElementById(
-      "resetFilters",
-    );
-
-  const navbarUserName =
-    document.getElementById(
-      "navbarUserName",
-    );
-
-  navbarUserName.textContent =
-    localStorage.getItem(
-      "wusool-user-name",
-    ) || "User";
-
-  const defaultPreferences = {
-    accessibilityNeeds: [],
-    routePreferences: [
-      "avoid-stairs",
-      "prefer-elevator",
-      "step-free-route",
-      "wide-pathways",
-    ],
-    guidanceMethod: "both",
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const recommendationPlaces = (await WusoolServices.places()).items;
+  const preferenceLabels = {
+    wheelchair: "Wheelchair access",
+    "limited-mobility": "Limited mobility support",
+    "visual-support": "Visual support",
+    "hearing-support": "Hearing support",
+    "simple-instructions": "Simple instructions",
+    "staff-assistance": "Staff assistance",
+    "avoid-stairs": "Avoid stairs",
+    "prefer-elevator": "Elevator available",
+    "step-free-route": "Step-free route",
+    "wide-pathways": "Wide pathways",
+    "accessible-parking": "Accessible parking",
+    "rest-areas": "Rest areas"
   };
-
-  const getPreferences = () => {
-    const savedPreferences =
-      localStorage.getItem(
-        "wusool-accessibility-preferences",
-      );
-
-    if (!savedPreferences) {
-      return defaultPreferences;
-    }
-
-    try {
-      return {
-        ...defaultPreferences,
-        ...JSON.parse(savedPreferences),
-      };
-    } catch {
-      return defaultPreferences;
-    }
-  };
-
-  const userPreferences =
-    getPreferences();
-
-  const getActiveRequirements = () => {
-    return [
-      ...userPreferences.accessibilityNeeds,
-      ...userPreferences.routePreferences,
-    ];
-  };
-
-  const getGuidanceLabel = () => {
-    const guidanceLabels = {
-      text: "Text Guidance",
-      voice: "Voice Guidance",
-      both: "Voice and Text",
+  WusoolUI.ready(async () => {
+    const recommendationsContainer = document.getElementById("recommendationsContainer");
+    const activePreferences = document.getElementById("activePreferences");
+    const guidanceMethod = document.getElementById("guidanceMethod");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const cityFilter = document.getElementById("cityFilter");
+    const sortFilter = document.getElementById("sortFilter");
+    const resultCount = document.getElementById("resultCount");
+    const emptyRecommendations = document.getElementById("emptyRecommendations");
+    const resetFilters = document.getElementById("resetFilters");
+    const navbarUserName = document.getElementById("navbarUserName");
+    navbarUserName.textContent = (await WusoolServices.rawRead("wusool-user-name")) || "User";
+    const defaultPreferences = {
+      accessibilityNeeds: [],
+      routePreferences: ["avoid-stairs", "prefer-elevator", "step-free-route", "wide-pathways"],
+      guidanceMethod: "both"
     };
-
-    return (
-      guidanceLabels[
-        userPreferences.guidanceMethod
-      ] || "Voice and Text"
-    );
-  };
-
-  const renderPreferenceSummary = () => {
-    const requirements =
-      getActiveRequirements();
-
-    activePreferences.innerHTML = "";
-
-    if (requirements.length === 0) {
-      const emptyTag =
-        document.createElement("span");
-
-      emptyTag.className =
-        "preference-tag";
-
-      emptyTag.textContent =
-        "General accessibility";
-
-      activePreferences.appendChild(
-        emptyTag,
-      );
-    }
-
-    requirements.forEach(
-      (requirement) => {
-        const preferenceTag =
-          document.createElement("span");
-
-        preferenceTag.className =
-          "preference-tag";
-
-        preferenceTag.textContent =
-          preferenceLabels[requirement] ||
-          requirement;
-
-        activePreferences.appendChild(
-          preferenceTag,
-        );
-      },
-    );
-
-    guidanceMethod.textContent =
-      getGuidanceLabel();
-  };
-
-  const calculatePlaceMatch = (place) => {
-    const requirements =
-      getActiveRequirements();
-
-    if (requirements.length === 0) {
-      return place.accessibilityScore;
-    }
-
-    const matchedRequirements =
-      requirements.filter(
-        (requirement) => {
-          return place.supports.includes(
-            requirement,
-          );
-        },
-      );
-
-    return Math.round(
-      (matchedRequirements.length /
-        requirements.length) *
-        100,
-    );
-  };
-
-  const getMatchedReasons = (place) => {
-    const requirements =
-      getActiveRequirements();
-
-    const matchedRequirements =
-      requirements.filter(
-        (requirement) => {
-          return place.supports.includes(
-            requirement,
-          );
-        },
-      );
-
-    if (matchedRequirements.length === 0) {
-      return [
-        "Verified accessibility information",
-        `${place.accessibilityScore}% accessibility score`,
-      ];
-    }
-
-    return matchedRequirements
-      .slice(0, 3)
-      .map((requirement) => {
-        return preferenceLabels[
-          requirement
-        ];
+    const getPreferences = async () => {
+      const savedPreferences = await WusoolServices.rawRead("wusool-accessibility-preferences");
+      if (!savedPreferences) {
+        return defaultPreferences;
+      }
+      try {
+        return {
+          ...defaultPreferences,
+          ...JSON.parse(savedPreferences)
+        };
+      } catch (error) {
+        if (WusoolServices.mode === "api") throw error;
+        return defaultPreferences;
+      }
+    };
+    const userPreferences = await getPreferences();
+    const getActiveRequirements = () => {
+      return [...userPreferences.accessibilityNeeds, ...userPreferences.routePreferences];
+    };
+    const getGuidanceLabel = () => {
+      const guidanceLabels = {
+        text: "Text Guidance",
+        voice: "Voice Guidance",
+        both: "Voice and Text"
+      };
+      return guidanceLabels[userPreferences.guidanceMethod] || "Voice and Text";
+    };
+    const renderPreferenceSummary = () => {
+      const requirements = getActiveRequirements();
+      WusoolUI.html(activePreferences, "");
+      if (requirements.length === 0) {
+        const emptyTag = document.createElement("span");
+        emptyTag.className = "preference-tag";
+        emptyTag.textContent = "General accessibility";
+        activePreferences.appendChild(emptyTag);
+      }
+      requirements.forEach(requirement => {
+        const preferenceTag = document.createElement("span");
+        preferenceTag.className = "preference-tag";
+        preferenceTag.textContent = preferenceLabels[requirement] || requirement;
+        activePreferences.appendChild(preferenceTag);
       });
-  };
-
-  const createReasons = (place) => {
-    return getMatchedReasons(place)
-      .map((reason) => {
+      guidanceMethod.textContent = getGuidanceLabel();
+    };
+    const calculatePlaceMatch = place => {
+      const requirements = getActiveRequirements();
+      if (requirements.length === 0) {
+        return place.accessibilityScore;
+      }
+      const matchedRequirements = requirements.filter(requirement => {
+        return (place.supports||[]).includes(requirement);
+      });
+      return Math.round(matchedRequirements.length / requirements.length * 100);
+    };
+    const getMatchedReasons = place => {
+      const requirements = getActiveRequirements();
+      const matchedRequirements = requirements.filter(requirement => {
+        return (place.supports||[]).includes(requirement);
+      });
+      if (matchedRequirements.length === 0) {
+        return ["Accessibility claims — see evidence status", `${place.accessibilityScore}% accessibility score`];
+      }
+      return matchedRequirements.slice(0, 3).map(requirement => {
+        return preferenceLabels[requirement];
+      });
+    };
+    const createReasons = place => {
+      return getMatchedReasons(place).map(reason => {
         return `
           <li class="match-reason">
             <i class="bi bi-check-circle-fill"></i>
             <span>${reason}</span>
           </li>
         `;
-      })
-      .join("");
-  };
-
-  const isPlaceSaved = (placeId) => {
-    const removedIds =
-      JSON.parse(
-        localStorage.getItem(
-          "wusool-removed-saved-places",
-        ) || "[]",
-      );
-
-    return !removedIds.includes(placeId);
-  };
-
-  const createRecommendationCard = (
-    place,
-  ) => {
-    const matchPercentage =
-      calculatePlaceMatch(place);
-
-    const savedClass =
-      isPlaceSaved(place.id)
-        ? "saved"
-        : "";
-
-    const savedIcon =
-      isPlaceSaved(place.id)
-        ? "bi-bookmark-fill"
-        : "bi-bookmark";
-
-    const column =
-      document.createElement("div");
-
-    column.className =
-      "col-12 col-md-6 col-xl-4";
-
-    column.innerHTML = `
+      }).join("");
+    };
+    const isPlaceSaved = async placeId => ((await WusoolServices.getCurrentAccount()).savedPlaces||[]).includes(placeId);
+    const createRecommendationCard = async place => {
+      const matchPercentage = calculatePlaceMatch(place);
+      const savedClass = (await isPlaceSaved(place.id)) ? "saved" : "";
+      const savedIcon = (await isPlaceSaved(place.id)) ? "bi-bookmark-fill" : "bi-bookmark";
+      const column = document.createElement("div");
+      column.className = "col-12 col-md-6 col-xl-4";
+      WusoolUI.html(column, `
       <article class="recommendation-card h-100">
         <div class="recommendation-image">
           <img
@@ -450,193 +191,71 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       </article>
-    `;
-
-    return column;
-  };
-
-  const getFilteredPlaces = () => {
-    const selectedCategory =
-      categoryFilter.value;
-
-    const selectedCity =
-      cityFilter.value;
-
-    const selectedSort =
-      sortFilter.value;
-
-    const places =
-      recommendationPlaces.filter(
-        (place) => {
-          const categoryMatches =
-            selectedCategory === "all" ||
-            place.category ===
-              selectedCategory;
-
-          const cityMatches =
-            selectedCity === "all" ||
-            place.city === selectedCity;
-
-          return (
-            categoryMatches &&
-            cityMatches
-          );
-        },
-      );
-
-    if (selectedSort === "match") {
-      places.sort(
-        (firstPlace, secondPlace) => {
-          return (
-            calculatePlaceMatch(
-              secondPlace,
-            ) -
-            calculatePlaceMatch(
-              firstPlace,
-            )
-          );
-        },
-      );
-    }
-
-    if (selectedSort === "score") {
-      places.sort(
-        (firstPlace, secondPlace) => {
-          return (
-            secondPlace.accessibilityScore -
-            firstPlace.accessibilityScore
-          );
-        },
-      );
-    }
-
-    if (selectedSort === "name") {
-      places.sort(
-        (firstPlace, secondPlace) => {
-          return firstPlace.name.localeCompare(
-            secondPlace.name,
-          );
-        },
-      );
-    }
-
-    return places;
-  };
-
-  const addSaveButtonEvents = () => {
-    const saveButtons =
-      document.querySelectorAll(
-        "[data-save-id]",
-      );
-
-    saveButtons.forEach((button) => {
-      button.addEventListener(
-        "click",
-        () => {
-          const placeId =
-            Number(
-              button.dataset.saveId,
-            );
-
-          let removedIds =
-            JSON.parse(
-              localStorage.getItem(
-                "wusool-removed-saved-places",
-              ) || "[]",
-            );
-
-          const placeIsSaved =
-            !removedIds.includes(placeId);
-
-          if (placeIsSaved) {
-            removedIds =
-              removedIds.filter(
-                (id) => id !== placeId,
-              );
-          } else {
-            removedIds =
-              removedIds.filter(
-                (id) => id !== placeId,
-              );
-          }
-
-          localStorage.setItem(
-            "wusool-removed-saved-places",
-            JSON.stringify(removedIds),
-          );
-
-          button.classList.add("saved");
-
-          button
-            .querySelector("i")
-            .className =
-            "bi bi-bookmark-fill";
-
-          showStatusMessage(
-            "Place added to your saved places.",
-          );
-        },
-      );
-    });
-  };
-
-  const renderRecommendations = () => {
-    const places =
-      getFilteredPlaces();
-
-    recommendationsContainer.innerHTML =
-      "";
-
-    resultCount.textContent =
-      places.length;
-
-    if (places.length === 0) {
-      emptyRecommendations.classList.remove(
-        "d-none",
-      );
-
-      return;
-    }
-
-    emptyRecommendations.classList.add(
-      "d-none",
-    );
-
-    places.forEach((place) => {
-      recommendationsContainer.appendChild(
-        createRecommendationCard(place),
-      );
-    });
-
-    addSaveButtonEvents();
-  };
-
-  categoryFilter.addEventListener(
-    "change",
-    renderRecommendations,
-  );
-
-  cityFilter.addEventListener(
-    "change",
-    renderRecommendations,
-  );
-
-  sortFilter.addEventListener(
-    "change",
-    renderRecommendations,
-  );
-
-  resetFilters.addEventListener(
-    "click",
-    () => {
+    `);
+      return column;
+    };
+    const getFilteredPlaces = () => {
+      const selectedCategory = categoryFilter.value;
+      const selectedCity = cityFilter.value;
+      const selectedSort = sortFilter.value;
+      const places = recommendationPlaces.filter(place => {
+        const categoryMatches = selectedCategory === "all" || place.category === selectedCategory;
+        const cityMatches = selectedCity === "all" || place.city === selectedCity;
+        return categoryMatches && cityMatches;
+      });
+      if (selectedSort === "match") {
+        places.sort((firstPlace, secondPlace) => {
+          return calculatePlaceMatch(secondPlace) - calculatePlaceMatch(firstPlace);
+        });
+      }
+      if (selectedSort === "score") {
+        places.sort((firstPlace, secondPlace) => {
+          return secondPlace.accessibilityScore - firstPlace.accessibilityScore;
+        });
+      }
+      if (selectedSort === "name") {
+        places.sort((firstPlace, secondPlace) => {
+          return firstPlace.name.localeCompare(secondPlace.name);
+        });
+      }
+      return places;
+    };
+    const addSaveButtonEvents = () => {
+      const saveButtons = document.querySelectorAll("[data-save-id]");
+      saveButtons.forEach(button => {
+        WusoolUI.listen(button, "click", async () => {
+          const placeId = String(button.dataset.saveId);
+          const saved = await isPlaceSaved(placeId);
+          await WusoolServices.setSavedPlace(placeId, !saved);
+          await renderRecommendations();
+          showStatusMessage(saved ? 'Place removed from saved places.' : 'Place saved.');
+        });
+      });
+    };
+    const renderRecommendations = async () => {
+      const places = getFilteredPlaces();
+      WusoolUI.html(recommendationsContainer, "");
+      resultCount.textContent = places.length;
+      if (places.length === 0) {
+        emptyRecommendations.classList.remove("d-none");
+        return;
+      }
+      emptyRecommendations.classList.add("d-none");
+      await WusoolUI.each(places, async place => {
+        recommendationsContainer.appendChild(await createRecommendationCard(place));
+      });
+      addSaveButtonEvents();
+    };
+    WusoolUI.listen(categoryFilter, "change", renderRecommendations);
+    WusoolUI.listen(cityFilter, "change", renderRecommendations);
+    WusoolUI.listen(sortFilter, "change", renderRecommendations);
+    WusoolUI.listen(resetFilters, "click", async () => {
       categoryFilter.value = "all";
       cityFilter.value = "all";
       sortFilter.value = "match";
-
-      renderRecommendations();
-    },
-  );
-
-  renderPreferenceSummary();
-  renderRecommendations();
+      await renderRecommendations();
+    });
+    renderPreferenceSummary();
+    await renderRecommendations();
+  });
 });

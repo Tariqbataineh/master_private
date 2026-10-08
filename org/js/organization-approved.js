@@ -1,141 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
-    loadOrganizationInformation();
-    saveApprovalStatus();
-    prepareSubscriptionButton();
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const refresh = async () => {
+    const a = await WusoolServices.getCurrentAccount();
+    for (const key of ['organizationName', 'detailsOrganizationName']) if (document.getElementById(key)) document.getElementById(key).textContent = a.name;
+    if (document.getElementById('organizationEmail')) document.getElementById('organizationEmail').textContent = a.email;
+    if (document.getElementById('submissionDate')) document.getElementById('submissionDate').textContent = a.createdAt;
+    if (document.getElementById('requestReference')) document.getElementById('requestReference').textContent = a.id;
+    WusoolUI.message('Organization application: ' + a.approvalStatus, a.approvalStatus === 'approved' ? 'success' : 'info');
+    if (a.approvalStatus === 'approved' && location.pathname.endsWith('registration-pending.html')) location.href = './organization-approved.html';
+    const button = document.getElementById('continueButton');
+    if (button) {
+      button.disabled = a.approvalStatus !== 'approved';
+      button.href = './organization-dashboard.html';
+    }
+  };
+  await refresh();
+  WusoolUI.listen(document.getElementById('checkStatusButton'), 'click', refresh);
+  WusoolUI.listen(document.getElementById('copyReferenceButton'), 'click', async () => navigator.clipboard.writeText((await WusoolServices.getCurrentAccount()).id));
 });
-
-const getStoredObject = (storage, key) => {
-    try {
-        const storedValue = storage.getItem(key);
-
-        return storedValue
-            ? JSON.parse(storedValue)
-            : null;
-    } catch (error) {
-        console.error(`Unable to read ${key}:`, error);
-        return null;
-    }
-};
-
-const getOrganizationData = () => {
-    const possibleData = [
-        getStoredObject(
-            sessionStorage,
-            "wusoolOrganization"
-        ),
-        getStoredObject(
-            localStorage,
-            "wusoolOrganization"
-        ),
-        getStoredObject(
-            localStorage,
-            "wusoolOrganizationRegistration"
-        ),
-        getStoredObject(
-            localStorage,
-            "organizationRegistration"
-        )
-    ];
-
-    return possibleData.find((item) => {
-        return item !== null;
-    }) || {};
-};
-
-const getOrganizationName = (organizationData) => {
-    return (
-        organizationData.organizationName ||
-        organizationData.name ||
-        organizationData.companyName ||
-        "Your Organization"
-    );
-};
-
-const createApprovalReference = () => {
-    const savedReference =
-        localStorage.getItem(
-            "wusoolApprovalReference"
-        );
-
-    if (savedReference) {
-        return savedReference;
-    }
-
-    const randomNumber =
-        Math.floor(100000 + Math.random() * 900000);
-
-    const approvalReference =
-        `WSL-ORG-${randomNumber}`;
-
-    localStorage.setItem(
-        "wusoolApprovalReference",
-        approvalReference
-    );
-
-    return approvalReference;
-};
-
-const loadOrganizationInformation = () => {
-    const organizationData =
-        getOrganizationData();
-
-    const organizationName =
-        getOrganizationName(organizationData);
-
-    const approvalReference =
-        createApprovalReference();
-
-    document.getElementById(
-        "organizationName"
-    ).textContent = organizationName;
-
-    document.getElementById(
-        "detailsOrganizationName"
-    ).textContent = organizationName;
-
-    document.getElementById(
-        "approvalReference"
-    ).textContent = approvalReference;
-
-    document.title =
-        `${organizationName} Approved | Wusool`;
-};
-
-const saveApprovalStatus = () => {
-    localStorage.setItem(
-        "wusoolOrganizationStatus",
-        "approved"
-    );
-
-    const organizationData =
-        getOrganizationData();
-
-    const updatedOrganizationData = {
-        ...organizationData,
-        approvalStatus: "approved",
-        subscriptionStatus: (
-            organizationData.subscriptionStatus ||
-            "inactive"
-        )
-    };
-
-    sessionStorage.setItem(
-        "wusoolOrganization",
-        JSON.stringify(updatedOrganizationData)
-    );
-};
-
-const prepareSubscriptionButton = () => {
-    const continueButton =
-        document.getElementById("continueButton");
-
-    continueButton.addEventListener(
-        "click",
-        () => {
-            localStorage.setItem(
-                "wusoolRegistrationStep",
-                "subscription"
-            );
-        }
-    );
-};

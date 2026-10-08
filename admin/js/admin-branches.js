@@ -1,238 +1,81 @@
-
 "use strict";
 
-const service = window.WusoolDataService;
-
-const tableBody =
-    document.getElementById(
-        "branchesTableBody"
-    );
-
-const searchInput =
-    document.getElementById(
-        "branchSearch"
-    );
-
-const statusFilter =
-    document.getElementById(
-        "branchStatusFilter"
-    );
-
-const organizationFilter =
-    document.getElementById(
-        "branchOrganizationFilter"
-    );
-
-const countLabel =
-    document.getElementById(
-        "branchCount"
-    );
-
-const statsContainer =
-    document.getElementById(
-        "branchStats"
-    );
-
-const branchOrganization =
-    document.getElementById(
-        "branchOrganization"
-    );
-
-const branchModal =
-    new bootstrap.Modal(
-        document.getElementById(
-            "branchModal"
-        )
-    );
-
-const detailsModal =
-    new bootstrap.Modal(
-        document.getElementById(
-            "branchDetailsModal"
-        )
-    );
-
-
-const formatDate = (
-    value
-) => {
-    return value
-        ? new Date(value)
-            .toLocaleDateString()
-        : "-";
-};
-
-
-const badgeClass = (
-    status
-) => {
-    const normalized =
-        String(status)
-            .toLowerCase();
-
-    if (
-        normalized ===
-        "approved"
-    ) {
-        return "badge-soft-success";
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const service = window.WusoolDataService;
+  const tableBody = document.getElementById("branchesTableBody");
+  const searchInput = document.getElementById("branchSearch");
+  const statusFilter = document.getElementById("branchStatusFilter");
+  const organizationFilter = document.getElementById("branchOrganizationFilter");
+  const countLabel = document.getElementById("branchCount");
+  const statsContainer = document.getElementById("branchStats");
+  const branchOrganization = document.getElementById("branchOrganization");
+  const branchModal = new bootstrap.Modal(document.getElementById("branchModal"));
+  const detailsModal = new bootstrap.Modal(document.getElementById("branchDetailsModal"));
+  const formatDate = value => {
+    return value ? new Date(value).toLocaleDateString() : "-";
+  };
+  const badgeClass = status => {
+    const normalized = String(status).toLowerCase();
+    if (normalized === "approved") {
+      return "badge-soft-success";
     }
-
-    if (
-        normalized ===
-        "pending" ||
-        normalized ===
-        "needs review"
-    ) {
-        return "badge-soft-warning";
+    if (normalized === "pending" || normalized === "needs review") {
+      return "badge-soft-warning";
     }
-
     return "badge-soft-danger";
-};
-
-
-const getOrganizationName = (
-    organizationId
-) => {
-    return (
-        service
-            .getOrganizationById(
-                organizationId
-            )
-            ?.name ||
-        "Unknown Organization"
-    );
-};
-
-
-const loadOrganizationOptions = () => {
-    const organizations =
-        service.getOrganizations();
-
-    const options =
-        organizations
-            .map(
-                (item) => `
-                    <option value="${item.id}">
-                        ${item.name}
+  };
+  const getOrganizationName = async organizationId => {
+    return (await service.getOrganizationById(organizationId))?.name || "Unknown Organization";
+  };
+  const loadOrganizationOptions = async () => {
+    const organizations = await service.getOrganizations();
+    const options = organizations.map(item => `
+                    <option value="${WusoolUI.escape(item.id)}">
+                        ${WusoolUI.escape(item.name)}
                     </option>
-                `
-            )
-            .join("");
-
-    branchOrganization.innerHTML =
-        options;
-
-    organizationFilter.innerHTML =
-        `
+                `).join("");
+    WusoolUI.html(branchOrganization, options);
+    WusoolUI.html(organizationFilter, `
             <option value="">
                 All Organizations
             </option>
-        ` +
-        options;
-
-    const queryOrganizationId =
-        WusoolAdmin.getQuery(
-            "organizationId"
-        );
-
-    if (
-        queryOrganizationId
-    ) {
-        organizationFilter.value =
-            queryOrganizationId;
+        ` + options);
+    const queryOrganizationId = WusoolAdmin.getQuery("organizationId");
+    if (queryOrganizationId) {
+      organizationFilter.value = queryOrganizationId;
     }
-};
-
-
-const getFiltered = () => {
-    return service
-        .getBranches({
-            search:
-                searchInput.value
-                    .trim(),
-
-            status:
-                statusFilter.value,
-
-            organizationId:
-                organizationFilter.value
-        });
-};
-
-
-const renderStats = () => {
-    const all =
-        service.getBranches();
-
-    const approved =
-        all.filter(
-            (item) =>
-                item.status ===
-                "approved"
-        ).length;
-
-    const pending =
-        all.filter(
-            (item) =>
-                item.status ===
-                "pending"
-        ).length;
-
-    const average =
-        all.length
-            ? Math.round(
-                all.reduce(
-                    (sum, item) =>
-                        sum +
-                        Number(
-                            item.accessibilityScore ||
-                            0
-                        ),
-                    0
-                ) /
-                all.length
-            )
-            : 0;
-
-    const cards = [
-        {
-            label:
-                "Branches",
-            value:
-                all.length,
-            icon:
-                "bi-geo-alt"
-        },
-        {
-            label:
-                "Approved",
-            value:
-                approved,
-            icon:
-                "bi-check-circle"
-        },
-        {
-            label:
-                "Pending",
-            value:
-                pending,
-            icon:
-                "bi-hourglass-split"
-        },
-        {
-            label:
-                "Average Score",
-            value:
-                `${average}%`,
-            icon:
-                "bi-speedometer2"
-        }
-    ];
-
-    statsContainer.innerHTML =
-        cards
-            .map(
-                (card) => `
+  };
+  const getFiltered = async () => {
+    return await service.getBranches({
+      search: searchInput.value.trim(),
+      status: statusFilter.value,
+      organizationId: organizationFilter.value
+    });
+  };
+  const renderStats = async () => {
+    const all = await service.getBranches();
+    const approved = all.filter(item => item.status === "approved").length;
+    const pending = all.filter(item => item.status === "pending").length;
+    const average = all.length ? Math.round(all.reduce((sum, item) => sum + Number(item.accessibilityScore || 0), 0) / all.length) : 0;
+    const cards = [{
+      label: "Branches",
+      value: all.length,
+      icon: "bi-geo-alt"
+    }, {
+      label: "Approved",
+      value: approved,
+      icon: "bi-check-circle"
+    }, {
+      label: "Pending",
+      value: pending,
+      icon: "bi-hourglass-split"
+    }, {
+      label: "Average Score",
+      value: `${average}%`,
+      icon: "bi-speedometer2"
+    }];
+    WusoolUI.html(statsContainer, cards.map(card => `
                     <div class="col-12 col-sm-6 col-xl-3">
                         <article class="stat-card">
                             <div class="d-flex justify-content-between align-items-start">
@@ -252,54 +95,42 @@ const renderStats = () => {
                             </div>
                         </article>
                     </div>
-                `
-            )
-            .join("");
-};
-
-
-const renderTable = () => {
-    const branches =
-        getFiltered();
-
-    countLabel.textContent =
-        `${branches.length} branch${branches.length === 1 ? "" : "es"}`;
-
-    tableBody.innerHTML =
-        branches.length
-            ? branches
-                .map(
-                    (item) => `
+                `).join(""));
+  };
+  const renderTable = async () => {
+    const branches = await getFiltered();
+    countLabel.textContent = `${branches.length} branch${branches.length === 1 ? "" : "es"}`;
+    WusoolUI.html(tableBody, branches.length ? (await WusoolUI.mapAsync(branches, async item => `
                         <tr>
                             <td>
                                 <div>
                                     <strong class="d-block">
-                                        ${item.name}
+                                        ${WusoolUI.escape(item.name)}
                                     </strong>
 
                                     <small class="text-secondary">
-                                        ${item.address || "No address"}
+                                        ${WusoolUI.escape(item.address || "No address")}
                                     </small>
                                 </div>
                             </td>
 
                             <td>
-                                ${getOrganizationName(item.organizationId)}
+                                ${await getOrganizationName(item.organizationId)}
                             </td>
 
                             <td>
-                                ${item.city || "-"}
+                                ${WusoolUI.escape(item.city || "-")}
                             </td>
 
                             <td>
                                 <span class="score-pill">
-                                    ${item.accessibilityScore}%
+                                    ${WusoolUI.escape(item.accessibilityScore)}%
                                 </span>
                             </td>
 
                             <td>
                                 <span class="badge ${badgeClass(item.status)} text-capitalize">
-                                    ${item.status}
+                                    ${WusoolUI.escape(item.status)}
                                 </span>
                             </td>
 
@@ -311,53 +142,46 @@ const renderTable = () => {
                                 <div class="action-menu">
                                     <button
                                         class="btn btn-sm btn-outline-secondary"
-                                        data-view-id="${item.id}"
+                                        data-view-id="${WusoolUI.escape(item.id)}"
                                     >
                                         View
                                     </button>
 
                                     <button
                                         class="btn btn-sm btn-outline-primary"
-                                        data-edit-id="${item.id}"
+                                        data-edit-id="${WusoolUI.escape(item.id)}"
                                     >
                                         Edit
                                     </button>
 
-                                    ${
-                                        item.status !== "approved"
-                                            ? `
+                                    ${item.status !== "approved" ? `
                                                 <button
                                                     class="btn btn-sm btn-outline-success"
-                                                    data-status-id="${item.id}"
+                                                    data-status-id="${WusoolUI.escape(item.id)}"
                                                     data-status-value="approved"
                                                 >
                                                     Approve
                                                 </button>
-                                            `
-                                            : `
+                                            ` : `
                                                 <button
                                                     class="btn btn-sm btn-outline-warning"
-                                                    data-status-id="${item.id}"
+                                                    data-status-id="${WusoolUI.escape(item.id)}"
                                                     data-status-value="needs review"
                                                 >
                                                     Needs Review
                                                 </button>
-                                            `
-                                    }
+                                            `}
 
                                     <button
                                         class="btn btn-sm btn-outline-danger"
-                                        data-delete-id="${item.id}"
+                                        data-delete-id="${WusoolUI.escape(item.id)}"
                                     >
                                         Delete
                                     </button>
                                 </div>
                             </td>
                         </tr>
-                    `
-                )
-                .join("")
-            : `
+                    `)).join("") : `
                 <tr>
                     <td
                         colspan="7"
@@ -366,319 +190,101 @@ const renderTable = () => {
                         No branches found.
                     </td>
                 </tr>
-            `;
-};
-
-
-const renderAll = () => {
-    renderStats();
-    renderTable();
-};
-
-
-const clearForm = () => {
-    document.getElementById(
-        "branchModalTitle"
-    ).textContent =
-        "Add Branch";
-
-    document.getElementById(
-        "branchId"
-    ).value = "";
-
-    document.getElementById(
-        "branchName"
-    ).value = "";
-
-    document.getElementById(
-        "branchCity"
-    ).value = "Amman";
-
-    document.getElementById(
-        "branchPhone"
-    ).value = "";
-
-    document.getElementById(
-        "branchAddress"
-    ).value = "";
-
-    document.getElementById(
-        "branchScore"
-    ).value = "0";
-
-    document.getElementById(
-        "branchStatus"
-    ).value = "approved";
-
-    document.getElementById(
-        "branchNotes"
-    ).value = "";
-
-    const queryOrganizationId =
-        WusoolAdmin.getQuery(
-            "organizationId"
-        );
-
-    if (
-        queryOrganizationId
-    ) {
-        branchOrganization.value =
-            queryOrganizationId;
+            `);
+  };
+  const renderAll = async () => {
+    await renderStats();
+    await renderTable();
+  };
+  const clearForm = () => {
+    document.getElementById("branchModalTitle").textContent = "Add Branch";
+    document.getElementById("branchId").value = "";
+    document.getElementById("branchName").value = "";
+    document.getElementById("branchCity").value = "Amman";
+    document.getElementById("branchPhone").value = "";
+    document.getElementById("branchAddress").value = "";
+    document.getElementById("branchScore").value = "0";
+    document.getElementById("branchStatus").value = "approved";
+    document.getElementById("branchNotes").value = "";
+    const queryOrganizationId = WusoolAdmin.getQuery("organizationId");
+    if (queryOrganizationId) {
+      branchOrganization.value = queryOrganizationId;
     }
-};
-
-
-const fillForm = (
-    item
-) => {
-    document.getElementById(
-        "branchModalTitle"
-    ).textContent =
-        "Edit Branch";
-
-    document.getElementById(
-        "branchId"
-    ).value =
-        item.id;
-
-    document.getElementById(
-        "branchName"
-    ).value =
-        item.name;
-
-    branchOrganization.value =
-        item.organizationId;
-
-    document.getElementById(
-        "branchCity"
-    ).value =
-        item.city;
-
-    document.getElementById(
-        "branchPhone"
-    ).value =
-        item.phone;
-
-    document.getElementById(
-        "branchAddress"
-    ).value =
-        item.address;
-
-    document.getElementById(
-        "branchScore"
-    ).value =
-        item.accessibilityScore;
-
-    document.getElementById(
-        "branchStatus"
-    ).value =
-        item.status;
-
-    document.getElementById(
-        "branchNotes"
-    ).value =
-        item.notes;
-};
-
-
-document.getElementById(
-    "addBranchButton"
-).addEventListener(
-    "click",
-    () => {
-        clearForm();
-        branchModal.show();
-    }
-);
-
-
-document.getElementById(
-    "branchForm"
-).addEventListener(
-    "submit",
-    (event) => {
-        event.preventDefault();
-
-        const saved =
-            service.saveBranch({
-                id:
-                    document.getElementById(
-                        "branchId"
-                    ).value ||
-                    undefined,
-
-                organizationId:
-                    branchOrganization.value,
-
-                name:
-                    document.getElementById(
-                        "branchName"
-                    ).value.trim(),
-
-                city:
-                    document.getElementById(
-                        "branchCity"
-                    ).value.trim(),
-
-                phone:
-                    document.getElementById(
-                        "branchPhone"
-                    ).value.trim(),
-
-                address:
-                    document.getElementById(
-                        "branchAddress"
-                    ).value.trim(),
-
-                accessibilityScore:
-                    Number(
-                        document.getElementById(
-                            "branchScore"
-                        ).value
-                    ),
-
-                status:
-                    document.getElementById(
-                        "branchStatus"
-                    ).value,
-
-                notes:
-                    document.getElementById(
-                        "branchNotes"
-                    ).value.trim()
-            });
-
-        branchModal.hide();
-        renderAll();
-
-        WusoolAdmin.toast(
-            `${saved.name} saved successfully.`
-        );
-    }
-);
-
-
-tableBody.addEventListener(
-    "click",
-    (event) => {
-        const editButton =
-            event.target.closest(
-                "[data-edit-id]"
-            );
-
-        const deleteButton =
-            event.target.closest(
-                "[data-delete-id]"
-            );
-
-        const statusButton =
-            event.target.closest(
-                "[data-status-id]"
-            );
-
-        const viewButton =
-            event.target.closest(
-                "[data-view-id]"
-            );
-
-        if (editButton) {
-            const item =
-                service
-                    .getBranchById(
-                        editButton.dataset.editId
-                    );
-
-            if (!item) {
-                return;
-            }
-
-            fillForm(item);
-            branchModal.show();
-        }
-
-        if (deleteButton) {
-            const item =
-                service
-                    .getBranchById(
-                        deleteButton.dataset.deleteId
-                    );
-
-            if (
-                !item ||
-                !WusoolAdmin.confirm(
-                    `Move ${item.name} to Recovery Center?`
-                )
-            ) {
-                return;
-            }
-
-            service.deleteBranch(
-                item.id,
-                "Deleted from Admin Branches"
-            );
-
-            renderAll();
-
-            WusoolAdmin.toast(
-                "Branch moved to Recovery Center."
-            );
-        }
-
-        if (statusButton) {
-            const id =
-                statusButton.dataset
-                    .statusId;
-
-            const status =
-                statusButton.dataset
-                    .statusValue;
-
-            service.setBranchStatus(
-                id,
-                status
-            );
-
-            renderAll();
-
-            WusoolAdmin.toast(
-                `Branch status changed to ${status}.`
-            );
-        }
-
-        if (viewButton) {
-            showDetails(
-                viewButton.dataset.viewId
-            );
-        }
-    }
-);
-
-
-const showDetails = (
-    id
-) => {
-    const item =
-        service
-            .getBranchById(id);
-
-    if (!item) {
+  };
+  const fillForm = item => {
+    document.getElementById("branchModalTitle").textContent = "Edit Branch";
+    document.getElementById("branchId").value = item.id;
+    document.getElementById("branchName").value = item.name;
+    branchOrganization.value = item.organizationId;
+    document.getElementById("branchCity").value = item.city;
+    document.getElementById("branchPhone").value = item.phone;
+    document.getElementById("branchAddress").value = item.address;
+    document.getElementById("branchScore").value = item.accessibilityScore;
+    document.getElementById("branchStatus").value = item.status;
+    document.getElementById("branchNotes").value = item.notes;
+  };
+  WusoolUI.listen(document.getElementById("addBranchButton"), "click", () => {
+    clearForm();
+    branchModal.show();
+  });
+  WusoolUI.listen(document.getElementById("branchForm"), "submit", async event => {
+    event.preventDefault();
+    const saved = await service.saveBranch({
+      id: document.getElementById("branchId").value || undefined,
+      organizationId: branchOrganization.value,
+      name: document.getElementById("branchName").value.trim(),
+      city: document.getElementById("branchCity").value.trim(),
+      phone: document.getElementById("branchPhone").value.trim(),
+      address: document.getElementById("branchAddress").value.trim(),
+      accessibilityScore: Number(document.getElementById("branchScore").value),
+      status: document.getElementById("branchStatus").value,
+      notes: document.getElementById("branchNotes").value.trim()
+    });
+    branchModal.hide();
+    await renderAll();
+    WusoolAdmin.toast(`${saved.name} saved successfully.`);
+  });
+  WusoolUI.listen(tableBody, "click", async event => {
+    const editButton = event.target.closest("[data-edit-id]");
+    const deleteButton = event.target.closest("[data-delete-id]");
+    const statusButton = event.target.closest("[data-status-id]");
+    const viewButton = event.target.closest("[data-view-id]");
+    if (editButton) {
+      const item = await service.getBranchById(editButton.dataset.editId);
+      if (!item) {
         return;
+      }
+      fillForm(item);
+      branchModal.show();
     }
-
-    const organization =
-        service
-            .getOrganizationById(
-                item.organizationId
-            );
-
-    document.getElementById(
-        "branchDetailsTitle"
-    ).textContent =
-        item.name;
-
-    document.getElementById(
-        "branchDetailsContent"
-    ).innerHTML = `
+    if (deleteButton) {
+      const item = await service.getBranchById(deleteButton.dataset.deleteId);
+      if (!item || !WusoolAdmin.confirm(`Move ${WusoolUI.escape(item.name)} to Recovery Center?`)) {
+        return;
+      }
+      await service.deleteBranch(item.id, "Deleted from Admin Branches");
+      await renderAll();
+      WusoolAdmin.toast("Branch moved to Recovery Center.");
+    }
+    if (statusButton) {
+      const id = statusButton.dataset.statusId;
+      const status = statusButton.dataset.statusValue;
+      await service.setBranchStatus(id, status);
+      await renderAll();
+      WusoolAdmin.toast(`Branch status changed to ${status}.`);
+    }
+    if (viewButton) {
+      await showDetails(viewButton.dataset.viewId);
+    }
+  });
+  const showDetails = async id => {
+    const item = await service.getBranchById(id);
+    if (!item) {
+      return;
+    }
+    const organization = await service.getOrganizationById(item.organizationId);
+    document.getElementById("branchDetailsTitle").textContent = item.name;
+    WusoolUI.html(document.getElementById("branchDetailsContent"), `
         <div class="row g-4">
 
             <div class="col-12 col-xl-4">
@@ -697,7 +303,7 @@ const showDetails = (
                         </dt>
 
                         <dd class="col-7">
-                            ${organization?.name || "-"}
+                            ${WusoolUI.escape(organization?.name || "-")}
                         </dd>
 
                         <dt class="col-5">
@@ -705,7 +311,7 @@ const showDetails = (
                         </dt>
 
                         <dd class="col-7">
-                            ${item.city || "-"}
+                            ${WusoolUI.escape(item.city || "-")}
                         </dd>
 
                         <dt class="col-5">
@@ -714,7 +320,7 @@ const showDetails = (
 
                         <dd class="col-7">
                             <span class="badge ${badgeClass(item.status)}">
-                                ${item.status}
+                                ${WusoolUI.escape(item.status)}
                             </span>
                         </dd>
 
@@ -724,7 +330,7 @@ const showDetails = (
 
                         <dd class="col-7">
                             <strong>
-                                ${item.accessibilityScore}%
+                                ${WusoolUI.escape(item.accessibilityScore)}%
                             </strong>
                         </dd>
                     </dl>
@@ -742,50 +348,25 @@ const showDetails = (
                     </h3>
 
                     <div class="row g-3">
-                        ${[
-                            ["bi-clock","Working Hours"],
-                            ["bi-universal-access","Accessibility Checklist"],
-                            ["bi-images","Photos"],
-                            ["bi-stars","AI Analysis"],
-                            ["bi-briefcase","Services"],
-                            ["bi-ticket-perforated","Tickets"]
-                        ]
-                            .map(
-                                ([icon, label]) => `
+                        ${[["bi-clock", "Working Hours"], ["bi-universal-access", "Accessibility Checklist"], ["bi-images", "Photos"], ["bi-stars", "AI Analysis"], ["bi-briefcase", "Services"], ["bi-ticket-perforated", "Tickets"]].map(([icon, label]) => `
                                     <div class="col-12 col-md-6">
                                         <div class="border rounded-3 p-3">
                                             <i class="bi ${icon} me-2"></i>
                                             ${label}
                                         </div>
                                     </div>
-                                `
-                            )
-                            .join("")}
+                                `).join("")}
                     </div>
                 </article>
             </div>
 
         </div>
-    `;
-
+    `);
     detailsModal.show();
-};
-
-
-searchInput.addEventListener(
-    "input",
-    renderTable
-);
-
-statusFilter.addEventListener(
-    "change",
-    renderTable
-);
-
-organizationFilter.addEventListener(
-    "change",
-    renderTable
-);
-
-loadOrganizationOptions();
-renderAll();
+  };
+  WusoolUI.listen(searchInput, "input", renderTable);
+  WusoolUI.listen(statusFilter, "change", renderTable);
+  WusoolUI.listen(organizationFilter, "change", renderTable);
+  await loadOrganizationOptions();
+  await renderAll();
+});

@@ -1,27 +1,12 @@
-
 "use strict";
 
-const versionsList =
-    document.getElementById(
-        "versionsList"
-    );
-
-const versionDetails =
-    document.getElementById(
-        "versionDetails"
-    );
-
-
-const render = () => {
-    const versions =
-        WusoolVersionService
-            .getVersions();
-
-    versionsList.innerHTML =
-        versions.length
-            ? versions
-                .map(
-                    (item) => `
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const versionsList = document.getElementById("versionsList");
+  const versionDetails = document.getElementById("versionDetails");
+  const render = async () => {
+    const versions = await WusoolVersionService.getVersions();
+    WusoolUI.html(versionsList, versions.length ? versions.map(item => `
                         <div class="version-item">
 
                             <span class="builder-icon">
@@ -31,7 +16,7 @@ const render = () => {
                             <div>
                                 <div class="d-flex flex-wrap gap-2 align-items-center">
                                     <strong>
-                                        ${item.area}
+                                        ${WusoolUI.escape(item.area)}
                                     </strong>
 
                                     <span class="badge text-bg-light border">
@@ -40,97 +25,55 @@ const render = () => {
                                 </div>
 
                                 <p class="text-secondary mb-1 mt-2">
-                                    ${item.description}
+                                    ${WusoolUI.escape(item.description)}
                                 </p>
 
                                 <small class="text-secondary">
-                                    ${item.actor}
+                                    ${WusoolUI.escape(item.actor)}
                                 </small>
                             </div>
 
                             <div class="d-flex flex-column gap-2">
                                 <button
                                     class="btn btn-sm btn-outline-secondary"
-                                    data-view-version="${item.id}"
+                                    data-view-version="${WusoolUI.escape(item.id)}"
                                 >
                                     Details
                                 </button>
 
                                 <button
                                     class="btn btn-sm btn-outline-primary"
-                                    data-restore-version="${item.id}"
+                                    data-restore-version="${WusoolUI.escape(item.id)}"
                                 >
                                     Restore
                                 </button>
 
                                 <button
                                     class="btn btn-sm btn-outline-danger"
-                                    data-delete-version="${item.id}"
+                                    data-delete-version="${WusoolUI.escape(item.id)}"
                                 >
                                     Delete
                                 </button>
                             </div>
 
                         </div>
-                    `
-                )
-                .join("")
-            : `
+                    `).join("") : `
                 <div class="text-center py-5 text-secondary">
                     No versions yet. Publish a Page Builder, Form or Accessibility change first.
                 </div>
-            `;
-};
-
-
-versionsList.addEventListener(
-    "click",
-    (event) => {
-        const view =
-            event.target.closest(
-                "[data-view-version]"
-            );
-
-        const restore =
-            event.target.closest(
-                "[data-restore-version]"
-            );
-
-        const remove =
-            event.target.closest(
-                "[data-delete-version]"
-            );
-
-        if (view) {
-            const version =
-                WusoolVersionService
-                    .getVersions()
-                    .find(
-                        (item) =>
-                            item.id ===
-                            view.dataset.viewVersion
-                    );
-
-            if (!version) {
-                return;
-            }
-
-            const savedAreas =
-                Object.entries(
-                    version.snapshot ||
-                    {}
-                )
-                    .filter(
-                        ([, value]) =>
-                            value !==
-                            null
-                    )
-                    .map(
-                        ([key]) =>
-                            key
-                    );
-
-            versionDetails.innerHTML = `
+            `);
+  };
+  WusoolUI.listen(versionsList, "click", async event => {
+    const view = event.target.closest("[data-view-version]");
+    const restore = event.target.closest("[data-restore-version]");
+    const remove = event.target.closest("[data-delete-version]");
+    if (view) {
+      const version = (await WusoolVersionService.getVersions()).find(item => item.id === view.dataset.viewVersion);
+      if (!version) {
+        return;
+      }
+      const savedAreas = Object.entries(version.snapshot || {}).filter(([, value]) => value !== null).map(([key]) => key);
+      WusoolUI.html(versionDetails, `
                 <h3 class="h5 fw-bold">
                     ${version.area}
                 </h3>
@@ -144,85 +87,40 @@ versionsList.addEventListener(
                 </p>
 
                 <div class="d-flex flex-wrap gap-2">
-                    ${
-                        savedAreas.length
-                            ? savedAreas
-                                .map(
-                                    (key) => `
+                    ${savedAreas.length ? savedAreas.map(key => `
                                         <span class="code-chip">
                                             ${key}
                                         </span>
-                                    `
-                                )
-                                .join("")
-                            : `
+                                    `).join("") : `
                                 <span class="text-secondary">
                                     Empty snapshot
                                 </span>
-                            `
-                    }
+                            `}
                 </div>
-            `;
-        }
-
-        if (restore) {
-            if (
-                !WusoolAdmin.confirm(
-                    "Restore this platform version? A backup of the current state will be created first."
-                )
-            ) {
-                return;
-            }
-
-            const restored =
-                WusoolVersionService
-                    .restoreVersion(
-                        restore.dataset
-                            .restoreVersion
-                    );
-
-            if (restored) {
-                WusoolAdmin.toast(
-                    "Version restored successfully."
-                );
-
-                render();
-            }
-        }
-
-        if (remove) {
-            WusoolVersionService
-                .deleteVersion(
-                    remove.dataset
-                        .deleteVersion
-                );
-
-            render();
-        }
+            `);
     }
-);
-
-
-document.getElementById(
-    "createManualVersion"
-).addEventListener(
-    "click",
-    () => {
-        WusoolVersionService
-            .createVersion({
-                area:
-                    "Manual Snapshot",
-                description:
-                    "Manual backup created by Super Admin"
-            });
-
-        render();
-
-        WusoolAdmin.toast(
-            "Platform snapshot created."
-        );
+    if (restore) {
+      if (!WusoolAdmin.confirm("Restore this platform version? A backup of the current state will be created first.")) {
+        return;
+      }
+      const restored = await WusoolVersionService.restoreVersion(restore.dataset.restoreVersion);
+      if (restored) {
+        WusoolAdmin.toast("Version restored successfully.");
+        await render();
+      }
     }
-);
-
-
-render();
+    if (remove) {
+      await WusoolVersionService.deleteVersion(remove.dataset.deleteVersion);
+      await render();
+    }
+  });
+  WusoolUI.listen(document.getElementById("createManualVersion"), "click", async () => {
+    await WusoolVersionService.createVersion({
+      area: "Manual Snapshot",
+      description: "Manual backup created by Super Admin"
+    });
+    await render();
+    WusoolAdmin.toast("Platform snapshot created.");
+  });
+  await render();
+});

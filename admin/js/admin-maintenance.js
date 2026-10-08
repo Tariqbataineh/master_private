@@ -1,26 +1,33 @@
-
 "use strict";
 
-const KEY = "wusoolMaintenanceSettings";
-
-let settings = {
-    user: { enabled: false, message: "User Portal maintenance in progress." },
-    organization: { enabled: false, message: "Organization Portal maintenance in progress." },
-    visitor: { enabled: false, message: "Public website maintenance in progress." }
-};
-
-try {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const KEY = "wusoolMaintenanceSettings";
+  let settings = {
+    user: {
+      enabled: false,
+      message: "User Portal maintenance in progress."
+    },
+    organization: {
+      enabled: false,
+      message: "Organization Portal maintenance in progress."
+    },
+    visitor: {
+      enabled: false,
+      message: "Public website maintenance in progress."
+    }
+  };
+  try {
     settings = {
-        ...settings,
-        ...JSON.parse(localStorage.getItem(KEY) || "{}")
+      ...settings,
+      ...JSON.parse((await WusoolServices.rawRead(KEY)) || "{}")
     };
-} catch {}
-
-const grid = document.getElementById("maintenanceGrid");
-
-const render = () => {
-    grid.innerHTML = Object.entries(settings)
-        .map(([portal, value]) => `
+  } catch (error) {
+    if (WusoolServices.mode === "api") throw error;
+  }
+  const grid = document.getElementById("maintenanceGrid");
+  const render = () => {
+    WusoolUI.html(grid, Object.entries(settings).map(([portal, value]) => `
             <div class="col-12 col-md-4">
                 <article class="builder-card">
                     <span class="builder-icon">
@@ -48,27 +55,22 @@ const render = () => {
                     </div>
                 </article>
             </div>
-        `)
-        .join("");
-};
-
-grid.addEventListener("input", (event) => {
+        `).join(""));
+  };
+  WusoolUI.listen(grid, "input", async event => {
     const portal = event.target.dataset.message;
-
     if (portal) {
-        settings[portal].message = event.target.value;
-        localStorage.setItem(KEY, JSON.stringify(settings));
+      settings[portal].message = event.target.value;
+      await WusoolServices.rawWrite(KEY, JSON.stringify(settings));
     }
-});
-
-grid.addEventListener("change", (event) => {
+  });
+  WusoolUI.listen(grid, "change", async event => {
     const portal = event.target.dataset.maintenance;
-
     if (portal) {
-        settings[portal].enabled = event.target.checked;
-        localStorage.setItem(KEY, JSON.stringify(settings));
-        WusoolAdmin.toast(`${portal} maintenance updated.`);
+      settings[portal].enabled = event.target.checked;
+      await WusoolServices.rawWrite(KEY, JSON.stringify(settings));
+      WusoolAdmin.toast(`${portal} maintenance updated.`);
     }
+  });
+  render();
 });
-
-render();

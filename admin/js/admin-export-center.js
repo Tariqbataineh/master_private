@@ -1,57 +1,34 @@
-
 "use strict";
 
-const getters = {
-    organizations: () => WusoolDataService.getOrganizations(),
-    branches: () => WusoolDataService.getBranches(),
-    users: () => WusoolDataService.getUsers(),
-    tickets: () => WusoolDataService.getTickets(),
-    reviews: () => WusoolDataService.getReviews(),
-    subscriptions: () => WusoolDataService.getSubscriptions()
-};
-
-const toCsv = (rows) => {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const getters = {
+    organizations: async () => await WusoolDataService.getOrganizations(),
+    branches: async () => await WusoolDataService.getBranches(),
+    users: async () => await WusoolDataService.getUsers(),
+    tickets: async () => await WusoolDataService.getTickets(),
+    reviews: async () => await WusoolDataService.getReviews(),
+    subscriptions: async () => await WusoolDataService.getSubscriptions()
+  };
+  const toCsv = rows => {
     if (!rows.length) {
-        return "";
+      return "";
     }
-
-    const headers = Array.from(
-        new Set(rows.flatMap((row) => Object.keys(row)))
-    );
-
-    const escape = (value) => {
-        const text =
-            typeof value === "object"
-                ? JSON.stringify(value)
-                : String(value ?? "");
-
-        return `"${text.replace(/"/g, '""')}"`;
+    const headers = Array.from(new Set(rows.flatMap(row => Object.keys(row))));
+    const escape = value => {
+      const text = typeof value === "object" ? JSON.stringify(value) : String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
     };
-
-    return [
-        headers.map(escape).join(","),
-        ...rows.map((row) =>
-            headers.map((header) => escape(row[header])).join(",")
-        )
-    ].join("\n");
-};
-
-document.getElementById("exportButton").addEventListener("click", () => {
+    return [headers.map(escape).join(","), ...rows.map(row => headers.map(header => escape(row[header])).join(","))].join("\n");
+  };
+  WusoolUI.listen(document.getElementById("exportButton"), "click", async () => {
     const entity = document.getElementById("exportEntity").value;
     const format = document.getElementById("exportFormat").value;
-    const rows = getters[entity]();
-
+    const rows = await getters[entity]();
     if (format === "json") {
-        WusoolAdmin.downloadText(
-            `${entity}.json`,
-            JSON.stringify(rows, null, 2),
-            "application/json"
-        );
+      WusoolAdmin.downloadText(`${entity}.json`, JSON.stringify(rows, null, 2), "application/json");
     } else {
-        WusoolAdmin.downloadText(
-            `${entity}.csv`,
-            toCsv(rows),
-            "text/csv"
-        );
+      WusoolAdmin.downloadText(`${entity}.csv`, toCsv(rows), "text/csv");
     }
+  });
 });

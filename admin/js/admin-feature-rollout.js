@@ -1,70 +1,60 @@
-
 "use strict";
 
-const KEY = "featureRollouts";
-let items = WusoolFeatureStore.read(KEY, []);
-const percent = document.getElementById("rolloutPercent");
-const label = document.getElementById("rolloutPercentLabel");
-const list = document.getElementById("rolloutList");
-
-percent.addEventListener("input", () => {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const KEY = "featureRollouts";
+  let items = await WusoolFeatureStore.read(KEY, []);
+  const percent = document.getElementById("rolloutPercent");
+  const label = document.getElementById("rolloutPercentLabel");
+  const list = document.getElementById("rolloutList");
+  WusoolUI.listen(percent, "input", () => {
     label.textContent = percent.value;
-});
-
-const persist = () => WusoolFeatureStore.write(KEY, items);
-
-const render = () => {
-    list.innerHTML = items.length
-        ? items.map((item) => `
+  });
+  const persist = async () => await WusoolFeatureStore.write(KEY, items);
+  const render = () => {
+    WusoolUI.html(list, items.length ? items.map(item => `
             <div class="admin-feature-row">
                 <span class="item-icon"><i class="bi bi-percent"></i></span>
 
                 <div class="flex-grow-1">
-                    <strong class="d-block">${item.feature}</strong>
-                    <small class="text-secondary">${item.audience}</small>
+                    <strong class="d-block">${WusoolUI.escape(item.feature)}</strong>
+                    <small class="text-secondary">${WusoolUI.escape(item.audience)}</small>
 
                     <div class="progress mt-2" style="height: 8px;">
-                        <div class="progress-bar" style="width:${item.percentage}%"></div>
+                        <div class="progress-bar" style="width:${WusoolUI.escape(item.percentage)}%"></div>
                     </div>
                 </div>
 
-                <strong>${item.percentage}%</strong>
+                <strong>${WusoolUI.escape(item.percentage)}%</strong>
 
-                <button class="btn btn-sm btn-outline-danger" data-delete="${item.id}">
+                <button class="btn btn-sm btn-outline-danger" data-delete="${WusoolUI.escape(item.id)}">
                     Delete
                 </button>
             </div>
-        `).join("")
-        : `<p class="text-secondary mb-0">No rollouts configured.</p>`;
-};
-
-document.getElementById("addRollout").addEventListener("click", () => {
+        `).join("") : `<p class="text-secondary mb-0">No rollouts configured.</p>`);
+  };
+  WusoolUI.listen(document.getElementById("addRollout"), "click", async () => {
     const feature = document.getElementById("rolloutFeature").value.trim();
-
     if (!feature) {
-        WusoolAdmin.toast("Enter a feature name.", "warning");
-        return;
+      WusoolAdmin.toast("Enter a feature name.", "warning");
+      return;
     }
-
     items.unshift({
-        id: WusoolFeatureStore.id("rollout"),
-        feature,
-        audience: document.getElementById("rolloutAudience").value,
-        percentage: Number(percent.value)
+      id: await WusoolFeatureStore.id("rollout"),
+      feature,
+      audience: document.getElementById("rolloutAudience").value,
+      percentage: Number(percent.value)
     });
-
-    persist();
+    await persist();
     render();
-});
-
-list.addEventListener("click", (event) => {
+  });
+  WusoolUI.listen(list, "click", async event => {
     const button = event.target.closest("[data-delete]");
-
     if (button) {
-        items = items.filter((x) => x.id !== button.dataset.delete);
-        persist();
-        render();
+      items = items.filter(x => x.id !== button.dataset.delete);
+      await persist();
+      render();
     }
+  });
+  render();
 });
-
-render();

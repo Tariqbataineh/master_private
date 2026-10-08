@@ -107,7 +107,7 @@ body {
   overflow: hidden;
   background:
     linear-gradient(145deg, rgba(18, 59, 58, 0.97), rgba(15, 118, 110, 0.93)),
-    url("https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80")
+    url("../../assets/images/orange_home.jpg")
       center / cover;
 
   color: white;

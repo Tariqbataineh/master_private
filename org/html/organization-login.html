@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -35,9 +35,37 @@
     >
     <!-- Dynamic Platform Runtime -->
     <link rel="stylesheet" href="../../assets/platform-runtime.css">
+    <!-- Wusool Premium Motion System -->
+    <link rel="stylesheet" href="../../assets/css/wusool-motion.css">
+    <!-- Wusool Unified Experience -->
+    <link rel="stylesheet" href="../../assets/css/wusool-experience.css">
+<link rel="stylesheet" href="../../assets/css/login-transition.css"/>
+<link rel="stylesheet" href="../../assets/css/auth-cinematic.css">
+<script src="../../assets/api-config.js"></script>
+<script src="../../assets/app-services.js"></script>
+<script src="../../assets/data-service.js"></script>
+<script src="../../assets/page-runtime.js"></script>
+<script src="../../assets/catalog-runtime.js"></script>
+<script src="../../assets/feature-store.js"></script>
+<script src="../../assets/behavior-service.js"></script>
 </head>
 
-<body>
+<body class="organization-login-page">
+    <header class="organization-login-navbar">
+        <nav class="organization-login-nav" aria-label="Organization login navigation">
+            <a class="organization-nav-brand" href="../../visitor/html/home.html" aria-label="Wusool home">
+                <span class="organization-nav-mark" aria-hidden="true"><i class="bi bi-universal-access"></i></span>
+                <span>Wusool<span class="organization-nav-dot">.</span></span>
+            </a>
+            <div class="organization-nav-links">
+                <a href="../../visitor/html/home.html">Home</a>
+                <a href="../../visitor/html/accessibility-map.html">Explore places</a>
+                <a href="../../visitor/html/login.html">User login</a>
+                <a class="organization-nav-active" href="organization-login.html" aria-current="page">Organization login</a>
+                <a class="organization-nav-join" href="organization-register.html">Join Wusool <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+            </div>
+        </nav>
+    </header>
 
     <main
         class="login-page d-flex align-items-center justify-content-center min-vh-100 p-3 p-md-4"
@@ -54,7 +82,7 @@
 
                         <!-- Logo -->
                         <a
-                            href="./organization-login.html"
+                            href="../../visitor/html/home.html"
                             class="navbar-logo d-inline-flex align-items-center gap-3 mb-5"
                             aria-label="Go to Wusool home page"
                         >
@@ -101,6 +129,9 @@
                         <!-- Login Form -->
                         <form
                             id="organizationLoginForm"
+                            method="post"
+                            data-backend-controller="OrganizationAccount"
+                            data-backend-action="Login"
                             class="needs-validation"
                             novalidate
                         >
@@ -124,6 +155,7 @@
                                     <input
                                         type="email"
                                         id="email"
+                                        name="Email"
                                         class="form-control"
                                         placeholder="admin@organization.com"
                                         autocomplete="email"
@@ -157,6 +189,7 @@
                                     <input
                                         type="password"
                                         id="password"
+                                        name="Password"
                                         class="form-control"
                                         placeholder="Enter your password"
                                         autocomplete="current-password"
@@ -196,6 +229,7 @@
                                     <input
                                         type="checkbox"
                                         id="rememberMe"
+                                        name="RememberMe"
                                         class="form-check-input"
                                     >
 
@@ -382,17 +416,26 @@
     ></script>
 
     <!-- Organization Login JavaScript -->
-    <script src="../js/organization-login.js"></script>
+    <script src="../../assets/js/login-transition.js"></script>
+<script src="../js/organization-login.js"></script>
 
     <!-- Dynamic Platform Runtime -->
-    <script src="../../assets/data-service.js"></script>
+    
     <script src="../../assets/platform-runtime.js"></script>
     <script src="../../assets/dynamic-form-runtime.js"></script>
-    <script src="../../assets/behavior-service.js"></script>
+    
     <script src="../../assets/behavior-runtime.js"></script>
-    <script src="../../assets/feature-store.js"></script>
+    
     <script src="../../assets/error-runtime.js"></script>
     <script src="../../assets/maintenance-runtime.js"></script>
+    <!-- Wusool Premium Motion System -->
+    <script src="../../assets/js/wusool-motion.js"></script>
+    <!-- Wusool Unified Experience -->
+    <script src="../../assets/js/wusool-experience.js"></script>
+    <!-- Wusool Automatic Arabic / English Translation -->
+    <script src="../../assets/auto-translate.js"></script>
+<script src="../../assets/js/auth-cinematic.js"></script>
 </body>
 
 </html>
+

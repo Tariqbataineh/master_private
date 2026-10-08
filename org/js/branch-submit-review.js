@@ -1,80 +1,58 @@
-const storageKeys = {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const storageKeys = {
     branches: "wusoolOrganizationBranches",
     currentDraft: "wusoolCurrentBranchDraft",
     organization: "wusoolOrganization",
     registration: "wusoolOrganizationRegistration",
     loggedIn: "wusoolOrganizationLoggedIn",
     subscription: "wusoolActiveSubscription"
-};
-
-const daysOrder = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-];
-
-const featureDefinitions = [
-    {
-        key: "accessible-entrance",
-        title: "Accessible Entrance"
-    },
-    {
-        key: "entrance-ramp",
-        title: "Entrance Ramp"
-    },
-    {
-        key: "accessible-parking",
-        title: "Accessible Parking"
-    },
-    {
-        key: "elevator",
-        title: "Elevator"
-    },
-    {
-        key: "accessible-restroom",
-        title: "Accessible Restroom"
-    },
-    {
-        key: "wide-pathways",
-        title: "Wide Pathways"
-    },
-    {
-        key: "automatic-doors",
-        title: "Automatic Doors"
-    },
-    {
-        key: "tactile-paving",
-        title: "Tactile Paving"
-    },
-    {
-        key: "braille-signs",
-        title: "Braille Signs"
-    },
-    {
-        key: "hearing-support",
-        title: "Hearing Support"
-    },
-    {
-        key: "wheelchair-service",
-        title: "Wheelchair Service"
-    },
-    {
-        key: "staff-assistance",
-        title: "Staff Assistance"
-    }
-];
-
-let currentBranch = null;
-let submitModal = null;
-
-document.addEventListener("DOMContentLoaded", () => {
-    protectPage();
-    loadOrganizationInformation();
-    loadCurrentBranch();
+  };
+  const daysOrder = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const featureDefinitions = [{
+    key: "accessible-entrance",
+    title: "Accessible Entrance"
+  }, {
+    key: "entrance-ramp",
+    title: "Entrance Ramp"
+  }, {
+    key: "accessible-parking",
+    title: "Accessible Parking"
+  }, {
+    key: "elevator",
+    title: "Elevator"
+  }, {
+    key: "accessible-restroom",
+    title: "Accessible Restroom"
+  }, {
+    key: "wide-pathways",
+    title: "Wide Pathways"
+  }, {
+    key: "automatic-doors",
+    title: "Automatic Doors"
+  }, {
+    key: "tactile-paving",
+    title: "Tactile Paving"
+  }, {
+    key: "braille-signs",
+    title: "Braille Signs"
+  }, {
+    key: "hearing-support",
+    title: "Hearing Support"
+  }, {
+    key: "wheelchair-service",
+    title: "Wheelchair Service"
+  }, {
+    key: "staff-assistance",
+    title: "Staff Assistance"
+  }];
+  let currentBranch = null;
+  let submitModal = null;
+  WusoolUI.ready(async () => {
+    await protectPage();
+    await loadOrganizationInformation();
+    await loadCurrentBranch();
+    if (!currentBranch) return;
     renderBranchDetails();
     renderWorkingHours();
     renderAccessibility();
@@ -84,152 +62,55 @@ document.addEventListener("DOMContentLoaded", () => {
     configureNavigation();
     configureSubmission();
     configureSidebar();
-});
-
-const protectPage = () => {
-    const isLoggedIn =
-        sessionStorage.getItem(storageKeys.loggedIn) === "true";
-
-    const subscription =
-        getStoredObject(storageKeys.subscription, null);
-
+  });
+  const protectPage = async () => {
+    const isLoggedIn = (await WusoolServices.rawRead(storageKeys.loggedIn)) === "true";
+    const subscription = await getStoredObject(storageKeys.subscription, null);
     if (!isLoggedIn) {
-        window.location.href =
-            "./organization-login.html";
-
-        return;
+      window.location.href = "./organization-login.html";
+      return;
     }
-
     if (!subscription) {
-        window.location.href =
-            "./subscription-plans.html";
+      window.location.href = "./subscription-plans.html";
     }
-};
-
-const loadOrganizationInformation = () => {
-    const organization =
-        getStoredObject(storageKeys.organization, {});
-
-    const registration =
-        getStoredObject(storageKeys.registration, {});
-
-    const organizationName =
-        organization.organizationName ||
-        organization.name ||
-        registration.organizationName ||
-        registration.name ||
-        "Organization";
-
-    document.getElementById(
-        "organizationName"
-    ).textContent = organizationName;
-};
-
-const loadCurrentBranch = () => {
-    const parameters =
-        new URLSearchParams(window.location.search);
-
+  };
+  const loadOrganizationInformation = async () => {
+    const organization = await getStoredObject(storageKeys.organization, {});
+    const registration = await getStoredObject(storageKeys.registration, {});
+    const organizationName = organization.organizationName || organization.name || registration.organizationName || registration.name || "Organization";
+    document.getElementById("organizationName").textContent = organizationName;
+  };
+  const loadCurrentBranch = async () => {
+    const parameters = new URLSearchParams(window.location.search);
     const branchId = parameters.get("id");
-
-    const branches =
-        getStoredObject(storageKeys.branches, []);
-
-    currentBranch =
-        branches.find((branch) => {
-            return String(branch.id) ===
-                   String(branchId);
-        }) ||
-        getStoredObject(storageKeys.currentDraft, null);
-
+    const branches = await getStoredObject(storageKeys.branches, []);
+    currentBranch = branches.find(branch => {
+      return String(branch.id) === String(branchId);
+    }) || (await getStoredObject(storageKeys.currentDraft, null));
     if (!currentBranch) {
-        window.location.href = "./branches.html";
-        return;
+      window.location.href = "./branches.html";
+      return;
     }
-
-    document.title =
-        `${getBranchName()} Final Review | Wusool`;
-};
-
-const renderBranchDetails = () => {
-    setText(
-        "branchName",
-        getBranchName()
-    );
-
-    setText(
-        "branchCode",
-        currentBranch.branchCode ||
-        currentBranch.code ||
-        "Not provided"
-    );
-
-    setText(
-        "branchType",
-        currentBranch.branchType ||
-        currentBranch.type ||
-        "Not provided"
-    );
-
-    setText(
-        "branchCity",
-        joinValues([
-            currentBranch.city,
-            currentBranch.district
-        ]) || "Not provided"
-    );
-
-    setText(
-        "branchAddress",
-        currentBranch.address ||
-        currentBranch.fullAddress ||
-        "Not provided"
-    );
-
-    setText(
-        "branchPhone",
-        currentBranch.phone ||
-        currentBranch.phoneNumber ||
-        "Not provided"
-    );
-
-    setText(
-        "branchEmail",
-        currentBranch.email ||
-        currentBranch.branchEmail ||
-        "Not provided"
-    );
-};
-
-const renderWorkingHours = () => {
-    const container =
-        document.getElementById(
-            "workingHoursContainer"
-        );
-
-    const hours =
-        currentBranch.workingHours || {};
-
-    container.innerHTML =
-        daysOrder.map((day) => {
-            const dayData =
-                getDayHours(hours, day);
-
-            const isClosed =
-                dayData.isClosed === true ||
-                dayData.closed === true ||
-                dayData.isOpen === false;
-
-            const openingTime =
-                dayData.openTime ||
-                dayData.open ||
-                "09:00";
-
-            const closingTime =
-                dayData.closeTime ||
-                dayData.close ||
-                "17:00";
-
-            return `
+    document.title = `${getBranchName()} Final Review | Wusool`;
+  };
+  const renderBranchDetails = () => {
+    setText("branchName", getBranchName());
+    setText("branchCode", currentBranch.branchCode || currentBranch.code || "Not provided");
+    setText("branchType", currentBranch.branchType || currentBranch.type || "Not provided");
+    setText("branchCity", joinValues([currentBranch.city, currentBranch.district]) || "Not provided");
+    setText("branchAddress", currentBranch.address || currentBranch.fullAddress || "Not provided");
+    setText("branchPhone", currentBranch.phone || currentBranch.phoneNumber || "Not provided");
+    setText("branchEmail", currentBranch.email || currentBranch.branchEmail || "Not provided");
+  };
+  const renderWorkingHours = () => {
+    const container = document.getElementById("workingHoursContainer");
+    const hours = currentBranch.workingHours || {};
+    WusoolUI.html(container, daysOrder.map(day => {
+      const dayData = getDayHours(hours, day);
+      const isClosed = dayData.isClosed === true || dayData.closed === true || dayData.isOpen === false;
+      const openingTime = dayData.openTime || dayData.open || "09:00";
+      const closingTime = dayData.closeTime || dayData.close || "17:00";
+      return `
                 <div class="working-hours-item">
 
                     <span class="day-name">
@@ -237,45 +118,26 @@ const renderWorkingHours = () => {
                     </span>
 
                     <span class="day-hours">
-                        ${
-                            isClosed
-                                ? "Closed all day"
-                                : `${formatTime(openingTime)} – ${formatTime(closingTime)}`
-                        }
+                        ${isClosed ? "Closed all day" : `${formatTime(openingTime)} – ${formatTime(closingTime)}`}
                     </span>
 
                     <span class="
-                        ${isClosed
-                            ? "closed-badge"
-                            : "open-badge"
-                        }
+                        ${isClosed ? "closed-badge" : "open-badge"}
                     ">
                         ${isClosed ? "Closed" : "Open"}
                     </span>
 
                 </div>
             `;
-        }).join("");
-};
-
-const renderAccessibility = () => {
-    const container =
-        document.getElementById(
-            "accessibilityContainer"
-        );
-
-    const features =
-        normalizeAccessibilityFeatures();
-
-    container.innerHTML =
-        features.map((feature) => {
-            const icon =
-                getAccessibilityIcon(feature.status);
-
-            const label =
-                getAccessibilityLabel(feature.status);
-
-            return `
+    }).join(""));
+  };
+  const renderAccessibility = () => {
+    const container = document.getElementById("accessibilityContainer");
+    const features = normalizeAccessibilityFeatures();
+    WusoolUI.html(container, features.map(feature => {
+      const icon = getAccessibilityIcon(feature.status);
+      const label = getAccessibilityLabel(feature.status);
+      return `
                 <div class="col-12 col-md-6">
 
                     <div class="
@@ -301,20 +163,13 @@ const renderAccessibility = () => {
 
                 </div>
             `;
-        }).join("");
-};
-
-const renderPhotos = () => {
-    const container =
-        document.getElementById("photosContainer");
-
-    const photos =
-        Array.isArray(currentBranch.photos)
-            ? currentBranch.photos
-            : [];
-
+    }).join(""));
+  };
+  const renderPhotos = () => {
+    const container = document.getElementById("photosContainer");
+    const photos = Array.isArray(currentBranch.photos) ? currentBranch.photos : [];
     if (photos.length === 0) {
-        container.innerHTML = `
+      WusoolUI.html(container, `
             <div class="col-12">
                 <div class="empty-message">
                     <i class="bi bi-image fs-3"></i>
@@ -324,31 +179,19 @@ const renderPhotos = () => {
                     </p>
                 </div>
             </div>
-        `;
-
-        return;
+        `);
+      return;
     }
-
-    const groupedPhotos =
-        photos.reduce((groups, photo) => {
-            const category =
-                photo.categoryTitle ||
-                photo.categoryKey ||
-                "Branch Photo";
-
-            if (!groups[category]) {
-                groups[category] = [];
-            }
-
-            groups[category].push(photo);
-
-            return groups;
-        }, {});
-
-    container.innerHTML =
-        Object.entries(groupedPhotos)
-            .map(([category, categoryPhotos]) => {
-                return `
+    const groupedPhotos = photos.reduce((groups, photo) => {
+      const category = photo.categoryTitle || photo.categoryKey || "Branch Photo";
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(photo);
+      return groups;
+    }, {});
+    WusoolUI.html(container, Object.entries(groupedPhotos).map(([category, categoryPhotos]) => {
+      return `
                     <div class="col-12 col-md-6">
 
                         <div class="photo-summary-card">
@@ -364,7 +207,7 @@ const renderPhotos = () => {
 
                                 <small>
                                     ${categoryPhotos.length}
-                                    photo(s) uploaded
+                                    photo preview(s) selected
                                 </small>
                             </div>
 
@@ -372,574 +215,285 @@ const renderPhotos = () => {
 
                     </div>
                 `;
-            })
-            .join("");
-};
-
-const renderAiScore = () => {
-    const aiReview =
-        currentBranch.aiReview || {};
-
-    const score =
-        Number(
-            aiReview.score ??
-            currentBranch.accessibilityScore ??
-            0
-        );
-
+    }).join(""));
+  };
+  const renderAiScore = () => {
+    const aiReview = currentBranch.aiReview || {};
+    WusoolUI.message("Organization claims and photo previews require administrator evidence review. No AI analysis is implied.", "info");
+    const score = Number(aiReview.score ?? currentBranch.accessibilityScore ?? 0);
     const scoreDegrees = score * 3.6;
-
     setText("aiScore", score);
-
-    setText(
-        "scoreLabel",
-        aiReview.scoreLabel ||
-        getScoreLabel(score)
-    );
-
-    document.getElementById(
-        "scoreCircle"
-    ).style.background = `
+    setText("scoreLabel", aiReview.scoreLabel || "Organization claim — unverified");
+    document.getElementById("scoreCircle").style.background = `
         conic-gradient(
             ${getScoreColor(score)} ${scoreDegrees}deg,
             #dcebea ${scoreDegrees}deg
         )
     `;
-};
-
-const renderSubmissionChecklist = () => {
-    const completedSteps =
-        currentBranch.completedSteps || {};
-
-    const checklistItems = [
-        {
-            title: "Branch Details",
-            icon: "bi-building",
-            complete: hasBranchDetails()
-        },
-        {
-            title: "Working Hours",
-            icon: "bi-clock",
-            complete:
-                Boolean(currentBranch.workingHours) ||
-                completedSteps.workingHours === true
-        },
-        {
-            title: "Accessibility Information",
-            icon: "bi-universal-access",
-            complete:
-                Boolean(
-                    currentBranch.accessibility ||
-                    currentBranch.accessibilityFeatures
-                ) ||
-                completedSteps.accessibility === true
-        },
-        {
-            title: "Branch Photos",
-            icon: "bi-images",
-            complete:
-                Array.isArray(currentBranch.photos) &&
-                currentBranch.photos.length > 0
-        },
-        {
-            title: "AI Review",
-            icon: "bi-stars",
-            complete:
-                Boolean(currentBranch.aiReview) ||
-                completedSteps.aiReview === true
-        }
-    ];
-
-    const container =
-        document.getElementById(
-            "submissionChecklist"
-        );
-
-    container.innerHTML =
-        checklistItems.map((item) => {
-            return `
+  };
+  const renderSubmissionChecklist = () => {
+    const completedSteps = currentBranch.completedSteps || {};
+    const checklistItems = [{
+      title: "Branch Details",
+      icon: "bi-building",
+      complete: hasBranchDetails()
+    }, {
+      title: "Working Hours",
+      icon: "bi-clock",
+      complete: Boolean(currentBranch.workingHours) || completedSteps.workingHours === true
+    }, {
+      title: "Accessibility Information",
+      icon: "bi-universal-access",
+      complete: Boolean(currentBranch.accessibility || currentBranch.accessibilityFeatures) || completedSteps.accessibility === true
+    }, {
+      title: "Branch Photos",
+      icon: "bi-images",
+      complete: Array.isArray(currentBranch.photos) && currentBranch.photos.length > 0
+    }, {
+      title: "AI Review — optional backend integration",
+      icon: "bi-stars",
+      complete: true
+    }];
+    const container = document.getElementById("submissionChecklist");
+    WusoolUI.html(container, checklistItems.map(item => {
+      return `
                 <div class="checklist-item">
 
                     <span class="checklist-name">
-                        <i class="bi ${item.icon}"></i>
-                        ${item.title}
+                        <i class="bi ${WusoolUI.escape(item.icon)}"></i>
+                        ${WusoolUI.escape(item.title)}
                     </span>
 
                     <span class="
                         checklist-status
-                        ${item.complete
-                            ? "complete"
-                            : "incomplete"
-                        }
+                        ${item.complete ? "complete" : "incomplete"}
                     ">
-                        ${item.complete
-                            ? "Complete"
-                            : "Incomplete"
-                        }
+                        ${item.complete ? "Complete" : "Incomplete"}
                     </span>
 
                 </div>
             `;
-        }).join("");
-};
-
-const configureNavigation = () => {
-    const branchId =
-        encodeURIComponent(currentBranch.id);
-
-    document.getElementById(
-        "editDetailsLink"
-    ).href = `./add-branch.html?id=${branchId}`;
-
-    document.getElementById(
-        "editHoursLink"
-    ).href =
-        `./branch-working-hours.html?id=${branchId}`;
-
-    document.getElementById(
-        "editAccessibilityLink"
-    ).href =
-        `./branch-accessibility.html?id=${branchId}`;
-
-    document.getElementById(
-        "editPhotosLink"
-    ).href =
-        `./branch-photos.html?id=${branchId}`;
-
-    document.getElementById(
-        "viewAiReviewLink"
-    ).href =
-        `./branch-ai-review.html?id=${branchId}`;
-
-    document.getElementById(
-        "backButton"
-    ).href =
-        `./branch-ai-review.html?id=${branchId}`;
-
-    document.getElementById(
-        "logoutButton"
-    ).addEventListener("click", () => {
-        sessionStorage.removeItem(
-            storageKeys.loggedIn
-        );
-
-        window.location.href =
-            "./organization-login.html";
+    }).join(""));
+  };
+  const configureNavigation = () => {
+    const branchId = encodeURIComponent(currentBranch.id);
+    document.getElementById("editDetailsLink").href = `./add-branch.html?id=${branchId}`;
+    document.getElementById("editHoursLink").href = `./branch-working-hours.html?id=${branchId}`;
+    document.getElementById("editAccessibilityLink").href = `./branch-accessibility.html?id=${branchId}`;
+    document.getElementById("editPhotosLink").href = `./branch-photos.html?id=${branchId}`;
+    document.getElementById("viewAiReviewLink").href = `./branch-ai-review.html?id=${branchId}`;
+    document.getElementById("backButton").href = `./branch-ai-review.html?id=${branchId}`;
+    WusoolUI.listen(document.getElementById("logoutButton"), "click", async () => {
+      await WusoolServices.rawRemove(storageKeys.loggedIn);
+      window.location.href = "./organization-login.html";
     });
-};
-
-const configureSubmission = () => {
-    const confirmationCheckbox =
-        document.getElementById(
-            "informationConfirmation"
-        );
-
-    const submitButton =
-        document.getElementById(
-            "submitBranchButton"
-        );
-
-    const confirmButton =
-        document.getElementById(
-            "confirmSubmissionButton"
-        );
-
-    submitModal = new bootstrap.Modal(
-        document.getElementById(
-            "submitConfirmationModal"
-        )
-    );
-
-    confirmationCheckbox.addEventListener(
-        "change",
-        () => {
-            submitButton.disabled =
-                !confirmationCheckbox.checked;
-
-            if (confirmationCheckbox.checked) {
-                document
-                    .getElementById(
-                        "confirmationAlert"
-                    )
-                    .classList.add("d-none");
-            }
-        }
-    );
-
-    submitButton.addEventListener("click", () => {
-        if (!confirmationCheckbox.checked) {
-            document
-                .getElementById(
-                    "confirmationAlert"
-                )
-                .classList.remove("d-none");
-
-            return;
-        }
-
-        submitModal.show();
+  };
+  const configureSubmission = () => {
+    const confirmationCheckbox = document.getElementById("informationConfirmation");
+    const submitButton = document.getElementById("submitBranchButton");
+    const confirmButton = document.getElementById("confirmSubmissionButton");
+    submitModal = new bootstrap.Modal(document.getElementById("submitConfirmationModal"));
+    WusoolUI.listen(confirmationCheckbox, "change", () => {
+      submitButton.disabled = !confirmationCheckbox.checked;
+      if (confirmationCheckbox.checked) {
+        document.getElementById("confirmationAlert").classList.add("d-none");
+      }
     });
-
-    confirmButton.addEventListener(
-        "click",
-        submitBranch
-    );
-};
-
-const submitBranch = () => {
-    const confirmButton =
-        document.getElementById(
-            "confirmSubmissionButton"
-        );
-
+    WusoolUI.listen(submitButton, "click", () => {
+      if (!confirmationCheckbox.checked) {
+        document.getElementById("confirmationAlert").classList.remove("d-none");
+        return;
+      }
+      submitModal.show();
+    });
+    WusoolUI.listen(confirmButton, "click", submitBranch);
+  };
+  const submitBranch = async () => {
+    const confirmButton = document.getElementById("confirmSubmissionButton");
     confirmButton.disabled = true;
-
-    confirmButton.innerHTML = `
+    WusoolUI.html(confirmButton, `
         <span
             class="spinner-border spinner-border-sm me-2"
             aria-hidden="true"
         ></span>
         Submitting...
-    `;
-
-    const branchReference =
-        createBranchReference();
-
+    `);
+    const branchReference = createBranchReference();
     const submittedBranch = {
-        ...currentBranch,
-
-        status: "pending-review",
-
-        statusLabel: "Pending Review",
-
-        referenceNumber: branchReference,
-
-        submittedAt: new Date().toISOString(),
-
-        isPublished: false,
-
-        completedSteps: {
-            ...(currentBranch.completedSteps || {}),
-            submitted: true
-        },
-
-        updatedAt: new Date().toISOString()
+      ...currentBranch,
+      status: "pending-review",
+      statusLabel: "Pending Review",
+      referenceNumber: branchReference,
+      submittedAt: new Date().toISOString(),
+      isPublished: false,
+      completedSteps: {
+        ...(currentBranch.completedSteps || {}),
+        submitted: true
+      },
+      updatedAt: new Date().toISOString()
     };
-
-    const branches =
-        getStoredObject(storageKeys.branches, []);
-
-    const branchIndex =
-        branches.findIndex((branch) => {
-            return String(branch.id) ===
-                   String(currentBranch.id);
-        });
-
+    const branches = await getStoredObject(storageKeys.branches, []);
+    const branchIndex = branches.findIndex(branch => {
+      return String(branch.id) === String(currentBranch.id);
+    });
     if (branchIndex >= 0) {
-        branches[branchIndex] = submittedBranch;
+      branches[branchIndex] = submittedBranch;
     } else {
-        branches.push(submittedBranch);
+      branches.push(submittedBranch);
     }
-
-    localStorage.setItem(
-        storageKeys.branches,
-        JSON.stringify(branches)
-    );
-
-    localStorage.setItem(
-        storageKeys.currentDraft,
-        JSON.stringify(submittedBranch)
-    );
-
-    window.setTimeout(() => {
-        submitModal.hide();
-
-        window.location.href =
-            `./branch-submission-success.html?id=${encodeURIComponent(
-                submittedBranch.id
-            )}`;
-    }, 900);
-};
-
-const normalizeAccessibilityFeatures = () => {
-    const accessibility =
-        currentBranch.accessibility ||
-        currentBranch.accessibilityFeatures ||
-        {};
-
+    await WusoolServices.rawWrite(storageKeys.branches, JSON.stringify(branches));
+    await WusoolServices.rawWrite(storageKeys.currentDraft, JSON.stringify(submittedBranch));
+    (() => {
+      submitModal.hide();
+      window.location.href = `./branch-submission-success.html?id=${encodeURIComponent(submittedBranch.id)}`;
+    })();
+  };
+  const normalizeAccessibilityFeatures = () => {
+    const accessibility = currentBranch.accessibility || currentBranch.accessibilityFeatures || {};
     if (Array.isArray(accessibility)) {
-        return accessibility.map(
-            (feature, index) => {
-                const fallback =
-                    featureDefinitions[index] || {};
-
-                return {
-                    key:
-                        feature.key ||
-                        feature.id ||
-                        fallback.key ||
-                        `feature-${index}`,
-
-                    title:
-                        feature.title ||
-                        feature.name ||
-                        fallback.title ||
-                        "Accessibility Feature",
-
-                    status: normalizeStatus(
-                        feature.status ||
-                        feature.value ||
-                        feature.availability
-                    )
-                };
-            }
-        );
-    }
-
-    return featureDefinitions.map((feature) => {
-        const storedValue =
-            accessibility[feature.key] ??
-            accessibility[toCamelCase(feature.key)] ??
-            accessibility[feature.title];
-
+      return accessibility.map((feature, index) => {
+        const fallback = featureDefinitions[index] || {};
         return {
-            ...feature,
-            status: normalizeStatus(storedValue)
+          key: feature.key || feature.id || fallback.key || `feature-${index}`,
+          title: feature.title || feature.name || fallback.title || "Accessibility Feature",
+          status: normalizeStatus(feature.status || feature.value || feature.availability)
         };
+      });
+    }
+    return featureDefinitions.map(feature => {
+      const storedValue = accessibility[feature.key] ?? accessibility[toCamelCase(feature.key)] ?? accessibility[feature.title];
+      return {
+        ...feature,
+        status: normalizeStatus(storedValue)
+      };
     });
-};
-
-const normalizeStatus = (value) => {
-    if (
-        value === true ||
-        value === "available" ||
-        value === "Available" ||
-        value === "yes" ||
-        value === "Yes"
-    ) {
-        return "available";
+  };
+  const normalizeStatus = value => {
+    if (value === true || value === "available" || value === "Available" || value === "yes" || value === "Yes") {
+      return "available";
     }
-
-    if (
-        value === false ||
-        value === "not-available" ||
-        value === "Not Available" ||
-        value === "no" ||
-        value === "No"
-    ) {
-        return "not-available";
+    if (value === false || value === "not-available" || value === "Not Available" || value === "no" || value === "No") {
+      return "not-available";
     }
-
     return "not-sure";
-};
-
-const getAccessibilityIcon = (status) => {
+  };
+  const getAccessibilityIcon = status => {
     if (status === "available") {
-        return "bi-check-lg";
+      return "bi-check-lg";
     }
-
     if (status === "not-available") {
-        return "bi-x-lg";
+      return "bi-x-lg";
     }
-
     return "bi-question-lg";
-};
-
-const getAccessibilityLabel = (status) => {
+  };
+  const getAccessibilityLabel = status => {
     if (status === "available") {
-        return "Available";
+      return "Available";
     }
-
     if (status === "not-available") {
-        return "Not Available";
+      return "Not Available";
     }
-
     return "Not Sure";
-};
-
-const getDayHours = (hours, day) => {
-    const lowercaseDay =
-        day.toLowerCase();
-
+  };
+  const getDayHours = (hours, day) => {
+    const lowercaseDay = day.toLowerCase();
     if (Array.isArray(hours)) {
-        return (
-            hours.find((item) => {
-                return String(
-                    item.day || item.name
-                ).toLowerCase() === lowercaseDay;
-            }) || {}
-        );
+      return hours.find(item => {
+        return String(item.day || item.name).toLowerCase() === lowercaseDay;
+      }) || {};
     }
-
-    return (
-        hours[day] ||
-        hours[lowercaseDay] ||
-        {}
-    );
-};
-
-const formatTime = (timeValue) => {
+    return hours[day] || hours[lowercaseDay] || {};
+  };
+  const formatTime = timeValue => {
     if (!timeValue) {
-        return "—";
+      return "—";
     }
-
-    const [hourValue, minuteValue] =
-        timeValue.split(":");
-
+    const [hourValue, minuteValue] = timeValue.split(":");
     const date = new Date();
-
-    date.setHours(
-        Number(hourValue),
-        Number(minuteValue || 0)
-    );
-
+    date.setHours(Number(hourValue), Number(minuteValue || 0));
     return date.toLocaleTimeString("en-US", {
-        hour: "numeric",
-        minute: "2-digit"
+      hour: "numeric",
+      minute: "2-digit"
     });
-};
-
-const hasBranchDetails = () => {
-    return Boolean(
-        currentBranch.branchName ||
-        currentBranch.name
-    );
-};
-
-const getBranchName = () => {
-    return (
-        currentBranch.branchName ||
-        currentBranch.name ||
-        "New Branch"
-    );
-};
-
-const getScoreLabel = (score) => {
+  };
+  const hasBranchDetails = () => {
+    return Boolean(currentBranch.branchName || currentBranch.name);
+  };
+  const getBranchName = () => {
+    return currentBranch.branchName || currentBranch.name || "New Branch";
+  };
+  const getScoreLabel = score => {
     if (score >= 85) {
-        return "Excellent Accessibility";
+      return "Excellent Accessibility";
     }
-
     if (score >= 70) {
-        return "Very Good Accessibility";
+      return "Very Good Accessibility";
     }
-
     if (score >= 55) {
-        return "Good Accessibility";
+      return "Good Accessibility";
     }
-
     if (score >= 40) {
-        return "Needs Improvement";
+      return "Needs Improvement";
     }
-
     return "Major Improvements Required";
-};
-
-const getScoreColor = (score) => {
+  };
+  const getScoreColor = score => {
     if (score >= 70) {
-        return "#087f78";
+      return "#087f78";
     }
-
     if (score >= 50) {
-        return "#e99a13";
+      return "#e99a13";
     }
-
     return "#cf3f4f";
-};
-
-const createBranchReference = () => {
-    const timePart =
-        Date.now()
-            .toString()
-            .slice(-8);
-
+  };
+  const createBranchReference = () => {
+    const timePart = Date.now().toString().slice(-8);
     return `BR-${timePart}`;
-};
-
-const configureSidebar = () => {
-    const sidebar =
-        document.getElementById(
-            "organizationSidebar"
-        );
-
-    const toggleButton =
-        document.getElementById(
-            "sidebarToggle"
-        );
-
-    const backdrop =
-        document.getElementById(
-            "sidebarBackdrop"
-        );
-
+  };
+  const configureSidebar = () => {
+    const sidebar = document.getElementById("organizationSidebar");
+    const toggleButton = document.getElementById("sidebarToggle");
+    const backdrop = document.getElementById("sidebarBackdrop");
     const closeSidebar = () => {
-        sidebar.classList.remove("show");
-        backdrop.classList.remove("show");
+      sidebar.classList.remove("show");
+      backdrop.classList.remove("show");
     };
-
-    toggleButton.addEventListener("click", () => {
-        sidebar.classList.toggle("show");
-        backdrop.classList.toggle("show");
+    WusoolUI.listen(toggleButton, "click", () => {
+      sidebar.classList.toggle("show");
+      backdrop.classList.toggle("show");
     });
-
-    backdrop.addEventListener(
-        "click",
-        closeSidebar
-    );
-
-    window.addEventListener("resize", () => {
-        if (window.innerWidth >= 992) {
-            closeSidebar();
-        }
+    WusoolUI.listen(backdrop, "click", closeSidebar);
+    WusoolUI.listen(window, "resize", () => {
+      if (window.innerWidth >= 992) {
+        closeSidebar();
+      }
     });
-};
-
-const setText = (elementId, value) => {
-    const element =
-        document.getElementById(elementId);
-
+  };
+  const setText = (elementId, value) => {
+    const element = document.getElementById(elementId);
     if (element) {
-        element.textContent = value;
+      element.textContent = value;
     }
-};
-
-const joinValues = (values) => {
+  };
+  const joinValues = values => {
     return values.filter(Boolean).join(", ");
-};
-
-const toCamelCase = (value) => {
-    return value.replace(
-        /-([a-z])/g,
-        (_, character) => character.toUpperCase()
-    );
-};
-
-const escapeHtml = (value) => {
-    const element =
-        document.createElement("div");
-
-    element.textContent =
-        String(value || "");
-
+  };
+  const toCamelCase = value => {
+    return value.replace(/-([a-z])/g, (_, character) => character.toUpperCase());
+  };
+  const escapeHtml = value => {
+    const element = document.createElement("div");
+    element.textContent = String(value || "");
     return element.innerHTML;
-};
-
-const getStoredObject = (
-    storageKey,
-    fallbackValue
-) => {
+  };
+  const getStoredObject = async (storageKey, fallbackValue) => {
     try {
-        const storedValue =
-            localStorage.getItem(storageKey);
-
-        return storedValue
-            ? JSON.parse(storedValue)
-            : fallbackValue;
+      const storedValue = await WusoolServices.rawRead(storageKey);
+      return storedValue ? JSON.parse(storedValue) : fallbackValue;
     } catch (error) {
-        console.error(
-            `Unable to read ${storageKey}:`,
-            error
-        );
-
-        return fallbackValue;
+      if (WusoolServices.mode === "api") throw error;
+      console.error(`Unable to read ${storageKey}:`, error);
+      return fallbackValue;
     }
-};
+  };
+});

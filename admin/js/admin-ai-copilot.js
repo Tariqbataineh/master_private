@@ -1,64 +1,45 @@
-
 "use strict";
 
-const conversation = document.getElementById("copilotConversation");
-const input = document.getElementById("copilotInput");
-
-const addMessage = (who, html) => {
-    conversation.insertAdjacentHTML(
-        "beforeend",
-        `
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  WusoolUI.message('Local mode uses a deterministic data-query demonstration, not AI analysis. API mode requires the AI backend.', 'info');
+  const conversation = document.getElementById("copilotConversation");
+  const input = document.getElementById("copilotInput");
+  const addMessage = (who, html) => {
+    WusoolUI.insertHTML(conversation, "beforeend", `
             <div class="mb-3">
                 <strong class="d-block mb-1">${who}</strong>
                 <div>${html}</div>
             </div>
-        `
-    );
-
+        `);
     conversation.scrollTop = conversation.scrollHeight;
-};
-
-const answer = (question) => {
+  };
+  const answer = async question => {
+    if (WusoolServices.mode === "api") { const result=await WusoolServices.external("ai/copilot",{question});if(typeof result?.text!=="string"||!result.text.trim())throw new Error("Invalid AI response.");return WusoolUI.escape(result.text); }
     const q = question.toLowerCase();
-
     if (q.includes("branches") && (q.includes("60") || q.includes("low"))) {
-        const items = WusoolDataService.getBranches()
-            .filter((x) => x.accessibilityScore < 60);
-
-        return items.length
-            ? items.map((x) => `${x.name} (${x.accessibilityScore}%)`).join("<br>")
-            : "No branches are currently below 60%.";
+      const items = (await WusoolDataService.getBranches()).filter(x => x.accessibilityScore < 60);
+      return items.length ? items.map(x => `${x.name} (${x.accessibilityScore}%)`).join("<br>") : "No branches are currently below 60%.";
     }
-
     if (q.includes("open") && q.includes("ticket")) {
-        const items = WusoolDataService.getTickets()
-            .filter((x) => !["resolved", "closed"].includes(x.status.toLowerCase()));
-
-        return items.length
-            ? items.map((x) => `${x.subject} — ${x.priority}`).join("<br>")
-            : "No open tickets.";
+      const items = (await WusoolDataService.getTickets()).filter(x => !["resolved", "closed"].includes(x.status.toLowerCase()));
+      return items.length ? items.map(x => `${x.subject} — ${x.priority}`).join("<br>") : "No open tickets.";
     }
-
     if (q.includes("pending") && q.includes("organization")) {
-        const items = WusoolDataService.getOrganizations({ status: "pending" });
-
-        return items.length
-            ? items.map((x) => x.name).join("<br>")
-            : "No pending organizations.";
+      const items = await WusoolDataService.getOrganizations({
+        status: "pending"
+      });
+      return items.length ? items.map(x => x.name).join("<br>") : "No pending organizations.";
     }
-
     if (q.includes("flagged") && q.includes("review")) {
-        const items = WusoolDataService.getReviews({ flagged: true });
-
-        return items.length
-            ? items.map((x) => `${x.title || "Review"} (${x.rating}/5)`).join("<br>")
-            : "No flagged reviews.";
+      const items = await WusoolDataService.getReviews({
+        flagged: true
+      });
+      return items.length ? items.map(x => `${x.title || "Review"} (${x.rating}/5)`).join("<br>") : "No flagged reviews.";
     }
-
     if (q.includes("summary") || q.includes("overview")) {
-        const s = WusoolDataService.getDashboardSnapshot();
-
-        return `
+      const s = await WusoolDataService.getDashboardSnapshot();
+      return `
             Users: ${s.users}<br>
             Organizations: ${s.organizations}<br>
             Branches: ${s.branches}<br>
@@ -67,37 +48,29 @@ const answer = (question) => {
             Active subscriptions: ${s.activeSubscriptions}
         `;
     }
-
     return "This frontend Copilot currently answers platform-data questions. When the backend/AI provider is connected, the same UI can support free-form AI.";
-};
-
-const submit = () => {
+  };
+  const submit = async () => {
     const value = input.value.trim();
-
     if (!value) {
-        return;
+      return;
     }
-
-    addMessage("You", value);
-    addMessage("Wusool Copilot", answer(value));
+    addMessage("You", WusoolUI.escape(value));
+    addMessage(WusoolServices.mode === "local" ? "Local data query demo" : "Wusool Copilot", await answer(value));
     input.value = "";
-};
-
-document.getElementById("copilotSend").addEventListener("click", submit);
-
-input.addEventListener("keydown", (event) => {
+  };
+  WusoolUI.listen(document.getElementById("copilotSend"), "click", submit);
+  WusoolUI.listen(input, "keydown", async event => {
     if (event.key === "Enter") {
-        submit();
+      await submit();
     }
-});
-
-document.addEventListener("click", (event) => {
+  });
+  WusoolUI.listen(document, "click", async event => {
     const button = event.target.closest("[data-question]");
-
     if (button) {
-        input.value = button.dataset.question;
-        submit();
+      input.value = button.dataset.question;
+      await submit();
     }
+  });
+  addMessage("Wusool Copilot", "Ask me about current Wusool platform data.");
 });
-
-addMessage("Wusool Copilot", "Ask me about current Wusool platform data.");

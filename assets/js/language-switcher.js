@@ -1,9 +1,9 @@
-
-function setArabic(){
+WusoolUI.enqueue(async () => {
+  function setArabic() {
     WusoolLanguage.load("ar");
-}
-
-function setEnglish(){
-    localStorage.setItem("language","en");
+  }
+  async function setEnglish() {
+    await WusoolServices.rawWrite("language", "en");
     location.reload();
-}
+  }
+});

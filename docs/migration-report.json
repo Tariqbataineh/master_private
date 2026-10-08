@@ -1,0 +1,583 @@
+[
+  {
+    "file": "user/js/accessibility-preferences.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/ai-accessibility-report.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/analyze-surroundings.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/community-reviews.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/compare-places.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/explore-places.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/my-reports.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/my-reviews.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/my-visits.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/navigation-complete.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/navigation-guidance.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/plan-visit.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/report-accessibility-issue.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/saved-places.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/smart-recommendations.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/user-dashboard.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/user-layout.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/user-place-details.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/user-profile.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/utility-pages.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/visit-details.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/visit-summary.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/visual-navigation-start.js",
+    "status": "converted"
+  },
+  {
+    "file": "user/js/write-review.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/accessibility-map.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/ai-accessibility-report.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/ai-assistant.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/booking-information.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/community-reviews.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/home.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/journey-home.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/journey-world.js",
+    "status": "failed",
+    "error": "unknown: 'import' and 'export' may appear only with 'sourceType: \"module\"' (1:0)\nConsider renaming the file to '.mjs', or setting sourceType:module or sourceType:unambiguous in your Babel config for this file.\n\n> 1 | import * as THREE from '../../assets/vendor/three.module.js';\n    | ^\n  2 |\n  3 | /* Reference-inspired building dimensions are illustrative, not a survey. */\n  4 | export function startWorld(root) {"
+  },
+  {
+    "file": "visitor/js/login.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/place-details.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/premium-home.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/register.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/smart-guidance.js",
+    "status": "converted"
+  },
+  {
+    "file": "visitor/js/smart-match.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/add-branch.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/audit-log.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-accessibility.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-ai-review.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-photos-management.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-photos.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-review-status.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-submission-success.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-submit-review.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branch-working-hours.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/branches.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/edit-branch.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/forgot-password.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/help-support.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/notifications.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-ai-reports.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-approved.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-branch-details.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-dashboard.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-login.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-register.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-settings.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/organization-sidebar.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/payment-failed.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/payment-success.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/registration-pending.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/reset-password.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/review-history.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/subscription-checkout.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/subscription-management.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/subscription-plans.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/user-ticket-details.js",
+    "status": "converted"
+  },
+  {
+    "file": "org/js/visitor-tickets.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-accessibility-heatmap.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-ai-copilot.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-ai-management.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-ai-settings.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-ai-templates.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-announcements.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-api.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-audit-log.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-automation-center.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-benchmarking.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-branches.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-components.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-content-manager.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-core.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-dashboard.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-device-sessions.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-documents.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-email-templates.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-error-center.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-export-center.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-feature-flags.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-feature-rollout.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-form-builder.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-global-search.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-impersonation.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-import-center.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-login.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-maintenance.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-media-library.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-navigation-manager.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-notification-templates.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-notifications.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-organizations.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-page-catalog.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-platform-builder.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-recovery-center.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-reports.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-requirements-builder.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-reviews.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-roles.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-rules-engine.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-scheduled-reports.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-security-center.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-settings.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-sidebar.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-smart-recommendations.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-subscriptions.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-system-health.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-theme-settings.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-tickets.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-users.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-version-history.js",
+    "status": "converted"
+  },
+  {
+    "file": "admin/js/admin-workflow-builder.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/accessibility-config.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/auto-translate.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/behavior-runtime.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/behavior-service.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/dynamic-form-runtime.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/error-runtime.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/feature-store.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/auth-cinematic.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/language-manager.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/language-switcher-floating.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/language-switcher.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/login-transition.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/wusool-experience.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/js/wusool-motion.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/maintenance-runtime.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/organization-data-bridge.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/platform-runtime.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/public-data-bridge.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/site.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/user-data-bridge.js",
+    "status": "converted"
+  },
+  {
+    "file": "assets/version-service.js",
+    "status": "converted"
+  }
+]

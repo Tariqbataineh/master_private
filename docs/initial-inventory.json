@@ -1,0 +1,3467 @@
+{
+  "pages": [
+    {
+      "page": "org/components/organization-sidebar.html",
+      "scripts": [],
+      "storage": [],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/subscription-plans.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/subscription-plans.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolBillingCycle",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolRegistrationStep",
+        "wusoolSelectedPlan"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/subscription-checkout.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/subscription-checkout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolFailedPayment",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolPayment",
+        "wusoolRegistrationStep",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/visitor-tickets.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/visitor-tickets.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/notifications.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/notifications.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/audit-log.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/audit-log.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-register.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/organization-register.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolOrganizationRegistration"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/reset-password.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/reset-password.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/forgot-password.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/forgot-password.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationEmail",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-ai-review.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-ai-review.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branches.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/branches.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/organization-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationBranches",
+        "wusoolOrganizationLoggedIn",
+        "wusoolOrganizationStatus",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-settings.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/organization-settings.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/edit-branch.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/edit-branch.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-accessibility.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../../assets/accessibility-config.js",
+        "../js/branch-accessibility.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolCurrentBranchDraft",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationBranches",
+        "wusoolOrganizationLoggedIn",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-ai-reports.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/organization-ai-reports.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/payment-success.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/payment-success.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolActiveSubscription",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolOrganizationStatus",
+        "wusoolRegistrationStep",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-branch-details.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/organization-branch-details.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/subscription-management.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/subscription-management.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/registration-pending.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/registration-pending.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-photos.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-photos.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-approved.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/organization-approved.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolApprovalReference",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolOrganizationStatus",
+        "wusoolRegistrationStep"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-submission-success.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-submission-success.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/user-ticket-details.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/user-ticket-details.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/payment-failed.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/payment-failed.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolFailedPayment",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolRegistrationStep",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/add-branch.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/add-branch.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolCurrentBranchDraft",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationBranches",
+        "wusoolOrganizationLoggedIn",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/review-history.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/review-history.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-photos-management.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-photos-management.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/help-support.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/help-support.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolSupportRequests"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-review-status.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-review-status.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-sidebar.html",
+      "scripts": [],
+      "storage": [],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-dashboard.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/organization-dashboard.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/organization-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolOrganizationRegistration",
+        "wusoolOrganizationStatus",
+        "wusoolRegistrationStep",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-working-hours.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-working-hours.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolCurrentBranchDraft",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationBranches",
+        "wusoolOrganizationLoggedIn",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/reset-data.html",
+      "scripts": [
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/branch-submit-review.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/branch-submit-review.js",
+        "../js/organization-sidebar.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "org/html/organization-login.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/js/login-transition.js",
+        "../js/organization-login.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js",
+        "../../assets/js/wusool-motion.js",
+        "../../assets/js/wusool-experience.js",
+        "../../assets/auto-translate.js",
+        "../../assets/js/auth-cinematic.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolCurrentOrganization",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolOrganizationStatus",
+        "wusoolRegistrationStep",
+        "wusoolRememberedOrganizationEmail",
+        "wusoolSubscriptionStatus"
+      ],
+      "status": "not yet migrated",
+      "role": "org"
+    },
+    {
+      "page": "user/css/report-accessibility-issue.html",
+      "scripts": [],
+      "storage": [],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/visit-summary.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/visit-summary.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-pending-visit",
+        "wusool-user-name",
+        "wusool-visits",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/notifications.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/utility-pages.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-account-settings",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-place-suggestions",
+        "wusool-support-requests",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/report-accessibility-issue.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/report-accessibility-issue.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/user-place-details.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/user-place-details.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/visual-navigation-start.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/visual-navigation-start.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusool-navigation-session",
+        "wusool-visits",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/navigation-complete.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/navigation-complete.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-navigation-session",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/my-reviews.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/my-reviews.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/add-place.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/utility-pages.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-account-settings",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-place-suggestions",
+        "wusool-support-requests",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/user-dashboard.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/user-dashboard.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/compare-places.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/compare-places.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/my-visits.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/my-visits.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusool-visits",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/user-profile.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/user-profile.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusool-user-profile",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/analyze-surroundings.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/analyze-surroundings.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-navigation-session",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/write-review.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/write-review.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/accessibility-preferences.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/accessibility-preferences.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-accessibility-preferences",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/plan-visit.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/plan-visit.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-accessibility-preferences",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-pending-visit",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/my-reports.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/my-reports.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/ai-accessibility-report.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/ai-accessibility-report.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/account-settings.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/utility-pages.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-account-settings",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-place-suggestions",
+        "wusool-support-requests",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/community-reviews.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/community-reviews.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/explore-places.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/explore-places.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-search",
+        "wusool-selected-place",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/smart-recommendations.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/smart-recommendations.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-accessibility-preferences",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-removed-saved-places",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/visit-details.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/visit-details.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-navigation-session",
+        "wusool-user-name",
+        "wusool-visits",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/navigation-guidance.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/navigation-guidance.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/saved-places.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/saved-places.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-removed-saved-places",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "user/html/help-support.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/utility-pages.js",
+        "../js/user-layout.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/user-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-account-settings",
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-place-suggestions",
+        "wusool-support-requests",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "user"
+    },
+    {
+      "page": "admin/components/admin-sidebar.html",
+      "scripts": [],
+      "storage": [],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-benchmarking.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-benchmarking.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-feature-flags.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-feature-flags.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-ai-management.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-ai-management.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-ai-settings.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-ai-settings.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-dashboard.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-api.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-dashboard.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-media-library.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-media-library.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-content-manager.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-content-manager.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-ai-copilot.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-ai-copilot.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-notification-templates.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-notification-templates.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-accessibility-heatmap.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-accessibility-heatmap.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-email-templates.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-email-templates.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-notifications.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-notifications.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-rules-engine.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-rules-engine.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-automation-center.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-automation-center.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-system-health.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-system-health.js"
+      ],
+      "storage": [
+        "__wusool_test",
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-impersonation.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-impersonation.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-smart-recommendations.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-smart-recommendations.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-global-search.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-api.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-global-search.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-feature-rollout.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-feature-rollout.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-workflow-builder.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-workflow-builder.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-security-center.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-security-center.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolFailedLogins",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-maintenance.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-maintenance.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-navigation-manager.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-api.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-navigation-manager.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-documents.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-documents.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-components.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-components.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-error-center.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-error-center.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-audit-log.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-api.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-audit-log.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-recovery-center.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../js/admin-api.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-recovery-center.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-organizations.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-organizations.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-platform-builder.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-page-catalog.js",
+        "../js/admin-platform-builder.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolMediaLibrary",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-theme-settings.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-theme-settings.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolThemeDraft"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-import-center.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-import-center.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-device-sessions.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-device-sessions.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-roles.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-roles.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-announcements.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-announcements.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-reviews.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-reviews.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-form-builder.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-form-builder.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-subscriptions.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-subscriptions.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-settings.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-settings.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-users.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-users.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-reports.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-reports.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-scheduled-reports.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-scheduled-reports.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-requirements-builder.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/version-service.js",
+        "../../assets/accessibility-config.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-requirements-builder.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-branches.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-branches.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-version-history.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-version-history.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-tickets.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-tickets.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-export-center.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-export-center.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-ai-templates.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../js/admin-core.js",
+        "../js/admin-sidebar.js",
+        "../js/admin-ai-templates.js"
+      ],
+      "storage": [
+        "wusoolDemoUser",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "admin/html/admin-login.html",
+      "scripts": [
+        "../js/admin-login.js",
+        "../../assets/data-service.js",
+        "../../assets/version-service.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusoolAdminLoggedIn",
+        "wusoolAdminProfile",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "admin"
+    },
+    {
+      "page": "visitor/html/smart-guidance.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/smart-guidance.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/accessibility-map.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/accessibility-map.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusool-search",
+        "wusool-selected-place",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/home.html",
+      "scripts": [
+        "../js/journey-home.js",
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js",
+        "https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js",
+        "https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js",
+        "../js/home.js",
+        "../js/premium-home.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js",
+        "../../assets/js/wusool-motion.js",
+        "../../assets/js/wusool-experience.js",
+        "../../assets/auto-translate.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusool-last-visit",
+        "wusool-search",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/ai-assistant.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/ai-assistant.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/register.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/register.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolRegisteredUser"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/login.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../../assets/js/login-transition.js",
+        "../js/login.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js",
+        "../../assets/js/wusool-motion.js",
+        "../../assets/js/wusool-experience.js",
+        "../../assets/auto-translate.js",
+        "../../assets/js/auth-cinematic.js"
+      ],
+      "storage": [
+        "wusool-current-user",
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-is-authenticated",
+        "wusool-language",
+        "wusool-user-name",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolDemoUserCredential",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn",
+        "wusoolRegisteredUser",
+        "wusoolRememberedEmail"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/ai-accessibility-report.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/ai-accessibility-report.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/community-reviews.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/community-reviews.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/booking-information.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/booking-information.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/place-details.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/place-details.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    },
+    {
+      "page": "visitor/html/smart-match.html",
+      "scripts": [
+        "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js",
+        "../../assets/site.js",
+        "../js/smart-match.js",
+        "../../assets/data-service.js",
+        "../../assets/platform-runtime.js",
+        "../../assets/public-data-bridge.js",
+        "../../assets/dynamic-form-runtime.js",
+        "../../assets/behavior-service.js",
+        "../../assets/behavior-runtime.js",
+        "../../assets/feature-store.js",
+        "../../assets/error-runtime.js",
+        "../../assets/maintenance-runtime.js"
+      ],
+      "storage": [
+        "wusool-font-size",
+        "wusool-high-contrast",
+        "wusool-language",
+        "wusoolAdminRole",
+        "wusoolDemoUser",
+        "wusoolMaintenanceSettings",
+        "wusoolOrganization",
+        "wusoolOrganizationLoggedIn"
+      ],
+      "status": "not yet migrated",
+      "role": "visitor"
+    }
+  ],
+  "main_private_differences": [
+    "user/README.txt",
+    "admin/ADMIN_FEATURE_MANIFEST.json",
+    "assets/platform-runtime.js",
+    "assets/public-data-bridge.js",
+    "assets/organization-data-bridge.js",
+    "assets/user-data-bridge.js",
+    "assets/data-service.js",
+    "assets/dynamic-form-runtime.js",
+    "assets/maintenance-runtime.js",
+    "assets/version-service.js",
+    "assets/platform-runtime.css",
+    "assets/site.js",
+    "assets/feature-store.js",
+    "assets/behavior-runtime.js",
+    "assets/error-runtime.js",
+    "assets/behavior-service.js",
+    "assets/accessibility-config.js",
+    "org/css/organization-sidebar.css",
+    "org/css/organization-branch-details.css",
+    "org/css/organization-login.css",
+    "org/components/organization-sidebar.html",
+    "org/js/branches.js",
+    "org/js/branch-accessibility.js",
+    "org/js/notifications.js",
+    "org/js/organization-login.js",
+    "org/js/organization-sidebar.js",
+    "org/js/organization-branch-details.js",
+    "org/js/branch-photos.js",
+    "org/js/user-ticket-details.js",
+    "org/js/visitor-tickets.js",
+    "org/html/organization-sidebar.html",
+    "org/html/organization-login.html",
+    "user/css/user-layout.css",
+    "user/css/user-dashboard.css",
+    "user/css/community-reviews.css",
+    "user/css/explore-places.css",
+    "user/css/navigation-complete.css",
+    "user/css/utility-pages.css",
+    "user/css/ai-accessibility-report.css",
+    "user/css/user-place-details.css",
+    "user/js/my-visits.js",
+    "user/js/utility-pages.js",
+    "user/js/visit-summary.js",
+    "user/js/plan-visit.js",
+    "user/js/analyze-surroundings.js",
+    "user/js/ai-accessibility-report.js",
+    "user/js/explore-places.js",
+    "user/js/navigation-guidance.js",
+    "user/js/community-reviews.js",
+    "user/js/user-dashboard.js",
+    "user/js/navigation-complete.js",
+    "user/js/visit-details.js",
+    "user/js/report-accessibility-issue.js",
+    "user/js/user-layout.js",
+    "user/js/user-place-details.js",
+    "user/js/write-review.js",
+    "admin/css/admin-form-builder.css",
+    "admin/css/admin-media-library.css",
+    "admin/css/admin-organizations.css",
+    "admin/css/admin-global-search.css",
+    "admin/css/admin-impersonation.css",
+    "admin/css/admin-settings.css",
+    "admin/css/admin-automation-center.css",
+    "admin/css/admin-dashboard.css",
+    "admin/css/admin-ai-settings.css",
+    "admin/css/admin-common.css",
+    "admin/css/admin-email-templates.css",
+    "admin/css/admin-requirements-builder.css",
+    "admin/css/admin-import-center.css",
+    "admin/css/admin-accessibility-heatmap.css",
+    "admin/css/admin-workflow-builder.css",
+    "admin/css/admin-documents.css",
+    "admin/css/admin-feature-rollout.css",
+    "admin/css/admin-audit-log.css",
+    "admin/css/admin-benchmarking.css",
+    "admin/css/admin-branches.css",
+    "admin/css/admin-smart-recommendations.css",
+    "admin/css/admin-announcements.css",
+    "admin/css/admin-system-health.css",
+    "admin/css/admin-navigation-manager.css",
+    "admin/css/admin-ai-templates.css",
+    "admin/css/admin-ai-management.css",
+    "admin/css/admin-roles.css",
+    "admin/css/admin-reports.css",
+    "admin/css/admin-notifications.css",
+    "admin/css/admin-login.css",
+    "admin/css/admin-rules-engine.css",
+    "admin/css/admin-reviews.css",
+    "admin/css/admin-recovery-center.css",
+    "admin/css/admin-ai-copilot.css",
+    "admin/css/admin-users.css",
+    "admin/css/admin-subscriptions.css",
+    "admin/css/admin-components.css",
+    "admin/css/admin-scheduled-reports.css",
+    "admin/css/admin-tickets.css",
+    "admin/css/admin-theme-settings.css",
+    "admin/css/admin-device-sessions.css",
+    "admin/css/admin-export-center.css",
+    "admin/css/admin-security-center.css",
+    "admin/css/admin-content-manager.css",
+    "admin/css/admin-version-history.css",
+    "admin/css/admin-maintenance.css",
+    "admin/css/admin-feature-flags.css",
+    "admin/css/admin-error-center.css",
+    "admin/css/admin-platform-builder.css",
+    "admin/css/admin-notification-templates.css",
+    "admin/components/admin-sidebar.html",
+    "admin/js/admin-error-center.js",
+    "admin/js/admin-security-center.js",
+    "admin/js/admin-roles.js",
+    "admin/js/admin-ai-templates.js",
+    "admin/js/admin-requirements-builder.js",
+    "admin/js/admin-navigation-manager.js",
+    "admin/js/admin-settings.js",
+    "admin/js/admin-accessibility-heatmap.js",
+    "admin/js/admin-automation-center.js",
+    "admin/js/admin-system-health.js",
+    "admin/js/admin-version-history.js",
+    "admin/js/admin-platform-builder.js",
+    "admin/js/admin-ai-copilot.js",
+    "admin/js/admin-reports.js",
+    "admin/js/admin-page-catalog.js",
+    "admin/js/admin-organizations.js",
+    "admin/js/admin-maintenance.js",
+    "admin/js/admin-users.js",
+    "admin/js/admin-global-search.js",
+    "admin/js/admin-form-builder.js",
+    "admin/js/admin-components.js",
+    "admin/js/admin-api.js",
+    "admin/js/admin-benchmarking.js",
+    "admin/js/admin-documents.js",
+    "admin/js/admin-notifications.js",
+    "admin/js/admin-ai-settings.js",
+    "admin/js/admin-login.js",
+    "admin/js/admin-audit-log.js",
+    "admin/js/admin-subscriptions.js",
+    "admin/js/admin-rules-engine.js",
+    "admin/js/admin-workflow-builder.js",
+    "admin/js/admin-feature-rollout.js",
+    "admin/js/admin-device-sessions.js",
+    "admin/js/admin-media-library.js",
+    "admin/js/admin-recovery-center.js",
+    "admin/js/admin-impersonation.js",
+    "admin/js/admin-sidebar.js",
+    "admin/js/admin-dashboard.js",
+    "admin/js/admin-ai-management.js",
+    "admin/js/admin-export-center.js",
+    "admin/js/admin-email-templates.js",
+    "admin/js/admin-content-manager.js",
+    "admin/js/admin-scheduled-reports.js",
+    "admin/js/admin-tickets.js",
+    "admin/js/admin-reviews.js",
+    "admin/js/admin-announcements.js",
+    "admin/js/admin-smart-recommendations.js",
+    "admin/js/admin-notification-templates.js",
+    "admin/js/admin-core.js",
+    "admin/js/admin-theme-settings.js",
+    "admin/js/admin-branches.js",
+    "admin/js/admin-feature-flags.js",
+    "admin/js/admin-import-center.js",
+    "visitor/css/home.css",
+    "visitor/css/community-reviews.css",
+    "visitor/css/ai-assistant.css",
+    "visitor/css/smart-guidance.css",
+    "visitor/css/smart-match.css",
+    "visitor/css/register.css",
+    "visitor/css/booking-information.css",
+    "visitor/css/place-details.css",
+    "visitor/css/login.css",
+    "visitor/css/ai-accessibility-report.css",
+    "visitor/css/accessibility-map.css",
+    "visitor/js/smart-match.js",
+    "visitor/js/booking-information.js",
+    "visitor/js/register.js",
+    "visitor/js/login.js",
+    "visitor/js/home.js",
+    "visitor/js/ai-accessibility-report.js",
+    "visitor/js/community-reviews.js",
+    "visitor/js/ai-assistant.js",
+    "visitor/js/place-details.js",
+    "visitor/js/accessibility-map.js",
+    "visitor/js/smart-guidance.js",
+    "visitor/html/home.html",
+    "visitor/html/login.html",
+    "assets/css/rtl.css",
+    "assets/css/language-switcher.css",
+    "assets/js/language-switcher.js",
+    "assets/js/language-switcher-floating.js",
+    "assets/js/language-manager.js",
+    "assets/translations/ar.json"
+  ]
+}

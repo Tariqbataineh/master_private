@@ -1,24 +1,17 @@
-
 "use strict";
 
-const entries = WusoolDataService.getAuditLog();
-
-const container = document.querySelector(
-    ".container-fluid.px-3.px-md-4.px-xl-5.py-4"
-);
-
-const safeJson = (value) => {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const entries = await WusoolDataService.getAuditLog();
+  const container = document.querySelector(".container-fluid.px-3.px-md-4.px-xl-5.py-4");
+  const safeJson = value => {
     if (!value) {
-        return "-";
+      return "-";
     }
-
-    return JSON.stringify(value, null, 2)
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-};
-
-if (container) {
-    container.innerHTML = `
+    return JSON.stringify(value, null, 2).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  };
+  if (container) {
+    WusoolUI.html(container, `
         <article class="content-card">
             <div class="table-responsive">
                 <table class="table align-middle">
@@ -34,9 +27,7 @@ if (container) {
                     </thead>
 
                     <tbody>
-                        ${
-                            entries.length
-                                ? entries.map((entry) => `
+                        ${entries.length ? entries.map(entry => `
                                     <tr>
                                         <td>${entry.actor}</td>
                                         <td>${entry.action}</td>
@@ -68,18 +59,17 @@ if (container) {
                                             </div>
                                         </td>
                                     </tr>
-                                `).join("")
-                                : `
+                                `).join("") : `
                                     <tr>
                                         <td colspan="6" class="text-center py-5 text-secondary">
                                             No audit entries yet.
                                         </td>
                                     </tr>
-                                `
-                        }
+                                `}
                     </tbody>
                 </table>
             </div>
         </article>
-    `;
-}
+    `);
+  }
+});

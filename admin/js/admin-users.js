@@ -1,46 +1,31 @@
-
 "use strict";
 
-const service = WusoolDataService;
-
-const tbody = document.getElementById("usersTableBody");
-const search = document.getElementById("userSearch");
-const statusFilter = document.getElementById("userStatusFilter");
-const stats = document.getElementById("userStats");
-
-const userModal = new bootstrap.Modal(document.getElementById("userModal"));
-const detailsModal = new bootstrap.Modal(document.getElementById("userDetailsModal"));
-
-const badgeClass = (status) => {
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  const service = WusoolDataService;
+  const tbody = document.getElementById("usersTableBody");
+  const search = document.getElementById("userSearch");
+  const statusFilter = document.getElementById("userStatusFilter");
+  const stats = document.getElementById("userStats");
+  const userModal = new bootstrap.Modal(document.getElementById("userModal"));
+  const detailsModal = new bootstrap.Modal(document.getElementById("userDetailsModal"));
+  const badgeClass = status => {
     const normalized = String(status).toLowerCase();
-
     if (normalized === "active") {
-        return "badge-soft-success";
+      return "badge-soft-success";
     }
-
     if (normalized === "suspended") {
-        return "badge-soft-warning";
+      return "badge-soft-warning";
     }
-
     return "badge-soft-danger";
-};
-
-const renderStats = () => {
-    const users = service.getUsers();
-    const active = users.filter((item) => item.status === "active").length;
-    const suspended = users.filter((item) => item.status === "suspended").length;
-    const openTickets = service.getTickets().filter((item) =>
-        !["resolved", "closed"].includes(item.status.toLowerCase())
-    ).length;
-
-    const cards = [
-        ["Users", users.length, "bi-people"],
-        ["Active", active, "bi-person-check"],
-        ["Suspended", suspended, "bi-person-dash"],
-        ["Open Tickets", openTickets, "bi-ticket-perforated"]
-    ];
-
-    stats.innerHTML = cards.map(([label, value, icon]) => `
+  };
+  const renderStats = async () => {
+    const users = await service.getUsers();
+    const active = users.filter(item => item.status === "active").length;
+    const suspended = users.filter(item => item.status === "suspended").length;
+    const openTickets = (await service.getTickets()).filter(item => !["resolved", "closed"].includes(item.status.toLowerCase())).length;
+    const cards = [["Users", users.length, "bi-people"], ["Active", active, "bi-person-check"], ["Suspended", suspended, "bi-person-dash"], ["Open Tickets", openTickets, "bi-ticket-perforated"]];
+    WusoolUI.html(stats, cards.map(([label, value, icon]) => `
         <div class="col-12 col-sm-6 col-xl-3">
             <article class="stat-card">
                 <div class="d-flex justify-content-between align-items-start">
@@ -52,94 +37,83 @@ const renderStats = () => {
                 </div>
             </article>
         </div>
-    `).join("");
-};
-
-const render = () => {
-    const users = service.getUsers({
-        search: search.value.trim(),
-        status: statusFilter.value
+    `).join(""));
+  };
+  const render = async () => {
+    const users = await service.getUsers({
+      search: search.value.trim(),
+      status: statusFilter.value
     });
-
-    tbody.innerHTML = users.length
-        ? users.map((item) => {
-            const ticketCount = service.getTickets({
-                requesterId: item.id
-            }).length;
-
-            const reviewCount = service.getReviews({
-                userId: item.id
-            }).length;
-
-            return `
+    WusoolUI.html(tbody, users.length ? (await WusoolUI.mapAsync(users, async item => {
+      const ticketCount = (await service.getTickets({
+        requesterId: item.id
+      })).length;
+      const reviewCount = (await service.getReviews({
+        userId: item.id
+      })).length;
+      return `
                 <tr>
                     <td>
                         <div class="d-flex gap-3 align-items-center">
                             <span class="avatar-box">
-                                ${item.name.split(" ").map((x) => x[0]).join("").slice(0, 2).toUpperCase()}
+                                ${item.name.split(" ").map(x => x[0]).join("").slice(0, 2).toUpperCase()}
                             </span>
 
                             <div>
-                                <strong class="d-block">${item.name}</strong>
-                                <small class="text-secondary">${item.email || "No email"}</small>
+                                <strong class="d-block">${WusoolUI.escape(item.name)}</strong>
+                                <small class="text-secondary">${WusoolUI.escape(item.email || "No email")}</small>
                             </div>
                         </div>
                     </td>
 
-                    <td>${item.city || "-"}</td>
+                    <td>${WusoolUI.escape(item.city || "-")}</td>
 
                     <td>
                         <span class="badge ${badgeClass(item.status)} text-capitalize">
-                            ${item.status}
+                            ${WusoolUI.escape(item.status)}
                         </span>
                     </td>
 
-                    <td>${item.accessibilityPreferences.length}</td>
+                    <td>${WusoolUI.escape(item.accessibilityPreferences.length)}</td>
                     <td>${ticketCount}</td>
                     <td>${reviewCount}</td>
 
                     <td>
                         <div class="action-menu">
-                            <button class="btn btn-sm btn-outline-secondary" data-view="${item.id}">
+                            <button class="btn btn-sm btn-outline-secondary" data-view="${WusoolUI.escape(item.id)}">
                                 View
                             </button>
 
-                            <button class="btn btn-sm btn-outline-primary" data-edit="${item.id}">
+                            <button class="btn btn-sm btn-outline-primary" data-edit="${WusoolUI.escape(item.id)}">
                                 Edit
                             </button>
 
-                            ${
-                                item.status === "active"
-                                    ? `
-                                        <button class="btn btn-sm btn-outline-warning" data-status="${item.id}" data-value="suspended">
+                            ${item.status === "active" ? `
+                                        <button class="btn btn-sm btn-outline-warning" data-status="${WusoolUI.escape(item.id)}" data-value="suspended">
                                             Suspend
                                         </button>
-                                    `
-                                    : `
-                                        <button class="btn btn-sm btn-outline-success" data-status="${item.id}" data-value="active">
+                                    ` : `
+                                        <button class="btn btn-sm btn-outline-success" data-status="${WusoolUI.escape(item.id)}" data-value="active">
                                             Activate
                                         </button>
-                                    `
-                            }
+                                    `}
 
-                            <button class="btn btn-sm btn-outline-danger" data-delete="${item.id}">
+                            <button class="btn btn-sm btn-outline-danger" data-delete="${WusoolUI.escape(item.id)}">
                                 Delete
                             </button>
                         </div>
                     </td>
                 </tr>
             `;
-        }).join("")
-        : `
+    })).join("") : `
             <tr>
                 <td colspan="7" class="text-center py-5 text-secondary">
                     No users found.
                 </td>
             </tr>
-        `;
-};
-
-const clearForm = () => {
+        `);
+  };
+  const clearForm = () => {
     document.getElementById("userModalTitle").textContent = "Add User";
     document.getElementById("userId").value = "";
     document.getElementById("userName").value = "";
@@ -150,9 +124,8 @@ const clearForm = () => {
     document.getElementById("userStatus").value = "active";
     document.getElementById("userPreferences").value = "";
     document.getElementById("userNotes").value = "";
-};
-
-const fillForm = (item) => {
+  };
+  const fillForm = item => {
     document.getElementById("userModalTitle").textContent = "Edit User";
     document.getElementById("userId").value = item.id;
     document.getElementById("userName").value = item.name;
@@ -161,59 +134,51 @@ const fillForm = (item) => {
     document.getElementById("userCity").value = item.city;
     document.getElementById("userRole").value = item.role;
     document.getElementById("userStatus").value = item.status;
-    document.getElementById("userPreferences").value =
-        item.accessibilityPreferences.join(", ");
+    document.getElementById("userPreferences").value = item.accessibilityPreferences.join(", ");
     document.getElementById("userNotes").value = item.notes;
-};
-
-document.getElementById("addUserButton").addEventListener("click", () => {
+  };
+  WusoolUI.listen(document.getElementById("addUserButton"), "click", () => {
     clearForm();
     userModal.show();
-});
-
-document.getElementById("userForm").addEventListener("submit", (event) => {
+  });
+  WusoolUI.listen(document.getElementById("userForm"), "submit", async event => {
     event.preventDefault();
-
-    service.saveUser({
-        id: document.getElementById("userId").value || undefined,
-        name: document.getElementById("userName").value.trim(),
-        email: document.getElementById("userEmail").value.trim(),
-        phone: document.getElementById("userPhone").value.trim(),
-        city: document.getElementById("userCity").value.trim(),
-        role: document.getElementById("userRole").value,
-        status: document.getElementById("userStatus").value,
-        accessibilityPreferences:
-            document.getElementById("userPreferences").value
-                .split(",")
-                .map((item) => item.trim())
-                .filter(Boolean),
-        notes: document.getElementById("userNotes").value.trim()
+    const reason=WusoolAdmin.statusReason(document.getElementById("userStatus").value);if(reason===null)return;
+    await service.saveUser({
+      reason,
+      id: document.getElementById("userId").value || undefined,
+      name: document.getElementById("userName").value.trim(),
+      email: document.getElementById("userEmail").value.trim(),
+      phone: document.getElementById("userPhone").value.trim(),
+      city: document.getElementById("userCity").value.trim(),
+      role: document.getElementById("userRole").value,
+      status: document.getElementById("userStatus").value,
+      accessibilityPreferences: document.getElementById("userPreferences").value.split(",").map(item => item.trim()).filter(Boolean),
+      notes: document.getElementById("userNotes").value.trim()
     });
-
     userModal.hide();
-    renderStats();
-    render();
+    await renderStats();
+    await render();
     WusoolAdmin.toast("User saved successfully.");
-});
-
-tbody.addEventListener("click", (event) => {
+  });
+  WusoolUI.listen(tbody, "click", async event => {
     const view = event.target.closest("[data-view]");
     const edit = event.target.closest("[data-edit]");
     const status = event.target.closest("[data-status]");
     const remove = event.target.closest("[data-delete]");
-
     if (view) {
-        const user = service.getUserById(view.dataset.view);
-        if (!user) {
-            return;
-        }
-
-        const tickets = service.getTickets({ requesterId: user.id });
-        const reviews = service.getReviews({ userId: user.id });
-
-        document.getElementById("userDetailsTitle").textContent = user.name;
-
-        document.getElementById("userDetailsContent").innerHTML = `
+      const user = await service.getUserById(view.dataset.view);
+      if (!user) {
+        return;
+      }
+      const tickets = await service.getTickets({
+        requesterId: user.id
+      });
+      const reviews = await service.getReviews({
+        userId: user.id
+      });
+      document.getElementById("userDetailsTitle").textContent = user.name;
+      WusoolUI.html(document.getElementById("userDetailsContent"), `
             <div class="row g-4">
                 <div class="col-12 col-xl-4">
                     <article class="content-card h-100">
@@ -222,17 +187,17 @@ tbody.addEventListener("click", (event) => {
 
                         <dl class="row mt-4 mb-0">
                             <dt class="col-5">Email</dt>
-                            <dd class="col-7">${user.email || "-"}</dd>
+                            <dd class="col-7">${WusoolUI.escape(user.email || "-")}</dd>
 
                             <dt class="col-5">Phone</dt>
-                            <dd class="col-7">${user.phone || "-"}</dd>
+                            <dd class="col-7">${WusoolUI.escape(user.phone || "-")}</dd>
 
                             <dt class="col-5">City</dt>
-                            <dd class="col-7">${user.city || "-"}</dd>
+                            <dd class="col-7">${WusoolUI.escape(user.city || "-")}</dd>
 
                             <dt class="col-5">Status</dt>
                             <dd class="col-7">
-                                <span class="badge ${badgeClass(user.status)}">${user.status}</span>
+                                <span class="badge ${badgeClass(user.status)}">${WusoolUI.escape(user.status)}</span>
                             </dd>
                         </dl>
                     </article>
@@ -242,13 +207,9 @@ tbody.addEventListener("click", (event) => {
                     <article class="content-card mb-4">
                         <p class="page-label mb-1">ACCESSIBILITY PREFERENCES</p>
                         <div class="d-flex flex-wrap gap-2 mt-3">
-                            ${
-                                user.accessibilityPreferences.length
-                                    ? user.accessibilityPreferences.map((item) => `
+                            ${user.accessibilityPreferences.length ? user.accessibilityPreferences.map(item => `
                                         <span class="badge text-bg-light border">${item}</span>
-                                    `).join("")
-                                    : `<span class="text-secondary">No preferences saved.</span>`
-                            }
+                                    `).join("") : `<span class="text-secondary">No preferences saved.</span>`}
                         </div>
                     </article>
 
@@ -275,48 +236,37 @@ tbody.addEventListener("click", (event) => {
                     </div>
                 </div>
             </div>
-        `;
-
-        detailsModal.show();
+        `);
+      detailsModal.show();
     }
-
     if (edit) {
-        const user = service.getUserById(edit.dataset.edit);
-        if (!user) {
-            return;
-        }
-
-        fillForm(user);
-        userModal.show();
+      const user = await service.getUserById(edit.dataset.edit);
+      if (!user) {
+        return;
+      }
+      fillForm(user);
+      userModal.show();
     }
-
     if (status) {
-        service.setUserStatus(
-            status.dataset.status,
-            status.dataset.value
-        );
-
-        renderStats();
-        render();
-        WusoolAdmin.toast("User status updated.");
+      const reason=WusoolAdmin.statusReason(status.dataset.value);if(reason===null)return;
+      await service.setUserStatus(status.dataset.status, status.dataset.value, reason);
+      await renderStats();
+      await render();
+      WusoolAdmin.toast("User status updated.");
     }
-
     if (remove) {
-        const user = service.getUserById(remove.dataset.delete);
-
-        if (!user || !WusoolAdmin.confirm(`Move ${user.name} to Recovery Center?`)) {
-            return;
-        }
-
-        service.deleteUser(user.id, "Deleted from Admin Users");
-        renderStats();
-        render();
-        WusoolAdmin.toast("User moved to Recovery Center.");
+      const user = await service.getUserById(remove.dataset.delete);
+      if (!user || !WusoolAdmin.confirm(`Move ${WusoolUI.escape(user.name)} to Recovery Center?`)) {
+        return;
+      }
+      await service.deleteUser(user.id, "Deleted from Admin Users");
+      await renderStats();
+      await render();
+      WusoolAdmin.toast("User moved to Recovery Center.");
     }
+  });
+  WusoolUI.listen(search, "input", render);
+  WusoolUI.listen(statusFilter, "change", render);
+  await renderStats();
+  await render();
 });
-
-search.addEventListener("input", render);
-statusFilter.addEventListener("change", render);
-
-renderStats();
-render();

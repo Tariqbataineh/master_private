@@ -1,11 +1,11 @@
-
 "use strict";
 
-let rules = WusoolBehaviorService.getRules();
-const list = document.getElementById("rulesList");
-
-const render = () => {
-    list.innerHTML = rules.map((rule) => `
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  let rules = await WusoolBehaviorService.getRules();
+  const list = document.getElementById("rulesList");
+  const render = () => {
+    WusoolUI.html(list, rules.map(rule => `
         <div class="admin-list-item">
             <span class="item-icon">
                 <i class="bi bi-diagram-3"></i>
@@ -35,61 +35,45 @@ const render = () => {
                 </button>
             </div>
         </div>
-    `).join("");
-};
-
-document.getElementById("addRuleButton").addEventListener("click", () => {
+    `).join(""));
+  };
+  WusoolUI.listen(document.getElementById("addRuleButton"), "click", async () => {
     rules.push({
-        id: `rule-${Date.now()}`,
-        name: document.getElementById("ruleName").value.trim() || "Rule",
-        enabled: true,
-        entity: document.getElementById("ruleEntity").value,
-        field: document.getElementById("ruleField").value,
-        operator: document.getElementById("ruleOperator").value,
-        value: document.getElementById("ruleValue").value.trim(),
-        action: document.getElementById("ruleAction").value,
-        actionValue: document.getElementById("ruleActionValue").value.trim()
+      id: `rule-${Date.now()}`,
+      name: document.getElementById("ruleName").value.trim() || "Rule",
+      enabled: true,
+      entity: document.getElementById("ruleEntity").value,
+      field: document.getElementById("ruleField").value,
+      operator: document.getElementById("ruleOperator").value,
+      value: document.getElementById("ruleValue").value.trim(),
+      action: document.getElementById("ruleAction").value,
+      actionValue: document.getElementById("ruleActionValue").value.trim()
     });
-
-    WusoolBehaviorService.saveRules(rules);
+    await WusoolBehaviorService.saveRules(rules);
     render();
-});
-
-list.addEventListener("click", (event) => {
+  });
+  WusoolUI.listen(list, "click", async event => {
     const toggle = event.target.closest("[data-toggle]");
     const remove = event.target.closest("[data-delete]");
-
     if (toggle) {
-        const rule = rules.find((x) => x.id === toggle.dataset.toggle);
-
-        if (rule) {
-            rule.enabled = !rule.enabled;
-            WusoolBehaviorService.saveRules(rules);
-            render();
-        }
-    }
-
-    if (remove) {
-        rules = rules.filter((x) => x.id !== remove.dataset.delete);
-        WusoolBehaviorService.saveRules(rules);
+      const rule = rules.find(x => x.id === toggle.dataset.toggle);
+      if (rule) {
+        rule.enabled = !rule.enabled;
+        await WusoolBehaviorService.saveRules(rules);
         render();
+      }
     }
-});
-
-document.getElementById("runRulesButton").addEventListener("click", () => {
-    WusoolDataService.getBranches().forEach(
-        (item) => WusoolBehaviorService.evaluateEntity("Branch", item)
-    );
-
-    WusoolDataService.getOrganizations().forEach(
-        (item) => WusoolBehaviorService.evaluateEntity("Organization", item)
-    );
-
-    WusoolDataService.getTickets().forEach(
-        (item) => WusoolBehaviorService.evaluateEntity("Ticket", item)
-    );
-
+    if (remove) {
+      rules = rules.filter(x => x.id !== remove.dataset.delete);
+      await WusoolBehaviorService.saveRules(rules);
+      render();
+    }
+  });
+  WusoolUI.listen(document.getElementById("runRulesButton"), "click", async () => {
+    await WusoolUI.each(await WusoolDataService.getBranches(), async item => await WusoolBehaviorService.evaluateEntity("Branch", item));
+    await WusoolUI.each(await WusoolDataService.getOrganizations(), async item => await WusoolBehaviorService.evaluateEntity("Organization", item));
+    await WusoolUI.each(await WusoolDataService.getTickets(), async item => await WusoolBehaviorService.evaluateEntity("Ticket", item));
     WusoolAdmin.toast("Rules executed against current platform data.");
+  });
+  render();
 });
-
-render();

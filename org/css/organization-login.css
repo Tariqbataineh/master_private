@@ -433,3 +433,33 @@ body {
         font-size: 2rem;
     }
 }
+/* Compact navigation for the organization sign-in page. */
+.organization-login-page > .organization-login-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    padding: 10px clamp(16px, 4vw, 56px);
+    border-bottom: 1px solid rgba(21, 61, 54, .09);
+    background: rgba(250, 252, 249, .86);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+.organization-login-nav { display:flex; align-items:center; justify-content:space-between; gap:24px; max-width:1440px; margin:0 auto; min-height:48px; }
+.organization-nav-brand { display:inline-flex; align-items:center; gap:10px; color:#173d37; text-decoration:none; font-size:21px; font-weight:800; letter-spacing:-.5px; white-space:nowrap; }
+.organization-nav-brand:hover { color:#0c796f; }
+.organization-nav-dot { color:#f58220; }
+.organization-nav-mark { display:grid; place-items:center; width:36px; height:36px; border-radius:12px; color:#fff; background:#0d8178; font-size:21px; }
+.organization-nav-links { display:flex; align-items:center; justify-content:flex-end; gap:clamp(10px,2vw,28px); }
+.organization-nav-links a { color:#435c56; text-decoration:none; font-size:13px; font-weight:650; white-space:nowrap; transition:color .2s ease, background .2s ease, transform .2s ease; }
+.organization-nav-links a:hover { color:#087b71; }
+.organization-nav-links .organization-nav-active { color:#087b71; }
+.organization-nav-links .organization-nav-join { padding:10px 15px; border-radius:11px; color:#fff; background:#0e7f75; box-shadow:0 7px 18px rgba(14,127,117,.16); }
+.organization-nav-links .organization-nav-join:hover { color:#fff; background:#096b63; transform:translateY(-1px); }
+.organization-login-page > .organization-login-navbar + .login-page { min-height:calc(100vh - 70px)!important; }
+@media(max-width:760px) {
+ .organization-login-page > .organization-login-navbar { padding:8px 14px; }
+ .organization-login-nav { align-items:flex-start; flex-direction:column; gap:10px; }
+ .organization-nav-links { width:100%; justify-content:flex-start; gap:8px 18px; flex-wrap:wrap; }
+ .organization-nav-links a { font-size:12px; }
+ .organization-nav-links .organization-nav-join { padding:7px 10px; }
+}
