@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "Approved street scene initializes in real WebGL",
+    "Eight original stations retained",
+    "Scroll changes rendered camera view",
+    "Academy arrival and details dialog work",
+    "Mobile street canvas remains visible"
+  ],
+  "pageErrors": [],
+  "missingLocalResources": [],
+  "scrollPercent": "48%"
+}

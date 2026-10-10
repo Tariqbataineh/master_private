@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="../../assets/interaction-theme.js"></script>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Version History | Wusool</title>
+
+    <link
+        href="../../assets/vendor/bootstrap-5.3.3/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/admin-sidebar.css">
+    <link rel="stylesheet" href="../css/admin-common.css">
+    <link rel="stylesheet" href="../css/admin-version-history.css">
+<script src="../../assets/api-config.js"></script>
+<script src="../../assets/interaction-policy.js"></script>
+<script src="../../assets/location-service.js"></script>
+<script src="../../assets/branch-workflow.js"></script>
+<script src="../../assets/service-registry.js"></script>
+<script src="../../assets/storage-adapter.js"></script>
+<script src="../../assets/http-client.js"></script>
+<script src="../../assets/services/core.js"></script>
+<script src="../../assets/services/local.js"></script>
+<script src="../../assets/services/entities.js"></script>
+<script src="../../assets/services/auth.js"></script>
+<script src="../../assets/services/bookings.js"></script>
+<script src="../../assets/services/integrations.js"></script>
+<script src="../../assets/services/facade.js"></script>
+<script src="../../assets/services/state.js"></script>
+<script src="../../assets/services/journey.js"></script>
+<script src="../../assets/services/visits.js"></script>
+<script src="../../assets/services/hours.js"></script>
+    <script src="../../assets/app-services.js"></script>
+<script src="../../assets/data-service.js"></script>
+<script src="../../assets/page-runtime.js"></script>
+<script src="../../assets/external-screens.js"></script>
+<script src="../../assets/live-sync.js"></script>
+<script src="../../assets/catalog-runtime.js"></script>
+<script src="../../assets/feature-store.js"></script>
+<script src="../../assets/version-service.js"></script>
+<script src="../../assets/behavior-service.js"></script>
+<link rel="stylesheet" href="../../assets/interactions.css"/>
+<script src="../../assets/interaction-i18n.js"></script>
+<script defer src="../../assets/interactions.js"></script>
+<link rel="stylesheet" href="../../assets/form-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/theme-surfaces.css"/>
+</head>
+
+<body>
+
+<header class="mobile-header d-lg-none d-flex align-items-center justify-content-between px-3 py-2">
+    <a href="./admin-dashboard.html" class="brand-link d-flex align-items-center gap-2 text-decoration-none">
+        <span class="brand-icon">
+            <i class="bi bi-universal-access"></i>
+        </span>
+
+        <span class="fw-bold fs-4">
+            Wusool
+        </span>
+    </a>
+
+    <button
+        class="btn btn-outline-light"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#adminSidebar"
+    >
+        <i class="bi bi-list fs-4"></i>
+    </button>
+</header>
+
+<div class="admin-layout">
+
+    <div id="adminSidebarContainer"></div>
+
+    <main class="main-content">
+
+        <header class="page-header border-bottom">
+            <div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
+                <p class="page-label mb-2">
+                    CHANGE CONTROL
+                </p>
+
+                <h1 class="display-6 fw-bold mb-2">
+                    Version History & Rollback
+                </h1>
+
+                <p class="text-secondary mb-0">
+                    Every important publish can create a restorable platform snapshot.
+                </p>
+            </div>
+        </header>
+
+        <div class="container-fluid px-3 px-md-4 px-xl-5 py-4">
+
+            <div class="row g-4">
+
+                <div class="col-12 col-xl-8">
+
+                    <article class="content-card">
+
+                        <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                            <div>
+                                <p class="page-label mb-1">
+                                    PUBLISHED VERSIONS
+                                </p>
+
+                                <h2 class="h4 fw-bold mb-0">
+                                    History
+                                </h2>
+                            </div>
+
+                            <button
+                                class="btn btn-outline-secondary"
+                                id="createManualVersion"
+                            >
+                                Create Snapshot
+                            </button>
+                        </div>
+
+                        <div id="versionsList"></div>
+
+                    </article>
+
+                </div>
+
+                <div class="col-12 col-xl-4">
+
+                    <article class="content-card">
+
+                        <p class="page-label mb-1">
+                            VERSION DETAILS
+                        </p>
+
+                        <div
+                            class="text-secondary mt-3"
+                            id="versionDetails"
+                        >
+                            Select a version to inspect its saved areas.
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+<script src="../../assets/vendor/bootstrap-5.3.3/bootstrap.bundle.min.js"></script>
+
+<script src="../js/admin-core.js"></script>
+<script src="../js/admin-sidebar.js"></script>
+<script src="../js/admin-version-history.js"></script>
+
+    
+    <script src="../../assets/behavior-runtime.js"></script>
+    
+    <script src="../../assets/error-runtime.js"></script>
+    <script src="../../assets/maintenance-runtime.js"></script>
+</body>
+</html>

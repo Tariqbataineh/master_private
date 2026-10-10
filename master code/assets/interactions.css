@@ -1,0 +1,349 @@
+/* Shared interactions, scoped to wxi components. Existing route/layout classes stay intact. */
+:root {
+  --wxi-teal: var(--primary-color, #0f766e);
+  --wxi-navy: var(--secondary-color, #0f2747);
+  --wxi-surface: #fff;
+  --wxi-ink: #172033;
+  --wxi-line: var(--border-color, #d6e6e4);
+}
+.wxi-button {
+  background: var(--wxi-surface);
+  color: var(--wxi-teal);
+  border: 1px solid var(--wxi-line);
+  border-radius: 12px;
+  padding: 0.6rem 0.85rem;
+  min-height: 44px;
+  font: inherit;
+  cursor: pointer;
+}
+.wxi-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.wxi-button:focus-visible,
+.wxi-day:focus-visible,
+.wxi-carousel:focus-visible,
+.wxi-theme-controls select:focus-visible {
+  outline: 3px solid var(--wxi-teal);
+  outline-offset: 3px;
+}
+.wxi-calendar {
+  position: relative;
+  margin-block: 0.5rem;
+}
+.wxi-calendar-dialog {
+  position: absolute;
+  inset-inline-start: 0;
+  top: 100%;
+  width: min(360px, 85vw);
+  padding: 16px;
+  border: 1px solid var(--wxi-line);
+  border-radius: 18px;
+  background: var(--wxi-surface);
+  color: var(--wxi-ink);
+  box-shadow: 0 15px 40px #0f274726;
+  z-index: 1050;
+}
+.wxi-calendar-dialog[hidden] {
+  display: none;
+}
+.wxi-calendar-head,
+.wxi-calendar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.wxi-calendar-head strong {
+  text-align: center;
+  font-size: 14px;
+}
+.wxi-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin-block: 12px;
+  gap: 2px;
+}
+.wxi-day {
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: inherit;
+  min-width: 0;
+  min-height: 40px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.wxi-day:disabled {
+  color: #7b8796;
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+.wxi-outside {
+  opacity: 0.55;
+}
+.wxi-today {
+  outline: 1px solid var(--wxi-teal);
+  outline-offset: -3px;
+}
+.wxi-preview {
+  background: #14b8a630;
+}
+.wxi-selected {
+  background: var(--wxi-teal);
+  color: white;
+}
+.wxi-calendar-summary {
+  font-size: 13px;
+  min-height: 20px;
+  line-height: 1.7;
+  margin: 6px 0;
+}
+.wxi-password {
+  font-size: 12px;
+  line-height: 1.7;
+  margin-block: 10px;
+  color: var(--wxi-ink);
+}
+.wxi-password-meter {
+  display: flex;
+  gap: 5px;
+  margin-block: 8px;
+}
+.wxi-password-meter span {
+  flex: 1;
+  height: 5px;
+  border-radius: 5px;
+  background: #cbd5e1;
+  transition: background 0.15s;
+}
+.wxi-password-meter .wxi-met {
+  background: var(--wxi-teal);
+}
+.wxi-password p {
+  margin: 5px 0;
+}
+.wxi-password ul {
+  padding-inline-start: 18px;
+  margin: 0;
+}
+.wxi-carousel {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  min-height: 380px;
+  max-width: 900px;
+  margin-inline: auto !important;
+  perspective: 1100px;
+  isolation: isolate;
+  touch-action: pan-y;
+  overflow: clip;
+  padding: 14px 100px !important;
+}
+.wxi-slide {
+  grid-area: 1/1;
+  width: 100% !important;
+  max-width: 460px !important;
+  margin: auto;
+  transform: translateX(calc(var(--wxi-distance) * 70px)) scale(0.9)
+    rotateY(calc(var(--wxi-distance) * -7deg));
+  opacity: 0.55;
+  z-index: 0;
+  pointer-events: none;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s;
+  visibility: hidden;
+}
+.wxi-slide[style*='--wxi-distance: -1'],
+.wxi-slide[style*='--wxi-distance: 1'] {
+  visibility: visible;
+}
+.wxi-slide-active {
+  transform: none;
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+.wxi-slide article {
+  border: 1px solid var(--wxi-line);
+  border-radius: 20px;
+  background: var(--wxi-surface);
+  box-shadow: 0 10px 25px #0f274719;
+  overflow: hidden;
+}
+.wxi-slide img {
+  width: 100%;
+  object-fit: cover;
+  max-height: 300px;
+}
+.wxi-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-block: 16px;
+}
+.wxi-image-failed {
+  display: block;
+  padding: 50px 20px;
+  background: #e2e8f0;
+  color: #10233f;
+}
+.wxi-carousel-controls span {
+  color: var(--wxi-ink);
+}
+[dir='rtl'] .wxi-slide {
+  transform: translateX(calc(var(--wxi-distance) * -70px)) scale(0.9)
+    rotateY(calc(var(--wxi-distance) * 7deg));
+}
+[dir='rtl'] .wxi-slide-active {
+  transform: none;
+}
+.wxi-nav {
+  border-radius: 18px;
+  border: 1px solid var(--wxi-line);
+  margin: 8px 12px;
+}
+.wxi-nav .navbar-nav {
+  position: relative;
+}
+.wxi-nav-indicator {
+  position: absolute;
+  left: 0;
+  height: 3px;
+  background: var(--wxi-teal);
+  border-radius: 4px;
+  pointer-events: none;
+  transition:
+    transform 0.18s,
+    width 0.18s;
+}
+.wxi-nav .nav-link {
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+.wxi-nav .nav-link:hover,
+.wxi-nav .nav-link:focus-visible {
+  background: #14b8a612;
+}
+.wxi-theme-controls {
+  position: fixed;
+  inset-inline-end: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  gap: 5px;
+  z-index: 1040;
+  padding: 5px;
+  background: var(--wxi-surface);
+  border: 1px solid var(--wxi-line);
+  border-radius: 16px;
+  box-shadow: 0 5px 18px #0f274719;
+}
+.wxi-theme-controls select {
+  max-width: 95px;
+  border: 0;
+  background: transparent;
+  color: var(--wxi-ink);
+  font: inherit;
+  font-size: 12px;
+}
+.wxi-theme-controls .wxi-button {
+  border: 0;
+  font-size: 12px;
+}
+body.high-contrast
+  :is(.wxi-calendar-dialog, .wxi-password, .wxi-button, .wxi-theme-controls, .wxi-slide article) {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+body.high-contrast .wxi-selected {
+  background: #fff !important;
+  color: #000 !important;
+}
+body.high-contrast .wxi-preview {
+  outline: 2px dashed #fff;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+  animation: wxi-circle 0.35s ease-out both;
+}
+@keyframes wxi-circle {
+  from {
+    clip-path: circle(0px at var(--wxi-circle-x) var(--wxi-circle-y));
+  }
+  to {
+    clip-path: circle(var(--wxi-circle-radius) at var(--wxi-circle-x) var(--wxi-circle-y));
+  }
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .wxi-nav {
+    background: var(--wxi-surface) !important;
+  }
+}
+@media (max-width: 700px) {
+  .wxi-carousel {
+    padding: 12px !important;
+    min-height: 300px;
+  }
+  .wxi-slide {
+    transform: none !important;
+    visibility: hidden;
+  }
+  .wxi-slide-active {
+    visibility: visible;
+  }
+  .wxi-nav-indicator {
+    display: none;
+  }
+  .wxi-theme-controls {
+    bottom: 12px;
+    inset-inline-end: 12px;
+    max-width: calc(100vw - 24px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wxi-slide {
+    transform: none !important;
+  }
+  .wxi-slide:not(.wxi-slide-active) {
+    visibility: hidden;
+  }
+  .wxi-slide,
+  .wxi-nav-indicator,
+  .wxi-password-meter span {
+    transition: none;
+  }
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+.password-strength[hidden] {
+  display: none !important;
+}
+
+.wxi-calendar-head {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+}
+.wxi-weekdays {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 11px;
+  color: var(--wxi-ink);
+  padding-top: 6px;
+}

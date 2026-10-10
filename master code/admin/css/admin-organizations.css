@@ -1,0 +1,39 @@
+
+.filter-select {
+    width: auto;
+    min-width: 170px;
+}
+
+.organization-avatar {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 12px;
+    font-weight: 800;
+}
+
+.action-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+}
+
+/* The form wrapper must participate in Bootstrap's scrollable flex layout. */
+#organizationModal .modal-content { max-height: calc(100dvh - 3.5rem); }
+#organizationForm { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: hidden; }
+#organizationForm .modal-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+#organizationForm .modal-footer { flex-shrink: 0; background: var(--wt-surface, #fff); border-top: 1px solid var(--wt-border, #d3e2df); }
+@media (max-width: 575px) { #organizationModal .modal-content { max-height: calc(100dvh - 1rem); } }
+
+.organization-profile-hero{display:flex;align-items:center;gap:20px;padding:26px;border:1px solid var(--wt-border,#cde5e3);border-radius:20px;background:var(--wt-raised,#eef8f7);color:var(--wt-text,#0d2948);}
+.organization-profile-avatar{display:grid;place-items:center;width:72px;height:72px;flex-shrink:0;border-radius:22px;background:var(--wt-accent,#087f7b);color:white;font-size:2rem;}
+.organization-profile-grid .content-card{border-radius:18px;box-shadow:0 8px 28px rgb(13 41 72 / 5%);}
+.organization-profile-grid dl{row-gap:14px;font-size:.93rem;}.organization-profile-grid dd{overflow-wrap:anywhere;}
+.organization-profile-grid .admin-list-item{padding:16px;border:1px solid var(--wt-border,#d6e6e4);border-radius:14px;margin-bottom:12px;background:var(--wt-surface,#fff);}
+@media(max-width:575px){.organization-profile-hero{padding:18px;gap:12px;flex-wrap:wrap;}.organization-profile-avatar{width:52px;height:52px;font-size:1.5rem;}.organization-profile-hero h3{font-size:1.25rem;}}

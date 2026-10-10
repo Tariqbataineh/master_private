@@ -1,0 +1,574 @@
+{
+  "rules": [
+    "Never accept arbitrary unknown keys from clients.",
+    "Bound serialized JSON size, depth and supported fields; never credentials or business-record lists.",
+    "Anonymous registration drafts remain non-sensitive staged client state until registration; no passwords stored.",
+    "Global builder configuration is Admin-write, public-read only for approved display keys.",
+    "State aliases are mapped in services/state.js; resource aliases must dispatch canonical endpoints."
+  ],
+  "dynamicKeys": [
+    {
+      "pattern": "wusoolAdminFeature:<name>",
+      "owner": "Admin",
+      "value": "bounded feature configuration",
+      "allowlistedNames": "Literal KEY constants in active admin controllers; no arbitrary names"
+    }
+  ],
+  "keys": [
+    {
+      "key": "__wusool_test",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-accessibility-preferences",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-accessibility-reports",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-account-settings",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-api-auth",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-auth-mode",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-booking-write",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-color-mode",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-confirm-actions",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-confirm-dialog",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-confirm-icon",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-current-user",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-dynamic-section",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-editor-selected",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-font-size",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-global-announcement",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-high-contrast",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-impersonation-bar",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-initial-dialog",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-is-authenticated",
+      "kind": "compatibility computed flag",
+      "scope": "Derived from /auth/me; writes cannot authorize"
+    },
+    {
+      "key": "wusool-language",
+      "kind": "non-sensitive browser preference",
+      "scope": "Browser"
+    },
+    {
+      "key": "wusool-last-visit",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-location",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-login-transition",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-map-marker",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-marker-shell",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-motion-enabled",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-navigation-session",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-page-leaving",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-page-ready",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-pending-visit",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-place-suggestions",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-pointer-active",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-portable-v1",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-removed-saved-places",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-search",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-selected-place",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-support-requests",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-user-name",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-user-profile",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool-user-reviews",
+      "kind": "canonical resource alias",
+      "scope": "reviews endpoint with backend role/owner filtering"
+    },
+    {
+      "key": "wusool-visits",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool.database.v2",
+      "kind": "local development only",
+      "scope": "Never API authority"
+    },
+    {
+      "key": "wusool.database.v2.before-repair",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusool.session.v2",
+      "kind": "local development only",
+      "scope": "Never API authority"
+    },
+    {
+      "key": "wusoolAccessibilityRequirements",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolActiveSubscription",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolAdminLoggedIn",
+      "kind": "compatibility computed flag",
+      "scope": "Derived from /auth/me; writes cannot authorize"
+    },
+    {
+      "key": "wusoolAdminProfile",
+      "kind": "administrative configuration or resource alias",
+      "scope": "Admin only; bounded allowlist, not entity collections"
+    },
+    {
+      "key": "wusoolAdminRole",
+      "kind": "compatibility computed flag",
+      "scope": "Derived from /auth/me; writes cannot authorize"
+    },
+    {
+      "key": "wusoolAnnouncements",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolAuditLog",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolAutomations",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolBillingCycle",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolBranchReviewHistory",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolBusinessRules",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolConfirmDialog",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolConfirmMessage",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolConfirmReason",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolConfirmTitle",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolContentManager",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolCurrentBranchDraft",
+      "kind": "canonical branch pointer",
+      "scope": "Authenticated organization owner; value {branchId}"
+    },
+    {
+      "key": "wusoolCurrentOrganization",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolCursorLight",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolDemoUser",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolDynamicFormResponses",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolDynamicFormSchemas",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolExitImpersonation",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolFailedLogins",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolFailedPayment",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolFeatureFlags",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolImpersonationBar",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolImpersonationSession",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolLanguageButton",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolMaintenanceSettings",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolMediaLibrary",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolMotionProgress",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolNavigationConfig",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolNotifications",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganization",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganizationAuditLog",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganizationBranches",
+      "kind": "canonical resource alias",
+      "scope": "branches endpoint with backend role/owner filtering"
+    },
+    {
+      "key": "wusoolOrganizationLoggedIn",
+      "kind": "compatibility computed flag",
+      "scope": "Derived from /auth/me; writes cannot authorize"
+    },
+    {
+      "key": "wusoolOrganizationNotificationSettings",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganizationNotifications",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganizationPassword",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganizationRegistration",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolOrganizationStatus",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPageCurtain",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPageInsertions",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPageOverrides",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPayment",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPlatformDrafts",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPlatformTheme",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolPlatformVersions",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolRegisteredUser",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolRegistrationStep",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolRememberedEmail",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolRememberedOrganizationEmail",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolRolesPermissions",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolRuntimeErrors",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolSectionOrders",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolSelectedPlan",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolServiceStatus",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolSubscriptionStatus",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolSupportRequests",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolThemeDraft",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolToast",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolUserTickets",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolVisitorTickets",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    },
+    {
+      "key": "wusoolWorkflows",
+      "kind": "profile alias or bounded screen state",
+      "scope": "Current authenticated actor only; purpose-specific anonymous staged draft only where approved"
+    }
+  ]
+}

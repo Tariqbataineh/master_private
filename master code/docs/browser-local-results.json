@@ -1,0 +1,152 @@
+{
+  "browser": "Chromium",
+  "checks": [
+    {
+      "role": "user",
+      "geometry": {
+        "font": "14.4px",
+        "rows": [
+          {
+            "cells": 7,
+            "display": "table-cell",
+            "branch": "Branch",
+            "state": "ConfirmedNot started"
+          },
+          {
+            "cells": 7,
+            "display": "table-cell",
+            "branch": "Historical branch",
+            "state": "CompletedCompleted"
+          }
+        ],
+        "tables": 1
+      }
+    },
+    {
+      "role": "org",
+      "geometry": {
+        "font": "14.4px",
+        "rows": [
+          {
+            "cells": 7,
+            "display": "table-cell",
+            "branch": "Branch",
+            "state": "ConfirmedNot started"
+          },
+          {
+            "cells": 7,
+            "display": "table-cell",
+            "branch": "Historical branch",
+            "state": "CompletedCompleted"
+          }
+        ],
+        "tables": 1
+      }
+    },
+    {
+      "role": "admin",
+      "geometry": {
+        "font": "14.4px",
+        "rows": [
+          {
+            "cells": 7,
+            "display": "table-cell",
+            "branch": "Branch",
+            "state": "ConfirmedNot started"
+          },
+          {
+            "cells": 7,
+            "display": "table-cell",
+            "branch": "Historical branch",
+            "state": "CompletedCompleted"
+          }
+        ],
+        "tables": 1
+      }
+    },
+    {
+      "flow": "visitor departure → arrival → QR verification → reception, live across three tabs",
+      "passed": true
+    },
+    {
+      "role": "user",
+      "theme": "light",
+      "palette": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(23, 32, 51)"
+      }
+    },
+    {
+      "role": "user",
+      "theme": "dark",
+      "palette": {
+        "background": "rgb(27, 35, 38)",
+        "color": "rgb(237, 245, 243)"
+      }
+    },
+    {
+      "role": "user",
+      "mobileTable": {
+        "client": 316,
+        "scroll": 1020,
+        "overflow": "auto"
+      }
+    },
+    {
+      "role": "org",
+      "theme": "light",
+      "palette": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(23, 32, 51)"
+      }
+    },
+    {
+      "role": "org",
+      "theme": "dark",
+      "palette": {
+        "background": "rgb(27, 35, 38)",
+        "color": "rgb(237, 245, 243)"
+      }
+    },
+    {
+      "role": "org",
+      "mobileTable": {
+        "client": 304,
+        "scroll": 1020,
+        "overflow": "auto"
+      }
+    },
+    {
+      "role": "admin",
+      "theme": "light",
+      "palette": {
+        "background": "rgb(255, 255, 255)",
+        "color": "rgb(23, 32, 51)"
+      }
+    },
+    {
+      "role": "admin",
+      "theme": "dark",
+      "palette": {
+        "background": "rgb(27, 35, 38)",
+        "color": "rgb(237, 245, 243)"
+      }
+    },
+    {
+      "role": "admin",
+      "mobileTable": {
+        "client": 320,
+        "scroll": 1020,
+        "overflow": "auto"
+      }
+    },
+    {
+      "allPages": {
+        "visited": 121,
+        "navigationFailures": []
+      }
+    }
+  ],
+  "errors": [],
+  "externalFailures": []
+}

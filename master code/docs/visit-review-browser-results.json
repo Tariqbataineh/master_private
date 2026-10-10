@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "Pending branch hours can be amended without changing approved hours",
+    "Admin hours decision appears automatically in organization page",
+    "Organization reviews and sidebar update live; search preserved",
+    "Review layout fits mobile and renders dark mode",
+    "Approved review has no edit/delete actions; direct edit URL is read-only",
+    "Invalid visit time displays an inline explanation and retains draft",
+    "Valid Confirm Visit creates pending booking and opens My Tickets"
+  ],
+  "errors": [],
+  "success": true
+}

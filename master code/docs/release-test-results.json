@@ -1,0 +1,84 @@
+{
+  "sourceVersion": 11,
+  "release": 12,
+  "checkedAtUtc": "2026-10-10T10:03:09.088000+00:00",
+  "unitTests": {
+    "total": 170,
+    "passed": 170,
+    "failed": 0,
+    "skipped": 0
+  },
+  "hoursWorkflowBrowser": {
+    "kind": "Local real Chromium hours approval workflow",
+    "checks": [
+      "Organization change pending; visitor still sees old approved hours and published branch",
+      "Admin before/after comparison approval updates all three portal reads automatically",
+      "Rejection requires a reason; organization sees decision and approved hours remain unchanged",
+      "Admin row action directly edits organization hours",
+      "Admin branch row action directly applies approved hours with live organization update",
+      "Dark/mobile native dialog, Escape and trigger focus restoration"
+    ],
+    "errors": []
+  },
+  "controllerDomSmoke": {
+    "local": 119,
+    "empty": 119,
+    "apiMock": 119,
+    "failed": 0
+  },
+  "browser": {
+    "engine": "Chromium 141",
+    "localPortalPagesVisited": 121,
+    "navigationFailures": 0,
+    "pageErrors": 0,
+    "liveRoleCycle": true,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "mobileWidth": 390
+  },
+  "apiBrowser": {
+    "controlledHttpRequests": 91,
+    "rolePages": 3,
+    "failed": 0,
+    "csrfAndLogout204": true,
+    "unauthorizedRedirect": true
+  },
+  "structure": {
+    "pages": 121,
+    "missingLocalReferences": 0,
+    "duplicateIds": 0,
+    "javascriptSyntaxErrors": 0
+  },
+  "contract": {
+    "openapi": "3.0.3",
+    "paths": 72,
+    "operations": 95,
+    "schemas": 91,
+    "valid": true,
+    "validator": "@apidevtools/swagger-parser",
+    "scope": "Structural specification and manifest consistency, not real server execution"
+  },
+  "limitations": [
+    "Controlled HTTP is not the actual ASP.NET backend.",
+    "Local automatic synchronization is within one browser; API mode requires implemented backend revision/notification endpoints.",
+    "No actual mail delivery, payment/webhook or AI-provider execution.",
+    "Chromium checks do not establish zero defects or complete accessibility across every browser/device."
+  ],
+  "homeRestorationBrowser": {
+    "checks": [
+      "Approved street scene initializes in real WebGL",
+      "Eight original stations retained",
+      "Scroll changes rendered camera view",
+      "Academy arrival and details dialog work",
+      "Mobile street canvas remains visible"
+    ],
+    "pageErrors": [],
+    "missingLocalResources": [],
+    "scrollPercent": "48%"
+  },
+  "unchangedBaselineChecks": [
+    "Controller/API browser/full 121-page navigation results retained from release 11; only Home and scoped interaction initialization changed in release 12."
+  ]
+}

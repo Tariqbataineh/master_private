@@ -1,0 +1,1027 @@
+/* ==========================================================
+   WUSOOL MOTION SYSTEM
+   Premium interaction layer shared by Visitor / User / Org / Admin.
+   Visual direction: cinematic product UI, dimensional dashboards,
+   polished micro-interactions, and accessible motion fallbacks.
+   ========================================================== */
+
+:root {
+  --wm-teal: #0f766e;
+  --wm-teal-bright: #14b8a6;
+  --wm-cyan: #38d7c6;
+  --wm-navy: #0f2747;
+  --wm-ink: #071c2f;
+  --wm-glow: rgba(20, 184, 166, 0.22);
+  --wm-shadow: 0 26px 70px rgba(8, 36, 63, 0.15);
+  --wm-shadow-hover: 0 38px 90px rgba(8, 36, 63, 0.21);
+  --wm-radius: 22px;
+  --wm-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --wm-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.wusool-motion-enabled {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Global chrome ---------- */
+#wusoolMotionProgress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 2147483600;
+  height: 3px;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, #14b8a6, #4dd6ff, #0f766e, #8cf5e8);
+  box-shadow: 0 0 18px rgba(20, 184, 166, 0.65);
+  will-change: transform;
+}
+
+#wusoolPageCurtain {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483500;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 1;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(57, 214, 193, 0.3), transparent 32%),
+    radial-gradient(circle at 20% 85%, rgba(73, 137, 255, 0.2), transparent 34%),
+    linear-gradient(135deg, #061e2f 0%, #0a3b48 52%, #0f766e 100%);
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 0.46s var(--wm-spring),
+    opacity 0.18s ease 0.28s;
+  will-change: transform;
+}
+
+#wusoolPageCurtain .wm-curtain-brand {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  color: #fff;
+  transform: translateY(0) scale(1);
+  transition:
+    transform 0.6s var(--wm-spring),
+    opacity 0.35s ease;
+}
+
+#wusoolPageCurtain .wm-mark {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05));
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(16px);
+  font-weight: 900;
+  font-size: 30px;
+  letter-spacing: -0.08em;
+}
+
+#wusoolPageCurtain .wm-mark::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(127, 255, 238, 0.23);
+  border-radius: 30px;
+  animation: wmCurtainPulse 1.6s ease-in-out infinite;
+}
+
+#wusoolPageCurtain .wm-word {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html.wusool-page-ready #wusoolPageCurtain {
+  transform: translate3d(0, -102%, 0);
+  opacity: 0.98;
+}
+
+html.wusool-page-leaving #wusoolPageCurtain {
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+  transition:
+    transform 0.34s var(--wm-ease),
+    opacity 0.12s ease;
+}
+
+html.wusool-page-leaving #wusoolPageCurtain .wm-curtain-brand {
+  animation: wmBrandIn 0.42s var(--wm-spring) both;
+}
+
+#wusoolCursorLight {
+  position: fixed;
+  z-index: 2147480000;
+  width: 300px;
+  height: 300px;
+  margin: -150px 0 0 -150px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(20, 184, 166, 0.11) 0%,
+    rgba(20, 184, 166, 0.045) 30%,
+    transparent 68%
+  );
+  transform: translate3d(-999px, -999px, 0);
+  transition: opacity 0.24s ease;
+  will-change: transform;
+}
+
+@media (pointer: fine) {
+  html.wusool-pointer-active #wusoolCursorLight {
+    opacity: 1;
+  }
+}
+
+/* ---------- Navigation polish ---------- */
+.wusool-motion-enabled .navbar,
+.wusool-motion-enabled .main-navbar,
+.wusool-motion-enabled [class*='topbar'],
+.wusool-motion-enabled [class*='header-bar'] {
+  backdrop-filter: blur(10px) saturate(125%);
+  -webkit-backdrop-filter: blur(10px) saturate(125%);
+}
+
+.wusool-motion-enabled .nav-link,
+.wusool-motion-enabled .user-sidebar-link,
+.wusool-motion-enabled .admin-sidebar a,
+.wusool-motion-enabled [class*='sidebar'] a {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.wusool-motion-enabled .nav-link::after,
+.wusool-motion-enabled .user-sidebar-link::after,
+.wusool-motion-enabled [class*='sidebar'] a::after {
+  content: '';
+  position: absolute;
+  inset: auto 16% 3px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--wm-teal-bright), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s var(--wm-spring);
+  pointer-events: none;
+}
+
+.wusool-motion-enabled .nav-link:hover::after,
+.wusool-motion-enabled .nav-link.active::after,
+.wusool-motion-enabled .user-sidebar-link:hover::after,
+.wusool-motion-enabled .user-sidebar-link.active::after,
+.wusool-motion-enabled [class*='sidebar'] a:hover::after,
+.wusool-motion-enabled [class*='sidebar'] a.active::after {
+  transform: scaleX(1);
+}
+
+.wusool-motion-enabled [class*='sidebar'] {
+  --wm-sidebar-sheen: rgba(85, 242, 220, 0.16);
+}
+
+.wusool-motion-enabled .user-sidebar,
+.wusool-motion-enabled .admin-sidebar,
+.wusool-motion-enabled [class*='sidebar-panel'] {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(48, 222, 203, 0.22), transparent 28%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.03), transparent 52%);
+}
+
+.wusool-motion-enabled .user-sidebar::before,
+.wusool-motion-enabled .admin-sidebar::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent 8%, rgba(91, 255, 235, 0.46), transparent 82%);
+  opacity: 0.75;
+  animation: wmSidebarBeam 5.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* ---------- Reveal system ---------- */
+.wusool-motion-enabled [data-wusool-reveal] {
+  --wm-rx: 0deg;
+  --wm-ry: 0deg;
+  --wm-translate-y: 34px;
+  opacity: 0;
+  transform: translate3d(0, var(--wm-translate-y), 0) scale(0.985);
+  transition:
+    opacity 0.55s var(--wm-ease) var(--wm-delay, 0ms),
+    transform 0.64s var(--wm-spring) var(--wm-delay, 0ms);
+}
+
+.wusool-motion-enabled [data-wusool-reveal].wm-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.wusool-motion-enabled [data-wusool-reveal='left'] {
+  transform: translate3d(-38px, 12px, 0) scale(0.985);
+}
+
+.wusool-motion-enabled [data-wusool-reveal='right'] {
+  transform: translate3d(38px, 12px, 0) scale(0.985);
+}
+
+.wusool-motion-enabled [data-wusool-reveal='zoom'] {
+  transform: translate3d(0, 18px, 0) scale(0.94);
+}
+
+.wusool-motion-enabled [data-wusool-reveal='left'].wm-visible,
+.wusool-motion-enabled [data-wusool-reveal='right'].wm-visible,
+.wusool-motion-enabled [data-wusool-reveal='zoom'].wm-visible {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* ---------- Dimensional cards ---------- */
+.wusool-motion-enabled .wm-interactive-surface {
+  --wm-mx: 50%;
+  --wm-my: 50%;
+  --wm-tilt-x: 0deg;
+  --wm-tilt-y: 0deg;
+  --wm-lift: 0px;
+  position: relative;
+  isolation: isolate;
+  transform: perspective(1000px) rotateX(var(--wm-tilt-x)) rotateY(var(--wm-tilt-y))
+    translate3d(0, var(--wm-lift), 0);
+  transform-style: preserve-3d;
+  transition:
+    transform 0.36s var(--wm-spring),
+    box-shadow 0.36s ease,
+    border-color 0.3s ease;
+  backface-visibility: hidden;
+}
+
+.wusool-motion-enabled .wm-interactive-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    340px circle at var(--wm-mx) var(--wm-my),
+    rgba(255, 255, 255, 0.32),
+    rgba(83, 239, 222, 0.08) 28%,
+    transparent 62%
+  );
+  transition: opacity 0.28s ease;
+  mix-blend-mode: soft-light;
+}
+
+.wusool-motion-enabled .wm-interactive-surface:hover {
+  --wm-lift: -7px;
+  box-shadow: var(--wm-shadow-hover);
+}
+
+.wusool-motion-enabled .wm-interactive-surface:hover::after {
+  opacity: 0.72;
+}
+
+.wusool-motion-enabled .wm-interactive-surface > img,
+.wusool-motion-enabled .wm-interactive-surface .card-img-top,
+.wusool-motion-enabled .wm-interactive-surface [class*='image'] img {
+  transition:
+    transform 0.65s var(--wm-spring),
+    filter 0.5s ease;
+}
+
+.wusool-motion-enabled .wm-interactive-surface:hover > img,
+.wusool-motion-enabled .wm-interactive-surface:hover .card-img-top,
+.wusool-motion-enabled .wm-interactive-surface:hover [class*='image'] img {
+  transform: scale(1.045);
+  filter: saturate(1.06) contrast(1.02);
+}
+
+/* ---------- Buttons ---------- */
+.wusool-motion-enabled .btn,
+.wusool-motion-enabled button:not(.navbar-toggler) {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transform: translate3d(var(--wm-btn-x, 0), var(--wm-btn-y, 0), 0);
+  transition:
+    transform 0.3s var(--wm-spring),
+    box-shadow 0.3s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.wusool-motion-enabled .btn::before,
+.wusool-motion-enabled button.wm-sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.32) 45%,
+    rgba(255, 255, 255, 0.12) 53%,
+    transparent 72%
+  );
+  transform: translateX(-145%);
+  transition: transform 0.72s var(--wm-ease);
+}
+
+.wusool-motion-enabled .btn:hover::before,
+.wusool-motion-enabled button.wm-sheen:hover::before {
+  transform: translateX(145%);
+}
+
+.wusool-motion-enabled .btn:hover,
+.wusool-motion-enabled button.wm-sheen:hover {
+  box-shadow: 0 14px 34px rgba(8, 36, 63, 0.14);
+}
+
+.wusool-motion-enabled .wm-ripple {
+  position: absolute;
+  z-index: 20;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.54);
+  transform: translate(-50%, -50%) scale(0);
+  animation: wmRipple 0.7s ease-out forwards;
+}
+
+/* ---------- Form interactions ---------- */
+.wusool-motion-enabled .form-control,
+.wusool-motion-enabled .form-select,
+.wusool-motion-enabled textarea,
+.wusool-motion-enabled input:not([type='checkbox']):not([type='radio']),
+.wusool-motion-enabled .input-group,
+.wusool-motion-enabled .custom-input-group {
+  transition:
+    transform 0.26s var(--wm-spring),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    background-color 0.28s ease;
+}
+
+.wusool-motion-enabled .input-group:focus-within,
+.wusool-motion-enabled .custom-input-group:focus-within {
+  transform: translateY(-2px) scale(1.006);
+  filter: drop-shadow(0 12px 18px rgba(15, 118, 110, 0.08));
+}
+
+.wusool-motion-enabled .form-control:focus,
+.wusool-motion-enabled .form-select:focus,
+.wusool-motion-enabled textarea:focus,
+.wusool-motion-enabled input:focus {
+  box-shadow:
+    0 0 0 4px rgba(20, 184, 166, 0.1),
+    0 12px 32px rgba(15, 118, 110, 0.08);
+}
+
+.wusool-motion-enabled label {
+  transition:
+    color 0.22s ease,
+    transform 0.22s var(--wm-spring);
+}
+
+.wusool-motion-enabled .wm-field-active > label,
+.wusool-motion-enabled .wm-field-active .form-label {
+  color: var(--wm-teal);
+  transform: translateX(2px);
+}
+
+/* ---------- Tables / lists ---------- */
+.wusool-motion-enabled table tbody tr,
+.wusool-motion-enabled .list-group-item,
+.wusool-motion-enabled [class*='activity-item'],
+.wusool-motion-enabled [class*='notification-item'] {
+  transition:
+    transform 0.28s var(--wm-spring),
+    background-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.wusool-motion-enabled table tbody tr:hover {
+  position: relative;
+  z-index: 2;
+  transform: translateX(4px) scale(1.003);
+  box-shadow: 0 9px 24px rgba(8, 36, 63, 0.07);
+}
+
+.wusool-motion-enabled .list-group-item:hover,
+.wusool-motion-enabled [class*='activity-item']:hover,
+.wusool-motion-enabled [class*='notification-item']:hover {
+  transform: translateX(5px);
+}
+
+/* ---------- Icon energy ---------- */
+.wusool-motion-enabled .bi,
+.wusool-motion-enabled [class*='icon'] i,
+.wusool-motion-enabled [class*='icon'] svg {
+  transition:
+    transform 0.32s var(--wm-spring),
+    filter 0.3s ease;
+}
+
+.wusool-motion-enabled a:hover > .bi,
+.wusool-motion-enabled button:hover > .bi,
+.wusool-motion-enabled .wm-interactive-surface:hover [class*='icon'] i,
+.wusool-motion-enabled .wm-interactive-surface:hover [class*='icon'] svg {
+  transform: translateY(-1px) scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 5px 9px rgba(20, 184, 166, 0.22));
+}
+
+/* ---------- Hero / page heading depth ---------- */
+.wusool-motion-enabled main [class*='hero'],
+.wusool-motion-enabled main [class*='page-header'],
+.wusool-motion-enabled main [class*='header-section'] {
+  position: relative;
+  overflow: hidden;
+}
+
+.wusool-motion-enabled main [class*='hero']::before,
+.wusool-motion-enabled main [class*='page-header']::before,
+.wusool-motion-enabled main [class*='header-section']::before {
+  content: '';
+  position: absolute;
+  width: 330px;
+  height: 330px;
+  right: -180px;
+  top: -210px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.17), transparent 68%);
+  animation: wmFloatOrb 8s ease-in-out infinite alternate;
+}
+
+.wusool-motion-enabled h1,
+.wusool-motion-enabled .section-title {
+  text-wrap: balance;
+}
+
+/* ---------- Login / auth cinematic mode ---------- */
+body.wusool-auth-mode {
+  --wm-auth-x: 50%;
+  --wm-auth-y: 50%;
+  background:
+    radial-gradient(
+      circle at var(--wm-auth-x) var(--wm-auth-y),
+      rgba(33, 199, 184, 0.12),
+      transparent 30rem
+    ),
+    radial-gradient(circle at 85% 8%, rgba(39, 106, 255, 0.08), transparent 25rem), #f4f8f7;
+}
+
+body.wusool-auth-mode::before,
+body.wusool-auth-mode::after {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+body.wusool-auth-mode::before {
+  top: -230px;
+  right: -160px;
+  border: 1px solid rgba(20, 184, 166, 0.16);
+  box-shadow:
+    inset 0 0 80px rgba(20, 184, 166, 0.08),
+    0 0 80px rgba(20, 184, 166, 0.06);
+  animation: wmOrbit 14s linear infinite;
+}
+
+body.wusool-auth-mode::after {
+  bottom: -260px;
+  left: -180px;
+  border: 1px solid rgba(47, 120, 255, 0.1);
+  box-shadow: inset 0 0 90px rgba(47, 120, 255, 0.055);
+  animation: wmOrbit 18s linear infinite reverse;
+}
+
+body.wusool-auth-mode .login-container,
+body.wusool-auth-mode .login-card {
+  position: relative;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  box-shadow: 0 42px 110px rgba(6, 34, 50, 0.2);
+}
+
+body.wusool-auth-mode .login-container::before,
+body.wusool-auth-mode .login-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    130deg,
+    rgba(83, 241, 220, 0.38),
+    transparent 18%,
+    transparent 70%,
+    rgba(76, 132, 255, 0.2)
+  );
+  opacity: 0.62;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+body.wusool-auth-mode .login-hero,
+body.wusool-auth-mode [class*='login-visual'] {
+  --wm-hero-x: 50%;
+  --wm-hero-y: 50%;
+  background-position: calc(50% + var(--wm-hero-shift-x, 0px))
+    calc(50% + var(--wm-hero-shift-y, 0px));
+}
+
+body.wusool-auth-mode .login-hero::before,
+body.wusool-auth-mode [class*='login-visual']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.8;
+  background: radial-gradient(
+    300px circle at var(--wm-hero-x) var(--wm-hero-y),
+    rgba(124, 255, 239, 0.24),
+    transparent 66%
+  );
+  mix-blend-mode: screen;
+}
+
+body.wusool-auth-mode .hero-content,
+body.wusool-auth-mode [class*='visual-content'] {
+  position: relative;
+  z-index: 2;
+  transform: translate3d(var(--wm-auth-content-x, 0), var(--wm-auth-content-y, 0), 22px);
+  transition: transform 0.5s var(--wm-spring);
+}
+
+.wm-auth-chip-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.wm-auth-chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 230px;
+  padding: 9px 12px;
+  color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(5, 34, 47, 0.31);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(14px) saturate(135%);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  animation: wmChipFloat 4.8s ease-in-out infinite;
+}
+
+.wm-auth-chip i {
+  color: #8dfff1;
+}
+.wm-auth-chip:nth-child(1) {
+  top: 18%;
+  right: 7%;
+  animation-delay: -0.9s;
+}
+.wm-auth-chip:nth-child(2) {
+  bottom: 24%;
+  right: 8%;
+  animation-delay: -2.4s;
+}
+.wm-auth-chip:nth-child(3) {
+  bottom: 10%;
+  left: 8%;
+  animation-delay: -3.1s;
+}
+
+body.wusool-auth-mode .login-form-section,
+body.wusool-auth-mode [class*='login-form-section'] {
+  position: relative;
+}
+
+body.wusool-auth-mode .login-form-section::after,
+body.wusool-auth-mode [class*='login-form-section']::after {
+  content: '';
+  position: absolute;
+  inset: 18px 18px auto auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  pointer-events: none;
+  opacity: 0.28;
+  background:
+    linear-gradient(90deg, rgba(15, 118, 110, 0.13) 1px, transparent 1px),
+    linear-gradient(rgba(15, 118, 110, 0.13) 1px, transparent 1px);
+  background-size: 12px 12px;
+  transform: rotate(8deg);
+}
+
+body.wusool-auth-mode form > * {
+  transform-origin: center bottom;
+}
+
+/* ---------- Dashboard kinetic details ---------- */
+body.user-sidebar-layout main,
+body[class*='admin'] main,
+body[class*='organization'] main {
+  position: relative;
+}
+
+.wm-live-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: 6px;
+  border-radius: 50%;
+  background: #20c997;
+  box-shadow: 0 0 0 0 rgba(32, 201, 151, 0.4);
+  animation: wmLive 1.9s ease-out infinite;
+}
+
+.wusool-motion-enabled .badge,
+.wusool-motion-enabled [class*='status-badge'] {
+  transition:
+    transform 0.24s var(--wm-spring),
+    box-shadow 0.24s ease;
+}
+
+.wusool-motion-enabled .badge:hover,
+.wusool-motion-enabled [class*='status-badge']:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 20px rgba(8, 36, 63, 0.11);
+}
+
+/* ---------- Images ---------- */
+.wusool-motion-enabled main img:not(.wm-no-motion) {
+  transition:
+    transform 0.55s var(--wm-spring),
+    filter 0.42s ease;
+}
+
+.wusool-motion-enabled figure:hover img,
+.wusool-motion-enabled [class*='photo']:hover img,
+.wusool-motion-enabled [class*='image-card']:hover img {
+  transform: scale(1.035);
+  filter: saturate(1.05);
+}
+
+/* ---------- Modal / dropdown ---------- */
+.wusool-motion-enabled .dropdown-menu.show {
+  animation: wmPopoverIn 0.26s var(--wm-spring) both;
+  transform-origin: top right;
+}
+
+.wusool-motion-enabled .modal.show .modal-dialog {
+  animation: wmModalIn 0.42s var(--wm-spring) both;
+}
+
+.wusool-motion-enabled .toast.show {
+  animation: wmToastIn 0.38s var(--wm-spring) both;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes wmCurtainPulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.72;
+  }
+}
+
+@keyframes wmBrandIn {
+  from {
+    transform: translateY(14px) scale(0.94);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wmRipple {
+  to {
+    transform: translate(-50%, -50%) scale(18);
+    opacity: 0;
+  }
+}
+
+@keyframes wmSidebarBeam {
+  from {
+    transform: translateY(-14%);
+    opacity: 0.28;
+  }
+  to {
+    transform: translateY(14%);
+    opacity: 0.88;
+  }
+}
+
+@keyframes wmFloatOrb {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  to {
+    transform: translate3d(-60px, 65px, 0) scale(1.12);
+  }
+}
+
+@keyframes wmOrbit {
+  to {
+    transform: rotate(360deg) scale(1.08);
+  }
+}
+
+@keyframes wmChipFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1deg);
+  }
+  50% {
+    transform: translate3d(0, -9px, 0) rotate(1deg);
+  }
+}
+
+@keyframes wmLive {
+  0% {
+    box-shadow: 0 0 0 0 rgba(32, 201, 151, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(32, 201, 151, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(32, 201, 151, 0);
+  }
+}
+
+@keyframes wmPopoverIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes wmModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes wmToastIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 991.98px) {
+  #wusoolCursorLight {
+    display: none;
+  }
+  .wm-auth-chip {
+    display: none;
+  }
+  .wusool-motion-enabled .wm-interactive-surface {
+    transform: none !important;
+  }
+  .wusool-motion-enabled .wm-interactive-surface:hover {
+    --wm-lift: 0px;
+  }
+}
+
+/* Accessibility is a first-class Wusool requirement. */
+@media (prefers-reduced-motion: reduce) {
+  html.wusool-motion-enabled {
+    scroll-behavior: auto !important;
+  }
+  #wusoolPageCurtain,
+  #wusoolCursorLight,
+  #wusoolMotionProgress,
+  .wm-auth-chip-wrap {
+    display: none !important;
+  }
+  .wusool-motion-enabled *,
+  .wusool-motion-enabled *::before,
+  .wusool-motion-enabled *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+  .wusool-motion-enabled [data-wusool-reveal] {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* ---------- Extra kinetic polish for application interiors ---------- */
+.wusool-motion-enabled .user-sidebar-nav > *,
+.wusool-motion-enabled .admin-sidebar nav > *,
+.wusool-motion-enabled [class*='organization-sidebar'] nav > *,
+.wusool-motion-enabled [class*='sidebar-nav'] > * {
+  animation: wmSidebarItemIn 0.52s var(--wm-spring) both;
+}
+.wusool-motion-enabled .user-sidebar-nav > *:nth-child(2),
+.wusool-motion-enabled [class*='sidebar-nav'] > *:nth-child(2) {
+  animation-delay: 45ms;
+}
+.wusool-motion-enabled .user-sidebar-nav > *:nth-child(3),
+.wusool-motion-enabled [class*='sidebar-nav'] > *:nth-child(3) {
+  animation-delay: 90ms;
+}
+.wusool-motion-enabled .user-sidebar-nav > *:nth-child(4),
+.wusool-motion-enabled [class*='sidebar-nav'] > *:nth-child(4) {
+  animation-delay: 135ms;
+}
+.wusool-motion-enabled .user-sidebar-nav > *:nth-child(5),
+.wusool-motion-enabled [class*='sidebar-nav'] > *:nth-child(5) {
+  animation-delay: 180ms;
+}
+.wusool-motion-enabled .user-sidebar-nav > *:nth-child(n + 6),
+.wusool-motion-enabled [class*='sidebar-nav'] > *:nth-child(n + 6) {
+  animation-delay: 225ms;
+}
+
+.wusool-motion-enabled .progress {
+  overflow: visible;
+  background: rgba(15, 39, 71, 0.07);
+}
+.wusool-motion-enabled .progress-bar {
+  position: relative;
+  overflow: visible;
+  transition: width 1.15s var(--wm-spring) !important;
+}
+.wusool-motion-enabled .progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow:
+    0 0 0 5px rgba(20, 184, 166, 0.12),
+    0 0 14px rgba(20, 184, 166, 0.35);
+  transform: translateY(-50%);
+}
+
+.wusool-motion-enabled tbody tr.wm-row-motion {
+  opacity: 0;
+  transform: translate3d(14px, 0, 0);
+  transition:
+    opacity 0.5s ease var(--wm-row-delay, 0ms),
+    transform 0.55s var(--wm-spring) var(--wm-row-delay, 0ms);
+}
+.wusool-motion-enabled tbody tr.wm-row-motion.wm-row-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.wusool-motion-enabled .brand-icon,
+.wusool-motion-enabled .logo-icon,
+.wusool-motion-enabled .user-sidebar-logo {
+  animation: wmLogoBreath 4.6s ease-in-out infinite;
+}
+
+body.wusool-auth-mode .admin-login-page {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(20, 184, 166, 0.24), transparent 25rem),
+    radial-gradient(circle at 88% 78%, rgba(30, 110, 255, 0.18), transparent 28rem),
+    linear-gradient(145deg, #061a2b 0%, #0a3041 50%, #0b5b59 100%);
+}
+body.wusool-auth-mode .admin-login-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(circle at center, #000 12%, transparent 78%);
+  animation: wmGridDrift 14s linear infinite;
+}
+body.wusool-auth-mode .admin-login-page .login-card {
+  border-color: rgba(255, 255, 255, 0.46);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(10px) saturate(120%);
+  box-shadow:
+    0 45px 120px rgba(0, 0, 0, 0.34),
+    0 1px 0 rgba(255, 255, 255, 0.7) inset;
+}
+body.wusool-auth-mode .admin-login-page .brand-icon {
+  box-shadow: 0 16px 38px rgba(20, 184, 166, 0.32);
+}
+body.wusool-auth-mode .admin-login-page .btn-wusool {
+  background: linear-gradient(135deg, #0f766e, #0a4054);
+  border-color: transparent;
+  box-shadow: 0 18px 38px rgba(15, 118, 110, 0.24);
+}
+
+.wusool-motion-enabled .wm-interactive-surface {
+  border-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+.wusool-motion-enabled .wm-interactive-surface:hover {
+  border-color: rgba(20, 184, 166, 0.2);
+}
+
+@keyframes wmSidebarItemIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-12px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes wmLogoBreath {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    filter: drop-shadow(0 0 0 rgba(20, 184, 166, 0));
+  }
+  50% {
+    transform: translateY(-2px) rotate(-1deg);
+    filter: drop-shadow(0 7px 12px rgba(20, 184, 166, 0.17));
+  }
+}
+@keyframes wmGridDrift {
+  from {
+    background-position:
+      0 0,
+      0 0;
+  }
+  to {
+    background-position:
+      52px 52px,
+      52px 52px;
+  }
+}
+
+/* ==========================================================
+   PERFORMANCE PASS — visual motion preserved, repaint cost reduced
+   ========================================================== */
+@media (min-width: 1px) {
+  .wusool-motion-enabled [data-wusool-reveal] {
+    filter: none !important;
+  }
+  .wusool-motion-enabled .wm-interactive-surface {
+    will-change: auto;
+  }
+}
+/* Fix the large empty space above the home hero */
+.wusool-motion-enabled .premium-hero-shell > .hero-ambient {
+  position: absolute;
+  pointer-events: none;
+}

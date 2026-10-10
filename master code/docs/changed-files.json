@@ -1,0 +1,82 @@
+{
+  "sourceVersion": 11,
+  "release": 12,
+  "files": [
+    {
+      "path": "HOME-RESTORATION.md",
+      "change": "added"
+    },
+    {
+      "path": "MODIFIED-FILES.md",
+      "change": "modified"
+    },
+    {
+      "path": "README.md",
+      "change": "modified"
+    },
+    {
+      "path": "TEST-RESULTS.md",
+      "change": "modified"
+    },
+    {
+      "path": "assets/images/door_path_room.jpg",
+      "change": "added"
+    },
+    {
+      "path": "assets/interactions.js",
+      "change": "modified"
+    },
+    {
+      "path": "docs/home-browser-results.json",
+      "change": "added"
+    },
+    {
+      "path": "docs/home-restoration-results.json",
+      "change": "added"
+    },
+    {
+      "path": "docs/home-street-restored.png",
+      "change": "added"
+    },
+    {
+      "path": "docs/release-test-results.json",
+      "change": "modified"
+    },
+    {
+      "path": "docs/unit-test-results.txt",
+      "change": "modified"
+    },
+    {
+      "path": "package.json",
+      "change": "modified"
+    },
+    {
+      "path": "tests/home-browser-audit.cjs",
+      "change": "added"
+    },
+    {
+      "path": "visitor/css/home.css",
+      "change": "modified"
+    },
+    {
+      "path": "visitor/html/home.html",
+      "change": "modified"
+    },
+    {
+      "path": "visitor/js/home.js",
+      "change": "modified"
+    },
+    {
+      "path": "visitor/js/journey-home.js",
+      "change": "modified"
+    },
+    {
+      "path": "visitor/js/journey-world.js",
+      "change": "modified"
+    },
+    {
+      "path": "visitor/js/premium-home.js",
+      "change": "modified"
+    }
+  ]
+}

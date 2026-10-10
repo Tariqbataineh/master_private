@@ -1,0 +1,14 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');const {env}=require('./test-helpers.cjs');
+test('local checkout completes chosen plan, enables branch creation, enforces limit and stays idempotent without payment',async()=>{
+ const {api:s,local}=env(undefined,{mode:'local',demoSubscription:false});await s.seedAdmin();const org=await s.register({name:'Org',email:'cycle@test.com',password:'Password1@'},'Organization');await s.login(org.email,'Password1@','Organization');await assert.rejects(s.activateDevelopmentSubscription(),{code:'ORGANIZATION_PENDING'});
+ await s.login('admin@wusool.com','WusoolAdmin2026@','Admin');await s.setOrganizationStatus(org.id,'active');await s.login(org.email,'Password1@','Organization');await assert.rejects(s.activateDevelopmentSubscription(),{code:'PLAN_REQUIRED'});
+ await s.rawWrite('wusoolSelectedPlan',JSON.stringify({id:'single',branchLimit:999,totalPrice:0,billingCycle:'monthly'}));const sub=await s.activateDevelopmentSubscription();assert.equal(sub.branchLimit,1);assert.equal(sub.quotedPrice,25);assert.equal(sub.price,0);assert.equal(sub.paymentStatus,'not-charged');assert.equal(sub.developmentOnly,true);
+ assert.equal((await s.activateDevelopmentSubscription()).id,sub.id);assert.equal((await s.getSubscriptions()).length,1);await s.saveBranch({name:'First branch'});await assert.rejects(s.saveBranch({name:'Second branch'}),{code:'BRANCH_LIMIT'});assert.equal(local.getItem('wusool.database.v2').includes('cardNumber'),false);
+});
+test('development activation is unavailable in API mode',async()=>{const {api:s}=env(undefined,{mode:'api',baseUrl:'/api'});await assert.rejects(s.activateDevelopmentSubscription(),{code:'DEVELOPMENT_ONLY'});});
+test('admin creates an owned draft with no manual score and organization can complete its evidence',async()=>{
+ const {api:s}=env();await s.seedAdmin();const org=await s.register({email:'branch-owner@test.com',password:'Password1@'},'Organization');await s.login('admin@wusool.com','WusoolAdmin2026@','Admin');await s.setOrganizationStatus(org.id,'active');const b=await s.saveBranch({organizationId:org.id,name:'Admin branch',status:'approved',accessibilityScore:95,scoreSource:'ai'});
+ assert.equal(b.status,'draft');assert.equal(b.accessibilityScore,null);assert.equal(b.completedSteps.photos,false);assert.equal(b.scoreSource,null);
+ await s.login(org.email,'Password1@','Organization');assert.ok((await s.getBranches()).some(x=>x.id===b.id));const updated=await s.saveBranch({...b,workingHours:{monday:{isClosed:false,open:'09:00',close:'17:00'}},accessibility:{ramp:'available'},photos:[{url:'local-preview.png'}],accessibilityScore:88,completedSteps:{details:true,workingHours:true,accessibility:true,photos:true}});
+ assert.equal(updated.accessibilityScore,null);assert.equal(updated.workingHours.monday.openTime,'09:00');assert.equal(updated.photos.length,1);
+});

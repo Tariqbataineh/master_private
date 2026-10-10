@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="../../assets/interaction-theme.js"></script>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Your Wusool organization account has been approved."
+    >
+
+    <title>Organization Approved | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="../../assets/vendor/bootstrap-5.3.8/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/organization-approved.css"
+    >
+    <!-- Dynamic Platform Runtime -->
+    <link rel="stylesheet" href="../../assets/platform-runtime.css">
+<script src="../../assets/api-config.js"></script>
+<script src="../../assets/interaction-policy.js"></script>
+<script src="../../assets/location-service.js"></script>
+<script src="../../assets/branch-workflow.js"></script>
+<script src="../../assets/service-registry.js"></script>
+<script src="../../assets/storage-adapter.js"></script>
+<script src="../../assets/http-client.js"></script>
+<script src="../../assets/services/core.js"></script>
+<script src="../../assets/services/local.js"></script>
+<script src="../../assets/services/entities.js"></script>
+<script src="../../assets/services/auth.js"></script>
+<script src="../../assets/services/bookings.js"></script>
+<script src="../../assets/services/integrations.js"></script>
+<script src="../../assets/services/facade.js"></script>
+<script src="../../assets/services/state.js"></script>
+<script src="../../assets/services/journey.js"></script>
+<script src="../../assets/services/visits.js"></script>
+<script src="../../assets/services/hours.js"></script>
+    <script src="../../assets/app-services.js"></script>
+<script src="../../assets/data-service.js"></script>
+<script src="../../assets/page-runtime.js"></script>
+<script src="../../assets/external-screens.js"></script>
+<script src="../../assets/live-sync.js"></script>
+<script src="../../assets/catalog-runtime.js"></script>
+<script src="../../assets/feature-store.js"></script>
+<script src="../../assets/behavior-service.js"></script>
+<link rel="stylesheet" href="../../assets/interactions.css"/>
+<script src="../../assets/interaction-i18n.js"></script>
+<script defer src="../../assets/interactions.js"></script>
+<link rel="stylesheet" href="../../assets/form-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/theme-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/location-ui.css">
+<script src="../../assets/google-maps-loader.js"></script>
+<script src="../../assets/location-ui.js"></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="approval-header">
+        <nav class="container py-3">
+            <div class="d-flex justify-content-between align-items-center">
+
+                <a
+                    href="./organization-login.html"
+                    class="navbar-brand d-flex align-items-center gap-2 m-0"
+                    aria-label="Wusool home"
+                >
+                    <span class="brand-icon">
+                        <i class="bi bi-universal-access"></i>
+                    </span>
+
+                    <span class="brand-name">Wusool</span>
+                </a>
+
+                <a
+                    href="./organization-login.html"
+                    class="btn btn-outline-wusool"
+                >
+                    <i class="bi bi-box-arrow-in-right me-1"></i>
+                    Log In
+                </a>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="approval-main">
+
+        <section class="container py-5">
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9 col-xl-8">
+
+                    <article class="approval-card">
+
+                        <!-- Success Icon -->
+                        <div class="approval-icon">
+                            <i class="bi bi-check-lg"></i>
+                        </div>
+
+                        <p class="approval-label mb-2">
+                            APPLICATION APPROVED
+                        </p>
+
+                        <h1 class="approval-title">
+                            Welcome to Wusool!
+                        </h1>
+
+                        <p class="approval-description">
+                            Great news,
+                            <strong id="organizationName">
+                                Your Organization
+                            </strong>.
+                            Your organization account has been reviewed and
+                            approved successfully.
+                        </p>
+
+                        <!-- Status Steps -->
+                        <section
+                            class="approval-progress my-5"
+                            aria-label="Organization registration progress"
+                        >
+                            <div class="row g-3">
+
+                                <div class="col-6 col-lg-3">
+                                    <article class="progress-step completed">
+                                        <span class="step-icon">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <h2>Registered</h2>
+                                        <p>Application submitted</p>
+                                    </article>
+                                </div>
+
+                                <div class="col-6 col-lg-3">
+                                    <article class="progress-step completed">
+                                        <span class="step-icon">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <h2>Reviewed</h2>
+                                        <p>Information verified</p>
+                                    </article>
+                                </div>
+
+                                <div class="col-6 col-lg-3">
+                                    <article class="progress-step current">
+                                        <span class="step-icon">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <h2>Approved</h2>
+                                        <p>Account approved</p>
+                                    </article>
+                                </div>
+
+                                <div class="col-6 col-lg-3">
+                                    <article class="progress-step">
+                                        <span class="step-icon">
+                                            <i class="bi bi-credit-card"></i>
+                                        </span>
+
+                                        <h2>Subscription</h2>
+                                        <p>Select your plan</p>
+                                    </article>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <!-- Approval Information -->
+                        <section class="approval-details text-start">
+
+                            <div class="d-flex align-items-center gap-2 mb-4">
+                                <span class="section-icon">
+                                    <i class="bi bi-patch-check"></i>
+                                </span>
+
+                                <div>
+                                    <p class="section-label mb-1">
+                                        APPROVAL DETAILS
+                                    </p>
+
+                                    <h2 class="section-title mb-0">
+                                        Your account is ready
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <dl class="row mb-0">
+
+                                <div class="col-12 col-md-6 mb-4">
+                                    <dt>Organization</dt>
+
+                                    <dd id="detailsOrganizationName">
+                                        Your Organization
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4">
+                                    <dt>Account Status</dt>
+
+                                    <dd>
+                                        <span class="status-badge">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            Approved
+                                        </span>
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4">
+                                    <dt>Approval Reference</dt>
+
+                                    <dd id="approvalReference">
+                                        WSL-ORG-000001
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 mb-4">
+                                    <dt>Next Step</dt>
+
+                                    <dd>Select a subscription plan</dd>
+                                </div>
+
+                            </dl>
+
+                        </section>
+
+                        <!-- Next Step Notice -->
+                        <aside class="next-step-notice my-4">
+                            <span class="notice-icon">
+                                <i class="bi bi-info-circle-fill"></i>
+                            </span>
+
+                            <div>
+                                <h2>One final step</h2>
+
+                                <p>
+                                    Choose a subscription based on the number
+                                    of branches you want to manage.
+                                </p>
+                            </div>
+                        </aside>
+
+                        <!-- Actions -->
+                        <div
+                            class="d-flex flex-column flex-sm-row
+                                   justify-content-center gap-3"
+                        >
+                            <a
+                                href="./subscription-plans.html"
+                                id="continueButton"
+                                class="btn btn-wusool btn-lg"
+                            >
+                                Choose Subscription
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+
+                            <a
+                                href="./organization-login.html"
+                                class="btn btn-light btn-lg"
+                            >
+                                Return to Login
+                            </a>
+                        </div>
+
+                        <p class="security-note mt-4 mb-0">
+                            <i class="bi bi-shield-check me-1"></i>
+                            Your organization information has been verified
+                            securely.
+                        </p>
+
+                    </article>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="approval-footer">
+        <div
+            class="container py-4 d-flex flex-column flex-md-row
+                   justify-content-between align-items-center gap-2"
+        >
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+
+            <nav aria-label="Footer navigation">
+                <span>Privacy</span>
+                <span>Terms</span>
+                <a href="./help-support.html">Support</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="../../assets/vendor/bootstrap-5.3.8/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/organization-approved.js"></script>
+
+    <!-- Dynamic Platform Runtime -->
+    
+    <script src="../../assets/platform-runtime.js"></script>
+    <script src="../../assets/dynamic-form-runtime.js"></script>
+    
+    <script src="../../assets/behavior-runtime.js"></script>
+    
+    <script src="../../assets/error-runtime.js"></script>
+    <script src="../../assets/maintenance-runtime.js"></script>
+<script src="../../assets/location-runtime.js"></script>
+</body>
+</html>
