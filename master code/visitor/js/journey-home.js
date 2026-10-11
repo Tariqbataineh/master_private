@@ -46,9 +46,16 @@
    const trigger=(section.getBoundingClientRect().top+panel.offsetTop-bounds.top-innerHeight*.55)/Math.max(1,journey.offsetHeight-innerHeight);
    return {index,progress:Math.max(0,Math.min(.9,trigger)),side:index%2?-1:1,active:panel.classList.contains('journey-pop-visible')};
  });
- journey.classList.toggle('at-academy',atAcademy);journey.dispatchEvent(new CustomEvent('journey-progress',{detail:{p,atAcademy,stations,reduced:reduced.matches}}));};
+ const orgs=[...journey.querySelectorAll('.organization-stop')],orgIndex=orgs.findIndex(el=>{const r=el.getBoundingClientRect();return r.top<=0&&r.bottom>0;});let distance=0,focus=0,side=0,key='approach';const smooth=n=>{n=Math.max(0,Math.min(1,n));return n*n*(3-2*n);};
+ if(orgIndex>=0){const el=orgs[orgIndex],t=Math.max(0,Math.min(1,-el.getBoundingClientRect().top/el.offsetHeight)),starts=[80,127,175,220],holds=[92,142,190,235],ends=[127,175,220,262];distance=t<.24?starts[orgIndex]+(holds[orgIndex]-starts[orgIndex])*smooth(t/.24):t<.72?holds[orgIndex]:holds[orgIndex]+(ends[orgIndex]-holds[orgIndex])*smooth((t-.72)/.28);focus=smooth(t/.2)*(1-smooth((t-.74)/.26));side=Number(el.dataset.side);key=el.dataset.stop;}
+ else if(arrival.getBoundingClientRect().top<=0){distance=328;key='orange';}
+ else if(orgs.at(-1)?.getBoundingClientRect().bottom<=0){const first=sections[0],start=first.getBoundingClientRect().top+scrollY,end=arrival.getBoundingClientRect().top+scrollY;distance=262+66*Math.max(0,Math.min(1,(scrollY-start)/Math.max(1,end-start)));}
+ else{const intro=journey.querySelector('.journey-intro');distance=80*Math.max(0,Math.min(1,-intro.getBoundingClientRect().top/intro.offsetHeight));}
+ if(orgIndex>=0){const stop=window.WusoolShowcaseStops?.[orgIndex],ar=document.documentElement.dir==='rtl';document.getElementById('journeyDirection').textContent=stop?.name[ar?'ar':'en']||key;document.getElementById('journeyDetail').textContent=ar?'تابع الطريق نحو أورانج':'Continue along the street toward Orange';lastJourneyState=null;}
+ orgs.forEach((el,i)=>el.querySelector('.showcase-panel').classList.toggle('is-current',i===orgIndex));
+ journey.classList.toggle('at-academy',atAcademy);journey.dispatchEvent(new CustomEvent('journey-progress',{detail:{p,atAcademy,stations,distance,focus,side,key,stopIndex:orgIndex,reduced:reduced.matches}}));};
  const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule);reduced.addEventListener('change',schedule);new ResizeObserver(schedule).observe(content);
- import('./journey-world.js').then(m=>{m.startWorld(journey);schedule();}).catch(error=>{journey.classList.add('journey-fallback');console.warn('Wusool 3D unavailable; Home content remains usable.',error);});schedule();
+ import('./journey-world.js').then(m=>{m.startWorld(journey);schedule();}).catch(error=>{journey.classList.add('journey-fallback');import('./orange-exploration.js').then(m=>m.mountOrange(journey));console.warn('Wusool 3D unavailable; Home content remains usable.',error);});schedule();
 })();
 

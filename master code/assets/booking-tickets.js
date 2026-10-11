@@ -32,6 +32,11 @@ WusoolUI.enqueue(async () => {
     const host = document.querySelector('[data-booking-host]');
     if (host) host.appendChild(panel);
     else document.querySelector('main').appendChild(panel);
+    if (organization || admin) {
+      const servicesButton = document.createElement('button'); servicesButton.type = 'button';
+      servicesButton.className = 'btn btn-outline-primary'; servicesButton.textContent = t('إدارة خدمات الفروع', 'Manage branch services');
+      servicesButton.onclick = () => WusoolTicketServicesUI.manage(servicesButton); panel.querySelector('.booking-toolbar').append(servicesButton);
+    }
     let bookings = [],
       branches = [],
       users = [],
@@ -67,7 +72,7 @@ WusoolUI.enqueue(async () => {
       } catch {
         timing = {};
       }
-      let result = `<button class="btn btn-sm btn-outline-secondary" data-journey="history" data-id="${esc(b.id)}">${t('سجل الحركة', 'Timeline')}</button>`;
+      let result = `<button class="btn btn-sm btn-outline-secondary" data-journey="history" data-id="${esc(b.id)}">${t('تتبّع الزيارة والخريطة', 'Track visit & map')}</button>`;
       const button = (action, label, enabled = true) =>
         `<button class="btn btn-sm btn-outline-primary" data-journey="${action}" data-id="${esc(b.id)}" ${enabled ? '' : 'disabled'}>${label}</button>`;
       if (account.role === 'User') {
@@ -91,6 +96,8 @@ WusoolUI.enqueue(async () => {
       if (admin) result += button('correct', t('تصحيح مع سبب', 'Correct with reason'));
       return result;
     };
+    const trackingOnly = account.role === 'User' && location.pathname.endsWith('/my-tickets.html');
+    panel.classList.toggle('booking-tracking-only', trackingOnly);
     const render = () => {
       const roleCards = organization
         ? ['pending', 'confirmed', 'in-progress']
@@ -184,6 +191,11 @@ WusoolUI.enqueue(async () => {
               .join('')
           : `<tr><td colspan="7" class="booking-empty">${t('لا توجد تيكتات بعد.', 'No tickets yet.')}</td></tr>`,
       );
+      if (trackingOnly) panel.querySelectorAll('.booking-actions').forEach(group => {
+        const bank = document.createElement('span'); bank.hidden = true; bank.dataset.trackingActions = '';
+        [...group.children].filter(n => n.dataset.journey !== 'history').forEach(n => bank.append(n));
+        group.append(bank); group.querySelector('[data-journey="history"]')?.classList.add('w-track-button');
+      });
     };
     const refresh = async () => {
       await WusoolServices.visits?.process();
@@ -254,11 +266,14 @@ WusoolUI.enqueue(async () => {
           form.elements.requiresAssistant.checked =
             booking.requiresAssistant || (booking.support || []).includes('Staff assistance');
       }
+      const serviceEditor = WusoolTicketServicesUI.editor(d, booking);
       let locationPreview = null;
       let busy = false;
       const close = () => {
         if (busy) return;
         locationPreview?.destroy();
+        document.removeEventListener('wxi:language', updateDetails);
+        serviceEditor.destroy();
         d.close();
         d.remove();
         previous?.focus();
@@ -276,7 +291,7 @@ WusoolUI.enqueue(async () => {
           branches.find((p) => p.id === selectedId);
         WusoolUI.html(
           d.querySelector('[data-place-details]'),
-          WusoolTicketPlaceDetails.render(selected, ar),
+          WusoolTicketPlaceDetails.render(selected, document.documentElement.lang === 'ar'),
         );
         if (selected && window.WusoolLocationUI) {
           const host = document.createElement('section');
@@ -285,6 +300,7 @@ WusoolUI.enqueue(async () => {
         }
       };
       form.elements.branchId?.addEventListener('change', updateDetails);
+      document.addEventListener('wxi:language', updateDetails);
       updateDetails();
       const validateSchedule = () => {
         const branch =
@@ -341,7 +357,7 @@ WusoolUI.enqueue(async () => {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         validateSchedule();
-        if (busy || !form.reportValidity()) return;
+        if (busy || !serviceEditor.validate() || !form.reportValidity()) return;
         busy = true;
         const submit = d.querySelector('[type="submit"]');
         submit.disabled = true;
@@ -351,6 +367,7 @@ WusoolUI.enqueue(async () => {
             date: form.elements.date.value,
             time: form.elements.time.value,
             durationMinutes: Number(form.elements.durationMinutes.value),
+            serviceId: serviceEditor.selection(),
             reason: form.elements.reason?.value.trim() || '',
           };
           if (form.elements.requiresAssistant)
@@ -501,7 +518,9 @@ WusoolUI.enqueue(async () => {
       );
       document.body.append(d);
       const previous = document.activeElement;
+      let trackingCleanup;
       const close = () => {
+        trackingCleanup?.();
         d.close();
         d.remove();
         previous?.focus();
@@ -527,6 +546,12 @@ WusoolUI.enqueue(async () => {
         }
       };
       d.showModal();
+      if (action === 'history' && window.WusoolBookingTracking) {
+        trackingCleanup = WusoolBookingTracking.mount(d, {
+          booking, account, panel, close,
+          read: () => { const current = bookings.find((x) => x.id === booking.id); return { booking: current, branch: branches.find((x) => x.id === current?.branchId) }; },
+        });
+      }
     };
     WusoolUI.listen(panel, 'click', async (e) => {
       const b = e.target.closest('[data-journey]');

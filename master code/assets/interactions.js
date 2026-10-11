@@ -630,6 +630,12 @@
           confirm,
         );
     }
+    if (window.WusoolPreferences) {
+      window.WusoolPreferences.refresh();
+      let queued = false;
+      new MutationObserver(() => { if (!queued) { queued=true; queueMicrotask(() => { queued=false; scan(); }); } }).observe(document.body, {childList:true,subtree:true});
+      return;
+    }
     const panel = el('div', 'wxi-theme-controls'),
       toggle = button('theme', () => {
         WusoolTheme.set(WusoolTheme.mode === 'dark' ? 'light' : 'dark', toggle).then(syncTheme);

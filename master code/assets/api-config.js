@@ -15,9 +15,11 @@ window.WusoolApiConfig = Object.freeze({
   demoBranchAnalysis: true,
   demoBranchPublication: true,
   googleMapsProvider: 'free-embed',
-  googleMapsEmbedKey: '',
-  googleMapsJavaScriptKey: '',
+  googleMapsDiscoveryProvider: 'javascript', // System pins only; preserve existing location pickers.
+  googleMapsEmbedKey: 'AIzaSyAeu7XcAtMFC5YJvNf_8Frxgd1_AalH1S0',
+  googleMapsJavaScriptKey: 'AIzaSyAeu7XcAtMFC5YJvNf_8Frxgd1_AalH1S0',
   googleMapsMapId: 'DEMO_MAP_ID',
   googleMapsGeocodingEnabled: false,
   googleMapsPlacesEnabled: false,
+  ticketServicesApiEnabled: false,
 });

@@ -1,9 +1,10 @@
+const wusoolLoginTransitionAssetURL = new URL('../images/login-journey.svg', document.currentScript.src).href;
 WusoolUI.enqueue(async () => {
   /* Shared post-authentication UI. Authentication/session ownership stays in each form. */
   (() => {
     'use strict';
 
-    const assetURL = new URL('../images/login-journey.svg', document.currentScript.src).href;
+    const assetURL = wusoolLoginTransitionAssetURL;
     let active = null;
     async function start(destination, { onCancel = () => {} } = {}) {
       if (active) return;

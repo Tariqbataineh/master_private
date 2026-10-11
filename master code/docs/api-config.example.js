@@ -13,9 +13,11 @@ window.WusoolApiConfig = Object.freeze({
   demoBranchAnalysis: false,
   demoBranchPublication: false,
   googleMapsProvider: 'free-embed',
+  googleMapsDiscoveryProvider: 'javascript', // Requires a configured browser Maps JavaScript key.
   googleMapsEmbedKey: '',
   googleMapsJavaScriptKey: '',
   googleMapsMapId: 'DEMO_MAP_ID',
   googleMapsGeocodingEnabled: false,
   googleMapsPlacesEnabled: false,
+  ticketServicesApiEnabled: false, // Enable only after implementing the proposed service endpoints.
 });

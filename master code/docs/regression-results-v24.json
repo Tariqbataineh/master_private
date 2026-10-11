@@ -1,0 +1,8 @@
+{
+  "runner": "node --test --test-concurrency=1 tests/*.test.cjs",
+  "tests": 189,
+  "pass": 189,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0
+}

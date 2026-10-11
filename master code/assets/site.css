@@ -20,10 +20,10 @@
   --black-color: #000000;
   --warning-color: #f59e0b;
 
-  --main-radius: 16px;
+  --main-radius: var(--wu-radius-card, 18px);
   --large-radius: 24px;
 
-  --main-shadow: 0 15px 40px rgba(15, 39, 71, 0.1);
+  --main-shadow: var(--wu-shadow, 0 4px 20px rgba(15, 39, 71, 0.05));
 }
 
 /* ---------- General Reset ---------- */

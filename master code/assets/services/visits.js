@@ -129,8 +129,11 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
             (p) => p.id === candidate.branchId && ctx.visibleBranch(data, p),
           );
           if (!branch) ctx.fail('INVALID_BRANCH', 'Select a published branch.');
+          Object.assign(candidate, ctx.ticketServiceSelection(data, branch, input, b));
+          if(branch.id !== b.branchId && input.serviceId === undefined) Object.assign(candidate,{serviceId:null,serviceName:'',serviceSnapshot:null});
           ctx.checkBookingSlot(data, branch, candidate, b.id);
           b.appointmentProposal = {
+            serviceId: candidate.serviceId ?? null, serviceName: candidate.serviceName || '', serviceSnapshot: candidate.serviceSnapshot || null,
             date: candidate.date,
             time: candidate.time,
             branchId: branch.id,
@@ -388,6 +391,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
           const branch = data.branches.find((x) => x.id === p.branchId);
           ctx.checkBookingSlot(data, branch, candidate, b.id);
           for (const k of [
+            'serviceId', 'serviceName', 'serviceSnapshot',
             'date',
             'time',
             'branchId',
@@ -466,6 +470,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
             .map((k) => [k, ctx.safe(input[k])]),
         );
         const b = {
+          ...ctx.ticketServiceSelection(data, branch, input),
           ...fields,
           date: input.date,
           time: input.time,

@@ -147,6 +147,64 @@ window.WusoolServiceModules.push(function registerbookings(ctx) {
       requiresAssistant: ctx.needsAssistant(input),
     };
   };
+  // Ticket services reuse configured branch services; no organization-name inference.
+  const serviceList = (branch) => {
+    const source = Array.isArray(branch.ticketServices) ? branch.ticketServices : Array.isArray(branch.services) ? branch.services : [];
+    const seen = new Set();
+    return source.filter(value => !value || typeof value === 'string' || ((!value.branchId || value.branchId === branch.id) && (!value.organizationId || value.organizationId === branch.organizationId))).map((value) => {
+      const x = typeof value === 'string' ? { name: value } : value || {};
+      let hash = 2166136261;
+      for (const char of String(x.name || '')) hash = Math.imul(hash ^ char.codePointAt(0), 16777619) >>> 0;
+      return {id: x.id || `service:${branch.id}:${hash.toString(16)}`, branchId: branch.id,
+        organizationId: branch.organizationId, name: String(x.name || '').trim(), description: String(x.description || ''),
+        active: x.active !== false && !x.isDeleted && !['inactive','disabled','unavailable'].includes(String(x.status || '').toLowerCase()), available: x.available !== false};
+    }).filter((x) => x.name && !seen.has(x.id) && seen.add(x.id));
+  };
+  ctx.ticketServiceSelection = (data, branch, input, previous) => {
+    if (input.serviceId === undefined) return {};
+    const id = String(input.serviceId || '');
+    if (!id) return {serviceId: null, serviceName: '', serviceSnapshot: null};
+    // Historical selection stays intact during an unrelated appointment edit.
+    if (previous?.serviceId === id && previous.branchId === branch.id)
+      return {serviceId: id, serviceName: previous.serviceName || '', serviceSnapshot: previous.serviceSnapshot || null};
+    const service = serviceList(branch).find((s) => s.id === id && s.active && s.available);
+    if (!service) ctx.fail('INVALID_SERVICE', 'Choose an available service belonging to this branch.');
+    return {serviceId: service.id, serviceName: service.name,
+      serviceSnapshot: {id: service.id, name: service.name, description: service.description, branchId: branch.id, organizationId: branch.organizationId}};
+  };
+  ctx.getTicketServices = async (branchId, options = {}) => {
+    if (ctx.cfg.mode === 'api') {
+      if (!ctx.cfg.ticketServicesApiEnabled) ctx.fail('INTEGRATION_UNAVAILABLE', 'Ticket service API is not configured.');
+      return ctx.request('/branches/' + encodeURIComponent(branchId) + '/ticket-services' + (options.manage ? '?manage=true' : ''));
+    }
+    const data = ctx.db(), branch = data.branches.find((b) => b.id === branchId && !b.isDeleted);
+    if (!branch) ctx.fail('NOT_FOUND', 'Branch not found.');
+    if (options.manage) {
+      const a = ctx.requireAccount(['Organization','Admin']);
+      if (!ctx.own(data,a,'branches',branch)) ctx.fail('FORBIDDEN','This branch belongs to another organization.');
+    } else if (!ctx.visibleBranch(data,branch)) ctx.fail('INVALID_BRANCH','Select a published branch.');
+    return {items: ctx.safe(serviceList(branch).filter(s => options.manage || (s.active && s.available)))};
+  };
+  ctx.saveTicketServices = async (branchId, input) => {
+    if (ctx.cfg.mode === 'api') {
+      if (!ctx.cfg.ticketServicesApiEnabled) ctx.fail('INTEGRATION_UNAVAILABLE','Ticket service API is not configured.');
+      return ctx.request('/branches/' + encodeURIComponent(branchId) + '/ticket-services',{method:'PUT',body:{items:input}});
+    }
+    const a = ctx.requireAccount(['Organization','Admin']), data = ctx.db(), branch = data.branches.find(b => b.id === branchId && !b.isDeleted);
+    if (!branch || !ctx.own(data,a,'branches',branch)) ctx.fail('FORBIDDEN','Only the branch owner or admin can configure services.');
+    if (!Array.isArray(input) || input.length > 50) ctx.fail('VALIDATION_ERROR','Configure at most 50 services.');
+    const previous = serviceList(branch), ids = new Set(), names = new Set();
+    const items = input.map(x => {
+      const name = String(x.name || '').trim(), description = String(x.description || '').trim();
+      if (name.length < 2 || name.length > 120 || description.length > 500 || names.has(name.toLowerCase())) ctx.fail('VALIDATION_ERROR','Service names must be unique and 2–120 characters; descriptions at most 500.');
+      names.add(name.toLowerCase());
+      const id = x.id ? String(x.id) : ctx.id('service');
+      if ((x.id && !previous.some(s => s.id === id)) || ids.has(id)) ctx.fail('INVALID_SERVICE','Service IDs must belong to this branch and be unique.');
+      ids.add(id);return {id,branchId:branch.id,organizationId:branch.organizationId,name,description,active:x.active!==false,available:x.available!==false};
+    });
+    branch.ticketServices = items;ctx.audit(data,a,'Configure services','branches',branch.id);ctx.put(data);
+    return {items:ctx.safe(items)};
+  };
   ctx.createBooking = async function createBooking(input, key) {
     if (!key) ctx.fail('IDEMPOTENCY_REQUIRED', 'Booking retry key is required.');
     if (ctx.cfg.mode === 'api')
@@ -184,6 +242,7 @@ window.WusoolServiceModules.push(function registerbookings(ctx) {
         .map((k) => [k, ctx.copy(ctx.safe(input[k]))]),
     );
     const x = {
+      ...ctx.ticketServiceSelection(data, branch, input),
       ...fields,
       ...slot,
       branchName: branch.name,
@@ -279,6 +338,8 @@ window.WusoolServiceModules.push(function registerbookings(ctx) {
       date: input.date || old.date,
       time: input.time || old.time,
     };
+    Object.assign(candidate, ctx.ticketServiceSelection(data, branch, input, old));
+    if (branch.id !== old.branchId && input.serviceId === undefined) Object.assign(candidate, {serviceId:null,serviceName:'',serviceSnapshot:null});
     if (ctx.isAdmin(a) && input.userId) {
       if (
         !data.users.some(

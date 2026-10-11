@@ -1,0 +1,21 @@
+/* Additive, scoped tour presentation. Public routes and controls stay unchanged. */
+.academy-enter{display:block;width:fit-content;max-width:100%;margin:30px auto 0;padding:14px 24px;border-radius:24px;background:#e47727;color:#fff;text-decoration:none;font-weight:650;text-align:center;pointer-events:auto}
+.academy-enter:hover{background:#bd5617;color:#fff}.academy-enter:focus-visible{outline:3px solid #ffcc6b;outline-offset:4px}
+.academy-interior-stop{position:relative;min-height:150svh;padding:52svh 5% 16svh;scroll-margin-top:0}
+.academy-interior-stop:last-child{min-height:160svh}
+.academy-interior-panel{position:sticky;top:52svh;margin-inline-start:auto;width:min(340px,32vw);padding:22px;border:1px solid #c8ded4;border-radius:22px;background:#f8fcf7f2;box-shadow:0 18px 45px #0b263c25;color:#183d3c;backdrop-filter:blur(10px);transition:opacity .2s ease}
+.academy-interior-panel h2{color:inherit;font-size:clamp(24px,2.4vw,32px);line-height:1.2;margin:12px 0;font-weight:750}
+.academy-interior-panel p{font-size:14px;line-height:1.7;margin:0 0 12px}.academy-interior-panel small{display:block;font-size:11px;line-height:1.6;color:#5d756e}
+.academy-interior-eyebrow{display:block;font-size:11px;font-weight:700;color:#9b4916;letter-spacing:.08em}
+html[dir=rtl] .academy-interior-eyebrow{letter-spacing:0}.academy-interior-icon{display:grid;place-items:center;width:36px;height:36px;margin-bottom:12px;background:#f6e6d5;border-radius:12px;color:#b9581b;font-size:20px}
+.journey-world-ready:not(.journey-static) .academy-interior-panel:not(.is-current){opacity:0;visibility:hidden;pointer-events:none}
+.journey-static .academy-interior-stop{min-height:0;padding:24px 5%;background:#e7eee7}
+.journey-static .academy-interior-panel{position:static;width:min(950px,100%);margin:auto;opacity:1;visibility:visible}
+html[data-wusool-color-mode=dark] .academy-interior-panel{background:#142e35f2;color:#eef7f2;border-color:#567d77}
+html[data-wusool-color-mode=dark] .academy-interior-panel small{color:#bdd1cb}
+html[data-wusool-color-mode=dark] .academy-interior-eyebrow{color:#ffba85}
+body.high-contrast .academy-interior-panel{background:#000;color:#fff;border:2px solid #fff}
+body.high-contrast .academy-interior-panel :is(small,.academy-interior-eyebrow){color:#fff}
+@media(max-width:700px){.academy-interior-stop,.academy-interior-stop:last-child{min-height:220svh;padding:65svh 5% 16svh}.academy-interior-panel{top:65svh;width:100%;padding:16px;border-radius:16px}.academy-interior-panel h2{font-size:23px;margin:8px 0}.academy-interior-panel p{font-size:12px;line-height:1.55;margin-bottom:7px}.academy-interior-panel small{font-size:9px}.academy-interior-icon{display:none}.academy-interior-eyebrow{font-size:9px}.academy-enter{font-size:14px}.journey-static .academy-interior-panel{width:100%}}
+@media(prefers-reduced-motion:reduce){.academy-interior-panel{transition:none}.academy-interior-stop{min-height:0}}
+.journey-static .academy-interior-stop,.journey-static .academy-interior-stop:last-child{min-height:0;padding:24px 5%}

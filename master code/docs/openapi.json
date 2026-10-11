@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Wusool frontend backend handoff contract",
-    "version": "10.0.0",
+    "version": "24.0.0",
     "description": "Proposed endpoints to be implemented by the owner using ASP.NET Core MVC10/EF Core. No backend exists in this package. Final source is authoritative; API failures never use local records."
   },
   "servers": [
@@ -18626,6 +18626,271 @@
           }
         }
       }
+    },
+    "/branches/{branchId}/ticket-services": {
+      "get": {
+        "operationId": "getBranchTicketServices",
+        "summary": "getTicketServices — proposed, not implemented backend",
+        "description": "Enabled in frontend only when ticketServicesApiEnabled=true. Public read returns active/available services for published eligible branches. manage=true requires branch owner Organization or Admin and returns all configuration records. Failures never read browser records. IDs, ownership and flags must be authoritative.",
+        "security": [
+          {},
+          {
+            "CookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "manage",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success JSON, direct DTO without data wrapper.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketServiceList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation/antiforgery failure",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid session",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden or ACCOUNT_BLOCKED",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Missing/ownership-concealed record",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Business, idempotency, or stale revision conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Concurrency precondition failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/external service failed; no fallback",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "External service unavailable",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "saveBranchTicketServices",
+        "summary": "saveTicketServices — proposed, not implemented backend",
+        "description": "Only owning Organization or Admin. Require CSRF, account status and branch ownership. Create opaque stable IDs for new records; supplied IDs must already belong to branch; unique names and IDs. At most 50 records. Local UI uses deactivate/unavailable for retirement. Changes must not rewrite booking snapshots, schedules or assistance capacity. Backend handles write concurrency.",
+        "security": [
+          {
+            "CookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TicketServiceWrite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success JSON, direct DTO without data wrapper.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TicketServiceList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation/antiforgery failure",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "No valid session",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden or ACCOUNT_BLOCKED",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Missing/ownership-concealed record",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Business, idempotency, or stale revision conflict",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "412": {
+            "description": "Concurrency precondition failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Backend/external service failed; no fallback",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "External service unavailable",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -19878,6 +20143,13 @@
           "hoursUpdatedAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "ticketServices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TicketServiceDto"
+            },
+            "description": "Optional explicit ticket configuration; absent means legacy configured branch.services are normalized. Empty means no configured ticket services."
           }
         },
         "required": [
@@ -20443,6 +20715,40 @@
           },
           "scoreDescription": {
             "type": "string"
+          },
+          "organizationProfile": {
+            "type": "object",
+            "description": "Optional published organizational contact profile. No private notes, login data or verification documents. Clients fall back to existing place fields if absent.",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "address": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            }
+          },
+          "ticketServices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TicketServiceDto"
+            },
+            "description": "Optional explicit ticket configuration; absent means legacy configured branch.services are normalized. Empty means no configured ticket services."
           }
         },
         "required": [
@@ -20615,6 +20921,11 @@
           "expectedRevision": {
             "type": "integer",
             "minimum": 0
+          },
+          "serviceId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional for legacy callers. Selected configured active/available service must belong to the final branch and organization. Empty/null means no service. Backend validates ownership; never trust caller names."
           }
         },
         "required": [
@@ -20715,6 +21026,11 @@
           "expectedRevision": {
             "type": "integer",
             "minimum": 0
+          },
+          "serviceId": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional for legacy callers. Selected configured active/available service must belong to the final branch and organization. Empty/null means no service. Backend validates ownership; never trust caller names."
           }
         },
         "required": [
@@ -21097,6 +21413,39 @@
           "scheduleConflictAt": {
             "type": "string",
             "format": "date-time"
+          },
+          "serviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "serviceName": {
+            "type": "string",
+            "description": "Trusted server snapshot at selection time, not caller text."
+          },
+          "serviceSnapshot": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "branchId": {
+                "type": "string"
+              },
+              "organizationId": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 120
+              },
+              "description": {
+                "type": "string",
+                "maxLength": 500
+              }
+            }
           }
         },
         "required": [
@@ -22022,7 +22371,7 @@
           "visitId": "branch-opaque-id",
           "rating": 1
         },
-        "description": "Only a completed visit owned by the visitor may be reviewed, once per visit. A review approved by Admin remains immutable for visitors even if subsequently hidden. Organizations have read-only access to reviews for their own branches. User comments must contain 3\u2013500 characters. Enforce this on the backend, not only the UI."
+        "description": "Only a completed visit owned by the visitor may be reviewed, once per visit. A review approved by Admin remains immutable for visitors even if subsequently hidden. Organizations have read-only access to reviews for their own branches. User comments must contain 3–500 characters. Enforce this on the backend, not only the UI."
       },
       "DocumentDto": {
         "type": "object",
@@ -24903,6 +25252,104 @@
           "pageSize"
         ],
         "additionalProperties": false
+      },
+      "TicketServiceDto": {
+        "type": "object",
+        "required": [
+          "id",
+          "branchId",
+          "organizationId",
+          "name",
+          "active",
+          "available"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "branchId": {
+            "type": "string"
+          },
+          "organizationId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TicketServiceList": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "$ref": "#/components/schemas/TicketServiceDto"
+            }
+          }
+        }
+      },
+      "TicketServiceWrite": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "branchId": {
+                  "type": "string"
+                },
+                "organizationId": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 2,
+                  "maxLength": 120
+                },
+                "description": {
+                  "type": "string",
+                  "maxLength": 500
+                },
+                "active": {
+                  "type": "boolean"
+                },
+                "available": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

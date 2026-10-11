@@ -1,7 +1,7 @@
 'use strict';
 window.WusoolGoogleMap = (() => {
-  const ar = document.documentElement.lang === 'ar',
-    text = (a, e) => (ar ? a : e);
+  const sheet=document.createElement('link');sheet.rel='stylesheet';sheet.href=new URL('map-place-cards.css',document.currentScript.src).href;document.head.append(sheet);
+  const text = (a, e) => (document.documentElement.lang === 'ar' ? a : e);
   const coordinates = (p) =>
     p &&
     p.latitude != null &&
@@ -41,9 +41,9 @@ window.WusoolGoogleMap = (() => {
       center = region[3] + ',' + region[4];
     const embed = key
       ? p
-        ? `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(key)}&q=${encodeURIComponent(q)}&language=${ar ? 'ar' : 'en'}&maptype=${satellite ? 'satellite' : 'roadmap'}`
-        : `https://www.google.com/maps/embed/v1/view?key=${encodeURIComponent(key)}&center=${center}&zoom=${region[5]}&maptype=${satellite ? 'satellite' : 'roadmap'}&language=${ar ? 'ar' : 'en'}`
-      : `https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed&hl=${ar ? 'ar' : 'en'}&z=${p ? 16 : region[5]}${p ? '' : '&ll=' + center}&t=${satellite ? 'k' : 'm'}`;
+        ? `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(key)}&q=${encodeURIComponent(q)}&language=${document.documentElement.lang === 'ar' ? 'ar' : 'en'}&maptype=${satellite ? 'satellite' : 'roadmap'}`
+        : `https://www.google.com/maps/embed/v1/view?key=${encodeURIComponent(key)}&center=${center}&zoom=${region[5]}&maptype=${satellite ? 'satellite' : 'roadmap'}&language=${document.documentElement.lang === 'ar' ? 'ar' : 'en'}`
+      : `https://www.google.com/maps?q=${encodeURIComponent(q)}&output=embed&hl=${document.documentElement.lang === 'ar' ? 'ar' : 'en'}&z=${p ? 16 : region[5]}${p ? '' : '&ll=' + center}&t=${satellite ? 'k' : 'm'}`;
     return {
       embed,
       open: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`,
@@ -70,30 +70,34 @@ window.WusoolGoogleMap = (() => {
   };
   const rebuildMarkers = () => {
     if (!map) return;
-    markers.forEach((m) => (m.map = null));
+    markers.forEach((m) => m.setMap(null));
     markers = [];
     info?.close();
     for (const p of places.filter(coordinates)) {
-      const m = new window.google.maps.marker.AdvancedMarkerElement({
+      const m = new window.google.maps.Marker({
         map,
         position: { lat: Number(p.latitude), lng: Number(p.longitude) },
         title: p.name,
-        gmpClickable: true,
+        icon: {path: 'M0,-30 C-11,-30 -18,-23 -18,-13 C-18,0 0,17 0,17 C0,17 18,0 18,-13 C18,-23 11,-30 0,-30 Z', fillColor: '#d72f35', fillOpacity: 1, strokeColor: '#ffffff', strokeWeight: 2, scale: .8},
       });
       m.addListener('click', () => {
         document.getElementById('googleMapPlace').value = p.id;
         show(p.id);
-        const card = document.createElement('div'),
-          title = document.createElement('strong'),
-          address = document.createElement('p'),
-          link = document.createElement('a');
-        title.textContent = p.name;
-        address.textContent = [p.address, p.city].filter(Boolean).join(' · ');
-        link.textContent = text('الاتجاهات', 'Directions');
-        link.href = urls(p).directions;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        card.append(title, address, link);
+        const card = document.createElement('article');card.className='wusool-map-card';
+        // All record text uses textContent; images allow only supported URL schemes.
+        const safeImage = value => {if(typeof value!=='string')return null;try{const url=new URL(value,location.href);return ['http:','https:'].includes(url.protocol)||/^data:image\/(png|jpeg|webp);base64,/i.test(value)?url.href:null;}catch{return null;}};
+        const image=safeImage(p.photos?.[0]?.url||p.photos?.[0]?.imageData||(p.photos?.[0]&&typeof p.photos[0]==='string'?p.photos[0]:null));
+        if(image){const img=document.createElement('img');img.src=image;img.alt=text('صورة الفرع','Branch photo');img.loading='lazy';card.append(img);}
+        const category=document.createElement('small');category.textContent=p.category||p.type||'';
+        const title=document.createElement('h3');title.textContent=p.name;
+        const address=document.createElement('p');address.textContent=[p.address,p.city].filter(Boolean).join(' · ');
+        const rating=document.createElement('p');rating.className='wusool-map-rating';
+        const hasReviews=Number.isInteger(Number(p.reviewCount))&&Number(p.reviewCount)>0&&Number.isFinite(Number(p.rating))&&Number(p.rating)>=1&&Number(p.rating)<=5;
+        rating.textContent=hasReviews?`★ ${Number(p.rating).toFixed(1)} / 5 · ${Number(p.reviewCount)} `+text('تقييم منشور','published reviews'):text('لا توجد تقييمات بعد','No reviews yet');
+        const actions=document.createElement('div');actions.className='wusool-map-actions';
+        const details=document.createElement('a');details.className='btn btn-outline-primary';details.textContent=text('تفاصيل المكان','Place details');details.href=(location.pathname.includes('/user/')?'./user-place-details.html':'./place-details.html')+'?id='+encodeURIComponent(p.id);
+        const book=document.createElement('a');book.className='btn btn-wusool';book.textContent=text('خطط لزيارة','Plan a visit');book.href='../../user/html/plan-visit.html?placeId='+encodeURIComponent(p.id);
+        actions.append(details,book);card.append(category,title,address,rating,actions);
         info.setContent(card);
         info.open({ map, anchor: m });
       });
@@ -140,7 +144,7 @@ window.WusoolGoogleMap = (() => {
           );
       }
     }
-    if (frame.getAttribute('src') !== links.embed) frame.src = links.embed;
+    if (!map && frame.getAttribute('src') !== links.embed) frame.src = links.embed;
     document.getElementById('googleMapOpen').href = links.open;
     const directions = document.getElementById('googleMapDirections');
     directions.href = links.directions;
@@ -158,7 +162,8 @@ window.WusoolGoogleMap = (() => {
         );
   };
   const setPlaces = (items) => {
-    places = items;
+    places = [...new Map(items.filter(p=>p?.id).map(p=>[String(p.id),p])).values()];
+    items = places;
     const select = document.getElementById('googleMapPlace');
     if (!select) return;
     select.replaceChildren();
@@ -182,9 +187,10 @@ window.WusoolGoogleMap = (() => {
     const canvas = document.getElementById('googleInteractiveMap'),
       frame = document.getElementById('googleMapFrame');
     if (!canvas || !frame) return;
-    if (window.WusoolApiConfig.googleMapsProvider === 'free-embed') {
+    if ((window.WusoolApiConfig.googleMapsDiscoveryProvider || window.WusoolApiConfig.googleMapsProvider) === 'free-embed') {
       canvas.hidden = true;
       frame.hidden = false;
+      mapError(text('عرض iframe لا يدعم دبابيس النظام أو إخفاء نقاط Google؛ يلزم تكامل JavaScript مفعّل.','Iframe view cannot show system pins or hide Google POIs; an enabled JavaScript integration is required.'));
       show(selectedId);
       return;
     }
@@ -204,7 +210,9 @@ window.WusoolGoogleMap = (() => {
         map = new Map(canvas, {
           center: { lat: 31.24, lng: 36.51 },
           zoom: 8,
-          mapId: window.WusoolApiConfig.googleMapsMapId || 'DEMO_MAP_ID',
+          clickableIcons: false,
+          renderingType: 'RASTER',
+          styles: [{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]},{featureType:'transit',elementType:'labels.icon',stylers:[{visibility:'off'}]}],
           restriction: { latLngBounds: WusoolLocation.bounds, strictBounds: false },
           mapTypeId: satellite ? 'satellite' : 'roadmap',
           fullscreenControl: true,
@@ -233,7 +241,7 @@ window.WusoolGoogleMap = (() => {
     for (const r of regions) {
       const option = document.createElement('option');
       option.value = r[0];
-      option.textContent = ar ? r[1] : r[2];
+      option.textContent = document.documentElement.lang === 'ar' ? r[1] : r[2];
       regionSelect.append(option);
     }
     regionSelect.addEventListener('change', () => {
@@ -278,16 +286,8 @@ window.WusoolGoogleMap = (() => {
           clearMapError();
           map.panTo(point);
           map.setZoom(15);
-          if (userMarker) userMarker.map = null;
-          const dot = document.createElement('span');
-          dot.textContent = '●';
-          dot.style.cssText = 'color:#1a73e8;font-size:32px;text-shadow:0 0 3px white';
-          userMarker = new window.google.maps.marker.AdvancedMarkerElement({
-            map,
-            position: point,
-            title: text('موقعك الحالي', 'Your location'),
-            content: dot,
-          });
+          if (userMarker) userMarker.setMap(null);
+          userMarker = new window.google.maps.Marker({map,position:point,title:text('موقعك الحالي','Your location'),icon:{path:window.google.maps.SymbolPath.CIRCLE,scale:8,fillColor:'#1a73e8',fillOpacity:1,strokeColor:'#fff',strokeWeight:2}});
         },
         () =>
           mapError(
@@ -298,6 +298,10 @@ window.WusoolGoogleMap = (() => {
           ),
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 30000 },
       );
+    });
+    document.addEventListener('wxi:language',()=>{
+      [...regionSelect.options].forEach((option,i)=>{if(regions[i])option.textContent=text(regions[i][1],regions[i][2]);});
+      setPlaces(places);
     });
     show('');
     initialize();

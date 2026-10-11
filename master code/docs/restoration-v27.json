@@ -1,0 +1,13 @@
+{
+  "restoredFrom": "Wusool_Premium_Tickets_Services_Maps_v24.zip",
+  "unchangedLatestSystemFiles": 465,
+  "changedLatestSystemFiles": [],
+  "unchangedOrangeAndStreetRuntimeFiles": [
+    "visitor/js/journey-world.js",
+    "visitor/js/journey-home.js",
+    "visitor/js/orange-building.js",
+    "visitor/js/orange-navigation.mjs",
+    "visitor/js/orange-exploration.js",
+    "visitor/css/orange-exploration.css"
+  ]
+}

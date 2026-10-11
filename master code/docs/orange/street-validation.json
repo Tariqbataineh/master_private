@@ -1,0 +1,12 @@
+{
+  "passed": 6,
+  "results": [
+    "bank model, native-scroll stop, information dialog",
+    "hospital model, native-scroll stop, information dialog",
+    "ministry model, native-scroll stop, information dialog",
+    "optimiza model, native-scroll stop, information dialog",
+    "Arabic/mobile restored cards fit",
+    "Camera eases incrementally along corridor path and reverses smoothly"
+  ],
+  "errors": []
+}

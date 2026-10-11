@@ -31,7 +31,9 @@ window.WusoolTicketPlaceDetails = {
       restAreas: t('أماكن استراحة', 'Rest areas'),
     };
     const features = Array.isArray(place.features) ? place.features : [];
-    const services = Array.isArray(place.services) ? place.services : place.destinations || [];
+    const services = Array.isArray(place.ticketServices)
+      ? place.ticketServices.filter(s=>s.active!==false && s.available!==false && !s.isDeleted && s.branchId===place.id && s.organizationId===place.organizationId)
+      : Array.isArray(place.services) ? place.services : place.destinations || [];
     const hours = Array.isArray(place.workingHours)
       ? place.workingHours.map((x) => [x.day || x.name, x])
       : Object.entries(place.workingHours || {});

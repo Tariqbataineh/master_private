@@ -16,6 +16,7 @@
     document.documentElement.dataset.wusoolThemePreference = preference;
   };
   apply();
+  try { const lang = localStorage.getItem('wusool-language'); if (['en','ar'].includes(lang)) { document.documentElement.lang=lang; document.documentElement.dir=lang==='ar'?'rtl':'ltr'; } } catch {}
   system.addEventListener('change', () => {
     if (preference === 'system') apply();
   });

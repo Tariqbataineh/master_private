@@ -1,0 +1,22 @@
+/* Opt-in page polish, loaded only outside the protected cinematic homepage.
+   Reuses presentation.css and theme-surfaces.css; no visibility or state rules. */
+:root{--wu-page-title:clamp(2rem,3vw,3rem);--wu-card-title:1.375rem;--wu-feedback:180ms}
+body{font-family:var(--wu-font);font-size:1rem;line-height:1.65}
+html:lang(ar) body{line-height:1.8}
+body :is(button,input,select,textarea){font-family:inherit}
+body :is(.main-content,.user-main,.organization-main,main){min-width:0}
+body :is(.page-description,.section-description){max-width:70ch;color:var(--wt-muted)}
+body :is(.page-heading,.page-header){margin-bottom:var(--wu-space-6)}
+body :is(.search-box,.filter-item,.filter-group){min-width:0}
+body :is(.form-control,.form-select){border-color:var(--wt-border);color:var(--wt-text);background-color:var(--wt-field);font-size:1rem}
+body :is(.form-control,.form-select):focus{border-color:var(--wt-accent)}
+body :is(.table-responsive,.filters-card,.filter-card){border-radius:var(--wu-radius-card)}
+body :is(.stat-card,.dashboard-stat,.booking-stat){box-shadow:var(--wu-shadow)}
+body :is(.stat-value,.booking-metric){font-variant-numeric:tabular-nums}
+body .wusool-preferences :is(button,select){font-weight:500;line-height:1.4}
+body .main-footer{padding-block:var(--wu-space-6);border-top:1px solid rgb(255 255 255 / 12%)}
+body :is(.modal-content,.wusool-initial-dialog){overflow-wrap:anywhere}
+body .modal-footer .btn{min-width:6.875rem}
+html:lang(ar) body :is(h1,h2,h3,h4,h5,h6,p,label,th,td,a,button){letter-spacing:normal}
+body.high-contrast :is(.form-control,.form-select){background:#000;color:#fff;border-color:#fff}
+@media(max-width:767px){body :is(.page-heading,.page-header){margin-bottom:var(--wu-space-4)}body :is(.main-content,.user-main,.organization-main)>.container{padding-inline:var(--wu-space-4)}}

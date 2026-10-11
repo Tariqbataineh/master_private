@@ -11,6 +11,8 @@ window.WusoolServiceModules.push(function registerfacade(ctx) {
     documents: 'Document',
   };
   ctx.api = {
+    getTicketServices: ctx.getTicketServices,
+    saveTicketServices: ctx.saveTicketServices,
     getPlans: ctx.getPlans,
     resetAccountAccess: ctx.resetAccountAccess,
     finalizeBranchSetup: ctx.finalizeBranchSetup,

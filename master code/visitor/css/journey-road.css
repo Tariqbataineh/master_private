@@ -1,0 +1,52 @@
+/* v17: the approved street continues past Optimiza; existing content stays native. */
+.journey-road{position:relative;padding-top:10svh;direction:inherit}
+.journey-road-introduction{width:min(780px,90%);margin:0 auto 8svh;text-align:center;color:#fff;text-shadow:0 2px 18px #092d2860}
+.journey-road-introduction .journey-eyebrow{color:#e6f2d1}
+.journey-road-introduction h2{font-size:clamp(30px,4vw,52px);font-weight:800;line-height:1.2;color:inherit;margin:18px 0}
+.journey-road-introduction p{font-size:15px;line-height:1.8;max-width:600px;margin:0 auto 24px}
+.journey-road-arrival{display:inline-block;padding:11px 20px;border:1px solid #ffffff70;border-radius:30px;background:#133d36e6;color:#fff;text-decoration:none;font-size:13px;text-shadow:none}
+.journey-road-arrival:hover{background:#246052;color:#fff}
+.journey-road .journey-road-chapter{direction:inherit;min-height:75svh;padding:8svh 5% 12svh!important;opacity:1!important;transform:none!important;filter:none!important;background:transparent!important}
+.journey-road-chapter>.container{width:min(1080px,100%);margin-inline:auto!important;padding:30px;border-radius:24px;background:#fcfdf9f5;box-shadow:0 20px 60px #103e3530;border:1px solid #ffffffa0}
+.journey-road-chapter>.container:before{content:'WUSOOL / ' attr(data-station);direction:ltr;text-align:start;letter-spacing:2px}
+.journey-road-chapter :is(.motion-reveal,.reveal){opacity:1;transform:none}
+.journey-road-chapter :is(.premium-ai-shell,.premium-organization-shell,.premium-accessibility-shell,.premium-stats-shell){max-width:100%;overflow:hidden}
+.destination-footer{padding:42px 6% 20px!important}
+.destination-footer .footer-invitation{padding-bottom:26px;gap:25px}
+.destination-footer .footer-eyebrow{font-size:10px;margin-bottom:12px}
+.destination-footer .footer-invitation h2{font-size:clamp(30px,3.4vw,48px);letter-spacing:-1px}
+.destination-footer .footer-arrow{width:46px;height:46px;font-size:25px}
+.destination-footer .footer-columns{padding:28px 0 20px;gap:28px}
+.destination-footer .footer-brand{font-size:32px}
+.destination-footer .footer-about p{margin:12px 0;font-size:12px}
+.destination-footer .footer-columns nav h3{margin-bottom:15px}
+.destination-footer .footer-columns nav a{margin-bottom:10px;font-size:12px}
+.destination-footer .footer-wordmark{font-size:clamp(60px,9vw,135px);padding:8px 0 22px}
+.destination-footer .footer-bottom{padding-top:18px}
+html[data-wusool-color-mode=dark] .journey-road-chapter>.container{background:#102c2bf5;border-color:#426562;color:#eaf1eb}
+html[data-wusool-color-mode=dark] .journey-road-chapter :is(.section-title,.story-title,.premium-ai-title,.premium-organization-title,h3){color:#edf4ec}
+html[data-wusool-color-mode=dark] .journey-road-chapter :is(.section-description,.story-lead,.premium-ai-copy,.premium-organization-copy){color:#bfd0c7}
+html[data-wusool-color-mode=dark] .journey-road-chapter :is(.process-card,.feature-card,.organization-card,.stat-card,.place-card){background:#153532;border-color:#426562}
+body.high-contrast .journey-road-chapter>.container{background:#000!important;border:2px solid #fff!important;color:#fff!important}
+body.high-contrast .journey-road-chapter :is(h2,h3,p,.section-description,.section-small-title){color:#fff!important}
+body.high-contrast .journey-road-arrival{border:2px solid #fff;background:#000;color:#fff}
+.journey-static .journey-road{padding-top:30px}
+.journey-static .journey-road-introduction{color:#173d37;text-shadow:none;margin-bottom:25px}
+.journey-static .journey-road-introduction .journey-eyebrow{color:#47756d}
+.journey-static .journey-road-chapter{min-height:0;padding:20px 5%!important}
+html[data-wusool-color-mode=dark] .journey-static .journey-road-introduction{color:#edf4ec}
+@media(max-width:750px){
+ .journey-road{padding-top:7svh}.journey-road-introduction{margin-bottom:4svh}.journey-road-introduction p{font-size:13px}
+ .journey-road .journey-road-chapter{min-height:0;padding:5svh 5% 7svh!important}
+ .journey-road-chapter>.container{padding:22px 18px;border-radius:20px}
+ .journey-road-chapter .section-title{font-size:28px}
+ .destination-footer{padding:32px 6% 18px!important}.destination-footer .footer-invitation{gap:20px;padding-bottom:24px}
+ .destination-footer .footer-invitation h2{font-size:34px}.destination-footer .footer-columns{gap:24px 18px;padding:24px 0 18px}
+ .destination-footer .footer-wordmark{font-size:13vw;padding:8px 0 18px}
+ .journey-static .journey-road-chapter{padding:18px 5%!important}
+}
+@media(prefers-reduced-motion:reduce){.journey-road-arrival{transition:none}.journey-road-chapter *{animation:none!important}}
+
+html[data-wusool-color-mode=dark] .journey-road-chapter :is(.process-card,.feature-card,.organization-card,.place-card) p{color:#bfd0c7}
+body.high-contrast .journey-road{background:#000}
+body.high-contrast .journey-road-introduction,body.high-contrast .journey-road-introduction .journey-eyebrow{color:#fff!important;text-shadow:none}

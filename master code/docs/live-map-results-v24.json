@@ -1,0 +1,18 @@
+{
+  "attempt": "Actual Maps JavaScript load; no API interception or test double",
+  "pageErrors": [],
+  "providerRequestFailures": [
+    {
+      "host": "maps.googleapis.com",
+      "path": "/maps/api/js",
+      "error": "net::ERR_EMPTY_RESPONSE"
+    },
+    {
+      "host": "www.google.com",
+      "path": "/maps/embed/v1/view",
+      "error": "net::ERR_EMPTY_RESPONSE"
+    }
+  ],
+  "mapDomRendered": false,
+  "message": "Map or search is unavailable. Use coordinates or an address."
+}

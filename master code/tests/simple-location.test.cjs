@@ -2,7 +2,7 @@ const {test}=require('node:test'),assert=require('node:assert/strict'),fs=requir
 function setup(){
  const dom=new JSDOM('<html lang="en"><body><form><input id="lat"><input id="lng"><section id="host"></section></form></body></html>',{runScripts:'outside-only',url:'http://localhost'}),w=dom.window;
  for(const name of ['api-config.js','location-service.js'])w.eval(fs.readFileSync(__dirname+'/../assets/'+name,'utf8'));
- let success,error;Object.defineProperty(w.navigator,'geolocation',{value:{getCurrentPosition:(ok,fail)=>{success=ok;error=fail;}}});
+ w.WusoolApiConfig={...w.WusoolApiConfig,googleMapsProvider:'free-embed',googleMapsJavaScriptKey:'',googleMapsEmbedKey:''};let success,error;Object.defineProperty(w.navigator,'geolocation',{value:{getCurrentPosition:(ok,fail)=>{success=ok;error=fail;}}});
  w.WusoolMapsLoader={onFailure:()=>()=>{},library:()=>{throw Error('No paid SDK in simple mode');}};
  w.eval(fs.readFileSync(__dirname+'/../assets/location-ui.js','utf8'));
  const lat=w.document.getElementById('lat'),lng=w.document.getElementById('lng');let confirmed;

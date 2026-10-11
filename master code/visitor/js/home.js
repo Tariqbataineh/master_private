@@ -93,6 +93,7 @@ searchForm?.addEventListener("submit", async (event) => {
 const pageLinks = document.querySelectorAll('a[href^="#"]');
 
 pageLinks.forEach((link) => {
+  if (link.matches('.journey-skip,.journey-road-arrival') || link.closest('.journey-stops-nav')) return;
   link.addEventListener("click", (event) => {
     const targetId = link.getAttribute("href");
 

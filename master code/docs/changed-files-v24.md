@@ -1,0 +1,244 @@
+# Changed files — v24
+
+## Concise implementation list
+
+| Files | Purpose |
+| --- | --- |
+| 120 complete HTML pages outside Home | Add only the opt-in portal stylesheet; ticket/tracking pages also load the service UI/CSS. Full paths below. |
+| assets/portal-refinement.css (new) | Reuse existing fonts, semantic theme and component tokens outside Home. |
+| assets/ticket-refinement.css, assets/ticket-service-ui.js (new) | Responsive 940px dialog, native service radio tiles, loading/empty/error states, owner configuration manager. |
+| assets/booking-tickets.js | Tracking-only visible user rows; retain delegated action sources; service input hook and manager entry. |
+| assets/booking-tracking-map.js | Display saved service; clone original actions and eligibility notes; supported raster POI styling/red branch marker. |
+| assets/google-map.js, assets/map-place-cards.css (new) | Discovery-only raster styles, red pins, safe accurate info cards, duplicate/missing-coordinate handling. |
+| assets/ticket-place-details.js | Display explicitly configured ticket services when present. |
+| assets/services/bookings.js | Small normalized service model, owner configuration access, validated selection and ticket snapshots. |
+| assets/services/visits.js | Carry service snapshots through original appointment proposal/response. |
+| assets/services/entities.js | Service-name display fallback in existing visit DTO. |
+| assets/services/facade.js | Export the two asynchronous service methods. |
+| assets/api-config.js | Discovery-only provider flag; ticket API opt-in defaults false. Existing location-picker provider retained. |
+| docs/openapi.json, docs/api-endpoints.json, docs/api-config.example.js | Document proposed service API additions; no backend endpoints implemented. |
+| START_HERE.md, docs/*v24*, docs/screenshots-v24/* | Current setup, contracts, specifications, change list and requested evidence. |
+| package.json, tests/* | Existing regression tests with explicit provider mocks and targeted new tests; portable browser harness and home hash check. |
+
+No original runtime file was deleted. Tests/evidence are newly included development deliverables and do not load in browser application pages.
+
+## Exact modified paths
+
+- `START_HERE.md`
+- `admin/html/admin-accessibility-heatmap.html`
+- `admin/html/admin-ai-copilot.html`
+- `admin/html/admin-ai-management.html`
+- `admin/html/admin-ai-settings.html`
+- `admin/html/admin-ai-templates.html`
+- `admin/html/admin-announcements.html`
+- `admin/html/admin-audit-log.html`
+- `admin/html/admin-automation-center.html`
+- `admin/html/admin-benchmarking.html`
+- `admin/html/admin-branches.html`
+- `admin/html/admin-components.html`
+- `admin/html/admin-content-manager.html`
+- `admin/html/admin-dashboard.html`
+- `admin/html/admin-device-sessions.html`
+- `admin/html/admin-documents.html`
+- `admin/html/admin-email-templates.html`
+- `admin/html/admin-error-center.html`
+- `admin/html/admin-export-center.html`
+- `admin/html/admin-feature-flags.html`
+- `admin/html/admin-feature-rollout.html`
+- `admin/html/admin-form-builder.html`
+- `admin/html/admin-global-search.html`
+- `admin/html/admin-impersonation.html`
+- `admin/html/admin-import-center.html`
+- `admin/html/admin-login.html`
+- `admin/html/admin-maintenance.html`
+- `admin/html/admin-media-library.html`
+- `admin/html/admin-navigation-manager.html`
+- `admin/html/admin-notification-templates.html`
+- `admin/html/admin-notifications.html`
+- `admin/html/admin-organizations.html`
+- `admin/html/admin-platform-builder.html`
+- `admin/html/admin-recovery-center.html`
+- `admin/html/admin-reports.html`
+- `admin/html/admin-requirements-builder.html`
+- `admin/html/admin-reviews.html`
+- `admin/html/admin-roles.html`
+- `admin/html/admin-rules-engine.html`
+- `admin/html/admin-scheduled-reports.html`
+- `admin/html/admin-security-center.html`
+- `admin/html/admin-settings.html`
+- `admin/html/admin-smart-recommendations.html`
+- `admin/html/admin-subscriptions.html`
+- `admin/html/admin-system-health.html`
+- `admin/html/admin-theme-settings.html`
+- `admin/html/admin-tickets.html`
+- `admin/html/admin-users.html`
+- `admin/html/admin-version-history.html`
+- `admin/html/admin-workflow-builder.html`
+- `assets/api-config.js`
+- `assets/booking-tickets.js`
+- `assets/booking-tracking-map.js`
+- `assets/google-map.js`
+- `assets/services/bookings.js`
+- `assets/services/entities.js`
+- `assets/services/facade.js`
+- `assets/services/visits.js`
+- `assets/ticket-place-details.js`
+- `docs/api-config.example.js`
+- `docs/api-endpoints.json`
+- `docs/openapi.json`
+- `org/html/add-branch.html`
+- `org/html/audit-log.html`
+- `org/html/branch-accessibility.html`
+- `org/html/branch-ai-review.html`
+- `org/html/branch-photos-management.html`
+- `org/html/branch-photos.html`
+- `org/html/branch-review-status.html`
+- `org/html/branch-submission-success.html`
+- `org/html/branch-submit-review.html`
+- `org/html/branch-working-hours.html`
+- `org/html/branches.html`
+- `org/html/edit-branch.html`
+- `org/html/forgot-password.html`
+- `org/html/help-support.html`
+- `org/html/notifications.html`
+- `org/html/organization-ai-reports.html`
+- `org/html/organization-approved.html`
+- `org/html/organization-branch-details.html`
+- `org/html/organization-dashboard.html`
+- `org/html/organization-login.html`
+- `org/html/organization-register.html`
+- `org/html/organization-settings.html`
+- `org/html/payment-failed.html`
+- `org/html/payment-success.html`
+- `org/html/registration-pending.html`
+- `org/html/reset-data.html`
+- `org/html/reset-password.html`
+- `org/html/review-history.html`
+- `org/html/subscription-checkout.html`
+- `org/html/subscription-management.html`
+- `org/html/subscription-plans.html`
+- `org/html/user-ticket-details.html`
+- `org/html/visit-reviews.html`
+- `org/html/visitor-tickets.html`
+- `user/html/accessibility-preferences.html`
+- `user/html/account-settings.html`
+- `user/html/add-place.html`
+- `user/html/ai-accessibility-report.html`
+- `user/html/analyze-surroundings.html`
+- `user/html/community-reviews.html`
+- `user/html/compare-places.html`
+- `user/html/explore-places.html`
+- `user/html/help-support.html`
+- `user/html/my-reports.html`
+- `user/html/my-reviews.html`
+- `user/html/my-tickets.html`
+- `user/html/my-visits.html`
+- `user/html/navigation-complete.html`
+- `user/html/navigation-guidance.html`
+- `user/html/notifications.html`
+- `user/html/plan-visit.html`
+- `user/html/report-accessibility-issue.html`
+- `user/html/saved-places.html`
+- `user/html/smart-recommendations.html`
+- `user/html/user-dashboard.html`
+- `user/html/user-place-details.html`
+- `user/html/user-profile.html`
+- `user/html/visit-details.html`
+- `user/html/visit-summary.html`
+- `user/html/visual-navigation-start.html`
+- `user/html/write-review.html`
+- `visitor/html/accessibility-map.html`
+- `visitor/html/ai-accessibility-report.html`
+- `visitor/html/ai-assistant.html`
+- `visitor/html/booking-information.html`
+- `visitor/html/community-reviews.html`
+- `visitor/html/login.html`
+- `visitor/html/place-details.html`
+- `visitor/html/register.html`
+- `visitor/html/smart-guidance.html`
+- `visitor/html/smart-match.html`
+
+## Exact added paths
+
+- `assets/map-place-cards.css`
+- `assets/portal-refinement.css`
+- `assets/ticket-refinement.css`
+- `assets/ticket-service-ui.js`
+- `docs/browser-results-v24.json`
+- `docs/cleanup-v24.md`
+- `docs/design-spec-v24.md`
+- `docs/home-preservation-v24.json`
+- `docs/live-map-results-v24.json`
+- `docs/page-service-inventory.json`
+- `docs/regression-results-v24.json`
+- `docs/screenshots-v24/after-admin-html-admin-dashboard.png`
+- `docs/screenshots-v24/after-map-actual-provider-attempt.png`
+- `docs/screenshots-v24/after-map-integration-test-double.png`
+- `docs/screenshots-v24/after-map-provider-unavailable.png`
+- `docs/screenshots-v24/after-org-html-organization-dashboard.png`
+- `docs/screenshots-v24/after-ticket-modal-mobile-ar-dark.png`
+- `docs/screenshots-v24/after-ticket-modal.png`
+- `docs/screenshots-v24/after-ticket-services-mobile-ar-dark.png`
+- `docs/screenshots-v24/after-ticket-table.png`
+- `docs/screenshots-v24/after-user-html-user-dashboard.png`
+- `docs/screenshots-v24/after-visitor-html-login.png`
+- `docs/screenshots-v24/after-visitor-html-register.png`
+- `docs/screenshots-v24/before-admin-html-admin-dashboard.png`
+- `docs/screenshots-v24/before-map-integration-test-double.png`
+- `docs/screenshots-v24/before-org-html-organization-dashboard.png`
+- `docs/screenshots-v24/before-ticket-modal.png`
+- `docs/screenshots-v24/before-ticket-table.png`
+- `docs/screenshots-v24/before-user-html-user-dashboard.png`
+- `docs/screenshots-v24/before-visitor-html-login.png`
+- `docs/screenshots-v24/before-visitor-html-register.png`
+- `docs/service-contract-v24.md`
+- `docs/structure-results-v24.json`
+- `docs/syntax-results-v24.json`
+- `docs/validation-v24.md`
+- `package.json`
+- `tests/account-lifecycle.test.cjs`
+- `tests/account-repair.test.cjs`
+- `tests/admin-account-creation.test.cjs`
+- `tests/admin-confirmation.test.cjs`
+- `tests/app-services.test.cjs`
+- `tests/assistance-tickets.test.cjs`
+- `tests/booking-layout.test.cjs`
+- `tests/branch-publication.test.cjs`
+- `tests/controller-helpers.cjs`
+- `tests/demo-branch-analysis.test.cjs`
+- `tests/development-subscription.test.cjs`
+- `tests/focused-browser-v24.cjs`
+- `tests/free-provider.test.cjs`
+- `tests/google-interactive-map.test.cjs`
+- `tests/google-map.test.cjs`
+- `tests/home-preservation.test.cjs`
+- `tests/hours-approval.test.cjs`
+- `tests/http-contract.test.cjs`
+- `tests/image-compression.test.cjs`
+- `tests/interaction-dom.cjs`
+- `tests/interactions.test.cjs`
+- `tests/live-sync.test.cjs`
+- `tests/location-loader.test.cjs`
+- `tests/location-persistence.test.cjs`
+- `tests/location-ui.test.cjs`
+- `tests/organization-profile.test.cjs`
+- `tests/page-regressions.test.cjs`
+- `tests/pending-bookings.test.cjs`
+- `tests/requested-fixes.test.cjs`
+- `tests/runtime.test.cjs`
+- `tests/service-boundary.test.cjs`
+- `tests/service-loader.cjs`
+- `tests/simple-location.test.cjs`
+- `tests/system-audit-regressions.test.cjs`
+- `tests/test-helpers.cjs`
+- `tests/theme-preference.test.cjs`
+- `tests/ticket-place-details.test.cjs`
+- `tests/ticket-services.test.cjs`
+- `tests/visit-operations-ui.test.cjs`
+- `tests/visit-operations.test.cjs`
+- `tests/visit-review-workflow.test.cjs`
+- `tests/visitor-journey.test.cjs`
+- `tests/visitor-owned-journey.test.cjs`
+
+- `docs/changed-files-v24.md`
+- `docs/changed-files-v24.json`

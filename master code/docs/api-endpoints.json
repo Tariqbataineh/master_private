@@ -1816,7 +1816,7 @@
     "responseDto": "ReviewDto",
     "roles": "User/Admin",
     "ownership": "Public only Visible reviews; User own pending/rejected plus visible; Admin moderation.",
-    "validation": "Integer rating1..5; completed matching owned booking required; one nondeleted review per visit. User always Pending; Admin moderation Pending/Visible/Hidden/Rejected with audited reason. Ratings derived from Visible reviews.; approved reviews are locked for visitor updates/deletes; 3\u2013500 comment characters, title at most 120.",
+    "validation": "Integer rating1..5; completed matching owned booking required; one nondeleted review per visit. User always Pending; Admin moderation Pending/Visible/Hidden/Rejected with audited reason. Ratings derived from Visible reviews.; approved reviews are locked for visitor updates/deletes; 3–500 comment characters, title at most 120.",
     "pages": [
       "user/html/account-settings.html",
       "user/html/add-place.html",
@@ -1836,7 +1836,7 @@
     "responseDto": "ReviewDto",
     "roles": "User/Admin",
     "ownership": "Public only Visible reviews; User own pending/rejected plus visible; Admin moderation.",
-    "validation": "Integer rating1..5; completed matching owned booking required; one nondeleted review per visit. User always Pending; Admin moderation Pending/Visible/Hidden/Rejected with audited reason. Ratings derived from Visible reviews. Delete/restore are explicit isDeleted DTO writes; server controls cascades.; approved reviews are locked for visitor updates/deletes; 3\u2013500 comment characters, title at most 120.",
+    "validation": "Integer rating1..5; completed matching owned booking required; one nondeleted review per visit. User always Pending; Admin moderation Pending/Visible/Hidden/Rejected with audited reason. Ratings derived from Visible reviews. Delete/restore are explicit isDeleted DTO writes; server controls cascades.; approved reviews are locked for visitor updates/deletes; 3–500 comment characters, title at most 120.",
     "pages": [
       "user/html/account-settings.html",
       "user/html/add-place.html",
@@ -5783,5 +5783,25 @@
     "idempotency": false,
     "concurrency": true,
     "pagination": false
+  },
+  {
+    "method": "GET",
+    "path": "/branches/{branchId}/ticket-services",
+    "service": "getTicketServices",
+    "requestDto": null,
+    "responseDto": "TicketServiceList",
+    "roles": "Public; manage=true Organization/Admin",
+    "ownership": "Published discovery for reads; manage branch owner or Admin",
+    "validation": "Proposed backend; frontend gated by ticketServicesApiEnabled. No local fallback."
+  },
+  {
+    "method": "PUT",
+    "path": "/branches/{branchId}/ticket-services",
+    "service": "saveTicketServices",
+    "requestDto": "TicketServiceWrite",
+    "responseDto": "TicketServiceList",
+    "roles": "Organization/Admin",
+    "ownership": "Branch owner or Admin",
+    "validation": "Proposed backend; stable IDs, unique names, flags, max 50, blocked-account and CSRF guards."
   }
 ]

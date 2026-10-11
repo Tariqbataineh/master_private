@@ -44,7 +44,7 @@
 <script src="../../assets/services/journey.js"></script>
 <script src="../../assets/services/visits.js"></script>
 <script src="../../assets/services/hours.js"></script>
-    <script src="../../assets/app-services.js"></script>
+<script src="../../assets/app-services.js"></script>
 <script src="../../assets/data-service.js"></script>
 <script src="../../assets/page-runtime.js"></script>
 <script src="../../assets/external-screens.js"></script>
@@ -53,7 +53,13 @@
 <script src="../../assets/feature-store.js"></script>
 <script src="../../assets/behavior-service.js"></script>
 <script src="../../assets/interaction-i18n.js"></script>
-<script defer src="../../assets/interactions.js"></script>
+<script defer="" src="../../assets/interactions.js"></script>
+<link href="../../assets/preferences.css" rel="stylesheet"/>
+<script defer="" src="../../assets/preferences.js"></script>
+
+<link rel="stylesheet" href="../../assets/presentation.css">
+<link href="../css/home-refinement.css" rel="stylesheet"/>
+<link href="../css/restored-organizations.css" rel="stylesheet"/><link href="../css/orange-exploration.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- Skip Link -->
@@ -97,7 +103,7 @@
 </li>
 </ul>
 <div class="d-flex flex-wrap gap-2 mt-3 mt-lg-0">
-<button class="btn btn-light border" id="wusoolLanguageButton" type="button" aria-label="Change language">العربية</button>
+<button aria-label="Change language" class="btn btn-light border" id="wusoolLanguageButton" type="button">العربية</button>
 <a class="btn btn-login" href="./login.html"> Log In </a>
 <a class="btn btn-primary" href="./register.html">
                 Get Started
@@ -125,11 +131,11 @@
 <i class="bi bi-circle-half"></i>
             High Contrast
           </button>
-<button class="accessibility-button" id="readPage" type="button" aria-label="Read this page aloud in the selected language">
+<button aria-label="Read this page aloud in the selected language" class="accessibility-button" id="readPage" type="button">
 <i class="bi bi-volume-up"></i>
             Read Page
           </button>
-<button class="accessibility-button" id="voiceSearch" type="button" aria-label="Search by voice in the selected language">
+<button aria-label="Search by voice in the selected language" class="accessibility-button" id="voiceSearch" type="button">
 <i class="bi bi-mic"></i>
             Voice Search
           </button>
@@ -148,50 +154,41 @@
 </div>
 <div class="journey-content">
 <div class="journey-intro"><div class="journey-copy"><span class="journey-eyebrow">Every road brings a new opportunity.</span><h1>Move forward.<br/>Discover a world<br/><em>that takes you further.</em></h1><p>Scroll through the journey. Discover Wusool along the way,<br/>and arrive at Orange Coding Academy.</p></div></div>
-<section class="academy-stop" id="academyDestination" aria-labelledby="academyTitle">
+<section aria-labelledby="journey-title-bank" class="organization-stop" data-side="1" data-stop="bank" id="journey-bank"><article class="showcase-panel" translate="no"><div class="showcase-marker"><span data-wusool-ar="01 / 05" data-wusool-en="01 / 05">01 / 05</span><span data-wusool-ar="الخدمات المصرفية · الأردن" data-wusool-en="Banking · Jordan">Banking · Jordan</span></div><h2 data-wusool-ar="بنك الاتحاد" data-wusool-en="Bank al Etihad" id="journey-title-bank">Bank al Etihad</h2><img alt="AI architectural interpretation — Bank al Etihad" class="showcase-visual" data-wusool-label-ar="تصوّر معماري بالذكاء الاصطناعي — بنك الاتحاد" data-wusool-label-en="AI architectural interpretation — Bank al Etihad" decoding="async" height="1024" loading="lazy" src="../../assets/images/journey/bank.webp" width="1536"/><p class="showcase-intro" data-wusool-ar="بنك أردني يقدم الخدمات المصرفية للأفراد والأعمال، وله جذور ومقر رئيسي في عمّان." data-wusool-en="A Jordanian bank providing personal and business banking services, with its roots and headquarters in Amman.">A Jordanian bank providing personal and business banking services, with its roots and headquarters in Amman.</p><p class="showcase-location" data-wusool-ar="عمّان · الأردن" data-wusool-en="Amman · Jordan">Amman · Jordan</p><div class="showcase-actions"><button type="button" data-organization-info="bank" data-wusool-ar="معلومات المؤسسة" data-wusool-en="Organization information" >Organization information</button><a data-wusool-ar="استكشف خريطة وصول" data-wusool-en="Explore Wusool map" href="./accessibility-map.html">Explore Wusool map</a></div><p class="showcase-record-status" data-record-status="bank" data-wusool-ar="محطة عرض · يظهر الحجز فقط عند وجود فرع منشور مطابق في وصول." data-wusool-en="Showcase stop · Booking appears only for a matching published Wusool branch.">Showcase stop · Booking appears only for a matching published Wusool branch.</p><small class="showcase-art-note" data-wusool-ar="تصوّر معماري بالذكاء الاصطناعي · ليس نسخة موثّقة للمبنى." data-wusool-en="AI architectural interpretation · Not a verified building replica.">AI architectural interpretation · Not a verified building replica.</small></article></section><section aria-labelledby="journey-title-hospital" class="organization-stop" data-side="-1" data-stop="hospital" id="journey-hospital"><article class="showcase-panel" translate="no"><div class="showcase-marker"><span data-wusool-ar="02 / 05" data-wusool-en="02 / 05">02 / 05</span><span data-wusool-ar="الرعاية الصحية · إربد" data-wusool-en="Healthcare · Irbid">Healthcare · Irbid</span></div><h2 data-wusool-ar="مستشفى إربد التخصصي" data-wusool-en="Irbid Specialty Hospital" id="journey-title-hospital">Irbid Specialty Hospital</h2><img alt="AI architectural interpretation — Irbid Specialty Hospital" class="showcase-visual" data-wusool-label-ar="تصوّر معماري بالذكاء الاصطناعي — مستشفى إربد التخصصي" data-wusool-label-en="AI architectural interpretation — Irbid Specialty Hospital" decoding="async" height="1024" loading="lazy" src="../../assets/images/journey/hospital.webp" width="1536"/><p class="showcase-intro" data-wusool-ar="مستشفى خاص في إربد، مدرج لدى جمعية المستشفيات الخاصة الأردنية باسم مستشفى إربد التخصصي." data-wusool-en="A private hospital in Irbid, listed by the Jordanian Private Hospitals Association under Irbid Specialty Hospital.">A private hospital in Irbid, listed by the Jordanian Private Hospitals Association under Irbid Specialty Hospital.</p><p class="showcase-location" data-wusool-ar="إربد · الأردن" data-wusool-en="Irbid · Jordan">Irbid · Jordan</p><div class="showcase-actions"><button type="button" data-organization-info="hospital" data-wusool-ar="معلومات المؤسسة" data-wusool-en="Organization information" >Organization information</button><a data-wusool-ar="استكشف خريطة وصول" data-wusool-en="Explore Wusool map" href="./accessibility-map.html">Explore Wusool map</a></div><p class="showcase-record-status" data-record-status="hospital" data-wusool-ar="محطة عرض · يظهر الحجز فقط عند وجود فرع منشور مطابق في وصول." data-wusool-en="Showcase stop · Booking appears only for a matching published Wusool branch.">Showcase stop · Booking appears only for a matching published Wusool branch.</p><small class="showcase-art-note" data-wusool-ar="تصوّر معماري بالذكاء الاصطناعي · ليس نسخة موثّقة للمبنى." data-wusool-en="AI architectural interpretation · Not a verified building replica.">AI architectural interpretation · Not a verified building replica.</small></article></section><section aria-labelledby="journey-title-ministry" class="organization-stop" data-side="1" data-stop="ministry" id="journey-ministry"><article class="showcase-panel" translate="no"><div class="showcase-marker"><span data-wusool-ar="03 / 05" data-wusool-en="03 / 05">03 / 05</span><span data-wusool-ar="القطاع الحكومي · الأردن" data-wusool-en="Public sector · Jordan">Public sector · Jordan</span></div><h2 data-wusool-ar="وزارة الاقتصاد الرقمي والريادة" data-wusool-en="Ministry of Digital Economy and Entrepreneurship" id="journey-title-ministry">Ministry of Digital Economy and Entrepreneurship</h2><img alt="AI architectural interpretation — Ministry of Digital Economy and Entrepreneurship" class="showcase-visual" data-wusool-label-ar="تصوّر معماري بالذكاء الاصطناعي — وزارة الاقتصاد الرقمي والريادة" data-wusool-label-en="AI architectural interpretation — Ministry of Digital Economy and Entrepreneurship" decoding="async" height="1024" loading="lazy" src="../../assets/images/journey/ministry.webp" width="1536"/><p class="showcase-intro" data-wusool-ar="الوزارة الأردنية التي تدعم الاقتصاد الرقمي والمهارات والبنية التحتية الرقمية وريادة الأعمال." data-wusool-en="Jordan’s ministry supporting the digital economy, digital skills, infrastructure and entrepreneurship.">Jordan’s ministry supporting the digital economy, digital skills, infrastructure and entrepreneurship.</p><p class="showcase-location" data-wusool-ar="الدوار الثامن، بيادر وادي السير · عمّان" data-wusool-en="8th Circle, Bayader Wadi Al Seer · Amman">8th Circle, Bayader Wadi Al Seer · Amman</p><div class="showcase-actions"><button type="button" data-organization-info="ministry" data-wusool-ar="معلومات المؤسسة" data-wusool-en="Organization information" >Organization information</button><a data-wusool-ar="استكشف خريطة وصول" data-wusool-en="Explore Wusool map" href="./accessibility-map.html">Explore Wusool map</a></div><p class="showcase-record-status" data-record-status="ministry" data-wusool-ar="محطة عرض · يظهر الحجز فقط عند وجود فرع منشور مطابق في وصول." data-wusool-en="Showcase stop · Booking appears only for a matching published Wusool branch.">Showcase stop · Booking appears only for a matching published Wusool branch.</p><small class="showcase-art-note" data-wusool-ar="تصوّر معماري بالذكاء الاصطناعي · ليس نسخة موثّقة للمبنى." data-wusool-en="AI architectural interpretation · Not a verified building replica.">AI architectural interpretation · Not a verified building replica.</small></article></section><section aria-labelledby="journey-title-optimiza" class="organization-stop" data-side="-1" data-stop="optimiza" id="journey-optimiza"><article class="showcase-panel" translate="no"><div class="showcase-marker"><span data-wusool-ar="04 / 05" data-wusool-en="04 / 05">04 / 05</span><span data-wusool-ar="الخدمات العامة · الأردن" data-wusool-en="Public services · Jordan">Public services · Jordan</span></div><h2 data-wusool-ar="دائرة الأحوال المدنية والجوازات" data-wusool-en="Civil Status and Passports Department" id="journey-title-optimiza">Civil Status and Passports Department</h2><img alt="AI architectural interpretation — Civil Status and Passports Department" class="showcase-visual" data-wusool-label-ar="تصوّر معماري بالذكاء الاصطناعي — دائرة الأحوال المدنية والجوازات" data-wusool-label-en="AI architectural interpretation — Civil Status and Passports Department" decoding="async" height="1024" loading="lazy" src="../../assets/images/journey/optimiza.webp" width="1536"/><p class="showcase-intro" data-wusool-ar="دائرة حكومية أردنية تقدم خدمات تسجيل الأحوال المدنية والوثائق الشخصية وجوازات السفر." data-wusool-en="A Jordanian government department providing civil registration, identity document and passport services.">A Jordanian government department providing civil registration, identity document and passport services.</p><p class="showcase-location" data-wusool-ar="طبربور · عمّان · الأردن" data-wusool-en="Tabarbour · Amman · Jordan">Tabarbour · Amman · Jordan</p><div class="showcase-actions"><button type="button" data-organization-info="optimiza" data-wusool-ar="معلومات المؤسسة" data-wusool-en="Organization information" >Organization information</button><a data-wusool-ar="استكشف خريطة وصول" data-wusool-en="Explore Wusool map" href="./accessibility-map.html">Explore Wusool map</a></div><p class="showcase-record-status" data-record-status="optimiza" data-wusool-ar="محطة عرض · يظهر الحجز فقط عند وجود فرع منشور مطابق في وصول." data-wusool-en="Showcase stop · Booking appears only for a matching published Wusool branch.">Showcase stop · Booking appears only for a matching published Wusool branch.</p><small class="showcase-art-note" data-wusool-ar="تصوّر معماري بالذكاء الاصطناعي · ليس نسخة موثّقة للمبنى." data-wusool-en="AI architectural interpretation · Not a verified building replica.">AI architectural interpretation · Not a verified building replica.</small></article></section><section class="academy-stop" id="academyDestination" aria-labelledby="academyTitle">
 <div class="destination-heading" dir="ltr"><span class="journey-eyebrow">You have arrived. Choose your next step.</span><h2 id="academyTitle">One destination.<br/><em>Opportunity for everyone.</em></h2><p>Orange Coding Academy · Irbid</p></div>
 <div class="destination-grid">
 <article class="destination-join destination-org" dir="ltr"><span class="join-number">02 / ORGANIZATIONS</span><span class="join-icon"><i class="bi bi-buildings" aria-hidden="true"></i></span><h3>Open your doors<br/>to everyone.</h3><p>Introduce your organization, document accessibility across your branches, and help every visitor arrive with confidence.</p><ul><li>Manage branches and services</li><li>Accessibility reports and assessments</li><li>Connect with your visitors</li></ul><a class="join-action" href="../../org/html/organization-register.html">Join as an organization <span aria-hidden="true">↖</span></a></article>
-<div class="academy-arrival-copy" dir="ltr"><span class="destination-pill">YOUR DESTINATION</span><button class="academy-preview" type="button" aria-label="View Orange Academy details"><img src="../../assets/images/orange-academy-ai.png" alt="Architectural visualization of Orange Academy in Irbid" width="1536" height="1024" loading="lazy"/><span class="academy-photo-tag">ORANGE DIGITAL VILLAGE ↗</span></button><h3>Orange Coding<br/>Academy</h3><p>Explore the destination, its facade, and the original entrance photo.</p><button class="academy-hotspot" type="button" aria-haspopup="dialog" aria-controls="academyDetails">Academy details <span aria-hidden="true">↗</span></button><p class="academy-label">Architectural visualization inspired by the reference photo</p></div>
+<div class="academy-arrival-copy" dir="ltr"><span class="destination-pill">YOUR DESTINATION</span><button class="academy-preview" type="button" aria-label="View Orange Academy details"><img src="../../assets/images/orange-exploration-preview.jpg" alt="Rendered conceptual Orange building in Irbid" width="1536" height="1024" loading="lazy"/><span class="academy-photo-tag">ORANGE DIGITAL VILLAGE ↗</span></button><h3>Orange Coding<br/>Academy</h3><p>Explore the destination, its facade, and the original entrance photo.</p><button class="academy-hotspot" type="button" aria-haspopup="dialog" aria-controls="academyDetails">Academy details <span aria-hidden="true">↗</span></button><p class="academy-label">Conceptual 3D reconstruction informed by the supplied videos</p></div>
 <article class="destination-join destination-user" dir="ltr"><span class="join-number">01 / PEOPLE</span><span class="join-icon"><i class="bi bi-person-heart" aria-hidden="true"></i></span><h3>Your world is closer<br/>than you imagine.</h3><p>Discover places that suit your needs, plan your visit, and take your next step with confidence.</p><ul><li>Places that fit your needs</li><li>Clearer visit planning and guidance</li><li>Experiences from the Wusool community</li></ul><a class="join-action" href="./register.html">Join as a person <span aria-hidden="true">↗</span></a></article>
 </div><a class="academy-next" href="#contact">Your journey continues ↓</a>
 </section>
 </div>
 </section>
-<dialog class="academy-dialog" id="academyDetails" aria-labelledby="academyDetailsTitle" dir="ltr"><button class="academy-close" type="button" aria-label="Close academy details">×</button><img class="academy-dialog-photo" src="../../assets/images/orange-academy-ai.png" alt="Architectural visualization of Orange Academy" width="1536" height="1024"/><div class="academy-dialog-body"><span class="journey-eyebrow" style="color:#c55c15">ORANGE DIGITAL VILLAGE · IRBID</span><h2 id="academyDetailsTitle">Orange Coding Academy</h2><p>This journey leads to Orange Coding Academy. The facade is inspired by the project reference photo of Orange Digital Village in Irbid.</p><div class="academy-detail-grid"><div><strong>Location</strong>Orange Digital Village · Irbid</div><div><strong>Facade</strong>Orange branding, a gray facade, and a glass entrance</div><div><strong>Destination photos</strong><a href="../../assets/images/orange_home.jpg" target="_blank" rel="noopener">View the original entrance photo ↗</a></div><div><strong>Accessibility information</strong>Requires verification before planning an accessible visit</div></div><div class="academy-dialog-actions"><a href="./accessibility-map.html">Explore the Wusool map</a><a href="./smart-guidance.html">Smart guidance</a><a href="./login.html">Log in</a></div><p class="academy-disclaimer">The generated image and model are visual interpretations of the reference; building dimensions and details are not an architectural survey.</p></div></dialog>
+<dialog class="academy-dialog" id="academyDetails" aria-labelledby="academyDetailsTitle" dir="ltr"><button class="academy-close" type="button" aria-label="Close academy details">×</button><img class="academy-dialog-photo" src="../../assets/images/orange-exploration-preview.jpg" alt="Rendered conceptual Orange building" width="1536" height="1024"/><div class="academy-dialog-body"><span class="journey-eyebrow" style="color:#c55c15">ORANGE DIGITAL VILLAGE · IRBID</span><h2 id="academyDetailsTitle">Orange Coding Academy</h2><p>This journey leads to Orange Coding Academy. The facade is inspired by the project reference photo of Orange Digital Village in Irbid.</p><div class="academy-detail-grid"><div><strong>Location</strong>Orange Digital Village · Irbid</div><div><strong>Facade</strong>Orange branding, a gray facade, and a glass entrance</div><div><strong>Destination photos</strong><a href="../../assets/images/orange_home.jpg" target="_blank" rel="noopener">View the original entrance photo ↗</a></div><div><strong>Accessibility information</strong>Requires verification before planning an accessible visit</div></div><div class="academy-dialog-actions"><a href="./accessibility-map.html">Explore the Wusool map</a><a href="./smart-guidance.html">Smart guidance</a><a href="./login.html">Log in</a></div><p class="academy-disclaimer">The rendered preview and model are visual interpretations of the references; building dimensions and details are not an architectural survey.</p></div></dialog>
 <!-- ======================================
              Hero Section
         ======================================= -->
-
 <!-- ======================================
              How Wusool Works
         ======================================= -->
-
-
 <!-- ======================================
              Featured Accessible Places
         ======================================= -->
-
 <!-- ======================================
              AI Analysis
         ======================================= -->
-
 <!-- ======================================
              Main Features
         ======================================= -->
-
 <!-- ======================================
              Organizations
         ======================================= -->
-
 <!-- ======================================
              Accessibility Section
         ======================================= -->
-
 <!-- ======================================
              Statistics and CTA
         ======================================= -->
-
 <section aria-labelledby="heroTitle" class="hero-section premium-hero section-space">
 <div class="container">
 <div class="premium-hero-shell" id="heroShell">
@@ -298,484 +295,17 @@
 </form>
 </div>
 </div>
-</section><section class="section-space section-background" id="featuredPlaces">
-<div class="container">
-<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
-<div>
-<span class="section-small-title">Explore first</span>
-<h2 class="section-title mb-1">Understand a place before you arrive</h2>
-<p class="section-description mb-0">See the entrance, route, facilities and accessibility signals that can change your visit.</p>
-</div>
-<a class="btn btn-wusool-outline" href="./accessibility-map.html">
-              View All Places
-              <i class="bi bi-arrow-right"></i>
-</a>
-</div>
-<div class="row g-4">
-<!-- Place 1 -->
-<div class="col-md-6 col-xl-4">
-<article class="place-card wusool-card position-relative h-100">
-<div class="place-image place-image-one">
-<span class="place-score"> 92% </span>
-<span class="verified-place">
-<i class="bi bi-patch-check-fill"></i>
-                    Verified
-                  </span>
-</div>
-<div class="p-4">
-<h3>
-<a class="stretched-link place-title-link" href="./place-details.html?id=1">
-                      Amman City Hall
-                    </a>
-</h3>
-<p class="text-secondary">Government · Amman</p>
-<div class="tag-list">
-<span class="wusool-tag">Ramp</span>
-<span class="wusool-tag">Elevator</span>
-<span class="wusool-tag">Parking</span>
-</div>
-</div>
-</article>
-</div>
-<!-- Place 2 -->
-<div class="col-md-6 col-xl-4">
-<article class="place-card wusool-card position-relative h-100">
-<div class="place-image place-image-two">
-<span class="place-score"> 88% </span>
-<span class="verified-place">
-<i class="bi bi-patch-check-fill"></i>
-                    Verified
-                  </span>
-</div>
-<div class="p-4">
-<h3>
-<a class="stretched-link place-title-link" href="./place-details.html?id=2">
-                      Al Noor Medical Center
-                    </a>
-</h3>
-<p class="text-secondary">Medical Center · Amman</p>
-<div class="tag-list">
-<span class="wusool-tag">Wide Entry</span>
-<span class="wusool-tag">Elevator</span>
-<span class="wusool-tag">Parking</span>
-</div>
-</div>
-</article>
-</div>
-<!-- Place 3 -->
-<div class="col-md-6 col-xl-4">
-<article class="place-card wusool-card position-relative h-100">
-<div class="place-image place-image-three">
-<span class="place-score"> 86% </span>
-<span class="verified-place">
-<i class="bi bi-patch-check-fill"></i>
-                    Verified
-                  </span>
-</div>
-<div class="p-4">
-<h3>
-<a class="stretched-link place-title-link" href="./place-details.html?id=3">
-                      Community Hub
-                    </a>
-</h3>
-<p class="text-secondary">Community Center · Amman</p>
-<div class="tag-list">
-<span class="wusool-tag">Ramp</span>
-<span class="wusool-tag">Assistance</span>
-<span class="wusool-tag">Wide Paths</span>
-</div>
-</div>
-</article>
-</div>
-</div>
-</div>
-</section><section class="section-space" id="howItWorks">
-<div class="container">
-<div class="text-center mx-auto section-heading">
-<span class="section-small-title">Three simple steps</span>
-<h2 class="section-title">Plan smarter. Arrive prepared.</h2>
-<p class="section-description mx-auto">Wusool turns accessibility information into a simple journey from discovery to arrival.</p>
-</div>
-<div class="row g-4 mt-4">
-<div class="col-md-4">
-<article class="process-card wusool-card">
-<span class="step-number">1</span>
-<div class="process-icon">
-<i class="bi bi-search-heart"></i>
-</div>
-<h3>Explore nearby places</h3>
-<p>Search by destination, city and the accessibility support you need.</p>
-</article>
-</div>
-<div class="col-md-4">
-<article class="process-card wusool-card">
-<span class="step-number">2</span>
-<div class="process-icon">
-<i class="bi bi-bar-chart-line"></i>
-</div>
-<h3>Check what matters</h3>
-<p>Compare entrances, parking, elevators, paths, photos and accessibility scores.</p>
-</article>
-</div>
-<div class="col-md-4">
-<article class="process-card wusool-card">
-<span class="step-number">3</span>
-<div class="process-icon">
-<i class="bi bi-calendar2-check"></i>
-</div>
-<h3>Go with guidance</h3>
-<p>Save the right place and follow clearer directions designed around your visit.</p>
-</article>
-</div>
-</div>
-</div>
-</section><section class="section-space premium-ai-section" id="aiAnalysis">
-<div class="container">
-<div class="premium-ai-shell">
-<div class="row align-items-center g-5">
-<div class="col-lg-5">
-<span class="ai-label premium-ai-label">Wusool Vision · Real-world context</span>
-<h2 class="premium-ai-title mt-3">Turn a real entrance into useful accessibility insight.</h2>
-<p class="premium-ai-copy">Upload a photo of an entrance, path or facility. Wusool highlights visible barriers and useful features so you can decide with more context.</p>
-<div class="ai-feature-list">
-<div><i class="bi bi-bounding-box-circles"></i><span><strong>Detect context</strong><small>Entrances, steps, path width and facility signals.</small></span></div>
-<div><i class="bi bi-shield-check"></i><span><strong>Explain confidence</strong><small>AI findings remain clear, reviewable and transparent.</small></span></div>
-</div>
-<a class="btn premium-light-btn magnetic-button" href="./ai-accessibility-report.html?id=1">
-                  Open AI accessibility report <i class="bi bi-arrow-right"></i>
-</a>
-</div>
-<div class="col-lg-7">
-<div class="ai-vision-demo tilt-surface" data-tilt-strength="2">
-<img alt="Real building entrance being analyzed for accessibility" src="../../assets/images/orange_home.jpg"/>
-<div class="ai-image-shade"></div>
-<div aria-hidden="true" class="scanner-line"></div>
-<div class="detection-box detection-entrance"><span>Entrance · 97%</span></div>
-<div class="detection-box detection-steps"><span>Steps · barrier</span></div>
-<div class="vision-topbar">
-<div><span class="vision-status-dot"></span><strong>Live analysis</strong></div>
-<span>01:24</span>
-</div>
-<div class="vision-result-panel">
-<div class="vision-score"><strong data-count="88">0</strong><span>%</span><small>preliminary score</small></div>
-<div class="vision-findings">
-<span class="finding good"><i class="bi bi-check2"></i> Entrance detected</span>
-<span class="finding warn"><i class="bi bi-exclamation-triangle"></i> Steps at approach</span>
-<span class="finding info"><i class="bi bi-signpost-split"></i> Alternative path suggested</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section><section class="section-space wusool-story-section" id="experience">
-<div class="container">
-<div class="story-shell">
-<div class="row g-5 align-items-start">
-<div class="col-lg-5 story-copy-wrap">
-<span class="section-small-title story-eyebrow">DISCOVER · UNDERSTAND · NAVIGATE</span>
-<h2 class="story-title">One place. One clear accessibility journey.</h2>
-<p class="story-lead">Move from finding a destination to understanding the entrance and following an accessible route — without jumping between different tools.</p>
-<div class="story-steps" role="list">
-<button class="story-step is-active" data-story-step="0" type="button">
-<span>01</span>
-<div><strong>Discover</strong><small>Real places, filters and verified accessibility data.</small></div>
-</button>
-<button class="story-step" data-story-step="1" type="button">
-<span>02</span>
-<div><strong>Understand</strong><small>See entrances, paths, obstacles and confidence scores.</small></div>
-</button>
-<button class="story-step" data-story-step="2" type="button">
-<span>03</span>
-<div><strong>Navigate</strong><small>Follow guidance designed around accessibility needs.</small></div>
-</button>
-</div>
-</div>
-<div class="col-lg-7 story-visual-wrap">
-<div class="story-device tilt-surface" data-tilt-strength="3">
-<div class="device-frame">
-<div class="device-header">
-<span class="device-pill"><i class="bi bi-geo-alt-fill"></i> Wusool route</span>
-<span class="device-time">12:42</span>
-</div>
-<div aria-label="Interactive route preview" class="journey-map" id="journeyMap"></div>
-<div class="route-instruction" id="routeInstruction">
-<div class="route-icon"><i class="bi bi-arrow-up-right"></i></div>
-<div><span>Accessible route</span><strong>Continue for 120 m</strong></div>
-<span class="route-distance">4 min</span>
-</div>
-</div>
-<div class="story-orbit orbit-one"><i class="bi bi-elevator"></i><span>Elevator</span></div>
-<div class="story-orbit orbit-two"><i class="bi bi-p-square-fill"></i><span>Parking</span></div>
-<div class="story-orbit orbit-three"><i class="bi bi-door-open-fill"></i><span>Wide entry</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section><section class="section-space">
-<div class="container">
-<div class="text-center section-heading mx-auto">
-<span class="section-small-title">Built around the visit</span>
-<h2 class="section-title">Everything you need, in one connected experience</h2>
-<p class="section-description mx-auto">Explore, compare, plan, navigate, request assistance and share accessibility feedback from one platform.</p>
-</div>
-<div class="row g-3 mt-4">
-<!-- Feature 1 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-map"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./accessibility-map.html">
-                    Map &amp; Nearby
-                  </a>
-</h3>
-<p>Nearby branches, distance and directions.</p>
-</article>
-</div>
-<!-- Feature 2 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-magic"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./smart-match.html">
-                    Smart Match
-                  </a>
-</h3>
-<p>Places ranked according to your needs.</p>
-</article>
-</div>
-<!-- Feature 3 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-speedometer2"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./ai-accessibility-report.html?id=1">
-                    Accessibility Score
-                  </a>
-</h3>
-<p>Clear accessibility score from 0 to 100.</p>
-</article>
-</div>
-<!-- Feature 4 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-sign-turn-right"></i>
-<h3>
-<!-- Smart Guidance -->
-<a class="stretched-link feature-card-link" href="./smart-guidance.html">
-                    Smart Guidance
-                  </a>
-</h3>
-<p>Text and voice directions and alerts.</p>
-</article>
-</div>
-<!-- Feature 5 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-calendar-check"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./booking-information.html#booking">
-                    Visit Booking
-                  </a>
-</h3>
-<p>Learn how booking works before creating an account.</p>
-</article>
-</div>
-<!-- Feature 6 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-person-heart"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./booking-information.html#assistance">
-                    Visit Assistance
-                  </a>
-</h3>
-<p>Learn how to request employee help before visiting.</p>
-</article>
-</div>
-<!-- Feature 7 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-person-wheelchair"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./booking-information.html#equipment">
-                    Equipment
-                  </a>
-</h3>
-<p>View information about available accessibility equipment.</p>
-</article>
-</div>
-<!-- Feature 8 -->
-<div class="col-sm-6 col-lg-3">
-<article class="feature-card wusool-card position-relative h-100">
-<i class="bi bi-chat-square-heart"></i>
-<h3>
-<a class="stretched-link feature-card-link" href="./community-reviews.html">
-                    Reviews &amp; Reports
-                  </a>
-</h3>
-<p>View community reviews and accessibility reports.</p>
-</article>
-</div>
-</div>
-</div>
-</section><section class="section-space section-background" id="organizations">
-<div class="container">
-<span class="section-small-title">For private &amp; government organizations</span>
-<h2 class="section-title">Give visitors better information. Improve every branch.</h2>
-<p class="section-description">Manage branch accessibility, review evidence, respond to reports and track practical improvements from one organization portal.</p>
-<div class="row g-4 mt-4">
-<div class="col-md-6 col-lg-4">
-<article class="organization-card wusool-card">
-<i class="bi bi-buildings"></i>
-<h3>Branches &amp; Working Hours</h3>
-<p>Manage locations, services and opening times.</p>
-</article>
-</div>
-<div class="col-md-6 col-lg-4">
-<article class="organization-card wusool-card">
-<i class="bi bi-ui-checks-grid"></i>
-<h3>Accessibility Checklist</h3>
-<p>Evaluate entrances, paths and facilities.</p>
-</article>
-</div>
-<div class="col-md-6 col-lg-4">
-<article class="organization-card wusool-card">
-<i class="bi bi-lightbulb"></i>
-<h3>AI Improvement Suggestions</h3>
-<p>Receive practical accessibility improvements.</p>
-</article>
-</div>
-<div class="col-md-6 col-lg-4">
-<article class="organization-card wusool-card">
-<i class="bi bi-graph-up-arrow"></i>
-<h3>Reports &amp; Dashboards</h3>
-<p>Track accessibility scores and reports.</p>
-</article>
-</div>
-<div class="col-md-6 col-lg-4">
-<article class="organization-card wusool-card">
-<i class="bi bi-award"></i>
-<h3>Wusool Certificate</h3>
-<p>Receive a verified accessibility certificate.</p>
-</article>
-</div>
-<div class="col-md-6 col-lg-4">
-<article class="organization-card wusool-card">
-<i class="bi bi-credit-card"></i>
-<h3>Flexible Subscriptions</h3>
-<p>Monthly and annual multi-branch packages.</p>
-</article>
-</div>
-</div>
-</div>
-</section><section class="section-space" id="aboutWusool">
-<div class="container">
-<div class="website-accessibility">
-<div class="row align-items-center g-4">
-<div class="col-lg-5">
-<span class="section-small-title">Accessibility is part of the product</span>
-<h2 class="section-title">Designed to work for more people</h2>
-<p class="section-description">Keyboard support, readable contrast, screen-reader friendly structure and motion preferences are built into the experience.</p>
-</div>
-<div class="col-lg-7">
-<div class="row g-3">
-<div class="col-sm-6">
-<div class="accessibility-item">
-<i class="bi bi-keyboard"></i>
-<div>
-<strong>Keyboard Navigation</strong>
-<small>Tab, Enter and Escape</small>
-</div>
-</div>
-</div>
-<div class="col-sm-6">
-<div class="accessibility-item">
-<i class="bi bi-ear"></i>
-<div>
-<strong>Screen Reader Ready</strong>
-<small>Labels and landmarks</small>
-</div>
-</div>
-</div>
-<div class="col-sm-6">
-<div class="accessibility-item">
-<i class="bi bi-circle-half"></i>
-<div>
-<strong>High Contrast</strong>
-<small>Readable and clear text</small>
-</div>
-</div>
-</div>
-<div class="col-sm-6">
-<div class="accessibility-item">
-<i class="bi bi-mic"></i>
-<div>
-<strong>Text &amp; Voice</strong>
-<small>Reading and voice options</small>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section><section class="section-space pt-0" id="getStarted">
-<div class="container">
-<div class="row g-3">
-<div class="col-6 col-lg-3">
-<div class="stat-card">
-<strong>0–100</strong>
-<span>Accessibility Score</span>
-</div>
-</div>
-<div class="col-6 col-lg-3">
-<div class="stat-card">
-<strong>AI + Human</strong>
-<span>Transparent Verification</span>
-</div>
-</div>
-<div class="col-6 col-lg-3">
-<div class="stat-card">
-<strong>AR | EN</strong>
-<span>Bilingual Experience</span>
-</div>
-</div>
-<div class="col-6 col-lg-3">
-<div class="stat-card">
-<strong>One Platform</strong>
-<span>Search, Book and Improve</span>
-</div>
-</div>
-</div>
-<div class="home-cta mt-4">
-<div>
-<h2>Ready to plan your next visit with confidence?</h2>
-<p>Explore accessible places now, or create an account to save places, plan visits and receive personalized guidance.</p>
-</div>
-<div class="d-flex flex-wrap gap-2">
-<a class="btn btn-light btn-lg" href="./accessibility-map.html">
-                Explore the Map
-              </a>
-<a class="btn btn-outline-light btn-lg" href="./register.html">
-                Create Account
-              </a>
-</div>
-</div>
-</div>
 </section></main>
 <!-- ======================================
          Footer
     ======================================= -->
-<footer class="main-footer destination-footer" id="contact" dir="ltr" lang="en">
-<div class="footer-orbit" aria-hidden="true"></div><div class="footer-inner">
-<div class="footer-invitation"><div><span class="footer-eyebrow">Every arrival is a new beginning.</span><h2>Your next destination?<br/><em>Let’s get there together.</em></h2></div><a class="footer-explore" href="./accessibility-map.html"><span>Explore places</span><span class="footer-arrow" aria-hidden="true">↖</span></a></div>
+<footer class="main-footer destination-footer" dir="ltr" id="contact">
+<div aria-hidden="true" class="footer-orbit"></div><div class="footer-inner">
+<div class="footer-invitation"><div><span class="footer-eyebrow">Every arrival is a new beginning.</span><h2>Your next destination?<br/><em>Let’s get there together.</em></h2></div><a class="footer-explore" href="./accessibility-map.html"><span>Explore places</span><span aria-hidden="true" class="footer-arrow">↖</span></a></div>
 <div class="footer-columns"><div class="footer-about"><a class="footer-brand" href="./home.html">Wusool<span>.</span></a><p>Clearer places. Easier visits.<br/>A world with room for everyone.</p><span class="footer-location">Designed for your journey · Jordan</span></div><nav aria-label="Explore Wusool"><h3>Explore</h3><a href="./accessibility-map.html">Accessibility map</a><a href="./smart-match.html">Places for you</a><a href="./community-reviews.html">Community experiences</a></nav><nav aria-label="Wusool tools"><h3>Your journey</h3><a href="./smart-guidance.html">Smart guidance</a><a href="./ai-accessibility-report.html">Accessibility analysis</a><a href="#howItWorks">How Wusool works</a></nav><nav aria-label="Join Wusool"><h3>Be part of Wusool</h3><a href="./register.html">Join as a person ↗</a><a href="../../org/html/organization-register.html">Join as an organization ↗</a><a href="./login.html">Log in</a></nav></div>
-<div class="footer-wordmark" aria-hidden="true">WUSOOL<span>®</span></div><div class="footer-bottom"><span>© 2026 Wusool. For everyone, at every step.</span><span>ACCESS IS A POSSIBILITY.</span><a href="#mainContent">Back to the start ↑</a></div>
+<div aria-hidden="true" class="footer-wordmark">WUSOOL<span>®</span></div><div class="footer-bottom"><span>© 2026 Wusool. For everyone, at every step.</span><span>ACCESS IS A POSSIBILITY.</span><a href="#mainContent">Back to the start ↑</a></div>
 </div></footer>
+<script src="../js/journey-organizations.js"></script><script src="../js/journey-organization-info.js"></script>
 <script src="../js/journey-home.js"></script>
 <!-- Bootstrap JavaScript -->
 <script src="../../assets/vendor/bootstrap-5.3.3/bootstrap.bundle.min.js"></script>
@@ -789,21 +319,17 @@
 <script src="../js/home.js"></script>
 <script src="../js/premium-home.js"></script>
 <!-- Dynamic Platform Runtime -->
-
 <script src="../../assets/platform-runtime.js"></script>
 <script src="../../assets/public-data-bridge.js"></script>
 <script src="../../assets/dynamic-form-runtime.js"></script>
-
 <script src="../../assets/behavior-runtime.js"></script>
-
 <script src="../../assets/error-runtime.js"></script>
 <script src="../../assets/maintenance-runtime.js"></script>
 <!-- Wusool Premium Motion System -->
 <script src="../../assets/js/wusool-motion.js"></script>
 <!-- Wusool Unified Experience -->
 <script src="../../assets/js/wusool-experience.js"></script>
-    <!-- Wusool Automatic Arabic / English Translation -->
-    <script src="../../assets/auto-translate.js"></script>
-
+<!-- Wusool Automatic Arabic / English Translation -->
+<script src="../../assets/auto-translate.js"></script>
 </body>
 </html>
