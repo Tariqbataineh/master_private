@@ -1,0 +1,12 @@
+{
+  "tables": 50,
+  "foreignKeys": 88,
+  "staticAssertionsPassed": 763,
+  "sqlServerExecution": "not run: SQL Server unavailable",
+  "dotnetBuild": "not run: .NET SDK unavailable",
+  "frontendModified": false,
+  "csharpSyntaxFilesPassed": 49,
+  "createTableStatementsParsed": 50,
+  "parserLimit": "Syntax parsing is not Roslyn compilation or SQL Server execution.",
+  "contractFieldsMapped": 340
+}

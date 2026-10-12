@@ -5,6 +5,8 @@
 ======================================== */
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
+  const legacyLanguage=[...document.querySelectorAll('button')].find(b=>b.textContent.trim()==='AR | EN');
+  if(legacyLanguage)WusoolUI.listen(legacyLanguage,'click',()=>window.WusoolPreferences?.setLanguage(document.documentElement.lang==='ar'?'en':'ar'));
   const searchForm = document.getElementById('mapSearchForm');
   const searchInput = document.getElementById('searchInput');
   const locationFilter = document.getElementById('locationFilter');

@@ -1,0 +1,7072 @@
+{
+  "AspNetUsers": {
+    "entity": "ApplicationUser",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "UserName",
+        "type": "nvarchar(256)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "NormalizedUserName",
+        "type": "nvarchar(256)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Email",
+        "type": "nvarchar(256)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "NormalizedEmail",
+        "type": "nvarchar(256)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "EmailConfirmed",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "PasswordHash",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SecurityStamp",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ConcurrencyStamp",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "PhoneNumber",
+        "type": "nvarchar(50)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "PhoneNumberConfirmed",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "TwoFactorEnabled",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "LockoutEnd",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "LockoutEnabled",
+        "type": "bit",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "AccessFailedCount",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ContactPhone",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": "N'pending'"
+      },
+      {
+        "name": "ApprovalStatus",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RequiresInitialSetup",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Type",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OrganizationType",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OrganizationCategory",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "City",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Address",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Latitude",
+        "type": "decimal(10,7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Longitude",
+        "type": "decimal(10,7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CountryCode",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Governorate",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "GooglePlaceId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Website",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "AccessibilityPreferencesJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ProfileJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "PreferencesJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SettingsJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RepresentativeName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "JobTitle",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ManagerName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ManagerPosition",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ManagerEmail",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ManagerPhone",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RegistrationNumber",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Logo",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DocumentName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DocumentId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "DocumentStatus",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RoleCode",
+        "type": "nvarchar(20)",
+        "required": true,
+        "default": "N'User'"
+      },
+      {
+        "name": "BlockedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "BlockedById",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BlockReason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "TermsAcceptedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[RoleCode] IN (N'User',N'Organization',N'Admin')",
+      "[Status] IN (N'active',N'pending',N'rejected',N'blocked',N'suspended',N'disabled')",
+      "[ApprovalStatus] IS NULL OR [ApprovalStatus] IN (N'pending',N'approved',N'rejected')",
+      "[AccessibilityPreferencesJson] IS NULL OR ISJSON([AccessibilityPreferencesJson]) = 1",
+      "[ProfileJson] IS NULL OR ISJSON([ProfileJson]) = 1",
+      "[PreferencesJson] IS NULL OR ISJSON([PreferencesJson]) = 1",
+      "[SettingsJson] IS NULL OR ISJSON([SettingsJson]) = 1",
+      "([Latitude] IS NULL AND [Longitude] IS NULL) OR ([Latitude] IS NOT NULL AND [Longitude] IS NOT NULL AND [Latitude] BETWEEN -90 AND 90 AND [Longitude] BETWEEN -180 AND 180)",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "NormalizedEmail"
+        ],
+        "unique": true,
+        "filter": "[NormalizedEmail] IS NOT NULL"
+      },
+      {
+        "columns": [
+          "NormalizedUserName"
+        ],
+        "unique": true,
+        "filter": "[NormalizedUserName] IS NOT NULL"
+      },
+      {
+        "columns": [
+          "BlockedById"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BlockedById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "BlockedBy",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "parent": "Documents",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "RegistrationDocument",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AspNetRoles": {
+    "entity": "IdentityRole",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(256)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "NormalizedName",
+        "type": "nvarchar(256)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ConcurrencyStamp",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [],
+    "indexes": [
+      {
+        "columns": [
+          "NormalizedName"
+        ],
+        "unique": true,
+        "filter": "[NormalizedName] IS NOT NULL"
+      }
+    ],
+    "foreignKeys": [],
+    "alternateKeys": []
+  },
+  "AspNetUserRoles": {
+    "entity": "IdentityUserRole<string>",
+    "columns": [
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "RoleId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "UserId",
+      "RoleId"
+    ],
+    "checks": [],
+    "indexes": [
+      {
+        "columns": [
+          "RoleId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "RoleId"
+        ],
+        "parent": "AspNetRoles",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Role",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AspNetUserClaims": {
+    "entity": "IdentityUserClaim<string>",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "int IDENTITY(1,1)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ClaimType",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ClaimValue",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [],
+    "indexes": [
+      {
+        "columns": [
+          "UserId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AspNetRoleClaims": {
+    "entity": "IdentityRoleClaim<string>",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "int IDENTITY(1,1)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "RoleId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ClaimType",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ClaimValue",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [],
+    "indexes": [
+      {
+        "columns": [
+          "RoleId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "RoleId"
+        ],
+        "parent": "AspNetRoles",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Role",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AspNetUserLogins": {
+    "entity": "IdentityUserLogin<string>",
+    "columns": [
+      {
+        "name": "LoginProvider",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ProviderKey",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ProviderDisplayName",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "LoginProvider",
+      "ProviderKey"
+    ],
+    "checks": [],
+    "indexes": [
+      {
+        "columns": [
+          "UserId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AspNetUserTokens": {
+    "entity": "IdentityUserToken<string>",
+    "columns": [
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "LoginProvider",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Value",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "UserId",
+      "LoginProvider",
+      "Name"
+    ],
+    "checks": [],
+    "indexes": [],
+    "foreignKeys": [
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "Organizations": {
+    "entity": "Organization",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "HoursRevision",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "HoursUpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Id] = [AccountId]",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": "Organization",
+        "one": true
+      }
+    ],
+    "alternateKeys": []
+  },
+  "OrganizationMemberships": {
+    "entity": "OrganizationMembership",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Role",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": "N'owner'"
+      },
+      {
+        "name": "Active",
+        "type": "bit",
+        "required": true,
+        "default": "1"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Role] IN (N'owner',N'manager',N'staff')",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId",
+          "AccountId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "Memberships",
+        "one": false
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": "Memberships",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "OrganizationApplications": {
+    "entity": "OrganizationApplication",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": "N'pending'"
+      },
+      {
+        "name": "SubmittedById",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ReviewedById",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ReviewedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SnapshotJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[SnapshotJson] IS NULL OR ISJSON([SnapshotJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "SubmittedById"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ReviewedById"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "Applications",
+        "one": false
+      },
+      {
+        "columns": [
+          "SubmittedById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "SubmittedBy",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "ReviewedById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "ReviewedBy",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "Branches": {
+    "entity": "Branch",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(120)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchType",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Type",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Phone",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Email",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "City",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "District",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Area",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Address",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Latitude",
+        "type": "decimal(10,7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Longitude",
+        "type": "decimal(10,7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CountryCode",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Governorate",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "GooglePlaceId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "AccessibilityFeaturesJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OperationalAvailabilityJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccessibilityScore",
+        "type": "decimal(18,6)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Score",
+        "type": "decimal(18,6)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ScoreSource",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "EvidenceStatus",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "IsPublished",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ReviewedBy",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ReviewedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ApprovedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SubmittedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "StatusUpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "AdminFeedback",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "HoursRevision",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "HoursUpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "TicketServicesConfigured",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "BookingConfigurationJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ClosuresJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DetailsCompleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "HoursCompleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "AccessibilityCompleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "PhotosCompleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "AiReviewCompleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "CurrentAnalysisId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Status] IN (N'draft',N'pending',N'approved',N'published',N'rejected',N'suspended',N'changes-requested')",
+      "[AccessibilityScore] IS NULL OR [AccessibilityScore] BETWEEN 0 AND 100",
+      "[AccessibilityFeaturesJson] IS NULL OR ISJSON([AccessibilityFeaturesJson]) = 1",
+      "[OperationalAvailabilityJson] IS NULL OR ISJSON([OperationalAvailabilityJson]) = 1",
+      "[BookingConfigurationJson] IS NULL OR ISJSON([BookingConfigurationJson]) = 1",
+      "[ClosuresJson] IS NULL OR ISJSON([ClosuresJson]) = 1",
+      "([Latitude] IS NULL AND [Longitude] IS NULL) OR ([Latitude] IS NOT NULL AND [Longitude] IS NOT NULL AND [Latitude] BETWEEN -90 AND 90 AND [Longitude] BETWEEN -180 AND 180)",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId",
+          "Status",
+          "IsDeleted"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ReviewedBy"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "CurrentAnalysisId",
+          "Id"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "Branches",
+        "one": false
+      },
+      {
+        "columns": [
+          "ReviewedBy"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Reviewer",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "CurrentAnalysisId",
+          "Id"
+        ],
+        "parent": "BranchAnalyses",
+        "parentColumns": [
+          "Id",
+          "BranchId"
+        ],
+        "nav": "CurrentAnalysis",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": [
+      [
+        "Id",
+        "OrganizationId"
+      ]
+    ]
+  },
+  "OrganizationHours": {
+    "entity": "OrganizationHours",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "DayOfWeek",
+        "type": "tinyint",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "IsOpen",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "OpenTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CloseTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[DayOfWeek] BETWEEN 0 AND 6",
+      "([IsOpen] = 0 AND [OpenTime] IS NULL AND [CloseTime] IS NULL) OR ([IsOpen] = 1 AND [OpenTime] IS NOT NULL AND [CloseTime] IS NOT NULL AND [OpenTime] < [CloseTime])",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId",
+          "DayOfWeek"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "WorkingHours",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "OrganizationSpecialDates": {
+    "entity": "OrganizationSpecialDate",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Date",
+        "type": "date",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(20)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OpenTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CloseTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Note",
+        "type": "nvarchar(300)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "([Status] = N'closed' AND [OpenTime] IS NULL AND [CloseTime] IS NULL) OR ([Status] = N'custom' AND [OpenTime] IS NOT NULL AND [CloseTime] IS NOT NULL AND [OpenTime] < [CloseTime])",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId",
+          "Date"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "SpecialDates",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "BranchHours": {
+    "entity": "BranchHours",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "DayOfWeek",
+        "type": "tinyint",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "IsOpen",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "OpenTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CloseTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[DayOfWeek] BETWEEN 0 AND 6",
+      "([IsOpen] = 0 AND [OpenTime] IS NULL AND [CloseTime] IS NULL) OR ([IsOpen] = 1 AND [OpenTime] IS NOT NULL AND [CloseTime] IS NOT NULL AND [OpenTime] < [CloseTime])",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "DayOfWeek"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "WorkingHours",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "BranchSpecialDates": {
+    "entity": "BranchSpecialDate",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Date",
+        "type": "date",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(20)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OpenTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CloseTime",
+        "type": "time(0)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Note",
+        "type": "nvarchar(300)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "([Status] = N'closed' AND [OpenTime] IS NULL AND [CloseTime] IS NULL) OR ([Status] = N'custom' AND [OpenTime] IS NOT NULL AND [CloseTime] IS NOT NULL AND [OpenTime] < [CloseTime])",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "Date"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "SpecialDates",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "BranchServices": {
+    "entity": "BranchService",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(120)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Active",
+        "type": "bit",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "Available",
+        "type": "bit",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "NormalizedName",
+        "type": "nvarchar(120)",
+        "required": true,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "NormalizedName"
+        ],
+        "unique": true,
+        "filter": "[IsDeleted] = 0"
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "TicketServices",
+        "one": false
+      }
+    ],
+    "alternateKeys": [
+      [
+        "Id",
+        "BranchId"
+      ]
+    ]
+  },
+  "BranchLegacyServices": {
+    "entity": "BranchLegacyService",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(120)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "SortOrder",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "LegacyPayloadJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[LegacyPayloadJson] IS NULL OR ISJSON([LegacyPayloadJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "Name"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "LegacyServices",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "BranchDestinations": {
+    "entity": "BranchDestination",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(120)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "SortOrder",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "LegacyPayloadJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[LegacyPayloadJson] IS NULL OR ISJSON([LegacyPayloadJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "Name"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "Destinations",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AccessibilityRequirements": {
+    "entity": "AccessibilityRequirement",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Key",
+        "type": "nvarchar(100)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Title",
+        "type": "nvarchar(200)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Icon",
+        "type": "nvarchar(100)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Category",
+        "type": "nvarchar(100)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Weight",
+        "type": "decimal(9,4)",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "Required",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "Enabled",
+        "type": "bit",
+        "required": true,
+        "default": "1"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Weight] >= 0",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "Key"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [],
+    "alternateKeys": []
+  },
+  "BranchAccessibility": {
+    "entity": "BranchAccessibility",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "RequirementId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Value",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Notes",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Value] IN (N'available',N'not-available',N'not-sure',N'yes',N'no',N'unknown')",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "RequirementId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "RequirementId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "Accessibility",
+        "one": false
+      },
+      {
+        "columns": [
+          "RequirementId"
+        ],
+        "parent": "AccessibilityRequirements",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Requirement",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "Documents": {
+    "entity": "Document",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OwnerId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "CategoryKey",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Purpose",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "FileName",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Url",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Type",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Size",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Uploaded",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "MetadataJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Size] >= 0",
+      "[Status] IN (N'uploaded',N'preview-only',N'approved',N'rejected')",
+      "[MetadataJson] IS NULL OR ISJSON([MetadataJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OwnerId",
+          "CreatedAt"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OwnerId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Owner",
+        "inverse": "Documents",
+        "one": false
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "BranchPhotos": {
+    "entity": "BranchPhoto",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "CategoryKey",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CategoryTitle",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Type",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Size",
+        "type": "int",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OriginalSize",
+        "type": "int",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CompressionSavedBytes",
+        "type": "int",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Url",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Uploaded",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "UploadedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DocumentId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "SortOrder",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[CategoryKey] IN (N'main-entrance',N'entrance-route',N'internal-pathway',N'destination-area')",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "CategoryKey"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "Photos",
+        "one": false
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "parent": "Documents",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Document",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "BranchAnalyses": {
+    "entity": "BranchAnalysis",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Score",
+        "type": "decimal(18,6)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Confidence",
+        "type": "decimal(18,6)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Source",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "IsDemo",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Model",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "GeneratedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "FindingsJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RecommendationsJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Score] IS NULL OR [Score] BETWEEN 0 AND 100",
+      "[Confidence] IS NULL OR [Confidence] BETWEEN 0 AND 1",
+      "[FindingsJson] IS NULL OR ISJSON([FindingsJson]) = 1",
+      "[RecommendationsJson] IS NULL OR ISJSON([RecommendationsJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BranchId",
+          "GeneratedAt"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "Analyses",
+        "one": false
+      }
+    ],
+    "alternateKeys": [
+      [
+        "Id",
+        "BranchId"
+      ]
+    ]
+  },
+  "Bookings": {
+    "entity": "Booking",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "VisitDate",
+        "type": "date",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "VisitTime",
+        "type": "time(0)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "TimeZone",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": "N'Asia/Amman'"
+      },
+      {
+        "name": "RequiresAssistant",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SupportJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DurationMinutes",
+        "type": "int",
+        "required": true,
+        "default": "30"
+      },
+      {
+        "name": "Purpose",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "VisitPurpose",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Destination",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "GuidanceMethod",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Reference",
+        "type": "nvarchar(80)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": "N'pending'"
+      },
+      {
+        "name": "JourneyState",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": "N'not-started'"
+      },
+      {
+        "name": "LocationSnapshotJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DepartedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ArrivedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ReceivedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CompletedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CancelledAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CalledAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CancellationReason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ScheduleBlockedJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "QrUsedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ScheduleConflict",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ScheduleConflictAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ServiceId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ServiceName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ServiceSnapshotJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "QueueNumber",
+        "type": "int",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "QueueCalledById",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "QueueCalledAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[DurationMinutes] BETWEEN 15 AND 120",
+      "[TimeZone] = N'Asia/Amman'",
+      "[Status] IN (N'pending',N'confirmed',N'in-progress',N'completed',N'cancelled',N'no-show',N'waitlisted')",
+      "[JourneyState] IN (N'not-started',N'on-the-way',N'arrived',N'serving',N'completed',N'cancelled',N'no-show')",
+      "[SupportJson] IS NULL OR ISJSON([SupportJson]) = 1",
+      "[LocationSnapshotJson] IS NULL OR ISJSON([LocationSnapshotJson]) = 1",
+      "[ScheduleBlockedJson] IS NULL OR ISJSON([ScheduleBlockedJson]) = 1",
+      "[ServiceSnapshotJson] IS NULL OR ISJSON([ServiceSnapshotJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "Reference"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId",
+          "VisitDate",
+          "VisitTime",
+          "Status"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "UserId",
+          "VisitDate",
+          "Status"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId",
+          "VisitDate",
+          "QueueNumber"
+        ],
+        "unique": true,
+        "filter": "[QueueNumber] IS NOT NULL AND [IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "BranchId",
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ServiceId",
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "QueueCalledById"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BranchId",
+          "OrganizationId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id",
+          "OrganizationId"
+        ],
+        "nav": "Branch",
+        "inverse": "Bookings",
+        "one": false
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "User",
+        "inverse": "Bookings",
+        "one": false
+      },
+      {
+        "columns": [
+          "ServiceId",
+          "BranchId"
+        ],
+        "parent": "BranchServices",
+        "parentColumns": [
+          "Id",
+          "BranchId"
+        ],
+        "nav": "Service",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "QueueCalledById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "QueueCalledBy",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": [
+      [
+        "Id",
+        "UserId",
+        "BranchId"
+      ]
+    ]
+  },
+  "BookingHistory": {
+    "entity": "BookingHistory",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Event",
+        "type": "nvarchar(80)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "FromState",
+        "type": "nvarchar(30)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ToState",
+        "type": "nvarchar(30)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ActorId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ActorRole",
+        "type": "nvarchar(20)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ActorName",
+        "type": "nvarchar(120)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "At",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BookingId",
+          "At"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ActorId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Booking",
+        "inverse": "JourneyHistory",
+        "one": false
+      },
+      {
+        "columns": [
+          "ActorId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Actor",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AppointmentProposals": {
+    "entity": "AppointmentProposal",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ServiceId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ServiceName",
+        "type": "nvarchar(120)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ServiceSnapshotJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "VisitDate",
+        "type": "date",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "VisitTime",
+        "type": "time(0)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "RequiresAssistant",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "DurationMinutes",
+        "type": "int",
+        "required": true,
+        "default": "30"
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ExpiresAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": "N'pending'"
+      },
+      {
+        "name": "RespondedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Status] IN (N'pending',N'accepted',N'rejected',N'expired',N'superseded')",
+      "[DurationMinutes] BETWEEN 15 AND 120",
+      "[ServiceSnapshotJson] IS NULL OR ISJSON([ServiceSnapshotJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "unique": true,
+        "filter": "[Status] = N'pending' AND [IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "BranchId",
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "UserId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ServiceId",
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Booking",
+        "inverse": "AppointmentProposals",
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId",
+          "OrganizationId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id",
+          "OrganizationId"
+        ],
+        "nav": "Branch",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "User",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "ServiceId",
+          "BranchId"
+        ],
+        "parent": "BranchServices",
+        "parentColumns": [
+          "Id",
+          "BranchId"
+        ],
+        "nav": "Service",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "VisitPasses": {
+    "entity": "VisitPass",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "TokenHash",
+        "type": "binary(32)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ExpiresAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "VerifiedById",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "VerifiedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "UsedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RevokedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "TokenHash"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "unique": true,
+        "filter": "[RevokedAt] IS NULL AND [UsedAt] IS NULL AND [IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "VerifiedById"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Booking",
+        "inverse": "Passes",
+        "one": false
+      },
+      {
+        "columns": [
+          "VerifiedById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "VerifiedBy",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "Reviews": {
+    "entity": "Review",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Rating",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Comment",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Title",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Flagged",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ModerationLocked",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ApprovedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ApprovedBy",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "UserId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Rating] BETWEEN 1 AND 5",
+      "[Status] IN (N'Pending',N'Visible',N'Hidden',N'Rejected')",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "unique": true,
+        "filter": "[IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "BranchId",
+          "Status",
+          "IsDeleted"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BookingId",
+          "UserId",
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "UserId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ApprovedBy"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "BookingId",
+          "UserId",
+          "BranchId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id",
+          "UserId",
+          "BranchId"
+        ],
+        "nav": "Booking",
+        "inverse": "Reviews",
+        "one": false
+      },
+      {
+        "columns": [
+          "UserId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "User",
+        "inverse": "Reviews",
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": "Reviews",
+        "one": false
+      },
+      {
+        "columns": [
+          "ApprovedBy"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Moderator",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "SupportTickets": {
+    "entity": "SupportTicket",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "RequesterId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Kind",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Subject",
+        "type": "nvarchar(200)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Title",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar(2000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Category",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "IssueType",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Priority",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AssignedTo",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "PlaceName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "City",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Address",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DetailsJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Kind] IN (N'support',N'accessibility-report',N'place-suggestion')",
+      "[Status] IN (N'Open',N'In Progress',N'Resolved',N'Closed')",
+      "[Priority] IN (N'Low',N'Medium',N'High',N'Urgent')",
+      "[DetailsJson] IS NULL OR ISJSON([DetailsJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "RequesterId",
+          "Status"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AssignedTo"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "RequesterId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Requester",
+        "inverse": "SupportTickets",
+        "one": false
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "AssignedTo"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Assignee",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "TicketMessages": {
+    "entity": "TicketMessage",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "TicketId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ActorId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar(4000)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ActorName",
+        "type": "nvarchar(120)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ActorRole",
+        "type": "nvarchar(20)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "TicketId",
+          "CreatedAt"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ActorId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "TicketId"
+        ],
+        "parent": "SupportTickets",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Ticket",
+        "inverse": "Messages",
+        "one": false
+      },
+      {
+        "columns": [
+          "ActorId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Actor",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "TicketAttachments": {
+    "entity": "TicketAttachment",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "TicketId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "DocumentId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "TicketId",
+          "DocumentId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "TicketId"
+        ],
+        "parent": "SupportTickets",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Ticket",
+        "inverse": "Attachments",
+        "one": false
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "parent": "Documents",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Document",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "Plans": {
+    "entity": "Plan",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Name",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "MonthlyPrice",
+        "type": "decimal(18,2)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AnnualDiscount",
+        "type": "decimal(18,6)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchLimit",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Currency",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Active",
+        "type": "bit",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Description",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "FeaturesJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[MonthlyPrice] >= 0 AND [AnnualDiscount] BETWEEN 0 AND 1 AND [BranchLimit] > 0",
+      "[FeaturesJson] IS NULL OR ISJSON([FeaturesJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "Name"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [],
+    "alternateKeys": []
+  },
+  "Subscriptions": {
+    "entity": "Subscription",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "PlanId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "PlanName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "BillingCycle",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BranchLimit",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Price",
+        "type": "decimal(18,2)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Currency",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "StartDate",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "RenewalDate",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "EndDate",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "AutoRenew",
+        "type": "bit",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "PaymentStatus",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "DevelopmentOnly",
+        "type": "bit",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Status] IN (N'Active',N'Inactive',N'Cancelled',N'Expired',N'Pending')",
+      "[BillingCycle] IN (N'monthly',N'annual')",
+      "[Price] >= 0 AND [BranchLimit] > 0",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": true,
+        "filter": "[Status] = N'Active' AND [IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "PlanId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "Subscriptions",
+        "one": false
+      },
+      {
+        "columns": [
+          "PlanId"
+        ],
+        "parent": "Plans",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Plan",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "PaymentOperations": {
+    "entity": "PaymentOperation",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "SubscriptionId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Provider",
+        "type": "nvarchar(40)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ProviderReference",
+        "type": "nvarchar(200)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OperationKind",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Amount",
+        "type": "decimal(18,2)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Currency",
+        "type": "nvarchar(3)",
+        "required": true,
+        "default": "N'JOD'"
+      },
+      {
+        "name": "ProviderPayloadJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Amount] IS NULL OR [Amount] >= 0",
+      "[ProviderPayloadJson] IS NULL OR ISJSON([ProviderPayloadJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "Provider",
+          "ProviderReference"
+        ],
+        "unique": true,
+        "filter": "[ProviderReference] IS NOT NULL"
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "SubscriptionId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "SubscriptionId"
+        ],
+        "parent": "Subscriptions",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Subscription",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "HoursChangeRequests": {
+    "entity": "HoursChangeRequest",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ResourceName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "BeforeJson",
+        "type": "nvarchar(max)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ProposedJson",
+        "type": "nvarchar(max)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "BaseHoursRevision",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ReviewedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ReviewReason",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "OrganizationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "RequestedById",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ReviewedById",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Status] IN (N'pending',N'approved',N'rejected',N'superseded')",
+      "[BeforeJson] IS NULL OR ISJSON([BeforeJson]) = 1",
+      "[ProposedJson] IS NULL OR ISJSON([ProposedJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OrganizationId",
+          "BranchId",
+          "Status"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "unique": true,
+        "filter": "[BranchId] IS NOT NULL AND [Status] = N'pending' AND [IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "unique": true,
+        "filter": "[BranchId] IS NULL AND [Status] = N'pending' AND [IsDeleted] = 0"
+      },
+      {
+        "columns": [
+          "BranchId",
+          "OrganizationId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "RequestedById"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ReviewedById"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OrganizationId"
+        ],
+        "parent": "Organizations",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Organization",
+        "inverse": "HoursRequests",
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId",
+          "OrganizationId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id",
+          "OrganizationId"
+        ],
+        "nav": "Branch",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "RequestedById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "RequestedBy",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "ReviewedById"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "ReviewedBy",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "HoursAffectedBookings": {
+    "entity": "HoursAffectedBooking",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "HoursChangeRequestId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "HoursChangeRequestId",
+          "BookingId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "HoursChangeRequestId"
+        ],
+        "parent": "HoursChangeRequests",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Request",
+        "inverse": "AffectedBookings",
+        "one": false
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Booking",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "Notifications": {
+    "entity": "Notification",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OwnerId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Kind",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Title",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar(1000)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ActionUrl",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Date",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Time",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "BranchName",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "HoursChangeRequestId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Status] IN (N'unread',N'read')",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "OwnerId",
+          "Status",
+          "CreatedAt"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "HoursChangeRequestId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OwnerId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Owner",
+        "inverse": "Notifications",
+        "one": false
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Booking",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "HoursChangeRequestId"
+        ],
+        "parent": "HoursChangeRequests",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "HoursRequest",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "NotificationReads": {
+    "entity": "NotificationRead",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "NotificationId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "ReadAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "NotificationId",
+          "AccountId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "NotificationId"
+        ],
+        "parent": "Notifications",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Notification",
+        "inverse": "Readers",
+        "one": false
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "SavedPlaces": {
+    "entity": "SavedPlace",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "AccountId",
+          "BranchId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": "SavedPlaces",
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "DeviceSessions": {
+    "entity": "DeviceSession",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "SessionHash",
+        "type": "binary(32)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Device",
+        "type": "nvarchar(300)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "LastActive",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ExpiresAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "RevokedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SecurityStampSnapshot",
+        "type": "nvarchar(256)",
+        "required": true,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "SessionHash"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AccountId",
+          "RevokedAt"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": "Sessions",
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AccessChallenges": {
+    "entity": "AccessChallenge",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Purpose",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "TokenHash",
+        "type": "binary(32)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ExpiresAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ConsumedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "AttemptCount",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[AttemptCount] >= 0",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "TokenHash"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "ImpersonationSessions": {
+    "entity": "ImpersonationSession",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AdminId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "TargetAccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(1000)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ExpiresAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "EndedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[AdminId] <> [TargetAccountId]",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "AdminId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "TargetAccountId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AdminId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Admin",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "TargetAccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "TargetAccount",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "AuditEvents": {
+    "entity": "AuditEvent",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Actor",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Action",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "EntityType",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "EntityId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Reason",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Timestamp",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Score",
+        "type": "decimal(18,6)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ActorId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "EntityType",
+          "EntityId",
+          "Timestamp"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "ActorId",
+          "Timestamp"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "ActorId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "ActorAccount",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "FrontendStates": {
+    "entity": "FrontendState",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Scope",
+        "type": "nvarchar(20)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OwnerKey",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Key",
+        "type": "nvarchar(200)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ValueJson",
+        "type": "nvarchar(max)",
+        "required": true,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "([Scope] = N'global' AND [OwnerKey] = N'global' AND [AccountId] IS NULL) OR ([Scope] = N'account' AND [AccountId] IS NOT NULL AND [OwnerKey] = [AccountId])",
+      "[ValueJson] IS NULL OR ISJSON([ValueJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "Scope",
+          "OwnerKey",
+          "Key"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "OutboxMessages": {
+    "entity": "OutboxMessage",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "OwnerId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Kind",
+        "type": "nvarchar(50)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "PayloadJson",
+        "type": "nvarchar(max)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": "N'queued'"
+      },
+      {
+        "name": "AttemptCount",
+        "type": "int",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "NextAttemptAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "SentAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "LastError",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[PayloadJson] IS NULL OR ISJSON([PayloadJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "Status",
+          "NextAttemptAt"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "OwnerId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "OwnerId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Owner",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "IdempotencyRecords": {
+    "entity": "IdempotencyRecord",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Operation",
+        "type": "nvarchar(80)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Key",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "RequestHash",
+        "type": "binary(32)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "ResponseJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "HttpStatus",
+        "type": "int",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ExpiresAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[ResponseJson] IS NULL OR ISJSON([ResponseJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "AccountId",
+          "Operation",
+          "Key"
+        ],
+        "unique": true,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "RuntimeErrors": {
+    "entity": "RuntimeError",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Type",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Message",
+        "type": "nvarchar(2000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Source",
+        "type": "nvarchar(500)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Line",
+        "type": "int",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "CreatedAt"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "ExternalJobs": {
+    "entity": "ExternalJob",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "AccountId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BranchId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "BookingId",
+        "type": "nvarchar(128)",
+        "required": false,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Kind",
+        "type": "nvarchar(50)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Provider",
+        "type": "nvarchar(50)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "Status",
+        "type": "nvarchar(30)",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "RequestJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "ResultJson",
+        "type": "nvarchar(max)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "FailureMessage",
+        "type": "nvarchar(1000)",
+        "required": false,
+        "default": null
+      },
+      {
+        "name": "CompletedAt",
+        "type": "datetimeoffset(7)",
+        "required": false,
+        "default": null
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[RequestJson] IS NULL OR ISJSON([RequestJson]) = 1",
+      "[ResultJson] IS NULL OR ISJSON([ResultJson]) = 1",
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "AccountId",
+          "Kind",
+          "CreatedAt"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "unique": false,
+        "filter": null
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "AccountId"
+        ],
+        "parent": "AspNetUsers",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Account",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "BranchId"
+        ],
+        "parent": "Branches",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Branch",
+        "inverse": null,
+        "one": false
+      },
+      {
+        "columns": [
+          "BookingId"
+        ],
+        "parent": "Bookings",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Booking",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  },
+  "SyncRevisions": {
+    "entity": "SyncRevision",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "int",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "Version",
+        "type": "bigint",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [],
+    "indexes": [],
+    "foreignKeys": [],
+    "alternateKeys": []
+  },
+  "TicketMessageAttachments": {
+    "entity": "TicketMessageAttachment",
+    "columns": [
+      {
+        "name": "Id",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "Revision",
+        "type": "int",
+        "required": true,
+        "default": "1"
+      },
+      {
+        "name": "CreatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "UpdatedAt",
+        "type": "datetimeoffset(7)",
+        "required": true,
+        "default": "SYSUTCDATETIME()"
+      },
+      {
+        "name": "IsDeleted",
+        "type": "bit",
+        "required": true,
+        "default": "0"
+      },
+      {
+        "name": "RowVersion",
+        "type": "rowversion",
+        "required": true,
+        "default": null
+      },
+      {
+        "name": "MessageId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      },
+      {
+        "name": "DocumentId",
+        "type": "nvarchar(128)",
+        "required": true,
+        "default": null,
+        "collation": "Latin1_General_100_BIN2"
+      }
+    ],
+    "key": [
+      "Id"
+    ],
+    "checks": [
+      "[Revision] >= 0"
+    ],
+    "indexes": [
+      {
+        "columns": [
+          "MessageId",
+          "DocumentId"
+        ],
+        "unique": true,
+        "filter": null
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "unique": false,
+        "filter": null
+      }
+    ],
+    "foreignKeys": [
+      {
+        "columns": [
+          "MessageId"
+        ],
+        "parent": "TicketMessages",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Message",
+        "inverse": "Attachments",
+        "one": false
+      },
+      {
+        "columns": [
+          "DocumentId"
+        ],
+        "parent": "Documents",
+        "parentColumns": [
+          "Id"
+        ],
+        "nav": "Document",
+        "inverse": null,
+        "one": false
+      }
+    ],
+    "alternateKeys": []
+  }
+}

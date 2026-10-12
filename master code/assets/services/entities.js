@@ -68,6 +68,14 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
       x.score = x.accessibilityScore;
       x.scoreSource = ['ai', 'demo'].includes(old?.scoreSource) ? old.scoreSource : null;
       x.photos = x.photos || [];
+      if (ctx.branchMedia) {
+        x.photos=x.photos.map(p=>ctx.branchMedia.metadata(p));
+        x.videos=(x.videos||[]).map(p=>ctx.branchMedia.metadata(p));
+      }
+      // Reviewed route versions cannot be forged through general branch edits.
+      x.navigationVersions=old?.navigationVersions||[];
+      x.publishedNavigationVersionId=old?.publishedNavigationVersionId||null;
+      x.navigationDraft=old?.navigationDraft||{points:[],connections:[],destinations:[]};
       x.services = Array.isArray(x.services)
         ? x.services
         : typeof x.services === 'string'
@@ -544,7 +552,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
     if (
       (['users', 'organizations'].includes(kind) &&
         ['blocked', 'suspended', 'disabled'].includes(x.status)) ||
-      x.isDeleted
+      (['users','organizations'].includes(kind) && x.isDeleted)
     )
       data.revocations[x.id] = (data.revocations[x.id] || 0) + 1;
     if (kind === 'organizations' && ctx.isAdmin(a)) {
@@ -577,9 +585,11 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
         status: 'unread', createdAt: ctx.now()
       });
     }
+    if(kind==='organizations'&&x.isDeleted){for(const draft of Object.values(data.drafts||{})){if(draft.selectedOrganizationId===x.id)delete draft.selectedOrganizationId;const selected=data.branches.find(b=>b.id===draft.branchId);if(selected?.organizationId===x.id)delete draft.branchId;}}
     ctx.put(data);
     if (
       ctx.session()?.id === x.id &&
+      ((kind==='organizations'&&ctx.session()?.role==='Organization')||(kind==='users'&&ctx.session()?.role!=='Organization')) &&
       (['blocked', 'suspended', 'disabled'].includes(x.status) || x.isDeleted)
     )
       ctx.clearSession();
@@ -720,4 +730,52 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
             }[x.status] || x.status,
     };
   };
+});
+
+'use strict';
+// One service boundary; branch metadata lives with the existing branch record.
+window.WusoolServiceModules.push(ctx => {
+  const fail=(code,message)=>ctx.fail(code,message),copy=x=>JSON.parse(JSON.stringify(x));
+  const numeric=(v,min,max,label)=>{if(v==null||v===''||typeof v==='string'&&!v.trim())return null;if(!['string','number'].includes(typeof v))fail('VALIDATION_ERROR',label+' must be numeric.');const n=Number(v);if(!Number.isFinite(n)||n<min||n>max)fail('VALIDATION_ERROR',label+' is outside its valid range.');return n;};
+  const metadata=input=>{
+    const x={...input};for(const k of ['title','categoryKey','pointId','floor','destinationId','notes'])x[k]=String(x[k]??'').trim()||null;
+    x.latitude=numeric(x.latitude,-90,90,'Latitude');x.longitude=numeric(x.longitude,-180,180,'Longitude');
+    if((x.latitude===null)!==(x.longitude===null))fail('VALIDATION_ERROR','Supply latitude and longitude together, or omit both.');
+    x.accuracy=numeric(x.accuracy,0,100000,'Accuracy');x.heading=numeric(x.heading,0,359.999999,'Heading');
+    x.locationTimestamp=x.locationTimestamp||null;x.locationSource=x.locationSource||null;const sources=['device','manual','map-pin','imported'];if(x.locationSource!=null&&!sources.includes(x.locationSource))fail('VALIDATION_ERROR','Unknown location source.');
+    if(x.latitude===null){x.accuracy=null;x.locationTimestamp=null;x.locationSource=null;}
+    else if(x.locationSource!=='device'&&x.locationSource!=='imported')x.accuracy=null;
+    if(x.locationTimestamp&&!Number.isFinite(Date.parse(x.locationTimestamp)))fail('VALIDATION_ERROR','Invalid location timestamp.');
+    return x;
+  };
+  const localBranch=(id,write=false)=>{const a=ctx.requireAccount(write?['Organization','Admin']:[]),data=ctx.db(),b=data.branches.find(x=>String(x.id)===String(id)&&!x.isDeleted);if(!b)fail('NOT_FOUND','Branch not found.');const o=data.organizations.find(x=>String(x.id)===String(b.organizationId)&&!x.isDeleted);if(!o)fail('NOT_FOUND','Organization not found.');if(a.role!=='Admin'&&(a.role!=='Organization'||String(a.id)!==String(b.organizationId)))fail('FORBIDDEN','Branch ownership required.');if(write&&a.role==='Organization'&&o.approvalStatus!=='approved')fail('ORGANIZATION_PENDING','Organization approval is required.');return {a,data,b};};
+  const fields=b=>({branchId:b.id,photos:(b.photos||[]).map((m,i)=>({...m,id:m.id||'legacy-photo-'+b.id+'-'+i})),videos:(b.videos||[]).map((m,i)=>({...m,id:m.id||'legacy-video-'+b.id+'-'+i})),draft:b.navigationDraft||{points:[],connections:[],destinations:[]},versions:b.navigationVersions||[]});
+  const validateRoute=(route,b)=>{
+    const r=copy(route),ids=new Set(),media=[...(b.photos||[]),...(b.videos||[])];
+    if(!Array.isArray(r.points)||!Array.isArray(r.connections)||!Array.isArray(r.destinations))fail('VALIDATION_ERROR','Points, connections and destinations are required arrays.');
+    if(r.points.length>100||r.connections.length>300||r.destinations.length>100)fail('VALIDATION_ERROR','Route exceeds configured limits.');
+    for(const p of r.points){if(!p.id||ids.has(p.id)||!String(p.name||'').trim())fail('VALIDATION_ERROR','Each point needs a unique identifier and name.');ids.add(p.id);p.floor=String(p.floor||'');p.references=p.references||[];for(const ref of p.references){if(!media.some(m=>m.id===ref.mediaId))fail('INVALID_REFERENCE','Reference media must belong to this branch.');ref.heading=numeric(ref.heading,0,359.999999,'Reference heading');}}
+    const connectionIds=new Set();for(const c of r.connections){if(!c.id||connectionIds.has(c.id)||!ids.has(c.from)||!ids.has(c.to)||c.from===c.to)fail('INVALID_REFERENCE','Invalid connection.');connectionIds.add(c.id);if(!['passage','stairs','ramp','elevator'].includes(c.kind))fail('VALIDATION_ERROR','Unknown passage type.');c.distanceMeters=numeric(c.distanceMeters,0,100000,'Distance');if(c.verified&&!String(c.instruction||'').trim())fail('VALIDATION_ERROR','Verified connections need landmark instructions.');if(c.bidirectional&&!String(c.reverseInstruction||'').trim())fail('VALIDATION_ERROR','Reverse connections require their own verified instruction.');}
+    const destIds=new Set();for(const d of r.destinations){if(!d.id||destIds.has(d.id)||!ids.has(d.pointId)||!String(d.name||'').trim())fail('INVALID_REFERENCE','Invalid destination.');destIds.add(d.id);}
+    return r;
+  };
+  const path=(route,start,destination,{stepFree=false}={})=>{
+    const target=route.destinations.find(x=>x.id===destination)?.pointId;if(!target||!route.points.some(p=>p.id===start))return null;
+    const queue=[[start,[]]],seen=new Set([start]);while(queue.length){const [id,steps]=queue.shift();if(id===target)return steps;for(const c of route.connections){if(!c.verified||c.available===false||stepFree&&(c.kind==='stairs'||c.stepFree!==true))continue;let next,reverse=false;if(c.from===id)next=c.to;else if(c.bidirectional&&c.to===id){next=c.from;reverse=true;}if(next&&!seen.has(next)){seen.add(next);queue.push([next,[...steps,{...c,from:id,to:next,instruction:reverse?c.reverseInstruction:c.instruction}]]);}}}return null;
+  };
+  const service={metadata,path,validateRoute,
+    async read(branchId){if(ctx.cfg.mode==='api'){const result=await ctx.request(`/branches/${encodeURIComponent(branchId)}/media-navigation`);if(String(result.branchId)!==String(branchId))fail('INVALID_RESPONSE','Media branch mismatch.');return result;}const {b}=localBranch(branchId);return copy(fields(b));},
+    async upload(branchId,file){if(ctx.cfg.mode!=='api')return {uploaded:false,status:'local-draft'};const limits={photoBytes:5*1048576,videoBytes:100*1048576,...ctx.cfg.branchMediaLimits};const video=file?.type?.startsWith('video/'),allowed=video?['video/mp4','video/webm']:['image/jpeg','image/png','image/webp'];if(!file||!allowed.includes(file.type)||file.size>(video?limits.videoBytes:limits.photoBytes))fail('INVALID_FILE','Unsupported media type or size.');const form=new FormData();form.append('file',file);const result=await ctx.request(`/branches/${encodeURIComponent(branchId)}/media/uploads`,{method:'POST',body:form});if(!result.id||result.uploaded!==true||String(result.branchId)!==String(branchId))fail('INVALID_RESPONSE','Server upload was not confirmed for this branch.');return result;},
+    async saveMedia(branchId,items){const photos=items.filter(x=>x.kind!=='video').map(metadata),videos=items.filter(x=>x.kind==='video').map(metadata);if(items.length>(ctx.cfg.branchMediaLimits?.count||60))fail('VALIDATION_ERROR','Branch media count limit reached.');if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/media`,{method:'PUT',body:{items:[...photos,...videos]}});const {a,b,data}=localBranch(branchId,true);const points=[...(b.navigationDraft?.points||[]),...(b.navigationVersions||[]).flatMap(r=>r.points||[])],destinations=[...(b.navigationDraft?.destinations||[]),...(b.navigationVersions||[]).flatMap(r=>r.destinations||[])];for(const m of [...photos,...videos]){if(m.pointId&&!points.some(p=>p.id===m.pointId))fail('INVALID_REFERENCE','Media point must belong to this branch.');if(m.destinationId&&!destinations.some(d=>d.id===m.destinationId))fail('INVALID_REFERENCE','Media destination must belong to this branch.');}const retained=new Set(items.map(x=>x.id));for(const r of b.navigationVersions||[])for(const p of r.points)for(const ref of p.references||[])if(!retained.has(ref.mediaId))fail('MEDIA_REFERENCED','A reviewed route still references this media. Keep it or retire the route first.');const changed=JSON.stringify(b.photos||[])!==JSON.stringify(photos);b.photos=photos;b.videos=videos;b.mediaState=!items.length?'not-provided':items.some(m=>['queued','processing'].includes(m.processingState))?'processing':items.every(m=>m.processingState==='failed')?'failed':'completed';b.completedSteps={...b.completedSteps,photos:photos.some(p=>p.processingState!=='failed'&&!!(p.blobId||p.url||p.imageData))};if(changed){b.completedSteps.aiReview=false;b.aiReview=null;b.accessibilityScore=null;b.score=null;b.scoreSource=null;if(['approved','published'].includes(b.status))b.status='draft';}b.updatedAt=ctx.now();ctx.audit(data,a,'Save branch media','branches',b.id);ctx.put(data);return copy(fields(b));},
+    async saveRoute(branchId,route){if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/navigation/draft`,{method:'PUT',body:route});const {a,b,data}=localBranch(branchId,true);b.photos=fields(b).photos;b.videos=fields(b).videos;b.navigationDraft=validateRoute(route,b);b.navigationDraft.state='draft';ctx.audit(data,a,'Save navigation draft','branches',b.id);ctx.put(data);return copy(b.navigationDraft);},
+    async publishRoute(branchId,{reviewConfirmed=false}={}){if(!reviewConfirmed)fail('REVIEW_REQUIRED','Review the actual landmarks, photos and both travel directions before publishing.');if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/navigation/versions`,{method:'POST',body:{reviewConfirmed}});const {a,b,data}=localBranch(branchId,true);const r=validateRoute(b.navigationDraft||{},b);if(!r.points.length||!r.destinations.length||r.connections.some(c=>!c.verified))fail('REVIEW_REQUIRED','A reviewed route needs points, destinations and verified connections.');for(const p of r.points)if(!(p.references||[]).some(ref=>(b.photos||[]).some(m=>m.id===ref.mediaId)))fail('REVIEW_REQUIRED','Every reviewed point needs a branch reference photo.');const version={...r,id:ctx.id('route'),branchId:b.id,state:'published',reviewedBy:a.id,reviewedAt:ctx.now()};b.navigationVersions=[...(b.navigationVersions||[]),version];b.publishedNavigationVersionId=version.id;ctx.audit(data,a,'Publish reviewed navigation','branches',b.id);ctx.put(data);return copy(version);},
+    async retireVersion(branchId,id){if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/navigation/versions/${encodeURIComponent(id)}/retire`,{method:'POST'});const {b,data,a}=localBranch(branchId,true);const r=b.navigationVersions?.find(x=>x.id===id);if(!r)fail('NOT_FOUND','Route version not found.');r.state='retired';if(b.publishedNavigationVersionId===id)b.publishedNavigationVersionId=null;ctx.audit(data,a,'Retire navigation version','branches',b.id);ctx.put(data);},
+    async processing(branchId,mediaId){if(ctx.cfg.mode!=='api')return {state:'unavailable',message:'Server processing unavailable. Original video retained.'};return ctx.request(`/branches/${encodeURIComponent(branchId)}/media/${encodeURIComponent(mediaId)}/processing-jobs`,{method:'POST',body:{operation:'extract-frames'}});},
+    async cancelJob(branchId,id){if(ctx.cfg.mode!=='api')return {state:'unavailable'};return ctx.request(`/branches/${encodeURIComponent(branchId)}/processing-jobs/${encodeURIComponent(id)}/cancel`,{method:'POST'});},
+    async job(branchId,id){if(ctx.cfg.mode!=='api')return {state:'unavailable'};return ctx.request(`/branches/${encodeURIComponent(branchId)}/processing-jobs/${encodeURIComponent(id)}`);},
+    async reviewFrames(branchId,id,acceptedFrameIds){if(ctx.cfg.mode!=='api')return {state:'unavailable'};return ctx.request(`/branches/${encodeURIComponent(branchId)}/processing-jobs/${encodeURIComponent(id)}/review`,{method:'POST',body:{acceptedFrameIds}});},
+    async guidance(bookingId,versionId){const bookings=await ctx.api.getBookings(),booking=bookings.find(b=>String(b.id)===String(bookingId));if(!booking)fail('NOT_FOUND','Booking not found or not authorized.');if(ctx.cfg.mode==='api'){const result=await ctx.request(`/bookings/${encodeURIComponent(bookingId)}/navigation${versionId?'?versionId='+encodeURIComponent(versionId):''}`);if(String(result.branchId)!==String(booking.branchId||booking.placeId))fail('INVALID_RESPONSE','Navigation branch does not match booking.');return result;}const data=ctx.db(),b=data.branches.find(x=>String(x.id)===String(booking.branchId||booking.placeId)&&!x.isDeleted);if(!b||!data.organizations.some(o=>String(o.id)===String(b.organizationId)&&!o.isDeleted&&o.status==='active'))fail('NOT_FOUND','Booked branch or organization is unavailable.');const r=(b.navigationVersions||[]).find(x=>x.id===(versionId||b.publishedNavigationVersionId)&&x.state==='published');return {bookingId:booking.id,branchId:b.id,branchName:b.name,route:r?copy(r):null,media:(b.photos||[]).map(x=>copy(x))};},
+    async localize(input,image,signal){const info=await service.guidance(input.bookingId,input.routeVersionId);if(!info.route)return {state:'no-route'};if(!info.route.destinations.some(d=>d.id===input.destinationId))fail('INVALID_REFERENCE','Destination not in booked route.');if(ctx.cfg.mode!=='api')return {state:'unavailable',message:'Visual localization backend unavailable. No image uploaded.'};const body=new FormData();body.append('image',image);for(const [k,v] of Object.entries(input))if(v!=null)body.append(k,String(v));const result=await ctx.request(`/bookings/${encodeURIComponent(input.bookingId)}/navigation/localizations`,{method:'POST',body,signal});if(!['matched','orientation-unknown','ambiguous','no-match','no-route','unavailable','failed'].includes(result.state))fail('INVALID_RESPONSE','Unknown localization state.');if(['matched','orientation-unknown'].includes(result.state)){const p=info.route.points.find(p=>p.id===result.pointId);if(!p||result.floor!==undefined&&String(result.floor)!==String(p.floor)||result.routeVersionId!==info.route.id)fail('INVALID_RESPONSE','Unverified localization identifiers.');if(result.state==='matched'&&!p.references?.some(r=>r.orientationId===result.orientationId&&r.heading!=null))return {...result,state:'orientation-unknown',orientationId:null};}return result;}
+  };
+  ctx.branchMedia=Object.freeze(service);
 });

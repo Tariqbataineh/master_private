@@ -50,6 +50,7 @@ window.WusoolServiceModules.push(function registerfacade(ctx) {
     reportRuntimeError: ctx.reportRuntimeError,
     clearSession: ctx.clearSession,
     mode: ctx.cfg.mode,
+    branchMedia: ctx.branchMedia,
   };
   for (const [kind, name] of Object.entries(ctx.singular)) {
     ctx.api['get' + (name === 'Branch' ? 'Branches' : name + 's')] = async (options) =>

@@ -4,6 +4,7 @@ window.WusoolUI = (() => {
   const readyHandlers = [];
   let started = false;
   const listeners = new WeakMap();
+  const activeEventLocks = new WeakMap();
   const routes = window.WusoolConstants.routes;
   const root = location.pathname.replace(/\/(?:visitor|user|org|admin)\/html\/.*$/, '');
   const escape = (x) =>
@@ -195,6 +196,7 @@ window.WusoolUI = (() => {
     handlers.add(fn);
     registered.set(type, handlers);
     listeners.set(target, registered);
+    const handlerToken={};
     target.addEventListener(
       type,
       async function (event) {
@@ -204,21 +206,23 @@ window.WusoolUI = (() => {
             : type === 'click'
               ? event.target.closest?.('button') || this
               : null;
-        if (lock?.dataset?.wusoolBusy === 'true') {
-          event.preventDefault();
-          return;
+        // Share one lock across listeners handling the SAME dispatch. A delegated
+        // observer must not suppress an unrelated action simply by running first.
+        let record=lock?activeEventLocks.get(lock):null;
+        if(record&&record.event!==event||!record&&lock?.dataset?.wusoolBusy==='true'){
+          event.preventDefault();return;
         }
-        const buttons =
-          type === 'submit'
-            ? Array.from(this.querySelectorAll('button[type="submit"],input[type="submit"]'))
-            : lock?.tagName === 'BUTTON'
-              ? [lock]
-              : [];
-        const states = buttons.map((b) => b.disabled),
-          labels = buttons.map((b) => b.innerHTML);
-        if (type === 'submit') event.preventDefault();
-        if (lock?.dataset) lock.dataset.wusoolBusy = 'true';
-        buttons.forEach((b) => (b.disabled = true));
+        if(!record){
+          const buttons=type==='submit'?Array.from(this.querySelectorAll('button[type="submit"],input[type="submit"]')):lock?.tagName==='BUTTON'?[lock]:[];
+          record={event,count:0,seen:new Set(),buttons,states:buttons.map(b=>b.disabled),labels:buttons.map(b=>b.innerHTML)};
+          if(lock)activeEventLocks.set(lock,record);
+          if(lock?.dataset)lock.dataset.wusoolBusy='true';
+          buttons.forEach(b=>b.disabled=true);
+        }
+        if(record.seen.has(handlerToken)){event.preventDefault();return;}
+        record.seen.add(handlerToken);record.count++;
+        const {buttons,states,labels}=record;
+        if(type==='submit')event.preventDefault();
         try {
           await fn.call(this, event);
         } catch (e) {
@@ -226,8 +230,7 @@ window.WusoolUI = (() => {
           if (type === 'submit') validation(this, e);
           error(e);
         } finally {
-          if (lock?.dataset) delete lock.dataset.wusoolBusy;
-          buttons.forEach((b, i) => (b.disabled = states[i]));
+          if(--record.count===0){if(lock?.dataset)delete lock.dataset.wusoolBusy;if(lock)activeEventLocks.delete(lock);buttons.forEach((b,i)=>b.disabled=states[i]);}
         }
       },
       options,

@@ -117,6 +117,7 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
     const org = data.organizations.find((o) => o.id === branch.organizationId);
     if (!org || org.isDeleted || org.status !== 'active' || org.approvalStatus !== 'approved')
       ctx.fail('ORGANIZATION_PENDING', 'The organization must be approved and active.');
+    if(!window.WusoolBranchWorkflow.checks(branch).photos||!window.WusoolBranchWorkflow.checks(branch).aiReview)ctx.fail('BRANCH_INCOMPLETE','Demo publication requires provided evidence and its completed review. Submit to Admin without optional evidence instead.');
     if (ctx.cfg.demoBranchPublication !== true || branch.scoreSource !== 'demo')
       ctx.fail('DEMO_PUBLICATION_DISABLED', 'Submit this branch for administrator approval.');
     if (branch.status === 'approved' && branch.demoPublication === true) return ctx.copy(branch);

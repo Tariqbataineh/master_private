@@ -3,6 +3,7 @@
 // Edit this file before serving the app; no provider secrets belong here.
 window.WusoolApiConfig = Object.freeze({
   mode: 'local',
+  recruitmentApiEnabled: false, // Enable only after implementing the documented authorized backend contracts.
   baseUrl: '/api',
   credentials: 'include',
   timeoutMs: 15000,
@@ -22,4 +23,5 @@ window.WusoolApiConfig = Object.freeze({
   googleMapsGeocodingEnabled: false,
   googleMapsPlacesEnabled: false,
   ticketServicesApiEnabled: false,
+  branchMediaLimits: Object.freeze({photoBytes:5*1024*1024,videoBytes:100*1024*1024,count:60}),
 });

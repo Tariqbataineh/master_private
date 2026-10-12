@@ -1,0 +1,2 @@
+// Smooth, bounded approach after the final stop; never changes the page's native clock.
+export function pacedStep(current,target,dt,maximumSpeed=6,response=3.8){const delta=target.map((v,i)=>v-current[i]),distance=Math.hypot(...delta);if(!distance)return [...current];const step=Math.min(distance*(1-Math.exp(-response*Math.max(0,dt))),maximumSpeed*Math.max(0,dt));return current.map((v,i)=>v+delta[i]*step/distance);}

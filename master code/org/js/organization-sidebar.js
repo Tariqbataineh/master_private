@@ -53,7 +53,7 @@ WusoolUI.enqueue(async () => {
     ]);
     const activePage = branchPages.has(currentPage) ? 'branches.html' : currentPage;
     document.querySelectorAll('#organizationSidebar .sidebar-link[data-page]').forEach((link) => {
-      const isActive = link.dataset.page === activePage;
+      const isActive = link.dataset.page === activePage && (!link.dataset.recruitmentView || link.dataset.recruitmentView === (new URLSearchParams(location.search).get('view')||'overview'));
       link.classList.toggle('active', isActive);
       if (isActive) {
         link.setAttribute('aria-current', 'page');

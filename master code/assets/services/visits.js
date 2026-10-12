@@ -110,6 +110,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
         const a = local(),
           data = ctx.db(),
           b = scoped(data, a, bookingId);
+        if (b.interviewId) ctx.fail('INTERVIEW_MANAGED', 'Interview timing is managed by the organization in Recruitment.');
         revision(b, input.expectedRevision);
         if (a.role !== 'User' && b.status === 'confirmed') {
           if (!String(input.reason || '').trim())
@@ -185,6 +186,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       const a = local(),
         data = ctx.db(),
         b = scoped(data, a, bookingId);
+      if (b.interviewId && ['cancel','reschedule','correct'].includes(action)) ctx.fail('INTERVIEW_MANAGED', 'Use Recruitment to change or cancel this interview and its linked visit.');
       if (action === 'receive') {
         const verification = b.qrVerified;
         if (
@@ -275,6 +277,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       const a = local(),
         data = ctx.db(),
         b = scoped(data, a, bookingId);
+      if (b.interviewId) ctx.fail('INTERVIEW_MANAGED', 'Decline the interview through Recruitment to release its associated visit.');
       revision(b, r);
       if (!active(b) || b.status === 'in-progress')
         ctx.fail('BOOKING_CLOSED', 'This booking cannot be cancelled here.');

@@ -49,8 +49,12 @@ WusoolUI.enqueue(async () => {
         ` + options,
     );
     const queryOrganizationId = WusoolAdmin.getQuery('organizationId');
-    if (queryOrganizationId) {
+    if (queryOrganizationId && organizations.some(o=>String(o.id)===String(queryOrganizationId)&&!o.isDeleted)) {
       organizationFilter.value = queryOrganizationId;
+    } else if(queryOrganizationId) {
+      organizationFilter.value='';
+      WusoolUI.message(document.documentElement.lang==='ar'?'المؤسسة محذوفة أو غير موجودة. هذه قائمة الفروع المتاحة.':'Organization deleted or not found. Showing available branches.','warning');
+      const url=new URL(location.href);url.searchParams.delete('organizationId');history.replaceState(null,'',url);
     }
   };
   const getFiltered = async () => {

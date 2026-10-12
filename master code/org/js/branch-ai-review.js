@@ -34,7 +34,7 @@ WusoolUI.enqueue(async () => {
         `<article class="card p-4"><div class="alert ${demo ? 'alert-warning' : 'alert-info'}" role="status">${escape(demo ? t('تحليل تجريبي لتكملة الإجراءات. النتيجة محسوبة من إجابات الإتاحة؛ الصور لم يتم تحليلها بذكاء اصطناعي حقيقي.', 'Demo analysis to complete setup. The estimate uses accessibility answers; images have not been analyzed by real AI.') : t('التحليل يتم عبر الخادم المتصل.', 'Analysis runs through the connected backend.'))}</div>${complete ? `<h2>${escape(t('نتيجة مراجعة الإتاحة', 'Accessibility review result'))}: ${escape(review.score)} / 100</h2><p>${escape(review.source === 'demo' ? t('تقييم تجريبي — يحتاج تحققًا فعليًا', 'Demo estimate — requires real verification') : t('نتيجة التحليل من الخادم', 'Backend analysis result'))}</p>` : ''}<p>${escape(t('بعد اكتمال التحليل يمكنك متابعة المراجعة النهائية وإرسال الفرع للأدمن.', 'After analysis, continue to final review and submit the branch to the administrator.'))}</p><button type="button" id="runAnalysisButton" class="btn btn-wusool align-self-start">${escape(demo ? t('تشغيل التحليل التجريبي', 'Run demo analysis') : t('تشغيل تحليل AI', 'Run AI analysis'))}</button><div id="analysisError" class="mt-3" role="alert"></div></article>`,
       );
       const analyze = document.getElementById('runAnalysisButton');
-      analyze.disabled = !branch;
+      analyze.disabled = !branch || !(branch.photos||[]).length;
       WusoolUI.listen(analyze, 'click', async () => {
         analyze.disabled = true;
         try {
@@ -63,6 +63,7 @@ WusoolUI.enqueue(async () => {
       });
     }
     render();
+    const skip=document.createElement('a');skip.href='./branch-submit-review.html?id='+encodeURIComponent(branch?.id||'');skip.className='btn btn-outline-wusool';skip.textContent=t('متابعة بدون تحليل اختياري — لا توجد نتيجة أو اعتماد','Continue without optional analysis — no score or approval');button.before(skip);
     WusoolUI.listen(button, 'click', () => {
       if (!branch || !window.WusoolBranchWorkflow.complete(branch)) return;
       if (WusoolServices.mode !== 'local') {

@@ -25,8 +25,8 @@ WusoolUI.enqueue(async () => {
   const setActiveAdminLink = () => {
     const currentPage = window.location.pathname.split('/').pop();
     document.querySelectorAll('.admin-sidebar .nav-link').forEach((link) => {
-      const linkPage = link.getAttribute('href').split('/').pop();
-      const isActive = linkPage === currentPage;
+      const linkPage = link.getAttribute('href').split('/').pop().split('?')[0];
+      const isActive = linkPage === currentPage && (!link.dataset.recruitmentView || link.dataset.recruitmentView === (new URLSearchParams(location.search).get('view')||'overview'));
       link.classList.toggle('active', isActive);
       if (isActive) {
         link.setAttribute('aria-current', 'page');

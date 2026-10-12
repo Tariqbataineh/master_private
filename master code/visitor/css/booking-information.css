@@ -445,3 +445,5 @@ body {
     background-color: #eef9f8;
   }
 }
+
+@media(max-width:767px){main .container > .row.g-5{--bs-gutter-x:1.5rem}}

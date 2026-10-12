@@ -1,0 +1,56 @@
+{
+  "admin/js/admin-components.js": [
+    "components"
+  ],
+  "admin/js/admin-theme-settings.js": [
+    "wusoolPlatformTheme"
+  ],
+  "admin/js/admin-feature-flags.js": [
+    "wusoolFeatureFlags"
+  ],
+  "admin/js/admin-navigation-manager.js": [
+    "wusoolNavigationConfig"
+  ],
+  "admin/js/admin-announcements.js": [
+    "wusoolAnnouncements"
+  ],
+  "admin/js/admin-notification-templates.js": [
+    "notificationTemplates"
+  ],
+  "admin/js/admin-content-manager.js": [
+    "wusoolContentManager"
+  ],
+  "admin/js/admin-ai-templates.js": [
+    "aiTemplates"
+  ],
+  "admin/js/admin-scheduled-reports.js": [
+    "scheduledReports"
+  ],
+  "admin/js/admin-documents.js": [
+    "documents"
+  ],
+  "admin/js/admin-settings.js": [
+    "systemSettings"
+  ],
+  "admin/js/admin-requirements-builder.js": [
+    "wusoolAccessibilityRequirements"
+  ],
+  "admin/js/admin-ai-settings.js": [
+    "aiSettings"
+  ],
+  "admin/js/admin-email-templates.js": [
+    "emailTemplates"
+  ],
+  "admin/js/admin-maintenance.js": [
+    "wusoolMaintenanceSettings"
+  ],
+  "admin/js/admin-form-builder.js": [
+    "wusoolDynamicFormSchemas"
+  ],
+  "admin/js/admin-feature-rollout.js": [
+    "featureRollouts"
+  ],
+  "admin/js/admin-media-library.js": [
+    "wusoolMediaLibrary"
+  ]
+}

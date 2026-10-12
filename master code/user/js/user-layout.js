@@ -37,8 +37,10 @@ WusoolUI.enqueue(async () => {
       'write-review.html': 'my-reviews.html',
       'report-accessibility-issue.html': 'my-reports.html',
     };
-    const activePage = activePageMap[currentPage] || currentPage;
+    const activePage = currentPage === 'recruitment.html' ? ((new URLSearchParams(location.search).get('view')||'vacancies')==='vacancies' ? 'recruitment.html' : 'recruitment-'+new URLSearchParams(location.search).get('view')) : activePageMap[currentPage] || currentPage;
     const navigationGroups = [
+      {label: document.documentElement.lang === 'ar' ? 'التوظيف' : 'RECRUITMENT',links: [
+        {href:'./recruitment.html',page:'recruitment.html',icon:'bi-briefcase',en:'Recruitment',ar:'التوظيف',text:document.documentElement.lang==='ar'?'التوظيف':'Recruitment'}]},
       {
         label: 'MAIN',
         links: [
@@ -157,7 +159,7 @@ WusoolUI.enqueue(async () => {
                 ${isActive ? 'aria-current="page"' : ''}
               >
                 <i class="bi ${link.icon}" aria-hidden="true"></i>
-                <span>${link.text}</span>
+                <span ${link.en?`data-wusool-en="${link.en}" data-wusool-ar="${link.ar}"`:""}>${link.text}</span>
               </a>
             `;
             })

@@ -49,7 +49,6 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
     'wusoolDemoUser',
     'wusool-current-user',
     'wusoolOrganization',
-    'wusoolCurrentOrganization',
     'wusoolOrganizationRegistration',
     'organizationRegistration',
     'wusoolRegisteredUser',
@@ -60,6 +59,13 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
     'wusool-is-authenticated',
   ]);
   ctx.rawRead = async function rawRead(key) {
+    if(key==='wusoolCurrentOrganization'){
+      const a=await ctx.getCurrentAccount();if(!a)return null;
+      if(ctx.cfg.mode==='api')return ctx.request('/frontend-state/selected-organization');
+      const data=ctx.db(),selected=data.drafts[a.id]?.selectedOrganizationId;
+      const record=data.organizations.find(o=>o.id===selected&&!o.isDeleted);
+      return record?JSON.stringify(ctx.accountDto(record)):null;
+    }
     if (ctx.preferenceKeys.has(key)) return ctx.storage.local.getItem(key);
     const needsAccount =
       ctx.accountKeys.has(key) ||
@@ -248,6 +254,13 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
     );
   };
   ctx.rawWrite = async function rawWrite(key, raw) {
+    if(key==='wusoolCurrentOrganization'){
+      const a=await ctx.getCurrentAccount();if(!a)ctx.fail('UNAUTHENTICATED','Sign in first.');
+      if(a.role!=='Admin')ctx.fail('FORBIDDEN','Administrator selection required.');
+      const input=JSON.parse(raw);if(ctx.cfg.mode==='api')return ctx.request('/frontend-state/selected-organization',{method:'PUT',body:{organizationId:input.id}});
+      const data=ctx.db();if(!data.organizations.some(o=>o.id===input.id&&!o.isDeleted))ctx.fail('NOT_FOUND','Selected organization was deleted or not found.');
+      data.drafts[a.id]={...data.drafts[a.id],selectedOrganizationId:input.id};ctx.put(data);return;
+    }
     if (ctx.preferenceKeys.has(key)) {
       ctx.storage.local.setItem(key, raw);
       return;
@@ -474,6 +487,12 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
     ctx.put(data);
   };
   ctx.rawRemove = async function rawRemove(key) {
+    if(key==='wusoolCurrentOrganization'){
+      const a=await ctx.getCurrentAccount();if(!a)ctx.fail('UNAUTHENTICATED','Sign in first.');
+      if(ctx.cfg.mode==='api')return ctx.request('/frontend-state/selected-organization',{method:'DELETE'});
+      const data=ctx.db();if(data.drafts[a.id])delete data.drafts[a.id].selectedOrganizationId;
+      ctx.storage.session.removeItem(key);ctx.put(data);return;
+    }
     if (ctx.preferenceKeys.has(key)) {
       ctx.storage.local.removeItem(key);
       return;

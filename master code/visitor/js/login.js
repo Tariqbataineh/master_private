@@ -38,19 +38,13 @@ WusoolUI.enqueue(async () => {
         } else WusoolUI.message(error.message);
       }
     });
-    const forgot = document.getElementById('forgotPassword');
-    if (forgot)
-      WusoolUI.listen(forgot, 'click', async (e) => {
-        e.preventDefault();
-        try {
-          await WusoolServices.external('auth/recovery', {
-            email: form.querySelector('input[type=email]').value,
-          });
-          WusoolUI.message('Recovery request accepted by server.', 'info');
-        } catch (error) {
-          if (WusoolServices.mode === 'api') throw error;
-          WusoolUI.message(error.message);
-        }
-      });
+    const forgot=document.getElementById('forgotPasswordButton')||document.getElementById('forgotPassword');
+    const modal=document.getElementById('forgotPasswordModal'),emailField=document.getElementById('resetEmail'),send=document.getElementById('sendResetButton'),result=document.getElementById('resetMessage');
+    if(forgot&&modal&&emailField&&send&&result){
+      emailField.required=true;result.setAttribute('role','status');
+      WusoolUI.listen(forgot,'click',()=>{emailField.value=form.querySelector('input[type=email]')?.value||'';result.classList.add('d-none');bootstrap.Modal.getOrCreateInstance(modal).show();});
+      WusoolUI.listen(send,'click',async()=>{if(!emailField.reportValidity())return;send.disabled=true;try{await WusoolServices.external('auth/recovery',{email:emailField.value.trim()});result.className='alert alert-info mt-3';result.textContent=document.documentElement.lang==='ar'?'استلم الخادم طلب الاستعادة؛ إرسال البريد غير مؤكد بعد.':'Recovery request accepted; email delivery is not yet confirmed.';}catch(error){result.className='alert alert-warning mt-3';result.textContent=error.message;}finally{send.disabled=false;}});
+    }
+
   });
 });

@@ -264,7 +264,9 @@ WusoolUI.enqueue(async () => {
       'Organization claims and photo previews require administrator evidence review. No AI analysis is implied.',
       'info',
     );
-    const score = Number(aiReview.score ?? currentBranch.accessibilityScore ?? 0);
+    const rawScore=aiReview.score??currentBranch.accessibilityScore;
+    if(rawScore==null||!Number.isFinite(Number(rawScore))){setText('aiScore',document.documentElement.lang==='ar'?'غير مقدم':'Not provided');setText('scoreLabel',document.documentElement.lang==='ar'?'لا يوجد تحليل أو تقييم متحقق':'No analysis or verified score');document.getElementById('scoreCircle').style.background='var(--wt-border,#d9e5e8)';return;}
+    const score = Number(rawScore);
     const scoreDegrees = score * 3.6;
     setText('aiScore', score);
     setText('scoreLabel', aiReview.scoreLabel || 'Organization claim — unverified');
@@ -296,14 +298,14 @@ WusoolUI.enqueue(async () => {
           completedSteps.accessibility === true,
       },
       {
-        title: 'Branch Photos',
+        title: 'Branch Photos — optional; not provided is allowed',
         icon: 'bi-images',
         complete: Array.isArray(currentBranch.photos) && currentBranch.photos.length > 0,
       },
       {
         title: 'AI Review — optional backend integration',
         icon: 'bi-stars',
-        complete: true,
+        complete: Boolean(currentBranch.aiReview && completedSteps.aiReview===true),
       },
     ];
     const container = document.getElementById('submissionChecklist');

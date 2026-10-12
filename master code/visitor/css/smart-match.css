@@ -322,3 +322,5 @@ legend {
     padding: 22px;
   }
 }
+
+@media(max-width:767px){main .container > .row.g-5{--bs-gutter-x:1.5rem}}

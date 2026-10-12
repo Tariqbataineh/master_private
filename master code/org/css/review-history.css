@@ -367,3 +367,7 @@ body {
         text-align: left;
     }
 }
+.reviews-table-card{min-width:0;max-width:100%}.reviews-table-card .table-responsive{width:100%;max-width:100%;overflow-x:auto;contain:inline-size}
+
+
+@media(max-width:575.98px){.reviews-table-card table{table-layout:fixed;width:100%}.reviews-table-card :is(td,th){white-space:normal;overflow-wrap:anywhere}.reviews-table-card .btn{min-width:0;max-width:100%;white-space:normal;padding:6px}.reviews-table-card .badge{white-space:normal}}

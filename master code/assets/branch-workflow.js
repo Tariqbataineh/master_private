@@ -15,7 +15,7 @@ window.WusoolBranchWorkflow = (() => {
     details: ['بيانات الفرع', 'Branch details'],
     workingHours: ['أوقات العمل', 'Working hours'],
     accessibility: ['معلومات الإتاحة', 'Accessibility information'],
-    photos: ['صور الفرع المطلوبة', 'Required branch photos'],
+    photos: ['صور الفرع (اختيارية)', 'Branch photos (optional)'],
     aiReview: ['مراجعة التحليل', 'Analysis review'],
   };
   function checks(b = {}) {
@@ -23,12 +23,6 @@ window.WusoolBranchWorkflow = (() => {
       hours = b.workingHours || {},
       access = b.accessibility || b.accessibilityFeatures || {};
     const photos = Array.isArray(b.photos) ? b.photos : [];
-    const requiredPhotos = [
-      'main-entrance',
-      'entrance-route',
-      'internal-pathway',
-      'destination-area',
-    ];
     const requirements = window.WusoolAccessibilityConfig?.getRequirements?.() || [];
     const requiredAccess = requirements.length
       ? requirements.map((x) => x.key || x.id)
@@ -78,11 +72,7 @@ window.WusoolBranchWorkflow = (() => {
             String(v?.status || v).toLowerCase(),
           );
         }),
-      photos:
-        steps.photos === true &&
-        requiredPhotos.every((key) =>
-          photos.some((p) => p.categoryKey === key && !!(p.imageData || p.url)),
-        ),
+      photos: photos.some(p=>p.processingState!=='failed'&&!!(p.imageData||p.url||p.blobId)),
       aiReview:
         steps.aiReview === true &&
         !!b.aiReview &&
@@ -92,7 +82,7 @@ window.WusoolBranchWorkflow = (() => {
   }
   const missing = (b) => {
     const c = checks(b);
-    return stages.filter(([key]) => !c[key]).map(([key]) => key);
+    return stages.filter(([key]) => !['photos','aiReview'].includes(key)&&!c[key]).map(([key]) => key);
   };
   const complete = (b) => missing(b).length === 0;
   const route = (b) =>

@@ -186,7 +186,7 @@ WusoolUI.enqueue(async () => {
                   } catch {
                     return '';
                   }
-                })()}${b.scheduleConflict ? `<p class="small mb-0 text-warning">${t('تغيير الدوام: الموعد يحتاج مراجعة', 'Hours changed: appointment needs review')}</p>` : ''}${b.cancellationReason ? `<p class="small mb-0">${esc(b.cancellationReason)}</p>` : ''}</td><td><div class="booking-actions">${admin || (organization && ['pending', 'confirmed'].includes(b.status)) || (!organization && !admin && b.status === 'pending') ? `<button class="btn btn-sm btn-outline-primary" data-edit="${esc(b.id)}">${t('تعديل الموعد', 'Reschedule')}</button>` : ''}${(admin || organization) && ['pending', 'confirmed', 'in-progress'].includes(b.status) ? `<button class="btn btn-sm btn-outline-secondary" data-cancel="${esc(b.id)}">${t('إلغاء', 'Cancel')}</button>` : ''}${(admin || organization) && b.status === 'pending' ? `<button class="btn btn-sm btn-outline-success" data-approve="${esc(b.id)}">${t('موافقة', 'Approve')}</button>` : ''}${(admin || organization) && ((b.journeyState === 'arrived' && b.status === 'confirmed' && b.qrVerified?.actorId === account.id && Date.now() - Date.parse(b.qrVerified.at) < 600000) || (b.journeyState === 'serving' && b.status === 'in-progress')) ? `<button class="btn btn-sm btn-outline-success" data-progress="${esc(b.id)}">${b.status === 'confirmed' ? t('تم استقبال الزائر', 'Receive visitor') : t('إكمال الزيارة', 'Complete visit')}</button>` : ''}${journeyButtons(b)}${window.WusoolVisitUX?.actions(b, account) || ''}${admin ? `<button class="btn btn-sm btn-outline-danger" data-delete="${esc(b.id)}">${t('حذف', 'Delete')}</button>` : ''}</div></td></tr>`;
+                })()}${b.scheduleConflict ? `<p class="small mb-0 text-warning">${t('تغيير الدوام: الموعد يحتاج مراجعة', 'Hours changed: appointment needs review')}</p>` : ''}${b.cancellationReason ? `<p class="small mb-0">${esc(b.cancellationReason)}</p>` : ''}</td><td><div class="booking-actions">${!b.interviewId && (admin || (organization && ['pending', 'confirmed'].includes(b.status)) || (!organization && !admin && b.status === 'pending')) ? `<button class="btn btn-sm btn-outline-primary" data-edit="${esc(b.id)}">${t('تعديل الموعد', 'Reschedule')}</button>` : ''}${!b.interviewId && (admin || organization) && ['pending', 'confirmed', 'in-progress'].includes(b.status) ? `<button class="btn btn-sm btn-outline-secondary" data-cancel="${esc(b.id)}">${t('إلغاء', 'Cancel')}</button>` : ''}${(admin || organization) && b.status === 'pending' ? `<button class="btn btn-sm btn-outline-success" data-approve="${esc(b.id)}">${t('موافقة', 'Approve')}</button>` : ''}${(admin || organization) && ((b.journeyState === 'arrived' && b.status === 'confirmed' && b.qrVerified?.actorId === account.id && Date.now() - Date.parse(b.qrVerified.at) < 600000) || (b.journeyState === 'serving' && b.status === 'in-progress')) ? `<button class="btn btn-sm btn-outline-success" data-progress="${esc(b.id)}">${b.status === 'confirmed' ? t('تم استقبال الزائر', 'Receive visitor') : t('إكمال الزيارة', 'Complete visit')}</button>` : ''}${b.interviewId ? `<a class="btn btn-sm btn-outline-primary" href="./recruitment.html?view=interviews">${t("المقابلة", "Interview")}</a>` : ""}${journeyButtons(b)}${window.WusoolVisitUX?.actions(b, account) || ''}${admin && !b.interviewId ? `<button class="btn btn-sm btn-outline-danger" data-delete="${esc(b.id)}">${t('حذف', 'Delete')}</button>` : ''}</div></td></tr>`;
               })
               .join('')
           : `<tr><td colspan="7" class="booking-empty">${t('لا توجد تيكتات بعد.', 'No tickets yet.')}</td></tr>`,
@@ -452,6 +452,7 @@ WusoolUI.enqueue(async () => {
       try {
         const button = e.target.closest('button');
         if (!button) return;
+        if(button.dataset.journey){const booking=bookings.find(x=>String(x.id)===String(button.dataset.id));if(booking)await journeyDialog(booking,button.dataset.journey);return;}
         if (button.hasAttribute('data-new')) return editor();
         if (button.dataset.edit) return editor(bookings.find((b) => b.id === button.dataset.edit));
         if (button.dataset.progress) {
@@ -533,9 +534,11 @@ WusoolUI.enqueue(async () => {
       d.querySelector('form').onsubmit = async (e) => {
         e.preventDefault();
         if (!e.currentTarget.reportValidity()) return;
+        const submit=e.currentTarget.querySelector('[type=submit]');if(submit.disabled)return;submit.disabled=true;
         try {
+          const current=bookings.find(x=>String(x.id)===String(booking.id))||booking;
           await journey.change(booking.id, action, {
-            expectedRevision: booking.revision || 0,
+            expectedRevision: current.revision || 0,
             reason: e.currentTarget.elements.reason?.value.trim() || '',
             patch: { journeyState: e.currentTarget.elements.journeyState?.value },
           });
@@ -543,23 +546,17 @@ WusoolUI.enqueue(async () => {
           close();
         } catch (error) {
           d.querySelector('[data-error]').textContent = error.message;
-        }
+        } finally {if(submit.isConnected)submit.disabled=false;}
       };
       d.showModal();
       if (action === 'history' && window.WusoolBookingTracking) {
         trackingCleanup = WusoolBookingTracking.mount(d, {
           booking, account, panel, close,
-          read: () => { const current = bookings.find((x) => x.id === booking.id); return { booking: current, branch: branches.find((x) => x.id === current?.branchId) }; },
+          depart: async () => {const current=bookings.find(x=>String(x.id)===String(booking.id));if(!current)throw new Error(t('الحجز غير متاح','Booking unavailable'));await journey.change(current.id,'depart',{expectedRevision:current.revision||0});await refresh();},
+          read: () => { const current = bookings.find((x) => x.id === booking.id); return { booking: current, branch: branches.find((x) => String(x.id) === String(current?.branchId || current?.placeId)) }; },
         });
       }
     };
-    WusoolUI.listen(panel, 'click', async (e) => {
-      const b = e.target.closest('[data-journey]');
-      if (b) {
-        const booking = bookings.find((x) => String(x.id) === b.dataset.id);
-        if (booking) await journeyDialog(booking, b.dataset.journey);
-      }
-    });
     const tick = () => {
       panel.querySelector('[data-jordan-clock]').textContent =
         t('توقيت الأردن الآن: ', 'Jordan time now: ') +
@@ -585,5 +582,9 @@ WusoolUI.enqueue(async () => {
     window.addEventListener('focus', () => refresh().catch(showError));
     window.WusoolLive?.watch('booking-tickets', refresh);
     await refresh();
+    // Recruitment links use the existing authorized Track dialog, not a second tracker.
+    const linkedId = new URLSearchParams(location.search).get('booking');
+    const linkedBooking = linkedId && bookings.find(x => String(x.id) === linkedId);
+    if (linkedBooking) await journeyDialog(linkedBooking, 'history');
   });
 });

@@ -34,7 +34,7 @@ window.WusoolBookingTracking = (() => {
       host.querySelector('[data-detail]').textContent=event ? [time(event.at), event.actorName||event.actorRole, event.reason].filter(Boolean).join(' · ') : selected===0 ? `${booking.date||''} · ${booking.time||''} · ${t('توقيت الأردن','Jordan time')}` : t('لا يوجد تحديث مسجل لهذه المرحلة بعد.','No recorded update for this stage yet.');
       host.querySelector('[data-prev]').disabled=selected===0;host.querySelector('[data-next]').disabled=selected===5;
     };
-    const rowActions = () => [...context.panel.querySelectorAll('.booking-actions')].find(group => [...group.querySelectorAll('[data-id]')].some(n=>n.dataset.id===context.booking.id));
+    const rowActions = () => [...context.panel.querySelectorAll('.booking-actions')].find(group => [...group.querySelectorAll('[data-id]')].some(n=>String(n.dataset.id)===String(context.booking.id)));
     const update = () => {
       const data=context.read(); booking=data.booking;branch=data.branch;
       if (!booking) {host.querySelector('[data-state]').textContent=t('الحجز غير متاح','Booking unavailable');host.querySelector('[data-actions]').replaceChildren();return;}
@@ -53,7 +53,7 @@ window.WusoolBookingTracking = (() => {
       for(const source of rowActions()?.querySelectorAll('button,a,.booking-action-note')||[]) {
         if(source.dataset.journey==='history')continue;
         const copy=source.cloneNode(true);for(const attr of [...copy.attributes])if(attr.name.startsWith('data-'))copy.removeAttribute(attr.name);
-        if(copy.tagName==='BUTTON') {copy.type='button';copy.onclick=()=>{if(!source.isConnected||source.disabled)return;context.close();source.click();};}
+        if(copy.tagName==='BUTTON') {copy.type='button';copy.onclick=()=>{const key=['journey','visitAction','edit','cancel','delete','progress','approve'].find(k=>source.dataset[k]!==undefined);const fresh=[...rowActions()?.querySelectorAll('button')||[]].find(n=>key?n.dataset[key]===source.dataset[key]:n.textContent===source.textContent);if(!fresh||fresh.disabled)return;context.close();fresh.click();};}
         actions.append(copy);
       }
       if(!actions.children.length)actions.textContent=t('لا توجد إجراءات متاحة حاليًا.','No actions are available right now.');
@@ -70,14 +70,26 @@ window.WusoolBookingTracking = (() => {
     rail.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')startX=e.clientX;});
     rail.addEventListener('pointerup',e=>{if(startX!=null && Math.abs(e.clientX-startX)>45)select(selected+(e.clientX>startX?-1:1));startX=null;});
     host.querySelector('[data-prev]').onclick=()=>select(selected-1);host.querySelector('[data-next]').onclick=()=>select(selected+1);host.querySelector('[data-current]').onclick=()=>select(currentIndex(booking));
+    let indoorCleanup=null;
+    if(window.WusoolIndoorGuidance){const button=document.createElement('button');button.type='button';button.className='btn btn-outline-primary';button.textContent=t('التوجيه داخل الفرع','Indoor branch guidance');host.querySelector('.bt-authorized').append(button);button.onclick=async()=>{if(indoorCleanup&&host.querySelector('.indoor-guidance-panel')){indoorCleanup();indoorCleanup=null;return;}indoorCleanup=null;if(button.disabled)return;button.disabled=true;const indoor=document.createElement('section');host.append(indoor);try{indoorCleanup=await WusoolIndoorGuidance.mount(indoor,context.booking.id);}catch(error){indoor.textContent=error.message;}finally{button.disabled=false;}};}
     update();
     const observer=new MutationObserver(update);observer.observe(context.panel,{childList:true,subtree:true});const timer=setInterval(update,1000);document.addEventListener('wxi:language',update);
     const failure=window.WusoolMapsLoader?.onFailure(()=>message(t('تعذر تحميل Google Maps. استخدم فتح الاتجاهات.','Google Maps could not load. Use Open directions.')));
+    let appliedTheme=null;
+    const applyMapTheme=()=>{
+      if(!map)return;
+      const dark=document.documentElement.getAttribute('data-wusool-color-mode')==='dark';
+      if(appliedTheme===dark)return;appliedTheme=dark;
+      // Existing RASTER map has no mapId: supported styles can be changed in place.
+      // Satellite imagery itself cannot be recolored by Maps styling.
+      map.setOptions({styles:dark?[{elementType:'geometry',stylers:[{color:'#102536'}]},{elementType:'labels.text.fill',stylers:[{color:'#b6cede'}]},{elementType:'labels.text.stroke',stylers:[{color:'#102536'}]},{featureType:'road',elementType:'geometry',stylers:[{color:'#274052'}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#071c2e'}]},{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}]:[{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}]});
+    };
+    const themeObserver=new MutationObserver(applyMapTheme);themeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['data-wusool-color-mode']});
     const initialize=async()=>{
       try {
         const [maps,markers]=await Promise.all([WusoolMapsLoader.library('maps'),WusoolMapsLoader.library('marker')]);if(disposed)return;
         const point=coordinate(branch)||coordinate(booking.locationSnapshot);map=new maps.Map(host.querySelector('[data-map]'),{center:point||{lat:31.95,lng:35.91},zoom:point?16:7,clickableIcons:false,renderingType:'RASTER',styles:[{featureType:'poi',elementType:'labels',stylers:[{visibility:'off'}]}],gestureHandling:'cooperative',streetViewControl:false,mapTypeControl:true,fullscreenControl:true});
-        markerClass=markers.Marker;mappedPoint=JSON.stringify(point);
+        applyMapTheme();markerClass=markers.Marker;mappedPoint=JSON.stringify(point);
         if(point)marker=new markers.Marker({map,position:point,title:host.querySelector('[data-place]').textContent,icon:{path:'M0,-30 C-11,-30 -18,-23 -18,-13 C-18,0 0,17 0,17 C0,17 18,0 18,-13 C18,-23 11,-30 0,-30 Z',fillColor:'#d72f35',fillOpacity:1,strokeColor:'#fff',strokeWeight:2,scale:.8}});
         message(point?'':t('موقع الفرع غير مؤكد بالإحداثيات. الخريطة تعرض الأردن، والاتجاهات تبحث بالعنوان.','Branch coordinates are not confirmed. The map shows Jordan; directions use the address.'));
       }catch{if(!disposed)message(t('الخريطة غير متاحة الآن. يمكنك فتح الاتجاهات.','Map unavailable right now. You can open directions.'));}
@@ -105,7 +117,7 @@ window.WusoolBookingTracking = (() => {
         }catch{if(!disposed)message(t('تعذر حساب المسار. استخدم فتح الاتجاهات.','Could not calculate route. Use Open directions.'));}
       },()=>{if(!disposed)message(t('تعذر الوصول للموقع. يمكنك استخدام الاتجاهات بدون مشاركته.','Location unavailable. Use directions without sharing it.'));},{enableHighAccuracy:true,timeout:10000,maximumAge:30000});
     };
-    return ()=>{disposed=true;requestId++;clearInterval(timer);document.removeEventListener('wxi:language',update);observer.disconnect();failure?.();renderer?.setMap(null);polylines.forEach(p=>p.setMap(null));if(marker)marker.setMap(null);};
+    return ()=>{disposed=true;themeObserver.disconnect();indoorCleanup?.();requestId++;clearInterval(timer);document.removeEventListener('wxi:language',update);observer.disconnect();failure?.();renderer?.setMap(null);polylines.forEach(p=>p.setMap(null));if(marker)marker.setMap(null);};
   }
   return {mount};
 })();

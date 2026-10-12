@@ -3,7 +3,7 @@
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
   const branchesStorageKey = 'wusoolOrganizationBranches';
-  const requiredPhotoCount = 4;
+  const requiredPhotoCount = 1; // Presence indicator, not a requirement.
   let organizationBranches = [];
   let filteredBranches = [];
   WusoolUI.ready(async () => {
@@ -112,7 +112,7 @@ WusoolUI.enqueue(async () => {
 
                     <span class="photo-count">
                         <i class="bi bi-images me-1"></i>
-                        ${photoCount} Photos
+                        ${photoCount} Media items
                     </span>
                 </div>
 
@@ -149,7 +149,7 @@ WusoolUI.enqueue(async () => {
                         class="d-flex justify-content-between small mb-2"
                     >
                         <span>
-                            Photo completion
+                            Optional media provided
                         </span>
 
                         <strong>
@@ -160,7 +160,7 @@ WusoolUI.enqueue(async () => {
                     <div
                         class="photo-progress mb-4"
                         role="progressbar"
-                        aria-label="Photo completion"
+                        aria-label="Optional media provided"
                         aria-valuenow="${progressPercentage}"
                         aria-valuemin="0"
                         aria-valuemax="100"
@@ -197,7 +197,7 @@ WusoolUI.enqueue(async () => {
     `;
   };
   const getBranchPhotos = (branch) => {
-    return Array.isArray(branch.photos) ? branch.photos : [];
+    return [...(Array.isArray(branch.photos)?branch.photos:[]),...(Array.isArray(branch.videos)?branch.videos:[])];
   };
   const getBranchPhotoStatus = (branch) => {
     const photoCount = getBranchPhotos(branch).length;
@@ -212,15 +212,15 @@ WusoolUI.enqueue(async () => {
   const getStatusInformation = (status) => {
     const statuses = {
       complete: {
-        label: 'Complete',
+        label: 'Provided (optional)',
         icon: 'bi-check-circle-fill',
       },
       incomplete: {
-        label: 'Incomplete',
+        label: 'Provided (optional)',
         icon: 'bi-exclamation-circle-fill',
       },
       'no-photos': {
-        label: 'No Photos',
+        label: 'Not provided (optional)',
         icon: 'bi-image',
       },
     };

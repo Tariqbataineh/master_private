@@ -72,7 +72,7 @@ window.WusoolVisitUX = (() => {
     let html = '';
     if (a.role === 'User') {
       if (b.status === 'confirmed') html += button('pass', t('QR الحجز', 'Booking QR'));
-      if (['pending', 'confirmed', 'waitlisted'].includes(b.status))
+      if (!b.interviewId && ['pending', 'confirmed', 'waitlisted'].includes(b.status))
         html += button('cancel', t('إلغاء مع سبب', 'Cancel with reason'));
       if (b.appointmentProposal)
         html += button('proposal', t('الرد على الموعد المقترح', 'Respond to proposed appointment'));

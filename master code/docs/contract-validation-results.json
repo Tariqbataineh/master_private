@@ -1,9 +1,0 @@
-{
-  "openapi": "3.0.3",
-  "paths": 72,
-  "operations": 95,
-  "schemas": 91,
-  "valid": true,
-  "validator": "@apidevtools/swagger-parser",
-  "scope": "Structural specification and manifest consistency, not real server execution"
-}

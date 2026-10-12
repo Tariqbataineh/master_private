@@ -411,6 +411,7 @@ window.WusoolServiceModules.push(function registerbookings(ctx) {
       data = ctx.db(),
       x = data.bookings.find((x) => x.id === entityId && !x.isDeleted);
     if (!x) ctx.fail('NOT_FOUND', 'Ticket not found.');
+    if (x.interviewId) ctx.fail('INTERVIEW_MANAGED', 'Retain interview visits for audit; cancel the interview through Recruitment.');
     x.isDeleted = true;
     x.status = 'cancelled';
     x.updatedAt = ctx.now();
