@@ -267,10 +267,25 @@
                                     ></div>
                                 </div>
 
+                                <section class="border rounded-3 p-3 mb-4" aria-label="Floor management">
+                                    <h3 class="h5">Accessibility by Floor / التسهيلات حسب الطابق</h3>
+                                    <p class="text-muted small">Each floor has its own facilities and reference photos. Photos are not automatically assigned to other floors.</p>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-md-7"><label for="accessibilityFloorSelector" class="form-label">Selected Floor / الطابق</label><select id="accessibilityFloorSelector" class="form-select"></select></div>
+                                        <div class="col-md-5 d-flex align-items-end gap-2"><button type="button" id="editAccessibilityFloor" class="btn btn-outline-wusool">Edit</button><button type="button" id="removeAccessibilityFloor" class="btn btn-outline-danger">Delete</button></div>
+                                    </div>
+                                    <div class="row g-2 align-items-end">
+                                        <div class="col-md-5"><label class="form-label" for="accessibilityFloorName">New floor name</label><input id="accessibilityFloorName" class="form-control" maxlength="80" placeholder="e.g. First Floor"></div>
+                                        <div class="col-md-3"><label class="form-label" for="accessibilityFloorLevel">Level</label><input id="accessibilityFloorLevel" class="form-control" type="number" min="-20" max="250" step="1" placeholder="1"></div>
+                                        <div class="col-md-4"><button type="button" id="addAccessibilityFloor" class="btn btn-wusool w-100">+ Add Floor</button></div>
+                                    </div>
+                                </section>
                                 <div
                                     id="accessibilityFeatures"
                                     class="row g-3"
                                 ></div>
+
+                                <section class="mt-4" id="accessibilityFloorMedia" aria-label="Floor-specific reference images"></section>
 
                                 <div
                                     id="accessibilityValidation"

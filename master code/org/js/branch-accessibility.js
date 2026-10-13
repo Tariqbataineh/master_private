@@ -20,6 +20,12 @@ WusoolUI.enqueue(async () => {
       icon: 'bi-p-square',
     },
     {
+      key: 'stairs',
+      title: 'Stairs',
+      description: 'Stairs available on this floor.',
+      icon: 'bi-ladder',
+    },
+    {
       key: 'elevator',
       title: 'Elevator',
       description: 'Accessible elevator for upper floors.',
@@ -84,6 +90,9 @@ WusoolUI.enqueue(async () => {
       required: Boolean(item.required),
       category: item.category || 'General',
     })) || defaultAccessibilityFeatures;
+  if (!accessibilityFeatures.some(feature => feature.key === 'stairs')) {
+    accessibilityFeatures.splice(Math.max(0, accessibilityFeatures.findIndex(feature => feature.key === 'elevator')), 0, {key:'stairs',title:'Stairs',description:'Stairs available on this floor.',icon:'bi-ladder',weight:3,required:false,category:'Interior'});
+  }
   let currentBranch = null;
   WusoolUI.ready(async () => {
     if (!(await protectPage())) {
@@ -94,7 +103,6 @@ WusoolUI.enqueue(async () => {
       window.location.replace('./branches.html');
       return;
     }
-    renderAccessibilityFeatures();
     restoreAccessibilityData();
     initializeForm();
     initializeNotesCounter();
@@ -143,164 +151,165 @@ WusoolUI.enqueue(async () => {
       }) || (await readStoredObject('wusoolCurrentBranchDraft'))
     );
   };
+  // Each floor owns its own statuses and media references; legacy flat accessibility is
+  // retained as a derived, backwards-compatible branch summary.
+  let floors = [];
+  let selectedFloorId = null;
+  const uid = () => (window.crypto?.randomUUID?.() || `floor-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  const esc = value => WusoolUI.escape(String(value ?? ''));
+  const getFloor = () => floors.find(f => f.id === selectedFloorId);
+  const defaultFloor = () => ({id:uid(), name:'Ground Floor', level:0, accessibility:{}, media:{stairs:[],elevator:[],ramp:[]}});
+  const mediaDb = () => new Promise((resolve,reject) => {
+    if (!window.indexedDB) return reject(new Error('This browser does not support offline photo storage.'));
+    const request = indexedDB.open('wusool-accessibility-media',1);
+    request.onupgradeneeded = () => request.result.createObjectStore('photos');
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+  const photoOperation = async (mode,id,blob) => {
+    const db=await mediaDb();
+    try {return await new Promise((resolve,reject)=>{
+      const tx=db.transaction('photos',mode==='get'?'readonly':'readwrite');
+      const r=tx.objectStore('photos')[mode](...(mode==='put'?[blob,id]:[id]));
+      r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);
+    });} finally {db.close();}
+  };
+  const mediaUrl = new Map();
+  const showPhoto = async (img,id) => {
+    try {const blob=await photoOperation('get',id);if(!blob)return;
+      const url=URL.createObjectURL(blob);mediaUrl.set(id,url);img.src=url;
+    } catch { img.alt='Photo unavailable on this device'; }
+  };
   const renderAccessibilityFeatures = () => {
     const container = document.getElementById('accessibilityFeatures');
-    WusoolUI.html(container, '');
-    accessibilityFeatures.forEach((feature) => {
-      const column = document.createElement('div');
-      column.className = 'col-12 col-md-6';
-      WusoolUI.html(
-        column,
-        `
-                <article
-                    class="accessibility-feature"
-                    data-feature="${feature.key}"
-                >
-                    <div class="feature-heading">
-                        <span class="feature-icon">
-                            <i class="bi ${feature.icon}"></i>
-                        </span>
-
-                        <div>
-                            <h3>${feature.title}</h3>
-                            <p>${feature.description}</p>
-                        </div>
-                    </div>
-
-                    <div class="feature-options">
-                        ${createOption(feature.key, 'available', 'Available')}
-
-                        ${createOption(feature.key, 'not-available', 'Not Available')}
-
-                        ${createOption(feature.key, 'not-sure', 'Not Sure')}
-                    </div>
-                </article>
-            `,
-      );
-      container.appendChild(column);
+    const floor = getFloor();
+    const selector = document.getElementById('accessibilityFloorSelector');
+    selector.replaceChildren(...floors.map(f=>{
+      const option=document.createElement('option');option.value=f.id;
+      option.textContent=`${f.name} (${f.level})`;return option;
+    }));
+    selector.value=selectedFloorId;
+    container.replaceChildren();
+    if (!floor) { updateCompletionProgress();return; }
+    accessibilityFeatures.forEach(feature=>{
+      const column=document.createElement('div');column.className='col-12 col-md-6';
+      column.innerHTML=`<article class="accessibility-feature" data-feature="${esc(feature.key)}"><div class="feature-heading"><span class="feature-icon"><i class="bi ${esc(feature.icon)}"></i></span><div><h3>${esc(feature.title)}</h3><p>${esc(feature.description)}</p></div></div><div class="feature-options">${['available','not-available','not-sure'].map((v,i)=>`<div class="feature-option"><input type="radio" id="${esc(floor.id)}-${esc(feature.key)}-${v}" name="floor-${esc(floor.id)}-${esc(feature.key)}" value="${v}" ${floor.accessibility[feature.key]===v?'checked':''}><label for="${esc(floor.id)}-${esc(feature.key)}-${v}">${['Available','Not Available','Not Sure'][i]}</label></div>`).join('')}</div></article>`;
+      column.querySelectorAll('input').forEach(input=>input.addEventListener('change',()=>{
+        floor.accessibility[feature.key]=input.value;
+        renderMedia();updateCompletionProgress();
+      }));container.append(column);
     });
-    document.getElementById('totalFeatures').textContent = accessibilityFeatures.length;
-    document.querySelectorAll('.feature-option input[type="radio"]').forEach((radio) => {
-      WusoolUI.listen(radio, 'change', updateCompletionProgress);
-    });
+    renderMedia();updateCompletionProgress();
   };
-  const createOption = (featureKey, value, label) => {
-    const inputId = `${featureKey}-${value}`;
-    return `
-        <div class="feature-option">
-            <input
-                type="radio"
-                id="${inputId}"
-                name="${featureKey}"
-                value="${value}"
-            >
-
-            <label for="${inputId}">
-                ${label}
-            </label>
-        </div>
-    `;
+  const renderMedia = () => {
+    const floor=getFloor(),host=document.getElementById('accessibilityFloorMedia');host.replaceChildren();
+    if(!floor)return;
+    for(const [key,label] of [['stairs','Stairs / الدرج'],['elevator','Elevator / المصعد'],['ramp','Ramp / المنحدر']]){
+      const applicable= key==='stairs' ? floor.accessibility.stairs==='available' : floor.accessibility[key==='ramp'?'entranceRamp':'elevator']==='available';
+      if(!applicable)continue;
+      const wrap=document.createElement('section');wrap.className='border rounded-3 p-3 mb-3';
+      wrap.innerHTML=`<h3 class="h6">${label} — ${esc(floor.name)}</h3><p class="small text-muted">Attach at least one photo for this floor only. Camera or gallery supported.</p><input type="file" accept="image/*" multiple aria-label="${label} photos" class="form-control mb-2"><button type="button" class="btn btn-outline-wusool btn-sm mb-2" data-camera>Open Camera / فتح الكاميرا</button><div class="d-flex flex-wrap gap-2" data-thumbs></div>`;
+      const gallery=wrap.querySelector('input');
+      const camera=document.createElement('input');camera.type='file';camera.accept='image/*';camera.setAttribute('capture','environment');camera.hidden=true;wrap.append(camera);
+      wrap.querySelector('[data-camera]').onclick=()=>camera.click();
+      const handle=async e=>{
+        const files=Array.from(e.target.files||[]);if(!files.length)return;
+        for(const file of files){
+          if(!file.type.startsWith('image/')){showValidation('Only image files are allowed.');continue;}
+          if(file.size>8*1024*1024){showValidation('Each photo must be 8 MB or smaller.');continue;}
+          const id=uid();
+          try{await photoOperation('put',id,file);floor.media[key].push({id,name:file.name||`${key}.jpg`});}
+          catch(err){showValidation('Photo storage failed: '+err.message);}
+        }
+        e.target.value='';renderMedia();
+      };gallery.addEventListener('change',handle);camera.addEventListener('change',handle);
+      (floor.media[key]||[]).forEach(entry=>{
+        const tile=document.createElement('div');tile.className='border rounded p-2';tile.style.width='130px';
+        const img=document.createElement('img');img.alt=entry.name;img.style.cssText='width:100%;height:85px;object-fit:cover';
+        showPhoto(img,entry.id);tile.append(img);
+        const btn=document.createElement('button');btn.type='button';btn.className='btn btn-sm btn-outline-danger mt-1';btn.textContent='Remove';
+        btn.onclick=async()=>{floor.media[key]=floor.media[key].filter(x=>x.id!==entry.id);await photoOperation('delete',entry.id).catch(()=>{});if(mediaUrl.has(entry.id)){URL.revokeObjectURL(mediaUrl.get(entry.id));mediaUrl.delete(entry.id);}renderMedia();};
+        tile.append(btn);wrap.querySelector('[data-thumbs]').append(tile);
+      });host.append(wrap);
+    }
   };
+  const showValidation = message => {const alert=document.getElementById('accessibilityValidation');alert.textContent=message;alert.classList.remove('d-none');alert.scrollIntoView({behavior:'smooth',block:'center'});};
   const restoreAccessibilityData = () => {
-    const savedAccessibility = currentBranch.accessibility || {};
-    accessibilityFeatures.forEach((feature) => {
-      const savedValue = savedAccessibility[feature.key];
-      if (!savedValue) {
-        return;
-      }
-      const radio = document.querySelector(
-        `input[name="${feature.key}"]` + `[value="${savedValue}"]`,
-      );
-      if (radio) {
-        radio.checked = true;
-      }
-    });
-    document.getElementById('accessibilityNotes').value = currentBranch.accessibilityNotes || '';
-    updateCompletionProgress();
-    updateNotesCounter();
+    const saved=currentBranch.accessibilityFloors;
+    floors=Array.isArray(saved)&&saved.length?saved.map(f=>({...f,accessibility:{...f.accessibility},media:{stairs:[],elevator:[],ramp:[],...f.media}})):[defaultFloor()];
+    if(!saved?.length && currentBranch.accessibility)floors[0].accessibility={...currentBranch.accessibility};
+    selectedFloorId=floors[0].id;
+    document.getElementById('accessibilityNotes').value=currentBranch.accessibilityNotes||'';
+    renderAccessibilityFeatures();updateNotesCounter();
   };
   const updateCompletionProgress = () => {
-    let completedCount = 0;
-    accessibilityFeatures.forEach((feature) => {
-      const selectedOption = document.querySelector(`input[name="${feature.key}"]:checked`);
-      const featureCard = document.querySelector(`[data-feature="${feature.key}"]`);
-      featureCard.classList.toggle('completed', Boolean(selectedOption));
-      if (selectedOption) {
-        completedCount += 1;
+    const floor=getFloor();const completed=accessibilityFeatures.filter(f=>floor?.accessibility?.[f.key]).length;
+    document.getElementById('completedFeatures').textContent=completed;
+    document.getElementById('totalFeatures').textContent=accessibilityFeatures.length;
+    const percent=accessibilityFeatures.length?Math.round(100*completed/accessibilityFeatures.length):100;
+    const bar=document.getElementById('accessibilityProgress');bar.style.width=`${percent}%`;bar.setAttribute('aria-valuenow',String(percent));
+    document.querySelectorAll('[data-feature]').forEach(card=>card.classList.toggle('completed',Boolean(floor?.accessibility?.[card.dataset.feature])));
+  };
+  const validateAccessibility = () => {
+    if(!floors.length){showValidation('Add at least one floor.');return false;}
+    for(const floor of floors){
+      if(!floor.name.trim() || !Number.isInteger(Number(floor.level))){selectedFloorId=floor.id;renderAccessibilityFeatures();showValidation('Every floor needs a name and valid integer level.');return false;}
+      const missing=accessibilityFeatures.find(f=>!floor.accessibility[f.key]);
+      if(missing){selectedFloorId=floor.id;renderAccessibilityFeatures();showValidation(`Complete ${missing.title} on ${floor.name}.`);return false;}
+      for(const [key,feature] of [['elevator','elevator'],['ramp','entranceRamp']]){
+        if(floor.accessibility[feature]==='available' && !floor.media[key]?.length){selectedFloorId=floor.id;renderAccessibilityFeatures();showValidation(`Upload a ${key} photo for ${floor.name}.`);return false;}
       }
-    });
-    const percentage = (completedCount / accessibilityFeatures.length) * 100;
-    document.getElementById('completedFeatures').textContent = completedCount;
-    const progressBar = document.getElementById('accessibilityProgress');
-    progressBar.style.width = `${percentage}%`;
-    progressBar.setAttribute('aria-valuenow', percentage.toString());
-    progressBar.setAttribute('aria-valuemin', '0');
-    progressBar.setAttribute('aria-valuemax', '100');
-    if (completedCount === accessibilityFeatures.length) {
-      document.getElementById('accessibilityValidation').classList.add('d-none');
+      if(floor.accessibility.stairs==='available' && !floor.media.stairs?.length){selectedFloorId=floor.id;renderAccessibilityFeatures();showValidation(`Upload stairs photo for ${floor.name}.`);return false;}
     }
-  };
-  const collectAccessibilityData = () => {
-    return accessibilityFeatures.reduce((result, feature) => {
-      const selectedOption = document.querySelector(`input[name="${feature.key}"]:checked`);
-      result[feature.key] = selectedOption?.value || null;
-      return result;
-    }, {});
-  };
-  const validateAccessibility = (accessibilityData) => {
-    const isComplete = accessibilityFeatures.every((feature) => {
-      return Boolean(accessibilityData[feature.key]);
-    });
-    document.getElementById('accessibilityValidation').classList.toggle('d-none', isComplete);
-    if (!isComplete) {
-      document.querySelector('.accessibility-feature:not(.completed)')?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }
-    return isComplete;
+    document.getElementById('accessibilityValidation').classList.add('d-none');return true;
   };
   const initializeForm = () => {
-    WusoolUI.listen(document.getElementById('accessibilityForm'), 'submit', async (event) => {
-      event.preventDefault();
-      const accessibilityData = collectAccessibilityData();
-      if (!validateAccessibility(accessibilityData)) {
-        return;
-      }
-      await saveAccessibilityData(accessibilityData, true);
-      window.location.href = `./branch-photos.html?id=${WusoolUI.escape(currentBranch.id)}`;
-    });
-    WusoolUI.listen(document.getElementById('saveAccessibilityDraftButton'), 'click', async () => {
-      const accessibilityData = collectAccessibilityData();
-      await saveAccessibilityData(accessibilityData, false);
-      showToast('Accessibility information saved as a draft.');
-    });
-    document.getElementById('backButton').href =
-      `./branch-working-hours.html?id=${WusoolUI.escape(currentBranch.id)}`;
-  };
-  const saveAccessibilityData = async (accessibilityData, completed) => {
-    const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
-    const updatedBranch = {
-      ...currentBranch,
-      accessibility: accessibilityData,
-      accessibilityNotes: document.getElementById('accessibilityNotes').value.trim(),
-      completedSteps: {
-        ...currentBranch.completedSteps,
-        details: true,
-        workingHours: true,
-        accessibility: completed,
-      },
-      updatedAt: new Date().toISOString(),
+    const select=document.getElementById('accessibilityFloorSelector');
+    select.onchange=()=>{selectedFloorId=select.value;renderAccessibilityFeatures();};
+    const name=document.getElementById('accessibilityFloorName'),level=document.getElementById('accessibilityFloorLevel');
+    document.getElementById('addAccessibilityFloor').onclick=()=>{
+      const n=name.value.trim(),l=Number(level.value);
+      if(!n||level.value.trim()===''||!Number.isInteger(l)||l < -20||l > 250){showValidation('Enter a floor name and integer level (-20 to 250).');return;}
+      if(floors.some(f=>f.level===l)){showValidation('A floor with this level already exists.');return;}
+      const f={...defaultFloor(),name:n,level:l};floors.push(f);selectedFloorId=f.id;name.value='';level.value='';renderAccessibilityFeatures();
+      document.getElementById('accessibilityValidation').classList.add('d-none');
     };
-    const branchIndex = branches.findIndex((branch) => {
-      return String(branch.id) === String(currentBranch.id);
+    document.getElementById('editAccessibilityFloor').onclick=()=>{
+      const floor=getFloor();if(!floor)return;
+      const n=prompt('Floor name',floor.name);if(n===null)return;
+      const raw=prompt('Floor number (0 = ground, -1 = basement)',String(floor.level));if(raw===null)return;
+      const l=Number(raw);
+      if(!n.trim()||raw.trim()===''||!Number.isInteger(l)||l < -20||l > 250||floors.some(f=>f!==floor&&f.level===l)){showValidation('Invalid or duplicate floor.');return;}
+      floor.name=n.trim();floor.level=l;renderAccessibilityFeatures();
+    };
+    document.getElementById('removeAccessibilityFloor').onclick=async()=>{
+      const floor=getFloor();if(!floor||!confirm(`Delete ${floor.name} and all its accessibility photos?`))return;
+      for(const group of Object.values(floor.media))for(const entry of group)await photoOperation('delete',entry.id).catch(()=>{});
+      floors=floors.filter(f=>f!==floor);selectedFloorId=floors[0]?.id||null;renderAccessibilityFeatures();
+    };
+    WusoolUI.listen(document.getElementById('accessibilityForm'),'submit',async event=>{
+      event.preventDefault();if(!validateAccessibility())return;
+      try{await saveAccessibilityData(true);window.location.href=`./branch-photos.html?id=${encodeURIComponent(currentBranch.id)}`;}
+      catch(error){showValidation(error.message||'Unable to save accessibility data.');}
     });
-    if (branchIndex >= 0) {
-      branches[branchIndex] = updatedBranch;
+    WusoolUI.listen(document.getElementById('saveAccessibilityDraftButton'),'click',async()=>{
+      try{await saveAccessibilityData(false);showToast('Accessibility information saved as a draft.');}
+      catch(error){showValidation(error.message||'Unable to save draft.');}
+    });
+    document.getElementById('backButton').href=`./branch-working-hours.html?id=${encodeURIComponent(currentBranch.id)}`;
+  };
+  const saveAccessibilityData = async completed => {
+    const branches=(await readStoredObject('wusoolOrganizationBranches'))||[];
+    const summary={};
+    for(const feature of accessibilityFeatures){
+      const statuses=floors.map(f=>f.accessibility[feature.key]);
+      summary[feature.key]=statuses.includes('available')?'available':statuses.includes('not-sure')?'not-sure':statuses.every(v=>v==='not-available')?'not-available':null;
     }
-    await WusoolServices.rawWrite('wusoolOrganizationBranches', JSON.stringify(branches));
-    await WusoolServices.rawWrite('wusoolCurrentBranchDraft', JSON.stringify(updatedBranch));
-    currentBranch = updatedBranch;
+    const updatedBranch={...currentBranch,accessibility:summary,accessibilityFloors:structuredClone(floors),accessibilityNotes:document.getElementById('accessibilityNotes').value.trim(),completedSteps:{...currentBranch.completedSteps,details:true,workingHours:true,accessibility:completed},updatedAt:new Date().toISOString()};
+    const index=branches.findIndex(b=>String(b.id)===String(currentBranch.id));
+    if(index>=0)branches[index]=updatedBranch;else branches.push(updatedBranch);
+    await WusoolServices.rawWrite('wusoolOrganizationBranches',JSON.stringify(branches));
+    await WusoolServices.rawWrite('wusoolCurrentBranchDraft',JSON.stringify(updatedBranch));currentBranch=updatedBranch;
   };
   const initializeNotesCounter = () => {
     WusoolUI.listen(document.getElementById('accessibilityNotes'), 'input', updateNotesCounter);

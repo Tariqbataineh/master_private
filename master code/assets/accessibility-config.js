@@ -38,6 +38,17 @@ WusoolUI.enqueue(async () => {
         enabled: true,
       },
       {
+        id: 'stairs',
+        key: 'stairs',
+        title: 'Stairs',
+        description: 'Stairs available on this floor; photo required if available.',
+        icon: 'bi-ladder',
+        category: 'Interior',
+        weight: 3,
+        required: false,
+        enabled: true,
+      },
+      {
         id: 'elevator',
         key: 'elevator',
         title: 'Elevator',
