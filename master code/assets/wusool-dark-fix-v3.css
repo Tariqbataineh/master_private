@@ -1,0 +1,183 @@
+/* WUSOOL DARK MODE REPAIR V3 (presentation only)
+   Included after per-page styles and prior design layers.
+   Dark-only rules: no modifications to light theme, data, JavaScript, or native map tiles.
+   UI preview inside Theme Studio is intentionally an isolated theme preview.
+*/
+html[data-wusool-color-mode="dark"] {
+  --wd-page:#101b1b; --wd-panel:#20322e; --wd-panel-raised:#29413a;
+  --wd-field:#1b302b; --wd-text:#f1faf6; --wd-secondary:#bfdbd0;
+  --wd-border:#49665d; --wd-link:#89e9c7; --wd-highlight:#a8f4da;
+  --wd-success-bg:#20493a; --wd-success-text:#b1f8d1;
+  --wd-warning-bg:#4b3c24; --wd-warning-text:#ffe2a4;
+  --wd-danger-bg:#532b33; --wd-danger-text:#ffc2c8;
+  --wd-shadow:0 12px 30px rgba(0,0,0,.14);
+  --bs-heading-color:var(--wd-text);
+  --bs-secondary-color:var(--wd-secondary);
+  --bs-secondary-bg:var(--wd-panel-raised);
+  --bs-tertiary-bg:var(--wd-panel);
+  --bs-body-color:var(--wd-text);
+  --bs-body-bg:var(--wd-page);
+  --bs-border-color:var(--wd-border);
+  --bs-card-bg:var(--wd-panel);
+  --bs-card-color:var(--wd-text);
+  --bs-table-color:var(--wd-text);
+  --bs-table-border-color:var(--wd-border);
+  --bs-list-group-bg:var(--wd-panel);
+  --bs-list-group-color:var(--wd-text);
+  color-scheme:dark;
+}
+/* Legacy page variables are re-bound without altering '--wusool-white': that token
+   is also used as TEXT on dark-green primary buttons. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) {
+  --wusool-navy:var(--wd-text);
+  --wusool-background:var(--wd-page);
+  --wusool-light:var(--wd-panel-raised);
+  --wusool-muted:var(--wd-secondary);
+  --wusool-border:var(--wd-border);
+  --wusool-primary:#137e68; /* White text on primary buttons: 4.99:1 */
+  --wusool-primary-dark:#176753;
+  --wusool-success:#8ce9b2;
+  --wusool-warning:#ffd990;
+  --wusool-text:var(--wd-text);
+  --wt-surface:var(--wd-panel);
+  --wt-raised:var(--wd-panel-raised);
+  --wt-text:var(--wd-text);
+  --wt-muted:var(--wd-secondary);
+  --wt-border:var(--wd-border);
+  --wt-field:var(--wd-field);
+}
+/* Generic Bootstrap utilities and semantic surfaces used across roles. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  .bg-white,.bg-light,.bg-body,.bg-body-tertiary,.bg-body-secondary,
+  .card,.card-body,.list-group-item,.list-group,.alert-light,
+  .content-card,.stat-card,.summary-card,.filter-card,.filter-panel,
+  .settings-card,.settings-navigation,.account-card,.notification-card,
+  .notification-item,.notifications-list > article,.report-stat,.report-toolbar,
+  .report-card,.report-search,.dashboard-card,.quick-action,
+  .empty-state,.preview-panel,.builder-side-panel,.data-table-wrapper
+) {
+  background-color:var(--wd-panel)!important;
+  background-image:none!important;
+  color:var(--wd-text)!important;
+  border-color:var(--wd-border)!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  .text-dark,.text-body,.text-black,.text-secondary,.text-muted,
+  .card-title,.card-text,.form-label,.form-text,.small.text-secondary
+){color:var(--wd-secondary)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  .page-title,.page-heading h1,.page-header h1,.content-card h2,
+  .content-card h3,.settings-card h2,.settings-card h3,
+  .notification-card h2,.notification-card h3,.report-card h2,
+  .report-card h3,.stat-card strong,.card-title.fw-bold,
+  .form-label.fw-bold,.form-label.fw-semibold
+){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  input.form-control,select.form-select,textarea.form-control,
+  .input-group-text,.form-control[readonly],.form-select[readonly]
+){background:var(--wd-field)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(input,textarea)::placeholder{color:var(--wd-secondary)!important;opacity:1;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.form-control,.form-select):focus{border-color:#93e6ca!important;box-shadow:0 0 0 3px rgba(134,227,192,.22)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.table,.table-responsive,.table-striped,.table-hover){
+  --bs-table-bg:transparent;--bs-table-color:var(--wd-text);--bs-table-border-color:var(--wd-border);
+  --bs-table-striped-bg:var(--wd-panel-raised);--bs-table-striped-color:var(--wd-text);
+  --bs-table-hover-bg:var(--wd-panel-raised);--bs-table-hover-color:var(--wd-text);
+  color:var(--wd-text);
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.dropdown-menu,.dropdown-item,.popover,.offcanvas,.toast,.modal-content){background-color:var(--wd-panel);color:var(--wd-text);border-color:var(--wd-border);}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.dropdown-item,.list-group-item):hover{background:var(--wd-panel-raised)!important;color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.nav-tabs,.border,.border-bottom,.border-top,.border-start,.border-end,hr){border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) a:not(.btn):not(.sidebar-link):not(.nav-link):not(.dropdown-item){text-underline-offset:3px;}
+/* Preserve semantic status. White or light backgrounds are always paired with readable ink. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.badge.bg-success,.text-bg-success,.badge.text-bg-success){background:var(--wd-success-bg)!important;color:var(--wd-success-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.badge.bg-warning,.text-bg-warning,.badge.text-bg-warning){background:var(--wd-warning-bg)!important;color:var(--wd-warning-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.badge.bg-danger,.text-bg-danger,.badge.text-bg-danger){background:var(--wd-danger-bg)!important;color:var(--wd-danger-text)!important;}
+/* Consistent readable accents: the button fill remains deep green while
+   links, icons and section labels use a lighter shade on dark cards. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+ .header-eyebrow,.header-label,.section-label,.page-label,.recruit-v2-eyebrow,
+ .notification-link,.breadcrumb-item a,.settings-navigation .nav-link:hover,
+ .btn-outline-wusool:not(:hover),.btn-outline-primary:not(:hover)
+){color:var(--wd-link)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-wusool,.btn-primary,.btn-success){background:#137e68!important;color:#fff!important;border-color:#137e68!important;-webkit-text-fill-color:#fff!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-wusool,.btn-primary,.btn-success):hover{background:#176753!important;border-color:#176753!important;color:#fff!important;-webkit-text-fill-color:#fff!important;}
+/* Outlined actions must not inherit low-contrast dark green text on dark panels. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-outline-primary,.btn-outline-secondary,.btn-outline-wusool,.btn-outline-success,.btn-outline-info){color:var(--wd-highlight)!important;border-color:#80cdb4!important;background:transparent!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-outline-primary,.btn-outline-secondary,.btn-outline-wusool,.btn-outline-success,.btn-outline-info):hover{background:#176753!important;color:#fff!important;border-color:#8ed7bd!important;}
+/* Organization: account settings and verified manager details. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+ .settings-navigation,.settings-card,.verification-card,.manager-profile-summary,
+ .notification-setting,.settings-card-header,.organization-header,
+ .manager-profile-card,.settings-account-card
+){background:var(--wd-panel)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .settings-navigation .nav-link:not(.active){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .settings-navigation .nav-link:hover{background:var(--wd-panel-raised)!important;color:var(--wd-highlight)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .settings-navigation .nav-link.active{background:#176753!important;color:#fff!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.verification-card p,.manager-profile-summary p,.settings-card-header p,.notification-setting p,.organization-account small){color:var(--wd-secondary)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.settings-icon,.account-avatar){background:var(--wd-panel-raised)!important;color:var(--wd-link)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .manager-profile-summary :is(h3,h4,h5,strong){color:var(--wd-text)!important;}
+/* Organization: subscription / billing and plan usage. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+ .active-plan-card,.plan-price-panel,.plan-summary,.plan-card,.plan-info-card,
+ .payment-method-card,.subscription-card,.subscription-section,.plan-summary-card,
+ .plan-usage-panel,.billing-card,.renewal-card,.current-plan-card,
+ .subscription-banner,.subscription-notice
+){background:var(--wd-panel)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-price-panel,.manager-profile-summary,.plan-detail-badge,.payment-method-detail,.branch-usage-summary){background:var(--wd-panel-raised)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-detail-badge,.active-badge,.payment-method-text,.plan-price-panel strong,.plan-price-panel p,.plan-price-panel small){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-price-panel h2,.active-plan-card h2,.active-plan-card h3,.active-plan-card h4,.active-plan-card strong){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.stat-icon,.remaining-icon,.payment-icon,.renewal-icon,.heading-icon){background:var(--wd-panel-raised)!important;color:var(--wd-link)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .branch-progress{background:#344e45!important;}
+/* Organization + User: notifications and readable audit events. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+ .notification-card,.notification-card.unread,.notification-item,.notification-item.is-unread,
+ .notification-action,.notifications-panel,.notifications-container,
+ .activity-item,.activity-card,.audit-card,.recent-activity-card,
+ .organization-status-banner,.account-status-section
+){background:var(--wd-panel)!important;background-image:none!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.notification-action,.notification-icon,.page-icon,.empty-icon){background:var(--wd-panel-raised)!important;color:var(--wd-link)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.notification-content h3,.notification-item h2,.notification-card h3,.activity-item strong,.notification-item strong){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.notification-time,.notification-content p,.notification-item p,.notification-card small,.activity-item small){color:var(--wd-secondary)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .notification-card.unread{border-inline-start:3px solid #78dcc0!important;}
+/* User accessibility reports, search and empty-state. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.reports-hero,.report-stat,.report-toolbar,.report-card,.report-details,.report-info-icon){background:var(--wd-panel)!important;background-image:none!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .reports-hero{background:linear-gradient(115deg,#122f2c,#164b40)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .reports-hero :is(h1,h2,p,span){color:#f0faf6!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.report-stat strong,.report-stat h3,.report-card h3,#reportDetailsContent dd){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.report-stat small,.report-stat p,#reportDetailsContent dt){color:var(--wd-secondary)!important;}
+/* Admin: quick actions, statistics and notifications. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+ .action-card,.action-tile,.quick-action-card,.quick-action-item,
+ .admin-quick-action,.admin-metric,.metric-card,.admin-card,
+ .admin-action-card,.dashboard-action,.content-card .action-link
+){background:var(--wd-panel-raised)!important;background-image:none!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.action-card,.action-tile,.quick-action-card,.quick-action-item,.admin-quick-action,.dashboard-action) :is(span,strong,i,p){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .main-content :is(.content-card,.admin-card) :is(h2,h3,h4){color:var(--wd-text)!important;}
+/* Maps are external content; repair only filter surfaces, headings and local controls. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.map-page-header,.map-filter-card,.filter-panel,.filter-section,.map-results-panel,.map-controls-panel,.places-results-section,.map-header,.map-filter-group){background:var(--wd-panel)!important;background-image:none!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.filter-panel,.map-results-panel,.map-controls-panel,.map-header) :is(h2,h3,h4,p,label,small){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .filter-panel :is(input,select){background:var(--wd-field)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+/* Visual Builder: editor chrome dark; iframe is its own document and its theme
+   is deliberately not overridden. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.preview-stage,.preview-browser-bar,.builder-side-panel,.builder-panel,.builder-toolbar,.media-picker-card){background:var(--wd-panel)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .preview-browser-bar{background:var(--wd-panel-raised)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .preview-page-label{color:var(--wd-secondary)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .preview-frame-holder{background:var(--wd-panel-raised)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .media-picker-card span{color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .builder-side-panel :is(label,h2,h3,h4,p,span){color:var(--wd-text)!important;}
+/* Theme Studio live preview is not darkened with the host page: it represents
+   independently configurable customer theme colors, including a white preview.
+   Set legible text for that white example without replacing preview variables. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-content{color:#19372e!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-content :is(h2,h3,h4,p,strong){color:#19372e!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-content .text-secondary{color:#4c685e!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-card{background:#fff!important;border-color:#cbded5!important;color:#19372e!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-card :is(strong,p,span){color:#19372e!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-sidebar :is(strong,span){color:#fff!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) .theme-preview .preview-button{color:#fff!important;}
+/* Native focus, non-blurred light modal backdrops, and subtle dark ones continue
+   to be controlled by wusool-unified-design.css. */
+@media(max-width:575.98px){
+ html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-price-panel,.settings-card,.active-plan-card){max-width:100%;}
+ html[data-wusool-color-mode="dark"] body:not(.high-contrast) .notification-card{min-width:0;}
+}

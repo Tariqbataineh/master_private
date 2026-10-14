@@ -1,0 +1,256 @@
+/* WUSOOL Dashboard Studio — visual layer only, dark emerald identity.
+   Loaded AFTER existing dashboard + recruitment styles.
+   Only body[data-wu-portal-dashboard] and body[data-wu-recruitment] are affected. */
+body[data-wu-portal-dashboard], body[data-wu-recruitment]{
+  --ws-forest:#103f39;--ws-forest-2:#176858;--ws-accent:#16ad88;
+  --ws-text:#173d34;--ws-muted:#576f65;--ws-card:#fff;
+  --ws-stroke:#d5e5dd;--ws-canvas:#f4f8f6;--ws-muted-bg:#eaf4ef;
+  --ws-card-shadow:0 15px 42px rgba(15,63,48,.07);
+}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard],
+html[data-wusool-color-mode="dark"] body[data-wu-recruitment]{
+  --ws-forest:#123c33;--ws-forest-2:#1e7259;--ws-accent:#88e2c4;
+  --ws-text:#f0faf5;--ws-muted:#bed4cb;--ws-card:#20332f;
+  --ws-stroke:#425e53;--ws-canvas:#101d1b;--ws-muted-bg:#294238;
+  --ws-card-shadow:0 18px 42px rgba(0,0,0,.17);
+}
+body[data-wu-portal-dashboard] :is(.dashboard-title,.welcome-title,.page-header h1),
+body[data-wu-recruitment] :is(.recruit-v2-hero h1,.recruit-v2-list-title h2){font-family:var(--wu-heading-font,inherit);letter-spacing:normal;}
+body[data-wu-portal-dashboard] :is(.summary-card,.stat-card,.content-card,.saved-place-card),
+body[data-wu-recruitment] :is(.recruit-v2-item,.recruit-v2-metric,.recruit-v2-guide,.recruit-v2-flow-step){
+  border-radius:20px;box-shadow:var(--ws-card-shadow);
+}
+
+/* The illustrated dark dashboard is now implemented on real role pages. */
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header){
+  position:relative;isolation:isolate;overflow:hidden;
+  background:linear-gradient(115deg,#103c35 0%,#145448 66%,#1a715d 100%)!important;
+  color:#f5fff9!important;border:1px solid rgba(133,227,191,.23)!important;
+  border-radius:26px!important;
+  box-shadow:0 20px 48px rgba(4,56,40,.17);
+}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header)::before{
+  content:"";position:absolute;z-index:-1;pointer-events:none;inset:0;
+  background:radial-gradient(circle at 88% 25%,rgba(142,249,203,.19),transparent 42%),
+             radial-gradient(circle at 10% 105%,rgba(13,164,124,.20),transparent 40%);
+}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) :is(h1,h2,.dashboard-title,.welcome-title,.page-label,.section-label,.dashboard-date){color:#fff!important;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) :is(.dashboard-description,.welcome-description,.text-secondary,.text-muted){color:#c8e9dc!important;opacity:1!important;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .btn-wusool{background:#a2eed0!important;color:#0d4030!important;border-color:#a2eed0!important;font-weight:750;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .btn-wusool:hover{background:#c4f8e4!important;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .navigation-highlight{
+  border:1px solid rgba(184,255,223,.25);background:rgba(3,39,32,.36);
+  box-shadow:0 14px 32px rgba(0,0,0,.15);backdrop-filter:blur(8px);
+}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .navigation-highlight :is(h2,p){color:#fff!important;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .place-search .input-group{border:1px solid rgba(180,242,216,.50);}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .place-search :is(.form-control,.input-group-text){color:#14392f;background:#fff;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .place-search .form-control::placeholder{color:#526f65;opacity:1;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) :is(.dashboard-range,.global-search-input){background:#fff!important;color:#193c32!important;border-color:#a9d4bf!important;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .page-label{color:#a5edcf!important;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) :is(.global-search-icon,.current-date){color:#b9e9d5!important;}
+
+/* Dark palette for dashboard panels: legible tables/charts and real metric values remain intact. */
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.organization-main,.main-content,main#mainContent){background-color:var(--ws-canvas);color:var(--ws-text);}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.summary-card,.stat-card,.content-card,.saved-place-card,.account-status-section,.quick-action,.activity-item,.attention-item){background-color:var(--ws-card)!important;color:var(--ws-text)!important;border-color:var(--ws-stroke)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.summary-card,.stat-card,.content-card,.saved-place-card,.account-status-section,.quick-action) :is(h2,h3,h4,.summary-value,.stat-number,.stat-content strong,.text-dark){color:var(--ws-text)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.summary-label,.stat-content p,.stat-content small,.text-secondary,.text-muted,.account-status-section p){color:var(--ws-muted)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.summary-icon,.stat-icon,.quick-action-icon,.attention-icon,.activity-icon){background-color:var(--ws-muted-bg)!important;color:var(--ws-accent)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.quick-action,.stat-link){color:var(--ws-text)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] :is(.dashboard-section,.organization-main) :is(h2,h3,h4){color:var(--ws-text);}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] .main-content :is(.table,.table-responsive){--bs-table-bg:transparent;--bs-table-color:var(--ws-text);--bs-table-border-color:var(--ws-stroke);}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard] .main-content :is(.quick-action,.stat-card,.summary-card):hover{border-color:#73c7a9!important;}
+html[data-wusool-color-mode="light"] body[data-wu-portal-dashboard] :is(.summary-card,.stat-card,.content-card,.saved-place-card,.account-status-section){border-color:var(--ws-stroke);background:var(--ws-card);color:var(--ws-text);}
+
+/* A single, calm green language for recruitment, assessments and interviews. */
+body[data-wu-recruitment] .recruitment-shell,
+body[data-wu-recruitment] .recruitment-dialog{
+  --rv-ink:var(--ws-text);--rv-muted:var(--ws-muted);--rv-line:var(--ws-stroke);
+  --rv-panel:var(--ws-card);--rv-soft:var(--ws-muted-bg);
+  --rv-primary:var(--wu-brand);--rv-primary-bright:var(--ws-accent);
+}
+body[data-wu-recruitment] .recruit-v2-hero{background:linear-gradient(115deg,#103c35,#125244 65%,#19715b)!important;border:1px solid rgba(152,224,188,.25);box-shadow:0 20px 45px rgba(3,46,32,.18);}
+body[data-wu-recruitment] .recruit-v2-hero :is(h1,p){color:#fff!important;}
+body[data-wu-recruitment] .recruit-v2-hero .recruit-v2-hero-kicker{color:#b5f6d8;}
+body[data-wu-recruitment] .recruit-v2-art-center{background:linear-gradient(140deg,#4de1af,#157b60);}
+body[data-wu-recruitment] .recruitment-nav{background:var(--ws-card)!important;border-color:var(--ws-stroke)!important;}
+body[data-wu-recruitment] .recruitment-nav a{color:var(--ws-muted)!important;}
+body[data-wu-recruitment] .recruitment-nav a:hover{background:var(--ws-muted-bg)!important;color:var(--wu-brand)!important;}
+body[data-wu-recruitment] .recruitment-nav a[aria-current]{background:linear-gradient(115deg,#147b64,#0b9f7e)!important;color:#fff!important;}
+body[data-wu-recruitment] :is(.recruit-v2-item,.recruit-v2-metric,.recruitment-tools.recruit-v2-tools,.recruitment-empty,.recruit-v2-track-side,.recruit-v2-flow-step){background:var(--ws-card)!important;border-color:var(--ws-stroke)!important;color:var(--ws-text)!important;}
+body[data-wu-recruitment] :is(.recruit-v2-item-heading h3,.recruit-v2-list-title h2,.recruit-v2-metric strong,.recruit-v2-flow-step strong,.recruitment-empty h2){color:var(--ws-text)!important;}
+body[data-wu-recruitment] :is(.recruit-v2-item-heading p,.recruit-v2-metric span:not(.recruit-v2-icon),.recruit-v2-footer-sub,.recruit-v2-muted,.recruitment-empty p,.recruit-v2-tools label){color:var(--ws-muted)!important;}
+body[data-wu-recruitment] .recruit-v2-icon{background:var(--ws-muted-bg)!important;color:var(--wu-brand)!important;}
+body[data-wu-recruitment] .recruit-v2-guide{background:var(--ws-muted-bg)!important;border-color:var(--ws-stroke)!important;color:var(--ws-text);}
+body[data-wu-recruitment] .recruit-v2-guide :is(h3,p){color:var(--ws-text)!important;}
+body[data-wu-recruitment] :is(.recruit-v2-tools .btn,.recruit-v3-primary){background:linear-gradient(112deg,#176e5a,#0c9475)!important;color:#fff!important;}
+body[data-wu-recruitment] .recruit-v2-tools :is(input,select){background:var(--ws-card)!important;color:var(--ws-text)!important;border-color:var(--ws-stroke)!important;}
+body[data-wu-recruitment] .recruit-v3-pass-cta{background:var(--ws-muted-bg)!important;border-color:var(--ws-stroke)!important;color:var(--ws-text)!important;}
+body[data-wu-recruitment] .recruit-v3-pass-title h3{color:var(--ws-text)!important;}
+body[data-wu-recruitment] .recruit-v3-pass-title p,body[data-wu-recruitment] .recruit-v3-pass-min{color:var(--ws-muted)!important;}
+/* Recruitment dialogs are appended to body by the existing business UI code. */
+body[data-wu-recruitment] dialog.recruitment-dialog[open]{
+  background:var(--ws-card)!important;color:var(--ws-text)!important;border-color:var(--ws-stroke)!important;
+  max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);box-shadow:0 26px 72px rgba(0,0,0,.2);
+}
+body[data-wu-recruitment] dialog.recruitment-dialog header{background:linear-gradient(112deg,#103c35,#176858)!important;color:#fff!important;}
+body[data-wu-recruitment] dialog.recruitment-dialog :is(.recruit-v2-exam-overview,.recruit-v2-tracking-head,.recruit-v2-builder-head,.recruit-v3-schedule-heading,.recruit-v3-interview-grid>div,.recruit-v2-mini-record,.recruit-v2-awaiting){background:var(--ws-muted-bg)!important;border-color:var(--ws-stroke)!important;color:var(--ws-text)!important;}
+body[data-wu-recruitment] dialog.recruitment-dialog :is(.recruit-v2-exam-overview,.recruit-v2-tracking-head,.recruit-v2-builder-head,.recruit-v3-schedule-heading,.recruit-v3-interview-grid>div) :is(h3,p,strong){color:var(--ws-text)!important;}
+body[data-wu-recruitment] dialog.recruitment-dialog :is(.recruit-v3-schedule-pills>span,.recruit-v2-exam-badges>span,.recruit-v2-question,.recruit-v2-option,.recruitment-card){background:var(--ws-muted-bg)!important;color:var(--ws-text)!important;border-color:var(--ws-stroke)!important;}
+body[data-wu-recruitment] dialog.recruitment-dialog :is(input:not([type=checkbox]):not([type=radio]),select,textarea){background:var(--ws-card)!important;color:var(--ws-text)!important;border-color:var(--ws-stroke)!important;}
+body[data-wu-recruitment] dialog.recruitment-dialog :is(input,textarea)::placeholder{color:var(--ws-muted)!important;opacity:1;}
+body[data-wu-recruitment] dialog.recruitment-dialog .recruit-v3-secondary{background:var(--ws-card)!important;color:var(--wu-brand)!important;border-color:var(--ws-stroke)!important;}
+body[data-wu-recruitment] dialog.recruitment-dialog :is(.recruit-v2-exam-dates,.recruit-v2-question-number,.recruit-v2-question-top,.recruit-v2-exam-badges){color:var(--ws-text);}
+html[data-wusool-color-mode="light"] body[data-wu-recruitment] dialog.recruitment-dialog::backdrop{background:transparent!important;backdrop-filter:none!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-recruitment] dialog.recruitment-dialog::backdrop{background:rgba(0,12,8,.3)!important;backdrop-filter:none!important;}
+
+/* Dashboard personal layout studio: no drag interaction until explicitly enabled. */
+.wu-layout-panel{display:flex;align-items:center;gap:9px;flex-wrap:wrap;max-width:100%;}
+.wu-layout-help{flex-basis:100%;font-size:.82rem;line-height:1.5;margin:6px 0 0!important;color:#d2f5e5!important;max-width:540px;}
+.wu-layout-button{min-height:39px!important;min-width:39px;padding:8px 13px!important;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:11px!important;font:600 .85rem var(--wu-font,inherit);border:1px solid rgba(172,255,218,.43);color:#fff!important;background:rgba(5,45,34,.25)!important;box-shadow:none!important;cursor:pointer;}
+.wu-layout-button:hover{background:rgba(104,231,174,.22)!important;}
+.wu-layout-button:focus-visible{outline:3px solid #ceffe3!important;outline-offset:2px;}
+.wu-layout-button[hidden],.wu-layout-widget-controls[hidden],.wu-layout-help[hidden]{display:none!important;}
+.wu-layout-reset{background:rgba(0,0,0,.15)!important;}
+body[data-wu-portal-dashboard] .dashboard-hero .wu-layout-panel{margin-top:16px;}
+body[data-wu-portal-dashboard] .welcome-actions .wu-layout-panel{justify-content:flex-end;margin-top:13px;}
+body[data-wu-portal-dashboard] .page-header .wu-layout-panel{justify-content:flex-start;margin-top:12px;}
+.wu-layout-widget{position:relative;}
+.wu-layout-widget-controls{position:absolute;z-index:20;inset-block-start:9px;inset-inline-end:12px;display:flex;gap:5px;align-items:center;padding:5px;border-radius:13px;background:var(--ws-forest,#12483d);box-shadow:0 7px 20px rgba(0,0,0,.18);}
+.wu-layout-widget-controls .wu-layout-button{padding:7px!important;width:34px;min-width:34px;min-height:34px!important;}
+.wu-layout-widget-controls .wu-layout-button span{display:none;}
+.wu-layout-widget-controls .wu-drag-handle{cursor:grab;touch-action:none;}
+.wu-layout-widget-controls .wu-drag-handle:active{cursor:grabbing;}
+.wu-layout-widget-controls .wu-layout-button:disabled{opacity:.35!important;cursor:not-allowed;}
+body.wu-layout-editing .wu-layout-widget{outline:2px dashed rgba(29,180,125,.53);outline-offset:-3px;border-radius:19px;}
+body.wu-layout-editing .wu-layout-widget.wu-is-dragging{opacity:.42;}
+body.wu-layout-editing .wu-layout-widget > *:not(.wu-layout-widget-controls){pointer-events:auto;}
+body.wu-layout-editing .wu-layout-widget-controls{pointer-events:auto;}
+body.wu-layout-editing .wu-layout-widget:hover{outline-color:#46cc9b;}
+body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header) .wu-layout-button{color:#fff!important;}
+body[data-wu-portal-dashboard] .wu-layout-widget-controls .wu-layout-button{color:#fff!important;}
+@media(max-width:767px){
+  body[data-wu-portal-dashboard] :is(.dashboard-hero,.welcome-section,.page-header){border-radius:19px!important;}
+  .wu-layout-panel{justify-content:flex-start!important;}
+  .wu-layout-widget-controls{inset-block-start:4px;inset-inline-end:5px;}
+  .wu-layout-widget-controls .wu-layout-button{min-width:30px;width:30px;min-height:30px!important;}
+  body.wu-layout-editing .wu-layout-widget{padding-top:36px;}
+  body[data-wu-recruitment] .recruitment-nav{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+@media(prefers-reduced-motion:reduce){.wu-layout-widget,.wu-layout-button{transition:none!important;}}
+/* Bootstrap .row > * otherwise stretches drag controls across an entire row. */
+body[data-wu-portal-dashboard] .wu-layout-widget-controls{
+  width:max-content!important;max-width:calc(100% - 16px)!important;
+  padding:5px!important;flex:0 0 auto!important;margin:0!important;
+}
+
+body.wu-layout-editing .wu-layout-widget.wu-is-touch-target{outline:3px solid #47dda7!important;outline-offset:-3px;}
+/* Nested organization/dashboard cards previously retained white gradients in dark mode. */
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="organization"] :is(.subscription-card,.quick-action-card){
+  background:var(--ws-card)!important;color:var(--ws-text)!important;border-color:var(--ws-stroke)!important;
+}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="organization"] :is(.subscription-card,.quick-action-card) :is(.section-title,.subscription-information dd,.quick-action-card strong){color:var(--ws-text)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="organization"] :is(.subscription-card,.quick-action-card) :is(dt,small,.subscription-usage span,.subscription-usage small,.quick-action-card small){color:var(--ws-muted)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="organization"] .subscription-information>div{border-color:var(--ws-stroke)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="organization"] .quick-action-card{background:var(--ws-muted-bg)!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="admin"] .quick-action{
+  background:var(--ws-muted-bg)!important;border-color:var(--ws-stroke)!important;color:var(--ws-text)!important;
+}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="admin"] .quick-action:hover{background:#335647!important;border-color:#88e2c4!important;}
+html[data-wusool-color-mode="dark"] body[data-wu-portal-dashboard="organization"] .subscription-usage .progress{background:#345548!important;}
+/* Dashboard header colors */
+html body[data-wu-portal-dashboard]
+:is(.page-header, .dashboard-hero, .welcome-section)
+:is(h1, h2, .dashboard-title, .welcome-title) {
+  color: #167b63 !important;
+}
+
+html body[data-wu-portal-dashboard]
+:is(.page-header, .dashboard-hero, .welcome-section)
+.wu-layout-button {
+  background: #167b63 !important;
+  border-color: #167b63 !important;
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+html body[data-wu-portal-dashboard]
+:is(.page-header, .dashboard-hero, .welcome-section)
+.wu-layout-button:hover:not(:disabled) {
+  background: #11634f !important;
+  border-color: #11634f !important;
+}
+
+html[data-wusool-color-mode="dark"]
+body[data-wu-portal-dashboard]
+:is(.page-header, .dashboard-hero, .welcome-section)
+:is(h1, h2, .dashboard-title, .welcome-title) {
+  color: #b1efcf !important;
+}
+
+html[data-wusool-color-mode="dark"]
+body[data-wu-portal-dashboard]
+:is(.page-header, .dashboard-hero, .welcome-section)
+:is(.global-search-input, .dashboard-range) {
+  background: #20312d !important;
+  color: #eef9f4 !important;
+  border-color: #476359 !important;
+}
+
+html[data-wusool-color-mode="dark"]
+body[data-wu-portal-dashboard]
+.global-search-input::placeholder {
+  color: #b7d2c7 !important;
+}
+/* User dashboard only */
+html body:has(#userSidebar) .dashboard-hero
+:is(.wu-layout-button, .btn-wusool, .navigation-highlight .btn-light):hover:not(:disabled) {
+  background: #11634f !important;
+  border-color: #11634f !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero .dashboard-title {
+  color: var(--wu-brand, #167b63) !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero
+:is(.dashboard-date, .dashboard-description, .wu-layout-help) {
+  color: var(--wu-muted, #536d63) !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero .place-search
+:is(.form-control, .input-group-text) {
+  background: var(--wu-surface, #ffffff) !important;
+  color: var(--wu-text, #193a31) !important;
+  border-color: var(--wu-border, #d3e4db) !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero
+.form-control::placeholder {
+  color: var(--wu-muted, #536d63) !important;
+  opacity: 1;
+}
+
+html body:has(#userSidebar) .dashboard-hero
+:is(.wu-layout-button, .btn-wusool, .navigation-highlight .btn-light) {
+  background: #167b63 !important;
+  border-color: #167b63 !important;
+  color: #ffffff !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero
+:is(.wu-layout-button, .btn-wusool, .navigation-highlight .btn-light)
+:hover:not(:disabled) {
+  background: #11634f !important;
+  border-color: #11634f !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero .navigation-highlight {
+  background: var(--wu-surface, #ffffff) !important;
+  border-color: var(--wu-border, #d3e4db) !important;
+}
+
+html body:has(#userSidebar) .dashboard-hero
+.navigation-highlight :is(h2, p, .highlight-icon) {
+  color: var(--wu-text, #193a31) !important;
+}

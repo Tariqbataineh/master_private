@@ -1,0 +1,16 @@
+{
+  "html_files_linked": 125,
+  "excluded_fragments": [
+    "admin/components/admin-sidebar.html",
+    "org/components/organization-sidebar.html",
+    "org/html/organization-sidebar.html"
+  ],
+  "translation_additions": 65,
+  "theme_css": "assets/wusool-unified-design.css",
+  "updated_pages_by_role": {
+    "admin": 50,
+    "org": 35,
+    "user": 28,
+    "visitor": 12
+  }
+}

@@ -1,4 +1,7 @@
 /* Wusool semantic theme. Last stylesheet on every complete portal page. */
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) .accessibility-toolbar-title {
+  color: var(--wt-text);
+}
 :root {
   --wt-page: #f7faf9;
   --wt-surface: #ffffff;

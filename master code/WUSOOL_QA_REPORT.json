@@ -1,0 +1,341 @@
+{
+  "type": "Static project audit + synthetic UI component test, NOT full application end-to-end QA",
+  "html_scanned": 128,
+  "html_linked": 125,
+  "font_imports": 125,
+  "missing_local_refs": [
+    [
+      "org/components/organization-sidebar.html",
+      "./organization-dashboard.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./organization-settings.html#manager-profile"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./organization-dashboard.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./branches.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./branch-photos-management.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./organization-ai-reports.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./visitor-tickets.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./notifications.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./review-history.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./visit-reviews.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./audit-log.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./subscription-management.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./organization-settings.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./help-support.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./recruitment.html"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./recruitment.html?view=interviews"
+    ],
+    [
+      "org/components/organization-sidebar.html",
+      "./organization-login.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-dashboard.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-dashboard.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-global-search.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-smart-recommendations.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-organizations.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-branches.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-users.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-tickets.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-reviews.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-subscriptions.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-documents.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-platform-builder.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-media-library.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-theme-settings.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-navigation-manager.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-announcements.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-feature-flags.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-feature-rollout.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-version-history.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-rules-engine.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-workflow-builder.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-automation-center.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-roles.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-impersonation.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-ai-management.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-ai-settings.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-ai-templates.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-requirements-builder.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-import-center.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-export-center.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-reports.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-notifications.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-notification-templates.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-security-center.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-device-sessions.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-maintenance.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-system-health.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-error-center.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-recovery-center.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-audit-log.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./admin-settings.html"
+    ],
+    [
+      "admin/components/admin-sidebar.html",
+      "./recruitment.html"
+    ]
+  ],
+  "js_checked": 205,
+  "js_failed": [],
+  "css_checked": 158,
+  "css_parse_errors": [],
+  "non_web_environment": "Local chromium forbids navigation by administrator policy; actual app E2E not verified",
+  "dialog_test": [
+    {
+      "width": 1440,
+      "mode": "light",
+      "viewport": [
+        1440,
+        900
+      ],
+      "rect": {
+        "x": 480,
+        "y": 340,
+        "width": 480,
+        "height": 220
+      },
+      "backdrop": "rgba(0, 0, 0, 0)",
+      "blur": "none",
+      "headingColor": "rgb(22, 123, 99)",
+      "headingFont": "Sora, Inter, \"Segoe UI\", sans-serif",
+      "bodyFont": "Inter, \"Segoe UI\", Arial, sans-serif",
+      "centered": true,
+      "transparent_light": true,
+      "bootstrap_modal_centered": true
+    },
+    {
+      "width": 1440,
+      "mode": "dark",
+      "viewport": [
+        1440,
+        900
+      ],
+      "rect": {
+        "x": 480,
+        "y": 340,
+        "width": 480,
+        "height": 220
+      },
+      "backdrop": "rgba(4, 13, 11, 0.34)",
+      "blur": "none",
+      "headingColor": "rgb(117, 218, 192)",
+      "headingFont": "Sora, Inter, \"Segoe UI\", sans-serif",
+      "bodyFont": "Inter, \"Segoe UI\", Arial, sans-serif",
+      "centered": true,
+      "transparent_light": null,
+      "bootstrap_modal_centered": true
+    },
+    {
+      "width": 390,
+      "mode": "light",
+      "viewport": [
+        390,
+        844
+      ],
+      "rect": {
+        "x": 19.5,
+        "y": 312,
+        "width": 351,
+        "height": 220
+      },
+      "backdrop": "rgba(0, 0, 0, 0)",
+      "blur": "none",
+      "headingColor": "rgb(22, 123, 99)",
+      "headingFont": "Sora, Inter, \"Segoe UI\", sans-serif",
+      "bodyFont": "Inter, \"Segoe UI\", Arial, sans-serif",
+      "centered": true,
+      "transparent_light": true,
+      "bootstrap_modal_centered": true
+    },
+    {
+      "width": 390,
+      "mode": "dark",
+      "viewport": [
+        390,
+        844
+      ],
+      "rect": {
+        "x": 19.5,
+        "y": 312,
+        "width": 351,
+        "height": 220
+      },
+      "backdrop": "rgba(4, 13, 11, 0.34)",
+      "blur": "none",
+      "headingColor": "rgb(117, 218, 192)",
+      "headingFont": "Sora, Inter, \"Segoe UI\", sans-serif",
+      "bodyFont": "Inter, \"Segoe UI\", Arial, sans-serif",
+      "centered": true,
+      "transparent_light": null,
+      "bootstrap_modal_centered": true
+    }
+  ],
+  "heading_font_test": [],
+  "translations": 3709
+}

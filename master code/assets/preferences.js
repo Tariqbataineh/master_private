@@ -11,6 +11,85 @@
   const attributeOriginals = new WeakMap();
   let normalized = new Map(), reverse = new Map();
   const normalize = value => String(value).replace(/\s+/g, ' ').trim().toLocaleLowerCase('en');
+  function unifyPortalHeading() {
+    if(!/\/(user|org|admin)\/html\//.test(location.pathname))return;
+    const main=document.querySelector('main');if(!main)return;
+    const selector='.wu-primary-heading,.page-heading,.page-header,.page-hero,.dashboard-header,.content-header,.map-page-header,.recruit-v2-hero,.dashboard-hero,.welcome-section';
+    let heading=[...main.querySelectorAll(selector)].find(el=>!el.closest('.modal,dialog')&&el.querySelector('h1,h2,.page-title,.dashboard-title'));
+    if(!heading){
+      const title=[...main.querySelectorAll('h1,.page-title,.dashboard-title,#bookingTicketsPanel > h2')].find(el=>!el.closest('.modal,dialog,.organization-header,.organization-topbar,.user-topbar'));
+      if(title){
+        const section=title.closest('section,header');
+        if(section&&!section.querySelector('form,table,[data-booking-host],.content-card,.booking-table-card'))heading=section;
+        else{
+          heading=document.createElement('section');heading.className='wu-primary-heading';
+          title.before(heading);
+          const label=heading.previousElementSibling;if(label?.matches('p,.section-label,.page-label'))heading.append(label);
+          const description=title.nextElementSibling;heading.append(title);if(description?.matches('p'))heading.append(description);
+        }
+      }
+    }
+    if(!heading)return;
+    heading.classList.add('wu-primary-heading');
+    const title=heading.querySelector('h1,h2,.page-title,.dashboard-title');
+    /* وصف صفحة التذاكر حسب البوابة */
+if (/\/(?:my-tickets|my-visits|visitor-tickets|admin-tickets)\.html$/.test(location.pathname)) {
+  const isOrganization = location.pathname.includes('/org/');
+  const isAdmin = location.pathname.includes('/admin/');
+
+  const descriptionAr = isOrganization
+    ? 'راجع حجوزات الزوار ومواعيدهم، وتابع حالات الزيارات من مكان واحد.'
+    : isAdmin
+      ? 'راجع الحجوزات والمواعيد وحالات الزيارات عبر مؤسسات النظام.'
+      : 'تابع تذاكرك ومواعيد زياراتك، واعرض تفاصيل الحجز وخيارات التتبع المتاحة.';
+
+  const descriptionEn = isOrganization
+    ? 'Review visitor bookings and appointments, and follow visit statuses in one place.'
+    : isAdmin
+      ? 'Review bookings, appointments, and visit statuses across system organizations.'
+      : 'Follow your tickets and appointments, and view booking details and available tracking options.';
+
+  let description = title.nextElementSibling;
+
+  if (!description?.matches('p')) {
+    description = document.createElement('p');
+    title.after(description);
+  }
+
+  description.classList.add('wu-ticket-description');
+  description.dataset.wusoolAr = descriptionAr;
+  description.dataset.wusoolEn = descriptionEn;
+
+  description.textContent =
+    document.documentElement.lang === 'ar'
+      ? descriptionAr
+      : descriptionEn;
+}
+    if(title.tagName!=='H1'){title.setAttribute('role','heading');title.setAttribute('aria-level','1');}
+    heading.classList.add('wu-title-only');
+    for(const text of heading.querySelectorAll('p,nav,.section-label,.page-label,.header-label,.header-eyebrow,.eyebrow,.recommendations-label,.recruit-v2-hero-kicker,.recruitment-kicker,.dashboard-date')){
+      if(!text.contains(title)&&!text.querySelector('button,input,select,a.btn')&&!text.closest('.wu-heading-actions'))text.classList.add('wu-heading-secondary');
+    }
+    const breadcrumb=heading.previousElementSibling;if(breadcrumb?.matches('nav[aria-label],.breadcrumb'))breadcrumb.classList.add('wu-heading-secondary');
+    const bars=[...document.querySelectorAll('.organization-header,.organization-topbar,.user-topbar,.content-header,.page-header')].filter(el=>el!==heading&&!el.contains(heading)&&!heading.contains(el)&&!el.closest('.modal,dialog,aside')&&(el.compareDocumentPosition(heading)&Node.DOCUMENT_POSITION_FOLLOWING));
+    for(const bar of bars){
+      if(bar.dataset.wuHeadingMerged)continue;
+      if(!bar.querySelector('h1,h2,.page-title,.dashboard-title'))continue;
+      let actions=heading.querySelector(':scope > .wu-heading-actions');
+      if(!actions){actions=document.createElement('div');actions.className='wu-heading-actions';heading.append(actions);}
+      // Move live controls, retaining listeners, IDs, current state and permissions.
+      const controls=[...bar.querySelectorAll('button,a.btn,input,select,.wu-layout-panel,.organization-account')].filter(el=>!el.closest('.wusool-preferences')&&!el.parentElement.closest('button,a.btn,.wu-layout-panel,.organization-account'));
+      for(const control of controls){
+        const container=control.closest('.input-group,.search-box');
+        actions.append(container&&bar.contains(container)?container:control);
+      }
+      bar.dataset.wuHeadingMerged='true';bar.hidden=true;
+      if(bar.parentElement===main&&heading.parentElement!==main){
+        const host=heading.parentElement;
+        if(host.classList.contains('container-fluid')){main.insertBefore(heading,bar);heading.classList.add('wu-heading-promoted');}
+      }
+    }
+  }
   const excluded = 'script,style,textarea,code,pre,[translate="no"],[data-no-translate],[data-user-content],[contenteditable]:not([contenteditable="false"]),.wusool-preferences';
   const excludedAttributes = excluded.replace('textarea,', '');
   function catalogue() {
@@ -172,12 +251,13 @@
       else if(!panel.contains(r.target)) pending.add(r.target);
     }
     if(pending.size && !frame) frame=requestAnimationFrame(()=>{
-      frame=0; mount(); const work=[...pending];pending.clear();
+      frame=0; unifyPortalHeading(); mount(); const work=[...pending];pending.clear();
       for(const node of work) if(node.isConnected && !panel.contains(node)) translate(node);
     });
   });
   window.WusoolPreferences={get language(){return language;},setLanguage,refresh:()=>{mount();translate();},translate};
   async function init() {
+    unifyPortalHeading();
     dictionary={...common};
     try{const response=await fetch(new URL('./translations/ar.json',script.src));const data=await response.json();dictionary={...Object.fromEntries(Object.entries(data).filter(([k,v])=>k!==v)),...common};}catch{}
     catalogue();

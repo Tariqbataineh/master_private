@@ -3,8 +3,9 @@
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
   const entries = await WusoolDataService.getAuditLog();
-  const container = document.querySelector('.container-fluid.px-3.px-md-4.px-xl-5.py-4');
-  const safeJson = (value) => {
+const container = document.querySelector(
+  'main.main-content > div.container-fluid'
+);  const safeJson = (value) => {
     if (!value) {
       return '-';
     }

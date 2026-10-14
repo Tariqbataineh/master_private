@@ -4,8 +4,9 @@ WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
   const query = new URLSearchParams(window.location.search).get('q') || '';
   const service = WusoolDataService;
-  const container = document.querySelector('.container-fluid.px-3.px-md-4.px-xl-5.py-4');
-  const organizations = await service.getOrganizations({
+const container = document.querySelector(
+  'main.main-content > div.container-fluid'
+);  const organizations = await service.getOrganizations({
     search: query,
   });
   const branches = await service.getBranches({

@@ -1,1 +1,6 @@
 Existing vendor distributions keep their upstream licenses and attribution files under assets/vendor. New Wusool city geometry, procedural materials, vehicles, generic people/wildlife, water and synthesized ambience are original authored approximations. Architectural dimensions and hidden Orange details are estimated, not surveyed. Surrounding city/beach is an artistic extension. No paid or remote model dependency was introduced.
+
+Referenced Orange Academy people assets:
+- assets/images/people/coach-1.png, coach-2.png, manager.png, instructor.png are user-supplied reference images for this Wusool project.
+- They are integrated as identity-preserving portrait textures on authored Three.js character bodies in the existing Orange rooms.
+- They are not claimed to be generated GLB/photogrammetry human scans.

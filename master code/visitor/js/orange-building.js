@@ -26,6 +26,32 @@ export function createOrangeBuilding(scene){
  function monitor(x,z){b(.68,.43,.055,x,1.75,z,black);panel('WUSOOL\nconst access = true;',.61,.34,x,1.76,z+.034,'#b7e1ba','#122e37');cyl(.025,.2,x,1.49,z);b(.32,.025,.22,x,1.4,z);b(.45,.025,.16,x,1.43,z+.27,gray);}
  function drawer(x,z){b(.46,.63,.66,x,.94,z,white);for(let y=.8;y<1.2;y+=.15){b(.44,.009,.01,x,y,z+.336,gray);b(.13,.02,.025,x,y+.04,z+.35,metal);}}
  function character(x,z,index=0,standing=false,rot=0){solid.push({min:[x-.32,.6,z-.32],max:[x+.32,2.4,z+.32]});const person=makeHuman(Math.abs(index)),figure=person.group;figure.position.set(x,standing?.6:.18,z);figure.rotation.y=rot;group.add(figure);if(!standing){for(const leg of person.legs){leg.hip.rotation.x=-Math.PI/2;leg.knee.rotation.x=Math.PI/2;}for(const arm of person.arms){arm.shoulder.rotation.x=-.7;arm.elbow.rotation.x=-.8;}}animated.push({mesh:figure,person,standing,phase:index*1.71,type:'human'});}
+ function referencedCharacter(x,z,role,standing=false,rot=0){
+  solid.push({min:[x-.32,.6,z-.32],max:[x+.32,2.4,z+.32]});
+  const female=role==='coach1'||role==='coach2',person=makeHuman(role==='manager'?14:role==='instructor'?15:role==='coach2'?16:17),figure=person.group;
+  figure.name=female?'Generic adult female coach':role==='manager'?'Generic manager in suit':'Generic instructor';
+  figure.position.set(x,standing?.6:.18,z);figure.rotation.y=rot;group.add(figure);
+  if(!standing){for(const leg of person.legs){leg.hip.rotation.x=-Math.PI/2;leg.knee.rotation.x=Math.PI/2;}for(const arm of person.arms){arm.shoulder.rotation.x=-.7;arm.elbow.rotation.x=-.8;}}
+  if(role==='instructor'){person.arms[0].shoulder.rotation.z=.35;person.arms[0].shoulder.rotation.x=-.35;person.arms[1].shoulder.rotation.z=-.55;person.arms[1].shoulder.rotation.x=-.05;}
+  // Authored generic geometry only; no reference photographs or facial textures.
+  const jacket=material(role==='coach1'?'#45665e':role==='coach2'?'#876e80':'#263345'),shirt=material('#f1eee6');
+  const body=figure.children.find(o=>o.isMesh&&o.geometry.type==='LatheGeometry');
+  if(body){body.material=jacket;if(female)body.scale.x=.88;}
+  for(const arm of person.arms)for(const part of arm.shoulder.children)if(part.isMesh)part.material=jacket;
+  b(.12,.30,.025,0,1.20,.135,shirt,figure);
+  for(const side of[-1,1]){const lapel=b(.065,.25,.025,side*.085,1.20,.145,jacket,figure);lapel.rotation.z=side*.23;}
+  if(role==='manager'){
+   const tie=new THREE.Mesh(new THREE.ConeGeometry(.035,.27,4),material('#486d66'));tie.position.set(0,1.16,.16);tie.rotation.z=Math.PI;figure.add(tie);
+   for(const y of[1.04,1.12]){const button=new THREE.Mesh(new THREE.SphereGeometry(.008,8,6),charcoal);button.position.set(.045,y,.145);figure.add(button);}
+  }
+  if(female){
+   const hair=material(role==='coach1'?'#38291f':'#5a3927');
+   const backHair=new THREE.Mesh(new THREE.SphereGeometry(.125,24,20),hair);backHair.scale.set(1,1.6,.65);backHair.position.set(0,-.035,-.055);person.head.add(backHair);backHair.castShadow=true;
+   for(const side of[-1,1]){const lock=new THREE.Mesh(new THREE.CapsuleGeometry(.032,.19,6,12),hair);lock.position.set(side*.102,-.095,-.018);person.head.add(lock);lock.castShadow=true;}
+   person.head.scale.x=.93;
+  }
+  animated.push({mesh:figure,person,standing,phase:(role.length+x+z)*1.13,type:'human'});
+ }
 
  function basin(x,y,z){const pts=[[0,-.14],[.07,-.14],[.15,-.1],[.22,0],[.245,.025],[.255,0],[.235,-.04],[.2,-.15],[.12,-.2],[0,-.2]].map(v=>new THREE.Vector2(...v));const basin=new THREE.Mesh(new THREE.LatheGeometry(pts,32),white);basin.scale.set(1.55,1,1);basin.position.set(x,y,z);basin.castShadow=true;group.add(basin);cyl(.022,.22,x,y+.1,z-.2);branch([x,y+.21,z-.2],[x,y+.21,z-.06],.022,metal,group);b(.74,.045,.5,x,y-.035,z,gray);}
  function windowWall(w,x,z){const half=1.2;wall(w/2-half,.18,x-(w/4+half/2),z);wall(w/2-half,.18,x+(w/4+half/2),z);b(2.4,.98,.18,x,1.08,z,white,group,true);b(2.4,.66,.18,x,3.49,z,white,group,true);b(2.28,1.55,.03,x,2.34,z,glass);for(const a of[-1,1]){b(.045,1.65,.24,x+a*1.16,2.34,z,metal);b(2.4,.05,.24,x,2.34+a*.8,z,white);}b(.045,1.55,.14,x,2.34,z,metal);b(2.34,.035,.25,x,3.2,z,gray);b(2.25,.47,.03,x,2.98,z+.07,white);}
@@ -56,16 +82,16 @@ export function createOrangeBuilding(scene){
  wall(16,.18,11,1.7);baseboard(16,.1,11,1.58);
  roomFloor(7,-8,8,12);wall(.18,12,3,-8);wall(.18,12,11,-8);windowWall(8,7,-14);glassWall(3,11,-1.7,4,'classroom');
  for(const z of[-5,-8,-11]){desk(7.3,z,4.8,1.15);for(const x of[5.5,7.3,9.1]){seat(x,z+1,Math.PI);character(x,z+1,Math.round(x+z*3),false,Math.PI);}}
- b(3.2,1.7,.1,8,2.3,-13.83,black);panel('WUSOOL / ACCESSIBLE BY DESIGN\nfunction welcome(visitor) {\n  return places.filter(place => place.accessible);\n}\nLearn · Build · Include',3,1.5,8,2.3,-13.76,'#d2edd9','#102b35');character(10,-12.7,2,true,.6);
+ b(3.2,1.7,.1,8,2.3,-13.83,black);panel('WUSOOL / ACCESSIBLE BY DESIGN\nfunction welcome(visitor) {\n  return places.filter(place => place.accessible);\n}\nLearn · Build · Include',3,1.5,8,2.3,-13.76,'#d2edd9','#102b35');referencedCharacter(10,-12.7,'instructor',true,.6);
  panel('HTML · CSS · JavaScript\nLearn together',1.8,1.2,3.13,2.5,-8,'#e87327','#f4f2ec',Math.PI/2);b(1.8,.8,.08,7,3.2,-13.82,white);
  // Coaches office: visible office furnishings, two anonymous coaches.
  roomFloor(15,-5,6,7);wall(.18,7,12,-5);wall(.18,7,18,-5);windowWall(6,15,-8.5);glassWall(12,18,-1.7,13,'coaches');
- for(const z of[-3.5,-5.6]){desk(16,z,2.4,.8);drawer(16.9,z);monitor(16,z);seat(16,z+.85,Math.PI);character(16,z+.85,z===-3.5?0:1,false,Math.PI);}
+ for(const z of[-3.5,-5.6]){desk(16,z,2.4,.8);drawer(16.9,z);monitor(16,z);seat(16,z+.85,Math.PI);referencedCharacter(16,z+.85,z===-3.5?'coach1':'coach2',false,Math.PI);}
  sofa(17.1,-7.4);b(2,.8,.05,15,2.5,-8.37,darkWood);panel('Build. Learn. Include.',1.8,.7,15,2.5,-8.33,'#fff','#88745a');
  // Manager at terminal corridor, separate side-wall doorway.
  roomFloor(23.5,0,7,8);windowWall(7,23.5,-4);wall(7,.18,23.5,4);wall(.18,8,27,0);wall(.18,2.9,20,-2.55);wall(.18,2.9,20,2.55);b(.18,.3,1.1,20,3.55,0,white);
  const managerDoor=new THREE.Group();managerDoor.position.set(20,.6,-.68);managerDoor.rotation.y=-Math.PI/2;group.add(managerDoor);b(1.35,2.8,.04,.675,1.4,0,glass,managerDoor);b(.04,.6,.1,1.18,1.4,.06,metal,managerDoor);doors.manager=managerDoor;panel('MANAGER\nمكتب المدير',1.5,.5,19.88,3,0,'#222','#f4f2ec',-Math.PI/2);
- desk(25,-2,2.7,1);monitor(25,-2);drawer(26,-2);seat(25,-3);sofa(21.5,2.8);sofa(23,2.8);b(2.8,1.8,.06,23.6,2.25,-3.87,white);panel('orange',.75,.75,23.6,2.3,-3.83,'white','#f27620');b(1.6,.32,.23,24,3.25,-3.8,white);b(1.4,.04,.25,24,3.12,-3.67,charcoal);b(1.4,.8,.05,26,2.3,-3.86,darkWood);
+ desk(25,-2,2.7,1);monitor(25,-2);drawer(26,-2);seat(25,-3);referencedCharacter(25,-3,'manager',false,0);sofa(21.5,2.8);sofa(23,2.8);b(2.8,1.8,.06,23.6,2.25,-3.87,white);panel('orange',.75,.75,23.6,2.3,-3.83,'white','#f27620');b(1.6,.32,.23,24,3.25,-3.8,white);b(1.4,.04,.25,24,3.12,-3.67,charcoal);b(1.4,.8,.05,26,2.3,-3.86,darkWood);
  // Services corridor: kitchen on traveller's right (-Z), toilets left (+Z).
  wall(16,.18,-11,-1.7); // Replace kitchen portion with glass and its independent door.
  // Remove the above long wall from actual geometry/collision list, preserving only non-kitchen portions.
@@ -94,5 +120,5 @@ export function createOrangeBuilding(scene){
  let previousUpdate=0;function update(time,state,reduced,position,night=false){const dt=Math.min(.15,Math.max(0,time-previousUpdate));previousUpdate=time;const hingeDamping=reduced?1:1-Math.exp(-6*dt);setTheme(night);const activeLights=[...fills].sort((a,b)=>Math.hypot(a.position.x-position[0],a.position.z-(position[2]+356))-Math.hypot(b.position.x-position[0],b.position.z-(position[2]+356))).slice(0,2);for(const l of fills)l.visible=night&&activeLights.includes(l);const open=state.progress>.45||state.state==='corridor'||state.state==='room'||state.state==='reception'||state.state==='transition';doors.entrance.rotation.y+=( (open?-Math.PI*.52:0)-doors.entrance.rotation.y)*hingeDamping;for(const[id,door]of Object.entries(doors)){if(id==='entrance')continue;const active=state.room===id;const base=id==='manager'?-Math.PI/2:0;door.rotation.y+=(base+(active?-Math.PI*.48:0)-door.rotation.y)*hingeDamping;}
  if(!reduced)for(const a of animated){if(a.type==='human'){a.person.head.rotation.y=Math.sin(time*.43+a.phase)*.07;for(const [i,arm]of a.person.arms.entries()){arm.shoulder.rotation.x=(a.standing?-.15:-.7)+Math.sin(time*(a.standing?.65:2.1)+a.phase+i)*(a.standing?.12:.015);arm.elbow.rotation.x=(a.standing?-.4:-.8)+Math.sin(time*.7+a.phase)*.04;}}else if(a.type==='head'){a.mesh.rotation.y=Math.sin(time*.43+a.phase)*.065;a.mesh.rotation.z=Math.sin(time*.31+a.phase)*.018;}else a.mesh.rotation.x=a.base+Math.sin(time*(a.type==='typing'?2.2:.65)+a.phase)*(a.type==='typing'?.018:.07);}}
  function cullActors(worldPosition,active){const local=new THREE.Vector3(worldPosition[0],worldPosition[1],worldPosition[2]+356);for(const a of animated)if(a.type==='human')a.mesh.visible=active&&a.mesh.position.distanceTo(local)<19;}
- return {group,doors,solid,update,cullActors,setTheme,manageLights,lighting:()=>fills.filter(l=>l.visible).length,stats:{characters:12,rooms:6},dispose(){group.traverse(o=>{if(o.geometry)o.geometry.dispose();});}};
+ return {group,doors,solid,update,cullActors,setTheme,manageLights,lighting:()=>fills.filter(l=>l.visible).length,stats:{characters:13,rooms:6,referencedPeople:4},dispose(){group.traverse(o=>{if(o.geometry)o.geometry.dispose();});}};
 }
