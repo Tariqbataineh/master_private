@@ -363,7 +363,11 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
       if (key === 'wusoolOrganizationBranches') {
         const snapshotKey = compatibilityKey(key, a);
         const expected = compatibilitySnapshots.get(snapshotKey);
-        if (expected != null && expected !== collectionFingerprint(before))
+        // Whole-list compatibility writes must be based on a known, current read.
+        // Without a snapshot the legacy adapter could silently overwrite/delete records.
+        if (expected == null)
+          ctx.fail('CONFLICT', 'Load the current branch list before saving changes. No branch records were modified.');
+        if (expected !== collectionFingerprint(before))
           ctx.fail('CONFLICT', 'Branch records changed in another tab. Reload before saving so newer changes are preserved.');
         compatibilitySnapshots.delete(snapshotKey);
       }
@@ -405,6 +409,13 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
               isDeleted: true,
             });
       }
+      // A successful write becomes the baseline for a subsequent legitimate
+      // action on the same page. Another tab's change will still conflict.
+      if (key === 'wusoolOrganizationBranches')
+        compatibilitySnapshots.set(
+          compatibilityKey(key, a),
+          collectionFingerprint((await ctx.listAll(kind, scope)).items),
+        );
       return;
     }
     if (ctx.userKeys[key]) {

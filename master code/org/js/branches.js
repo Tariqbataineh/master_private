@@ -93,10 +93,10 @@ WusoolUI.enqueue(async () => {
     populateCityFilter();
     await renderBranches();
   };
-  const saveBranches = async () => {
+  const saveBranches = async (branches = organizationBranches) => {
     await WusoolServices.rawWrite(
       'wusoolOrganizationBranches',
-      JSON.stringify(organizationBranches),
+      JSON.stringify(branches),
     );
   };
   const renderBranches = async () => {
@@ -455,16 +455,29 @@ WusoolUI.enqueue(async () => {
     deleteBranchModal.show();
   };
   const deleteSelectedBranch = async () => {
-    if (branchToDeleteId === null) {
+    if (branchToDeleteId === null) return;
+    // Do not update the UI's copy before storage confirms the soft delete.
+    // This matters when a second tab changed the list after it was loaded.
+    const draft = WusoolBranchWorkflow.eligibleDraft(organizationBranches, branchToDeleteId);
+    if (!draft) return;
+    const remaining = organizationBranches.filter((branch) => branch.id !== branchToDeleteId);
+    try {
+      await saveBranches(remaining);
+    } catch (error) {
+      showToast(
+        error?.code === 'CONFLICT'
+          ? text('Branch data changed. Refresh the list and try again.', 'تغيّرت بيانات الفروع. حدّث القائمة ثم حاول مجددًا.')
+          : text('Unable to delete the branch draft. Please try again.', 'تعذّر حذف مسودة الفرع. حاول مجددًا.'),
+        'warning',
+      );
       return;
     }
-    organizationBranches = organizationBranches.filter((branch) => branch.id !== branchToDeleteId);
-    await saveBranches();
+    organizationBranches = remaining;
     populateCityFilterAgain();
     await renderBranches();
     deleteBranchModal.hide();
     branchToDeleteId = null;
-    showToast('The branch draft was deleted successfully.', 'success');
+    showToast(text('The branch draft was deleted successfully.', 'تم حذف مسودة الفرع بنجاح.'), 'success');
   };
   const populateCityFilterAgain = () => {
     const cityFilter = document.getElementById('cityFilter');

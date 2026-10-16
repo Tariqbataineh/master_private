@@ -89,7 +89,7 @@
 <link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
 </head>
 
-<body>
+<body class="org-ai-reports-page">
 
     <!-- Shared Organization Sidebar -->
     <div id="organizationSidebarContainer"></div>
@@ -163,8 +163,7 @@
                     </h2>
 
                     <p class="text-secondary mb-0">
-                        Review accessibility scores, detected facilities,
-                        issues, and AI improvement suggestions.
+                        Review saved accessibility evaluations and clearly identified demo summaries.
                     </p>
                 </div>
 
@@ -176,6 +175,10 @@
                     Manage Branch Photos
                 </a>
             </section>
+
+            <div class="alert org-ai-report-disclaimer" id="localReportNotice" role="status">
+                Saved branch review data only. Demo summaries are not AI results.
+            </div>
 
             <!-- Statistics -->
             <section
@@ -191,7 +194,7 @@
 
                         <div>
                             <p class="text-secondary mb-1">
-                                Total Reports
+                                Saved Reviews
                             </p>
 
                             <strong
@@ -212,7 +215,7 @@
 
                         <div>
                             <p class="text-secondary mb-1">
-                                Ready Reports
+                                Recorded AI Results
                             </p>
 
                             <strong
@@ -233,7 +236,7 @@
 
                         <div>
                             <p class="text-secondary mb-1">
-                                Need Improvement
+                                Results Below 70
                             </p>
 
                             <strong
@@ -254,7 +257,7 @@
 
                         <div>
                             <p class="text-secondary mb-1">
-                                Average Score
+                                AI Score Average
                             </p>
 
                             <strong
@@ -321,6 +324,12 @@
 
                             <option value="action-required">
                                 Action Required
+                            </option>
+                            <option value="demo">
+                                Demo Summary
+                            </option>
+                            <option value="unverified">
+                                Unverified
                             </option>
                         </select>
                     </div>

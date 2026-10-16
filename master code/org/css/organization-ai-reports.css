@@ -358,3 +358,97 @@ body {
         align-items: flex-start;
     }
 }
+/* ORG-3: theme-aware, read-only saved-review presentation. No generic overrides. */
+body.org-ai-reports-page {
+    --org-report-surface: var(--wt-surface, #ffffff);
+    --org-report-raised: var(--wt-raised, #f0f7f5);
+    --org-report-ink: var(--wt-text, #17322d);
+    --org-report-muted: var(--wt-muted, #526b65);
+    --org-report-edge: var(--wt-border, #cbdcda);
+    --org-report-accent: var(--wt-accent, #0f766e);
+    background: var(--wt-page, #f7faf9);
+    color: var(--org-report-ink);
+}
+body.org-ai-reports-page :is(.stat-card, .filter-card, .report-card, .empty-state) {
+    background: var(--org-report-surface);
+    border-color: var(--org-report-edge);
+    color: var(--org-report-ink);
+}
+body.org-ai-reports-page :is(.report-card-header, .score-section, .information-item) {
+    background: var(--org-report-raised);
+    border-color: var(--org-report-edge);
+}
+body.org-ai-reports-page :is(.report-card-header small, .org-ai-report-date, .org-ai-report-score-label, .org-ai-report-source) {
+    color: var(--org-report-muted);
+}
+body.org-ai-reports-page :is(.form-control, .form-select) {
+    background: var(--wt-field, #ffffff);
+    color: var(--org-report-ink);
+    border-color: var(--org-report-edge);
+}
+body.org-ai-reports-page .org-ai-report-disclaimer {
+    color: var(--org-report-ink);
+    background: var(--org-report-raised);
+    border: 1px solid var(--org-report-edge);
+}
+body.org-ai-reports-page .org-ai-report-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 0;
+}
+body.org-ai-reports-page .org-ai-report-title > div { min-width: 0; overflow-wrap: anywhere; }
+body.org-ai-reports-page .org-ai-report-title .branch-icon {
+    color: var(--org-report-accent);
+    background: var(--org-report-surface);
+    border-color: var(--org-report-edge);
+}
+body.org-ai-reports-page .org-ai-report-entry { height: 100%; }
+body.org-ai-reports-page .org-ai-report-entry .report-card-header { flex-wrap: wrap; }
+body.org-ai-reports-page .org-ai-report-entry .score-section {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+body.org-ai-reports-page .org-ai-report-score-label { display: block; margin-bottom: 0.35rem; }
+body.org-ai-reports-page .org-ai-report-score {
+    display: block;
+    color: var(--org-report-ink);
+    font-size: clamp(1.05rem, 2vw, 1.4rem);
+}
+body.org-ai-reports-page .org-ai-report-source { max-width: 29rem; line-height: 1.5; }
+body.org-ai-reports-page .org-ai-report-date { margin-top: 0.9rem; font-size: 0.875rem; }
+body.org-ai-reports-page .org-ai-report-entry .report-status { white-space: normal; }
+html[data-wusool-color-mode='dark'] body.org-ai-reports-page .org-ai-report-entry .report-status.demo,
+html[data-wusool-color-mode='dark'] body.org-ai-reports-page .org-ai-report-entry .report-status.unverified {
+    background: #34454c;
+    color: #f4f8f6;
+}
+html[data-wusool-color-mode='dark'] body.org-ai-reports-page .org-ai-report-entry .report-status.ready {
+    background: #233f35;
+    color: #bbf1d0;
+}
+html[data-wusool-color-mode='dark'] body.org-ai-reports-page .org-ai-report-entry .report-status.action-required {
+    background: #4b3825;
+    color: #ffe3a9;
+}
+html[data-wusool-color-mode='dark'] body.org-ai-reports-page .org-ai-report-entry .report-status.analyzing {
+    background: #263e53;
+    color: #c5e5ff;
+}
+body.org-ai-reports-page .btn:focus-visible,
+body.org-ai-reports-page :is(.form-control, .form-select):focus-visible {
+    outline: 3px solid var(--org-report-accent);
+    outline-offset: 3px;
+}
+@media (max-width: 575.98px) {
+    body.org-ai-reports-page .report-card-header { padding: 1rem; }
+    body.org-ai-reports-page .report-card-body { padding: 1rem; }
+    body.org-ai-reports-page .org-ai-report-entry .score-section { display: block; }
+    body.org-ai-reports-page .org-ai-report-source { display: block; margin-top: 0.7rem; }
+}
+body.org-ai-reports-page .org-ai-report-entry .report-status.demo,
+body.org-ai-reports-page .org-ai-report-entry .report-status.unverified {
+    background: #e9eef1;
+    color: #374b53;
+}

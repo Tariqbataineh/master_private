@@ -3800,5 +3800,15 @@
   "Review the confirmed subscription status below.": "راجع حالة الاشتراك المؤكدة أدناه.",
   "No email delivery is confirmed by this page.": "لا تؤكد هذه الصفحة إرسال أي بريد.",
   "Development activation summary": "ملخص التفعيل التجريبي",
-  "Amount collected in development": "المبلغ المُحصّل في الوضع التجريبي"
+  "Amount collected in development": "المبلغ المُحصّل في الوضع التجريبي",
+  "Saved Reviews": "المراجعات المحفوظة",
+  "Recorded AI Results": "نتائج الذكاء الاصطناعي المسجلة",
+  "Results Below 70": "نتائج أقل من ٧٠",
+  "AI Score Average": "متوسط درجات الذكاء الاصطناعي",
+  "Review saved accessibility evaluations and clearly identified demo summaries.": "راجع تقييمات الإتاحة المحفوظة والملخصات التجريبية الموضّحة بوضوح.",
+  "Demo Summary": "ملخص تجريبي",
+  "Unverified": "غير مؤكد",
+  "No saved reviews match the selected filters.": "لا توجد مراجعات محفوظة تطابق الفلاتر المحددة.",
+  "Saved branch review data only. Demo summaries are not AI results.": "بيانات المراجعات المحفوظة للفروع فقط. الملخصات التجريبية ليست نتائج ذكاء اصطناعي."
+
 }
