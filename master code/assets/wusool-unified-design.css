@@ -12,48 +12,32 @@ html[data-wusool-color-mode="light"] {
   --wu-brand: #167b63;
   --wu-brand-hover: #11634f;
   --wu-focus: #167b63;
-  --wu-page: #f6faf8;
-  --wu-surface: #ffffff;
-  --wu-soft: #edf5f1;
-  --wu-text: #193a31;
-  --wu-muted: #536d63;
-  --wu-border: #d3e4db;
+  --wu-page: var(--wt-page);
+  --wu-surface: var(--wt-surface);
+  --wu-soft: var(--wt-raised);
+  --wu-text: var(--wt-text);
+  --wu-muted: var(--wt-muted);
+  --wu-border: var(--wt-border);
   --wu-shadow: 0 6px 25px rgb(13 59 43 / 6%);
   --wu-shadow-raised: 0 20px 50px rgb(13 59 43 / 11%);
   --wu-radius-card: 18px;
   --wu-radius-control: 11px;
   --wu-radius-dialog: 22px;
-  --wu-page-title: clamp(1.75rem,3.3vw,2.75rem);
-  --wt-page: #f6faf8;
-  --wt-surface: #ffffff;
-  --wt-raised: #edf5f1;
-  --wt-field: #ffffff;
-  --wt-text: #193a31;
-  --wt-muted: #536d63;
-  --wt-border: #d3e4db;
-  --wt-accent: #167b63;
+  --wu-page-title: clamp(1.875rem,2.5vw,2.25rem);
 }
 html:lang(ar){--wu-font:var(--wu-font-ar);--wu-heading-font:var(--wu-heading-ar)}
 html[data-wusool-color-mode="dark"]{
   --wu-brand: #75dac0;
   --wu-brand-hover: #a3f0da;
   --wu-focus: #92e8ce;
-  --wu-page: #111b1b;
-  --wu-surface: #1f2e2b;
-  --wu-soft: #273b35;
-  --wu-text: #eef9f4;
-  --wu-muted: #b7d2c7;
-  --wu-border: #476359;
+  --wu-page: var(--wt-page);
+  --wu-surface: var(--wt-surface);
+  --wu-soft: var(--wt-raised);
+  --wu-text: var(--wt-text);
+  --wu-muted: var(--wt-muted);
+  --wu-border: var(--wt-border);
   --wu-shadow: 0 8px 28px rgb(0 0 0 / 16%);
   --wu-shadow-raised: 0 20px 50px rgb(0 0 0 / 30%);
-  --wt-page: #111b1b;
-  --wt-surface: #1f2e2b;
-  --wt-raised: #273b35;
-  --wt-field: #20312d;
-  --wt-text: #eef9f4;
-  --wt-muted: #b7d2c7;
-  --wt-border: #476359;
-  --wt-accent: #92e8ce;
   --bs-body-bg: var(--wt-page);
   --bs-body-color: var(--wt-text);
   --bs-secondary-color: var(--wt-muted);
@@ -223,14 +207,14 @@ html[data-wusool-color-mode="light"] body :is(.btn-primary,.btn-wusool):focus-vi
 }
 html[data-wusool-color-mode="dark"] body :is(.btn-primary,.btn-wusool),
 html[data-wusool-color-mode="dark"] body :is(.btn-primary,.btn-wusool):focus-visible {
-  --bs-btn-bg:#75dac0;--bs-btn-color:#102f25;--bs-btn-border-color:#75dac0;
-  --bs-btn-hover-bg:#a3f0da;--bs-btn-hover-color:#102f25;--bs-btn-hover-border-color:#a3f0da;
+  --bs-btn-bg:var(--wu-button-primary);--bs-btn-color:#fff;--bs-btn-border-color:var(--wu-button-primary);
+  --bs-btn-hover-bg:var(--wu-button-primary-hover);--bs-btn-hover-color:#fff;--bs-btn-hover-border-color:var(--wu-button-primary-hover);
   --bs-btn-active-bg:#a3f0da;--bs-btn-active-color:#102f25;--bs-btn-active-border-color:#a3f0da;
-  background:#75dac0;color:#102f25;border-color:#75dac0;
+  background:var(--wu-button-primary);color:var(--wu-button-on-primary);border-color:var(--wu-button-primary);
 }
 html[data-wusool-color-mode="light"] body :is(.btn-primary,.btn-wusool):hover:not(:disabled),
 html[data-wusool-color-mode="dark"] body :is(.btn-primary,.btn-wusool):hover:not(:disabled){
-  background:var(--wu-brand-hover);border-color:var(--wu-brand-hover);
+  background:var(--wu-button-primary-hover);border-color:var(--wu-button-primary-hover);
   color:var(--bs-btn-hover-color);
 }
 html body :is(.btn-primary,.btn-wusool):disabled {cursor:not-allowed;opacity:.6;}
@@ -317,12 +301,12 @@ html body .wu-title-only .organization-account {display:none!important;}
 html body main > .wu-title-only:not(.wu-heading-promoted) {margin:24px!important;width:auto!important;max-width:calc(100% - 48px)!important;}
 html body .wu-title-only .container {max-width:none;width:100%;padding:0!important;}
 html body .wu-primary-heading .container-fluid {padding:0!important;}
-html body .wu-primary-heading div:has(>h1,>h2,>.page-title,>.dashboard-title),
-html body .wu-primary-heading > .container,
-html body .wu-primary-heading > .container-fluid,
-html body .wu-primary-heading div.d-flex:has(h1,h2),
-html body .wu-primary-heading .row:has(h1,h2),
-html body .wu-primary-heading .row:has(h1,h2)>div {display:contents!important;}
+html body .wu-primary-heading:not(.plans-hero) div:has(>h1,>h2,>.page-title,>.dashboard-title),
+html body .wu-primary-heading:not(.plans-hero) > .container,
+html body .wu-primary-heading:not(.plans-hero) > .container-fluid,
+html body .wu-primary-heading:not(.plans-hero) div.d-flex:has(h1,h2),
+html body .wu-primary-heading:not(.plans-hero) .row:has(h1,h2),
+html body .wu-primary-heading:not(.plans-hero) .row:has(h1,h2)>div {display:contents!important;}
 html body .wu-primary-heading :is(h1,h2,.page-title,.dashboard-title) {
   flex:1 1 280px;
   min-width:0;
@@ -664,3 +648,38 @@ html body .wu-primary-heading p.wu-ticket-description {
   text-align: start !important;
   color: var(--wu-muted) !important;
 }
+/* Responsive text hierarchy; excludes the cinematic scene and icon fonts. */
+body:not(:has(.wusool-journey)) h1{font-size:var(--wu-page-title);line-height:1.35}
+body:not(:has(.wusool-journey)) h2{font-size:clamp(1.375rem,2vw,1.625rem);line-height:1.4}
+body:not(:has(.wusool-journey)) h3{font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.45}
+html:lang(ar) body:not(:has(.wusool-journey)) :is(h1,h2,h3){line-height:1.55}
+
+/* D1: navigation surfaces and controls, independent of page headings. */
+body :is(.organization-header,.organization-topbar,.user-topbar){background:var(--wt-surface);color:var(--wt-text);border-color:var(--wt-border);height:auto;min-height:64px;gap:var(--wu-space-16);align-items:center}
+body :is(.organization-header,.organization-topbar,.user-topbar) :is(button,a.btn,.organization-account){width:auto;flex:0 0 auto}
+body .organization-sidebar .sidebar-navigation .nav-link,
+body .admin-sidebar .sidebar-navigation .nav-link{font-family:var(--wu-font);font-size:.875rem;line-height:1.5;display:flex;align-items:center;gap:var(--wu-space-12);color:#e5efeb!important}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-section-title{color:#b7ccc4;line-height:1.5;font-size:.75rem}
+body :is(.organization-sidebar,.admin-sidebar) .nav-link i{flex:0 0 20px;text-align:center;font-size:1rem}
+body :is(.organization-sidebar,.admin-sidebar) .nav-link:focus-visible{outline:3px solid #92e8ce;outline-offset:-3px}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-navigation{min-height:0;overscroll-behavior:contain}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-brand{white-space:nowrap}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-brand strong{font-size:1.125rem}
+body .organization-sidebar .sidebar-header{min-height:80px;padding:var(--wu-space-16) var(--wu-space-20)}
+body .app-shell .header .brand{white-space:nowrap;flex:0 0 auto;font-size:1rem}
+body .app-shell .header .brand strong{font-size:1.25rem;line-height:1.2}
+body .app-shell .header .brand span{font-size:.8125rem;line-height:1.4}
+body .app-shell .header .main-nav{margin-inline-end:auto;min-width:0}
+body .app-shell .header .header-tools{margin-inline-start:auto;align-items:center}
+@media(max-width:991px){body :is(.organization-header,.organization-topbar,.user-topbar){flex-wrap:wrap;min-width:0}body .app-shell .header .main-nav{max-width:100%;overflow-x:auto}body .app-shell .header .header-tools{flex-wrap:wrap;min-width:0}}
+/* D1: text on the permanently dark Admin navigation surface. */
+html body #adminSidebar .brand-link,
+html body #adminSidebar .brand-link :is(strong,span),
+html body #adminSidebar .sidebar-account :is(strong,.fw-bold){color:#f4f8f6!important}
+html body #adminSidebar :is(.sidebar-section-title,.sidebar-account small,.sidebar-brand small,.wusool-preferences label){color:#c4d1ce!important}
+html body #adminSidebar .wusool-preferences :is(button,select){color:#f4f8f6;background:#163e51;border-color:#78958f}
+html[data-wusool-color-mode="light"] body:has(#adminSidebar) .main-content .wu-primary-heading :is(.section-label,.page-label,.header-label,.eyebrow){color:#14705e!important}
+html[data-wusool-color-mode="light"] body:has(#adminSidebar) .main-content .wu-primary-heading p.wu-heading-secondary{color:#526b65!important}
+/* Page-heading actions should not stretch across their flex-column parent.
+   Explicit full-width classes and form/booking actions retain their contracts. */
+body .wu-primary-heading :is(a.btn,button.btn):not(.w-100):not([type="submit"]){align-self:flex-start;flex:0 0 auto}

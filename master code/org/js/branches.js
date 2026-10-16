@@ -67,7 +67,7 @@ WusoolUI.enqueue(async () => {
   };
   const getBranchLimit = async () => {
     const subscription = await getActiveSubscription();
-    return Number(subscription.branchLimit) || 1;
+    return WusoolServices.effectiveBranchCapacity(subscription);
   };
   const initializeBranches = async () => {
     const storedBranches = await readStoredObject('wusoolOrganizationBranches');

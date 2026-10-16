@@ -1,4 +1,5 @@
 {
+  "explore map": "استكشف الخريطة",
   " · address search": " — بحث بالعنوان",
   "(Optional)": "(اختياري)",
   "+962 6 xxx xxxx": "+962 6 xxx xxxx",
@@ -3785,5 +3786,14 @@
   "Assistance is unavailable for the full appointment interval.": "المساعدة غير متاحة خلال كامل مدة هذا الموعد.",
   "You have another booking at this time. Choose another appointment.": "لديك حجز آخر في نفس الوقت. اختر موعدًا مختلفًا.",
   "Booking is not enabled for this branch.": "الحجز غير مفعّل لهذا الفرع.",
-  "Export business data backup (no passwords)": "تصدير نسخة بيانات الأعمال (دون كلمات المرور)"
+  "Export business data backup (no passwords)": "تصدير نسخة بيانات الأعمال (دون كلمات المرور)",
+  "Choose a billing cycle": "اختر دورة الفوترة",
+  "Loading subscription details…": "جارٍ تحميل تفاصيل الاشتراك…",
+  "Loading renewal status…": "جارٍ تحميل حالة التجديد…",
+  "Subscription status": "حالة الاشتراك",
+  "SUBSCRIPTION STATUS": "حالة الاشتراك",
+  "Review the confirmed subscription status below.": "راجع حالة الاشتراك المؤكدة أدناه.",
+  "No email delivery is confirmed by this page.": "لا تؤكد هذه الصفحة إرسال أي بريد.",
+  "Development activation summary": "ملخص التفعيل التجريبي",
+  "Amount collected in development": "المبلغ المُحصّل في الوضع التجريبي"
 }

@@ -1,3 +1,35 @@
+:root { --wu-card-padding:clamp(16px,2vw,24px); --wu-card-gap:16px; --wu-card-radius:16px; }
+/* Button semantics shared by Bootstrap portals and the User Portal. */
+:root {
+ --wu-button-primary:#147d68; --wu-button-primary-hover:#106451;
+ --wu-button-on-primary:#ffffff; --wu-button-danger:#ae302b;
+ --wu-button-small:34px; --wu-button-medium:40px; --wu-button-large:46px;
+ --wu-button-radius:10px;
+}
+body:not(:has(.wusool-journey)) .btn {
+ min-height:var(--wu-button-medium);padding:8px 16px;border-radius:var(--wu-button-radius);
+ font-size:.875rem;line-height:1.4;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ max-width:100%;white-space:normal;text-align:center;
+}
+body .btn.btn-sm{min-height:var(--wu-button-small);padding:6px 12px;font-size:.8125rem}
+body .btn.btn-lg{min-height:var(--wu-button-large);padding:10px 20px}
+body .btn:is(:disabled,.disabled,[aria-disabled="true"]){cursor:not-allowed;box-shadow:none;opacity:.65}
+body .btn[aria-busy="true"]{cursor:progress}
+body .btn:focus-visible{outline:3px solid var(--wt-accent);outline-offset:3px}
+@media(pointer:coarse){body .btn:not(.btn-sm){min-height:44px}}
+/* Shared spacing tokens; no component geometry changes. */
+:root {
+  --wu-space-4: 4px;
+  --wu-space-8: 8px;
+  --wu-space-12: 12px;
+  --wu-space-16: 16px;
+  --wu-space-20: 20px;
+  --wu-space-24: 24px;
+  --wu-space-32: 32px;
+  --wu-space-40: 40px;
+  --wu-space-48: 48px;
+  --wu-space-64: 64px;
+}
 /* Wusool semantic theme. Last stylesheet on every complete portal page. */
 html[data-wusool-color-mode='dark'] body:not(.high-contrast) .accessibility-toolbar-title {
   color: var(--wt-text);
@@ -7,8 +39,8 @@ html[data-wusool-color-mode='dark'] body:not(.high-contrast) .accessibility-tool
   --wt-surface: #ffffff;
   --wt-raised: #f0f7f5;
   --wt-field: #ffffff;
-  --wt-text: #10233f;
-  --wt-muted: #5c6f7d;
+  --wt-text: #17322d;
+  --wt-muted: #526b65;
   --wt-border: #cbdcda;
   --wt-accent: #0f766e;
   --wt-disabled: #eef2f2;
@@ -22,12 +54,12 @@ html[data-wusool-color-mode='light'] {
 }
 html[data-wusool-color-mode='dark'] {
   color-scheme: dark;
-  --wt-page: #101517;
-  --wt-surface: #1b2326;
+  --wt-page: #0f1718;
+  --wt-surface: #1d2928;
   --wt-raised: #253034;
   --wt-field: #242e32;
-  --wt-text: #edf5f3;
-  --wt-muted: #b1c3bf;
+  --wt-text: #f4f8f6;
+  --wt-muted: #c4d1ce;
   --wt-border: #465955;
   --wt-accent: #70ddcc;
   --wt-disabled: #1e272a;
@@ -715,4 +747,4 @@ html[data-wusool-color-mode] body:not(.high-contrast) :is(.admin-sidebar, .organ
   color: var(--wt-text);
   border-color: var(--wt-border);
 }
-html[data-wusool-color-mode='light'] body:not(.high-contrast) :is(.admin-sidebar, .organization-sidebar, .user-sidebar) :is(a, button, p, span) { color: var(--wt-text); }
+html[data-wusool-color-mode='light'] body:not(.high-contrast) :is(.admin-sidebar, .user-sidebar) :is(a, button, p, span) { color: var(--wt-text); }

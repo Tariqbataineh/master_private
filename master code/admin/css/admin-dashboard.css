@@ -56,16 +56,16 @@
 
 .quick-action {
     display: flex;
-    min-height: 112px;
+    min-height: 88px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 16px;
+    padding: var(--wu-card-padding, 20px);
     color: var(--wusool-navy);
-    background-color: #f8fbfb;
+    background-color: var(--wt-surface, #ffffff);
     border: 1px solid var(--wusool-border);
-    border-radius: 14px;
+    border-radius: var(--wu-card-radius, 16px);
     text-align: center;
     text-decoration: none;
     font-weight: 600;
@@ -79,3 +79,7 @@
 .quick-action i {
     font-size: 1.4rem;
 }
+
+/* The Bootstrap h-100 utility otherwise fills the stretched Quick Actions row.
+   Attention content grows naturally for both empty and populated lists. */
+.content-card:has(> #attentionContainer){height:auto!important;align-self:flex-start}

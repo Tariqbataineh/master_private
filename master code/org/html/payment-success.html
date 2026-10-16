@@ -11,10 +11,10 @@
 
     <meta
         name="description"
-        content="Your Wusool subscription payment was successful."
+        content="View your Wusool subscription activation status."
     >
 
-    <title>Payment Successful | Wusool</title>
+    <title>Subscription Status | Wusool</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -80,7 +80,7 @@
 <link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
 </head>
 
-<body>
+<body class="org-subscription-result">
 
     <!-- Header -->
     <header class="success-header">
@@ -116,15 +116,13 @@
                             </div>
 
                             <p class="section-label mb-2">
-                                PAYMENT COMPLETED
+                                SUBSCRIPTION STATUS
                             </p>
 
-                            <h1>Subscription Activated!</h1>
+                            <h1>Subscription status</h1>
 
                             <p class="success-description">
-                                Your payment was completed successfully.
-                                Your organization can now access the
-                                Wusool management dashboard.
+                                Review the confirmed subscription status below.
                             </p>
 
                         </header>
@@ -199,7 +197,7 @@
                                     </div>
                                 </div>
 
-                                <span class="active-badge">
+                                <span class="active-badge subscription-status">
                                     <i class="bi bi-check-circle-fill"></i>
                                     Active
                                 </span>
@@ -388,10 +386,10 @@
                         <p class="email-notice text-center mt-4 mb-0">
                             <i class="bi bi-envelope-check me-1"></i>
 
-                            A payment confirmation will be sent to
+                            No email delivery is confirmed by this page.
 
                             <strong id="billingEmail">
-                                billing@example.com
+                                —
                             </strong>.
                         </p>
 

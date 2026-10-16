@@ -436,4 +436,5 @@ body {
         border: 0;
         box-shadow: none;
     }
-}
+}.org-subscription-result .subscription-status { color: var(--wt-text); background: var(--wt-raised); border: 1px solid var(--wt-muted); }
+.org-subscription-result #paymentAmount { font-size: 1rem; line-height: 1.6; }

@@ -102,3 +102,11 @@ html[data-wusool-color-mode] body.high-contrast :is(input, textarea)::placeholde
   -webkit-text-fill-color: #ddd !important;
   opacity: 1 !important;
 }
+
+/* D2B: field geometry without changing validation or special input widgets. */
+body:not(:has(.wusool-journey)) :is(.form-control,.form-select){min-width:0;max-width:100%;min-height:42px;border-radius:10px;line-height:1.5}
+body:not(:has(.wusool-journey)) textarea.form-control{min-height:112px;resize:vertical}
+body :is(.form-label,.field > label){font-size:.875rem;font-weight:600;line-height:1.6;margin-block-end:8px}
+body :is(.form-text,.invalid-feedback,.valid-feedback){font-size:.8125rem;line-height:1.6;overflow-wrap:anywhere}
+body :is(.form-control,.form-select):focus-visible{outline:3px solid var(--wt-accent);outline-offset:2px}
+body :is(.input-group,.custom-input-group){min-width:0;max-width:100%}

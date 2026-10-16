@@ -95,7 +95,7 @@ body {
 }
 
 .plans-hero h1 {
-    color: var(--wusool-secondary);
+    color: var(--wt-text);
 }
 
 .hero-description {
@@ -170,18 +170,18 @@ body {
     border-radius: 10px;
 }
 
-.btn-outline-wusool {
-    color: var(--wusool-primary);
+.org-subscription-plans .btn-outline-wusool {
+    color: var(--wt-accent);
     background-color: transparent;
     border: 1px solid var(--wusool-primary);
     font-weight: 700;
 }
 
-.btn-outline-wusool:hover,
-.btn-check:checked + .btn-outline-wusool {
-    color: var(--wusool-white);
-    background-color: var(--wusool-primary);
-    border-color: var(--wusool-primary);
+.org-subscription-plans .btn-outline-wusool:hover:not(:disabled),
+.org-subscription-plans .btn-check:checked + .btn-outline-wusool {
+    color: var(--wu-button-on-primary);
+    background-color: var(--wu-button-primary);
+    border-color: var(--wu-button-primary);
 }
 
 .btn-wusool {
@@ -205,13 +205,13 @@ body {
     color: #7c4a03;
     background-color: #fef3c7;
     border-radius: 50rem;
-    font-size: 0.68rem;
+    font-size: 0.75rem;
 }
 
 .btn-check:checked +
 .btn-outline-wusool .discount-badge {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--wt-text);
+    background-color: var(--wt-surface);
 }
 
 .plan-card {
@@ -268,7 +268,7 @@ body {
 
 .plan-card h2 {
     margin-bottom: 0.75rem;
-    color: var(--wusool-secondary);
+    color: var(--wt-text);
     font-size: 1.65rem;
     font-weight: 800;
 }
@@ -293,7 +293,7 @@ body {
 }
 
 .price-value {
-    color: var(--wusool-secondary);
+    color: var(--wt-text);
     font-size: 3rem;
     line-height: 1;
 }
@@ -315,8 +315,8 @@ body {
     gap: 0.65rem;
     margin: 1rem 0;
     padding: 0.9rem;
-    color: var(--wusool-primary-dark);
-    background-color: var(--wusool-light);
+    color: var(--wt-text);
+    background-color: var(--wt-raised);
     border-radius: 12px;
 }
 
@@ -332,7 +332,7 @@ body {
     align-items: flex-start;
     gap: 0.6rem;
     margin-bottom: 0.8rem;
-    color: #46566d;
+    color: var(--wt-text);
     font-size: 0.9rem;
     line-height: 1.5;
 }
@@ -349,7 +349,7 @@ body {
 
 .plan-information {
     padding: 1.5rem;
-    background-color: #f8fbfb;
+    background-color: var(--wt-raised);
     border: 1px solid var(--wusool-border);
     border-radius: 20px;
 }
@@ -373,10 +373,10 @@ body {
     font-size: 1.25rem;
 }
 
-.information-item h2 {
+.org-subscription-plans .information-item h2 {
     margin-bottom: 0.3rem;
-    color: var(--wusool-secondary);
-    font-size: 1rem;
+    color: var(--wt-text);
+    font-size: var(--wu-card-size, 1.125rem);
     font-weight: 800;
 }
 
@@ -431,3 +431,21 @@ body {
         padding: 1.5rem;
     }
 }
+/* Subscription-owned capacity presentation; no cross-portal control sizing. */
+.org-subscription-plans .plans-hero > .container { flex: 1 1 100%; min-inline-size: 0; }
+.org-subscription-plans .registration-progress { inline-size: 100%; min-inline-size: 0; max-inline-size: 100%; overflow-x: auto; }
+.org-subscription-plans .registration-progress[hidden] { display: none !important; }
+.org-subscription-plans .price-period { max-inline-size: 22ch; line-height: 1.5; }
+.org-subscription-plans .enterprise-capacity { margin-block: var(--wu-space-16); min-inline-size: 0; }
+.org-subscription-plans #enterpriseCapacity { border-color: var(--wt-muted) !important; }
+.org-subscription-plans #enterpriseCapacity[aria-invalid="true"] { border-color: var(--subscription-error) !important; }
+.org-subscription-plans { --subscription-error: #b42318; }
+html[data-wusool-color-mode="dark"] .org-subscription-plans { --subscription-error: #ffb4ab; }
+.org-subscription-plans .capacity-error { color: var(--subscription-error) !important; margin-block: 8px; font-size: .875rem; }
+.org-subscription-plans .capacity-error:empty { display: none; }
+.org-subscription-plans .capacity-breakdown { margin-block: 16px; font-size: .875rem; line-height: 1.6; }
+.org-subscription-plans .capacity-breakdown > div { display: flex; justify-content: space-between; gap: 12px; padding-block: 6px; border-bottom: 1px solid var(--wt-border); }
+.org-subscription-plans .capacity-breakdown dt { font-weight: 500; }
+.org-subscription-plans .capacity-breakdown dd { margin: 0; text-align: end; font-weight: 600; overflow-wrap: anywhere; }
+.org-subscription-plans .plan-price { flex-wrap: wrap; }
+.org-subscription-plans .plan-card .btn:disabled { opacity: 1; background: var(--wt-disabled); color: var(--wt-muted); border-color: var(--wt-muted); }

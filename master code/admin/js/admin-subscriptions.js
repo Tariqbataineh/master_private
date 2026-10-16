@@ -6,6 +6,12 @@ WusoolUI.enqueue(async () => {
     'Use Account Configuration for an audited Enterprise Admin grant with explicit entitlements. Grants do not represent a purchase or payment.',
     'info',
   );
+  const pricing=document.createElement('section');pricing.className='content-card my-3';
+  const pricingLabel=document.createElement('label');pricingLabel.textContent='Enterprise additional branch price / سعر الفرع الإضافي (JOD/month)';
+  const pricingInput=document.createElement('input');pricingInput.type='number';pricingInput.min='0';pricingInput.step='0.001';pricingInput.className='form-control';pricingInput.value=String((await WusoolServices.getPlans()).items.find(p=>p.id==='enterprise')?.additionalBranchPrice??10);pricingLabel.append(pricingInput);pricing.append(pricingLabel);
+  const savePricing=document.createElement('button');savePricing.type='button';savePricing.className='btn btn-primary mt-2';savePricing.textContent='Save future pricing / حفظ الأسعار المستقبلية';pricing.append(savePricing);
+  savePricing.addEventListener('click',async()=>{try{await WusoolServices.setEnterpriseBranchPrice(pricingInput.value);WusoolUI.message('Future quotes updated; existing agreements unchanged. / تم تحديث التسعير المستقبلي فقط.','success');}catch(e){WusoolUI.message(e.message,'danger');}});
+  document.querySelector('main').append(pricing);
   const service = WusoolDataService;
   const tbody = document.getElementById('subscriptionsTableBody');
   const search = document.getElementById('subscriptionSearch');
@@ -79,6 +85,7 @@ WusoolUI.enqueue(async () => {
       search: search.value.trim(),
       status: statusFilter.value,
     });
+    const branchRows = (await WusoolServices.listAll('branches')).items;
     WusoolUI.html(
       tbody,
       items.length
@@ -99,7 +106,12 @@ WusoolUI.enqueue(async () => {
                         </span>
                     </td>
 
-                    <td>${WusoolUI.escape(item.branchLimit)}</td>
+                    <td>${WusoolUI.escape(WusoolServices.effectiveBranchCapacity(item))}
+                      <small class="d-block text-muted">Usage / الاستخدام: ${branchRows.filter(b => b.organizationId === item.organizationId && !b.isDeleted).length}<br>
+                      Included / الأساسي: ${WusoolUI.escape(item.pricingSnapshot?.includedCapacity ?? '—')}<br>
+                      Extra / الإضافي: ${WusoolUI.escape(item.pricingSnapshot?.extraBranches ?? '—')}<br>
+                      ${WusoolUI.escape(item.pricingSnapshot ? item.pricingSnapshot.totalPrice + ' JOD / ' + item.billingCycle : item.developmentOnly || item.origin === 'admin-grant' ? 'No payment / لا يوجد دفع' : item.price == null ? 'Historical price unavailable' : item.price + ' JOD / ' + item.billingCycle)}</small>
+                    </td>
                     <td>${WusoolUI.escape(item.billingCycle)}</td>
                     <td>${WusoolUI.escape(item.endDate || '-')}</td>
 

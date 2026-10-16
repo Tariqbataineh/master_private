@@ -237,6 +237,10 @@ window.WusoolServiceModules.push(function registerConsumerPortal(ctx) {
       snapshot[key] = value;
     }
 
+    if (snapshot.branches < data.branches.filter(b => b.organizationId === organizationId && !b.isDeleted).length) {
+      ctx.fail('CAPACITY_BELOW_USAGE', 'Grant capacity must cover existing branch usage.');
+    }
+
     for (const key of featureKeys) {
       if (typeof entitlements?.[key] !== "boolean") {
         ctx.fail(

@@ -72,24 +72,7 @@ if (/\/(?:my-tickets|my-visits|visitor-tickets|admin-tickets)\.html$/.test(locat
       if(!text.contains(title)&&!text.querySelector('button,input,select,a.btn')&&!text.closest('.wu-heading-actions'))text.classList.add('wu-heading-secondary');
     }
     const breadcrumb=heading.previousElementSibling;if(breadcrumb?.matches('nav[aria-label],.breadcrumb'))breadcrumb.classList.add('wu-heading-secondary');
-    const bars=[...document.querySelectorAll('.organization-header,.organization-topbar,.user-topbar,.content-header,.page-header')].filter(el=>el!==heading&&!el.contains(heading)&&!heading.contains(el)&&!el.closest('.modal,dialog,aside')&&(el.compareDocumentPosition(heading)&Node.DOCUMENT_POSITION_FOLLOWING));
-    for(const bar of bars){
-      if(bar.dataset.wuHeadingMerged)continue;
-      if(!bar.querySelector('h1,h2,.page-title,.dashboard-title'))continue;
-      let actions=heading.querySelector(':scope > .wu-heading-actions');
-      if(!actions){actions=document.createElement('div');actions.className='wu-heading-actions';heading.append(actions);}
-      // Move live controls, retaining listeners, IDs, current state and permissions.
-      const controls=[...bar.querySelectorAll('button,a.btn,input,select,.wu-layout-panel,.organization-account')].filter(el=>!el.closest('.wusool-preferences')&&!el.parentElement.closest('button,a.btn,.wu-layout-panel,.organization-account'));
-      for(const control of controls){
-        const container=control.closest('.input-group,.search-box');
-        actions.append(container&&bar.contains(container)?container:control);
-      }
-      bar.dataset.wuHeadingMerged='true';bar.hidden=true;
-      if(bar.parentElement===main&&heading.parentElement!==main){
-        const host=heading.parentElement;
-        if(host.classList.contains('container-fluid')){main.insertBefore(heading,bar);heading.classList.add('wu-heading-promoted');}
-      }
-    }
+    // Navigation controls stay in their original header with their listeners and focus order.
   }
   const excluded = 'script,style,textarea,code,pre,[translate="no"],[data-no-translate],[data-user-content],[contenteditable]:not([contenteditable="false"]),.wusool-preferences';
   const excludedAttributes = excluded.replace('textarea,', '');

@@ -228,7 +228,7 @@ a {
     font-size: 0.8rem;
 }
 
-.plan-price-panel strong {
+.plan-price-panel #planPrice:not(.descriptive-price) {
     font-size: 2rem;
 }
 
@@ -329,7 +329,7 @@ a {
 }
 
 .branch-progress .progress-bar.full {
-    background-color: var(--wusool-danger);
+    background-color: var(--subscription-danger);
 }
 
 .usage-alert,
@@ -347,9 +347,9 @@ a {
 }
 
 .usage-alert.full {
-    border-color: #efc2c7;
-    color: #91343d;
-    background-color: #fff4f5;
+    border-color: var(--subscription-danger);
+    color: var(--subscription-alert-text);
+    background-color: var(--subscription-alert-surface);
 }
 
 /* Billing Table */
@@ -552,7 +552,20 @@ a {
         border-radius: 14px;
     }
 
-    .plan-price-panel strong {
+    .plan-price-panel #planPrice:not(.descriptive-price) {
         font-size: 1.6rem;
     }
 }
+.org-subscription-management #planPrice.descriptive-price { display: block; font-size: 1rem; line-height: 1.6; }
+.org-subscription-management #nextPaymentDate { font-size: inherit; font-weight: 600; }
+.org-subscription-management .subscription-status { background: var(--wt-raised); color: var(--wt-text); border: 1px solid var(--wt-muted); font-size: .8125rem; }
+.org-subscription-management .subscription-status[data-status="active"] { border-color: var(--wt-accent); }
+.org-subscription-management .subscription-status[data-status="expired"], .org-subscription-management .subscription-status[data-status="cancelled"] { border-style: dashed; }
+.org-subscription-management #capacityUpgradePreview { margin-block: 8px 0; }
+.org-subscription-management #subscriptionHistorySection { min-inline-size: 0; }
+.org-subscription-management #subscriptionHistorySection td { overflow-wrap: anywhere; }
+.org-subscription-management #updatePaymentButton:disabled { opacity: 1; color: var(--wt-muted); border-color: var(--wt-muted); background: var(--wt-disabled); }
+
+.org-subscription-management { --subscription-danger: #b42318; --subscription-alert-surface: #fff1f0; --subscription-alert-text: #842029; }
+html[data-wusool-color-mode="dark"] .org-subscription-management { --subscription-danger: #ffb4ab; --subscription-alert-surface: #3b2525; --subscription-alert-text: #ffdad5; }
+.org-subscription-management #capacityUpgradePreview { color: inherit !important; }

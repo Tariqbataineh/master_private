@@ -42,7 +42,7 @@ WusoolUI.enqueue(async () => {
     const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
     const subscription =
       organization.subscription || (await readStoredObject('wusoolActiveSubscription'));
-    const branchLimit = Number(subscription?.branchLimit) || 1;
+    const branchLimit = WusoolServices.effectiveBranchCapacity(subscription);
     const currentDraft = await readStoredObject('wusoolCurrentBranchDraft');
     const draftAlreadyExists =
       currentDraft &&

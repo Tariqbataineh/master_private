@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700&family=Tajawal:wght@400;500;700&display=swap");
 @font-face {
   font-family: Cairo;
   src: url("./cairo-600.ttf") format("truetype");
@@ -219,10 +220,11 @@ textarea:focus {
   overflow: clip;
 }
 .header {
-  height: 90px;
+  min-height: 72px;
+  height: auto;
   display: flex;
   align-items: center;
-  gap: 38px;
+  gap: clamp(12px, 1.4vw, 24px);
   padding-inline: 28px;
   position: sticky;
   top: 0;
@@ -241,18 +243,18 @@ textarea:focus {
 }
 .brand strong {
   font-weight: 800;
-  font-size: 2.15rem;
+  font-size: 1.375rem;
 }
 .brand span {
   font:
-    700 1.35rem Arial,
+    600 .8125rem Inter,
     sans-serif;
   margin-top: 4px;
 }
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: clamp(10px, 1.2vw, 20px);
   flex: 1;
 }
 .main-nav a {
@@ -367,10 +369,10 @@ textarea:focus {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 43px;
+  min-height: var(--wu-button-medium, 40px);
   border: 1px solid transparent;
   border-radius: 11px;
-  padding: 6px 22px;
+  padding: 8px 16px;
   font-weight: 700;
   line-height: 1.6;
   transition:
@@ -379,7 +381,7 @@ textarea:focus {
   font-size: 0.87rem;
 }
 .btn.primary {
-  background: linear-gradient(105deg, #005649, #07866b);
+  background: var(--wu-button-primary, #147d68);
   color: white;
   box-shadow: inset 0 -2px 2px #003e3520;
 }
@@ -387,8 +389,8 @@ textarea:focus {
   background: var(--primary-hover);
 }
 .btn.soft {
-  background: linear-gradient(100deg, #c7f0e2, #d6f5e9);
-  color: var(--heading);
+  background: var(--wt-raised, #e7f4ee);
+  color: var(--wt-text, #17322d);
 }
 .btn.soft:hover {
   background: #b7e9d6;
@@ -1161,7 +1163,7 @@ textarea:focus {
 .booking-row {
   position: relative;
   display: grid;
-  grid-template-columns: 70px 1fr 150px 230px;
+  grid-template-columns: 56px minmax(0,1fr) max-content minmax(140px,max-content);
   gap: 22px;
   align-items: center;
   border: 1px solid var(--border);
@@ -1198,8 +1200,8 @@ textarea:focus {
   top: 10px;
 }
 .row-actions .btn {
-  width: 100%;
-  margin-top: 8px;
+  width: auto;
+  margin-top: 0;
 }
 .row-dropdown {
   position: absolute;
@@ -2418,7 +2420,7 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-height: 300px;
+  min-height: 0;
 }
 .career-card h2 {
   font-size: 1.15rem;
@@ -2951,3 +2953,17 @@ html[data-wusool-color-mode="light"] .header :is(a, button) { color: var(--text)
     padding: 24px 16px;
   }
 }
+/* Semantic typography: icon elements retain their own font families. */
+html[lang=en] :is(h1,h2,h3){font-family:Sora,Inter,sans-serif}
+html[lang=ar] :is(h1,h2,h3){font-family:Alexandria,Tajawal,sans-serif;letter-spacing:normal;line-height:1.5}
+
+/* D2B: booking information and actions remain distinct at narrow widths. */
+.booking-row{padding:var(--wu-card-padding,20px);gap:16px;background:var(--wt-surface,#fff);border-radius:var(--wu-card-radius,16px)}
+.booking-row > :is(div,section){min-width:0}
+.booking-row :is(h3,p,small){overflow-wrap:anywhere}
+.booking-row .row-actions{flex-wrap:wrap;min-width:0}
+.career-card{padding:var(--wu-card-padding,20px);border-radius:var(--wu-card-radius,16px);background:var(--wt-surface,#fff);border:1px solid var(--wt-border,#cbdcda)}
+.career-card-head{flex-wrap:wrap;align-items:flex-start}
+.career-card-head > small{font-size:.8125rem;line-height:1.5}
+.career-card .btn{align-self:flex-start;margin-top:8px}
+@media(max-width:767px){.booking-row{grid-template-columns:42px minmax(0,1fr)}.booking-row p,.booking-row small{font-size:.8125rem;line-height:1.6}.booking-row .row-actions{grid-column:2;justify-content:flex-start}.booking-row .row-actions .btn{width:auto;max-width:100%;min-height:44px}.career-grid{grid-template-columns:minmax(0,1fr)}}

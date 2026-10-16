@@ -4,9 +4,9 @@
    UI preview inside Theme Studio is intentionally an isolated theme preview.
 */
 html[data-wusool-color-mode="dark"] {
-  --wd-page:#101b1b; --wd-panel:#20322e; --wd-panel-raised:#29413a;
-  --wd-field:#1b302b; --wd-text:#f1faf6; --wd-secondary:#bfdbd0;
-  --wd-border:#49665d; --wd-link:#89e9c7; --wd-highlight:#a8f4da;
+  --wd-page:var(--wt-page); --wd-panel:var(--wt-surface); --wd-panel-raised:var(--wt-raised);
+  --wd-field:var(--wt-field); --wd-text:var(--wt-text); --wd-secondary:var(--wt-muted);
+  --wd-border:var(--wt-border); --wd-link:#89e9c7; --wd-highlight:#a8f4da;
   --wd-success-bg:#20493a; --wd-success-text:#b1f8d1;
   --wd-warning-bg:#4b3c24; --wd-warning-text:#ffe2a4;
   --wd-danger-bg:#532b33; --wd-danger-text:#ffc2c8;
@@ -39,12 +39,6 @@ html[data-wusool-color-mode="dark"] body:not(.high-contrast) {
   --wusool-success:#8ce9b2;
   --wusool-warning:#ffd990;
   --wusool-text:var(--wd-text);
-  --wt-surface:var(--wd-panel);
-  --wt-raised:var(--wd-panel-raised);
-  --wt-text:var(--wd-text);
-  --wt-muted:var(--wd-secondary);
-  --wt-border:var(--wd-border);
-  --wt-field:var(--wd-field);
 }
 /* Generic Bootstrap utilities and semantic surfaces used across roles. */
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
@@ -99,7 +93,7 @@ html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
  .notification-link,.breadcrumb-item a,.settings-navigation .nav-link:hover,
  .btn-outline-wusool:not(:hover),.btn-outline-primary:not(:hover)
 ){color:var(--wd-link)!important;}
-html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-wusool,.btn-primary,.btn-success){background:#137e68!important;color:#fff!important;border-color:#137e68!important;-webkit-text-fill-color:#fff!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-wusool,.btn-primary,.btn-success){background:var(--wu-button-primary)!important;color:var(--wu-button-on-primary)!important;border-color:var(--wu-button-primary)!important;-webkit-text-fill-color:#fff!important;}
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-wusool,.btn-primary,.btn-success):hover{background:#176753!important;border-color:#176753!important;color:#fff!important;-webkit-text-fill-color:#fff!important;}
 /* Outlined actions must not inherit low-contrast dark green text on dark panels. */
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-outline-primary,.btn-outline-secondary,.btn-outline-wusool,.btn-outline-success,.btn-outline-info){color:var(--wd-highlight)!important;border-color:#80cdb4!important;background:transparent!important;}
@@ -124,7 +118,7 @@ html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
  .subscription-banner,.subscription-notice
 ){background:var(--wd-panel)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-price-panel,.manager-profile-summary,.plan-detail-badge,.payment-method-detail,.branch-usage-summary){background:var(--wd-panel-raised)!important;color:var(--wd-text)!important;border-color:var(--wd-border)!important;}
-html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-detail-badge,.active-badge,.payment-method-text,.plan-price-panel strong,.plan-price-panel p,.plan-price-panel small){color:var(--wd-text)!important;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-detail-badge,.active-badge:not(.subscription-status),.payment-method-text,.plan-price-panel strong,.plan-price-panel p,.plan-price-panel small){color:var(--wd-text)!important;}
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.plan-price-panel h2,.active-plan-card h2,.active-plan-card h3,.active-plan-card h4,.active-plan-card strong){color:var(--wd-text)!important;}
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.stat-icon,.remaining-icon,.payment-icon,.renewal-icon,.heading-icon){background:var(--wd-panel-raised)!important;color:var(--wd-link)!important;}
 html[data-wusool-color-mode="dark"] body:not(.high-contrast) .branch-progress{background:#344e45!important;}

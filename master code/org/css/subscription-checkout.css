@@ -278,7 +278,7 @@ body {
 }
 
 .change-plan-link {
-    color: var(--wusool-primary);
+    color: var(--wt-accent);
     font-size: 0.86rem;
     font-weight: 700;
     text-decoration: none;
@@ -310,7 +310,7 @@ body {
 
 .selected-plan h3 {
     margin-bottom: 0.2rem;
-    color: var(--wusool-secondary);
+    color: var(--wt-text);
     font-size: 1rem;
     font-weight: 800;
 }
@@ -344,18 +344,18 @@ body {
 }
 
 .price-summary dt {
-    color: var(--wusool-muted);
+    color: var(--wt-muted);
     font-weight: 500;
 }
 
 .price-summary dd {
     margin-bottom: 0;
-    color: var(--wusool-secondary);
+    color: var(--wt-text);
     font-weight: 700;
 }
 
 .discount-row dd {
-    color: var(--wusool-success);
+    color: var(--wt-accent);
 }
 
 .total-row {
@@ -378,7 +378,7 @@ body {
 }
 
 .total-row strong {
-    color: var(--wusool-primary);
+    color: var(--wt-text);
     font-size: 1.55rem;
     white-space: nowrap;
 }
@@ -453,3 +453,10 @@ body {
         flex-direction: column;
     }
 }
+
+/* Local development checkout keeps the existing flow and consent control. */
+.org-subscription-checkout .registration-progress[hidden] { display: none !important; }
+.org-subscription-checkout #demoCheckoutError { color: #b42318 !important; }
+html[data-wusool-color-mode="dark"] .org-subscription-checkout #demoCheckoutError { color: #ffb4ab !important; }
+.org-subscription-checkout .total-row strong { overflow-wrap: anywhere; }
+.org-subscription-checkout .summary-information p { line-height: 1.6; }

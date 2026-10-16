@@ -75,7 +75,7 @@
 <link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
 </head>
 
-<body>
+<body class="org-subscription-management">
 
 <div class="organization-layout">
 
@@ -202,15 +202,11 @@
                                         Professional Plan
                                     </h2>
 
-                                    <span class="active-badge">
-                                        Active
+                                    <span class="active-badge subscription-status" id="subscriptionStatus" data-no-translate>—
                                     </span>
                                 </div>
 
-                                <p class="text-secondary mb-3">
-                                    Your organization subscription is
-                                    active and ready to use.
-                                </p>
+                                <p class="text-secondary mb-3" id="subscriptionDescription" data-no-translate>Loading subscription details…</p>
 
                                 <div class="d-flex flex-wrap gap-2">
 
@@ -233,7 +229,7 @@
                                     <span class="plan-detail-badge">
                                         <i class="bi bi-arrow-clockwise me-1"></i>
 
-                                        Auto-renewal
+                                        <span id="autoRenewBadge" data-no-translate>Automatic renewal</span>
                                     </span>
 
                                 </div>
@@ -553,8 +549,7 @@
                                     type="checkbox"
                                     class="form-check-input"
                                     role="switch"
-                                    id="autoRenewSwitch"
-                                    checked
+                                    id="autoRenewSwitch" aria-label="Automatic Renewal" aria-describedby="renewalAlert"
                                 >
                             </div>
                         </div>
@@ -562,9 +557,7 @@
                         <div
                             class="alert renewal-alert mt-4 mb-0"
                             id="renewalAlert"
-                        >
-                            Your subscription will renew automatically.
-                        </div>
+                        >Loading renewal status…</div>
 
                     </article>
 
@@ -572,6 +565,11 @@
 
             </div>
 
+            <section class="content-card mt-4" id="subscriptionHistorySection" aria-labelledby="subscriptionHistoryTitle">
+                <h2 class="h5" id="subscriptionHistoryTitle" data-no-translate>Recorded subscriptions</h2>
+                <p id="subscriptionHistoryHelp" data-no-translate></p>
+                <div class="table-responsive"><table class="table"><thead id="subscriptionHistoryHead" data-no-translate></thead><tbody id="subscriptionHistoryBody" data-no-translate></tbody></table></div>
+            </section>
         </main>
 
     </div>

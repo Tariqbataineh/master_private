@@ -217,7 +217,7 @@ WusoolUI.ready(async () => {
     if (sub)
       WusoolUI.html(
         sub,
-        `<header class="mb-4"><p class="section-label">CURRENT SUBSCRIPTION</p><h2 class="section-title">${WusoolUI.escape(s?.planName || s?.plan || 'No active subscription')}</h2><span class="status-badge">${WusoolUI.escape(s?.status || 'Inactive')}</span></header><p>${s?.developmentOnly ? 'Explicit development fixture — no payment processed.' : 'Subscription status supplied by the service.'}</p><p>Branch usage: ${branches.total}${s?.branchLimit ? ' of ' + s.branchLimit : ''}</p><a class="btn btn-outline-wusool" href="./subscription-management.html">Manage Subscription</a>`,
+        `<header class="mb-4"><p class="section-label">CURRENT SUBSCRIPTION</p><h2 class="section-title">${WusoolUI.escape(s?.planName || s?.plan || 'No active subscription')}</h2><span class="status-badge">${WusoolUI.escape(s?.status || 'Inactive')}</span></header><p>${s?.developmentOnly ? 'Explicit development fixture — no payment processed.' : 'Subscription status supplied by the service.'}</p><p>Branch usage: ${branches.total}${s ? ' of ' + WusoolServices.effectiveBranchCapacity(s) : ''}</p><a class="btn btn-outline-wusool" href="./subscription-management.html">Manage Subscription</a>`,
       );
     const activity = document.querySelector('.activity-list');
     if (activity)

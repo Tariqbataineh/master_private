@@ -439,6 +439,11 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
     if(kind==='subscriptions' && old?.origin==='admin-grant' && ['entitlements','origin','organizationId','grantHistory','grantedBy','startDate','endDate','nonExpiring','plan','branchLimit','paymentStatus','price'].some(k=>k in input&&JSON.stringify(input[k])!==JSON.stringify(old[k])))
       ctx.fail('USE_GRANT_API','Edit an Enterprise grant through the audited grant action.');
     const x = ctx.normalize(kind, input, old, a);
+    if (kind === 'subscriptions' && (!old || ctx.effectiveBranchCapacity(x) !== ctx.effectiveBranchCapacity(old))) {
+      const usage = data.branches.filter(b => b.organizationId === x.organizationId && !b.isDeleted).length;
+      if (ctx.effectiveBranchCapacity(x) < usage)
+        ctx.fail('CAPACITY_BELOW_USAGE', 'Subscription capacity cannot be lower than existing branch usage.');
+    }
     if (kind === 'branches' && 'assistanceResources' in input) {
       const resources = input.assistanceResources;
       if (!Array.isArray(resources) || resources.length > 100 || new Set(resources.map(r => r?.id)).size !== resources.length)
@@ -525,17 +530,18 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
           'An active subscription is required to create a branch. Open Subscription Management or contact Admin.',
         );
       if (
-        Number.isFinite(Number(subscription.branchLimit)) &&
+        ctx.effectiveBranchCapacity(subscription) >= 0 &&
         data.branches.filter((b) => b.organizationId === a.id && !b.isDeleted).length >=
-          Number(subscription.branchLimit)
+          ctx.effectiveBranchCapacity(subscription)
       )
         ctx.fail('BRANCH_LIMIT', 'The subscription branch limit has been reached.');
     }
     if (kind === 'branches' && !x.isDeleted && !['inactive','archived','suspended','rejected'].includes(x.status)) {
       const wasActive = old && !old.isDeleted && !['inactive','archived','suspended','rejected'].includes(old.status);
       const activeCount = data.branches.filter(b => b.id !== x.id && b.organizationId === x.organizationId && !b.isDeleted && !['inactive','archived','suspended','rejected'].includes(b.status)).length;
-      if (!wasActive && activeCount >= 12)
-        ctx.fail('BRANCH_LIMIT', 'Maximum 12 active branches per organization. Archive an unused branch before creating or restoring another. / الحد الأقصى 12 فرعًا نشطًا للمؤسسة.');
+      const capacity = ctx.effectiveBranchCapacity(ctx.subscriptionFor(data,x.organizationId));
+      if (!wasActive && activeCount >= capacity)
+        ctx.fail('BRANCH_LIMIT', 'The confirmed subscription capacity has been reached. / تم بلوغ سعة الاشتراك المؤكدة.');
     }
     if (
       kind === 'tickets' &&

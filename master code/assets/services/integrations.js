@@ -12,31 +12,21 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
     try {
       selected = JSON.parse(data.drafts[a.id]?.wusoolSelectedPlan || 'null');
     } catch {}
-    const plans = {
-      single: {
-        name: 'Single Branch',
-        limit: 1,
-        price: 25,
-      },
-      multi: {
-        name: 'Multi Branch',
-        limit: 5,
-        price: 75,
-      },
-      enterprise: {
-        name: 'Enterprise',
-        limit: 15,
-        price: 150,
-      },
-    };
-    const plan = plans[selected?.id];
+    const catalog = (await ctx.getPlans()).items;
+    const source = catalog.find(p => p.id === selected?.id && p.active !== false);
+    const quote = source ? ctx.quoteSubscription(source, selected.branchLimit, selected.billingCycle) : null;
+    if (quote && selected.pricingSnapshot && JSON.stringify(selected.pricingSnapshot) !== JSON.stringify(quote))
+      ctx.fail('PRICE_CHANGED', 'Pricing changed. Reload checkout and review the current quote before confirming.');
+    const plan = quote && {name:source.name,limit:quote.capacity,price:quote.monthlyPrice};
     if (!plan) ctx.fail('PLAN_REQUIRED', 'Choose a subscription plan first.');
-    const old = data.subscriptions.find(
-      (x) => x.organizationId === a.id && !x.isDeleted && x.developmentOnly,
-    );
+    if (plan.limit < data.branches.filter(b=>b.organizationId===a.id&&!b.isDeleted).length) ctx.fail('CAPACITY_BELOW_USAGE','Capacity must cover existing branches.');
+    const current = ctx.subscriptionFor?.(data,a.id);
+    if(current?.origin==='admin-grant') ctx.fail('ADMIN_GRANT_REQUIRED','An Admin grant must be upgraded through an audited Admin grant action. Existing grant and branches are preserved.');
+    if(current && !current.developmentOnly) ctx.fail('CONFIRMATION_REQUIRED','Existing agreements require an authorized subscription upgrade; demo activation cannot replace them.');
+    const old = current?.developmentOnly ? current : null;
     const cycle = selected.billingCycle === 'annual' ? 'annual' : 'monthly';
     const x = {
-      id: old?.id || ctx.id('subscription'),
+      id: ctx.id('subscription'),
       organizationId: a.id,
       plan: plan.name,
       planName: plan.name,
@@ -47,14 +37,15 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
       developmentOnly: true,
       paymentStatus: 'not-charged',
       price: 0,
-      quotedPrice: cycle === 'annual' ? plan.price * 12 * 0.9 : plan.price,
-      createdAt: old?.createdAt || ctx.now(),
+      quotedPrice: quote.totalPrice,
+      pricingSnapshot: quote,
+      createdAt: ctx.now(),
       updatedAt: ctx.now(),
       startDate: ctx.now(),
       isDeleted: false,
     };
-    if (old) data.subscriptions[data.subscriptions.indexOf(old)] = x;
-    else data.subscriptions.push(x);
+    if (old) { old.status = 'Superseded'; old.supersededBy = x.id; }
+    data.subscriptions.push(x);
     data.drafts[a.id].wusoolRegistrationStep = 'development-complete';
     ctx.audit(
       data,
@@ -308,6 +299,7 @@ window.WusoolServiceModules.push(function registerPlans(ctx) {
             page: 1,
             pageSize: 500,
           };
+    if(ctx.cfg.mode==='local'){const saved=ctx.db().settings.enterpriseAdditionalBranchPrice;const unit=saved==null?10:Number(saved);result.items=result.items.map(p=>p.id==='enterprise'?{...p,additionalBranchPrice:unit}:p);}
     if (
       !result.items.every(
         (plan) =>
@@ -326,4 +318,26 @@ window.WusoolServiceModules.push(function registerPlans(ctx) {
       ctx.fail('INVALID_RESPONSE', 'The server returned an invalid plan catalog.');
     return result;
   };
+});
+
+// One quote contract; existing subscriptions retain their own pricing snapshot.
+window.WusoolServiceModules.push(function registerCapacityPricing(ctx){
+ ctx.effectiveBranchCapacity=subscription=>{const value=subscription?.entitlements?.branches ?? subscription?.branchLimit;const n=Number(value);return Number.isSafeInteger(n)&&n>0?n:0;};
+ ctx.quoteSubscription=(plan,capacity=plan.branchLimit,cycle='monthly')=>{
+  capacity=Number(capacity);
+  if(!['monthly','annual'].includes(cycle))ctx.fail('INVALID_BILLING_CYCLE','Choose monthly or annual billing.');
+  if(!Number.isSafeInteger(capacity)||capacity<plan.branchLimit||(!['enterprise'].includes(plan.id)&&capacity!==plan.branchLimit))ctx.fail('INVALID_CAPACITY','Choose a valid branch capacity.');
+  if(plan.id==='enterprise'&&(!Number.isFinite(Number(plan.additionalBranchPrice))||Number(plan.additionalBranchPrice)<0))ctx.fail('INVALID_PRICE','Enterprise additional branch pricing is not configured.');
+  const extra=capacity-plan.branchLimit,unit=Math.round(Number(plan.additionalBranchPrice||0)*1000),base=Math.round(Number(plan.monthlyPrice)*1000),monthly=base+extra*unit;
+  if(!Number.isSafeInteger(monthly)||monthly<0)ctx.fail('INVALID_PRICE','Invalid pricing configuration.');
+  let total = monthly;
+  if (cycle === 'annual') {
+    const annualBase = monthly * 12;
+    if (!Number.isSafeInteger(annualBase)) ctx.fail('INVALID_PRICE', 'Annual pricing exceeds the supported monetary range.');
+    total = Math.round(annualBase * (1 - plan.annualDiscount));
+  }
+  if(!Number.isSafeInteger(total)||total<0)ctx.fail('INVALID_PRICE','Annual pricing exceeds the supported monetary range.');
+  return {capacity,includedCapacity:plan.branchLimit,extraBranches:extra,unitPrice:unit/1000,basePrice:base/1000,monthlyPrice:monthly/1000,totalPrice:total/1000,currency:'JOD',billingCycle:cycle,annualDiscount:plan.annualDiscount};
+ };
+ ctx.setEnterpriseBranchPrice=async value=>{const actor=await ctx.getCurrentAccount();if(actor?.role!=='Admin')ctx.fail('FORBIDDEN','Admin access required.');value=Number(value);if(!Number.isFinite(value)||value<0||Math.abs(Math.round(value*1000)-value*1000)>0.000001)ctx.fail('INVALID_PRICE','Use a non-negative JOD price with at most three decimals.');if(ctx.cfg.mode==='api')return ctx.request('/plans/enterprise/branch-price',{method:'PUT',body:{additionalBranchPrice:value}});const data=ctx.db();data.settings.enterpriseAdditionalBranchPrice=value;ctx.audit(data,actor,'Configure Enterprise branch price','plans','enterprise','Future quotes only: '+value+' JOD');ctx.put(data);return value;};
 });
