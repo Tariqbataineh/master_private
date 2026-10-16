@@ -20,6 +20,8 @@ window.WusoolServiceModules.push(function registerfacade(ctx) {
     saveTicketServices: ctx.saveTicketServices,
     getPlans: ctx.getPlans,
     effectiveBranchCapacity: ctx.effectiveBranchCapacity,
+    branchCountsTowardCapacity: ctx.branchCountsTowardCapacity,
+    branchUsage: ctx.branchUsage,
     quoteSubscription: ctx.quoteSubscription,
     setEnterpriseBranchPrice: ctx.setEnterpriseBranchPrice,
     resetAccountAccess: ctx.resetAccountAccess,

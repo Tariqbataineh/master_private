@@ -44,6 +44,7 @@
       if (
         !document.startViewTransition ||
         reduced ||
+        origin?.closest?.('.wusool-preferences') ||
         document.body?.classList.contains('high-contrast')
       ) {
         apply();

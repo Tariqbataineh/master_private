@@ -19,7 +19,7 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
       ctx.fail('PRICE_CHANGED', 'Pricing changed. Reload checkout and review the current quote before confirming.');
     const plan = quote && {name:source.name,limit:quote.capacity,price:quote.monthlyPrice};
     if (!plan) ctx.fail('PLAN_REQUIRED', 'Choose a subscription plan first.');
-    if (plan.limit < data.branches.filter(b=>b.organizationId===a.id&&!b.isDeleted).length) ctx.fail('CAPACITY_BELOW_USAGE','Capacity must cover existing branches.');
+    if (plan.limit < ctx.branchUsage(data.branches,a.id)) ctx.fail('CAPACITY_BELOW_USAGE','Capacity must cover existing branches.');
     const current = ctx.subscriptionFor?.(data,a.id);
     if(current?.origin==='admin-grant') ctx.fail('ADMIN_GRANT_REQUIRED','An Admin grant must be upgraded through an audited Admin grant action. Existing grant and branches are preserved.');
     if(current && !current.developmentOnly) ctx.fail('CONFIRMATION_REQUIRED','Existing agreements require an authorized subscription upgrade; demo activation cannot replace them.');
@@ -322,6 +322,8 @@ window.WusoolServiceModules.push(function registerPlans(ctx) {
 
 // One quote contract; existing subscriptions retain their own pricing snapshot.
 window.WusoolServiceModules.push(function registerCapacityPricing(ctx){
+ ctx.branchCountsTowardCapacity=branch=>Boolean(branch)&&branch.isDeleted!==true;
+ ctx.branchUsage=(branches,organizationId)=>Array.isArray(branches)?branches.filter(branch=>ctx.branchCountsTowardCapacity(branch)&&(organizationId==null||String(branch.organizationId)===String(organizationId))).length:0;
  ctx.effectiveBranchCapacity=subscription=>{const value=subscription?.entitlements?.branches ?? subscription?.branchLimit;const n=Number(value);return Number.isSafeInteger(n)&&n>0?n:0;};
  ctx.quoteSubscription=(plan,capacity=plan.branchLimit,cycle='monthly')=>{
   capacity=Number(capacity);

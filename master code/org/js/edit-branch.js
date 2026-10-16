@@ -13,7 +13,7 @@ WusoolUI.enqueue(async () => {
     branches = await loadBranches();
     selectedBranchId = getBranchId();
     const selectedBranch = branches.find((branch) => {
-      return branch.id === selectedBranchId;
+      return String(branch.id) === String(selectedBranchId);
     });
     if (!selectedBranch) {
       showBranchNotFound();
@@ -45,27 +45,38 @@ WusoolUI.enqueue(async () => {
   };
   const displayBranchInformation = (branch) => {
     document.getElementById('branchName').value = branch.name;
-    document.getElementById('branchType').value = branch.type;
+    setCompatibleSelectValue(document.getElementById('branchType'), branch.type || branch.branchType);
     document.getElementById('branchPhone').value = branch.phone;
     document.getElementById('branchEmail').value = branch.email || '';
     document.getElementById('branchDescription').value = branch.description || '';
     document.getElementById('branchCity').value = branch.city;
-    document.getElementById('branchArea').value = branch.area;
+    document.getElementById('branchArea').value = WusoolBranchWorkflow.locationArea(branch);
     document.getElementById('branchAddress').value = branch.address;
     document.getElementById('branchLatitude').value = branch.latitude ?? '';
     document.getElementById('branchLongitude').value = branch.longitude ?? '';
-    document.getElementById('branchActive').checked = branch.active;
-    document.getElementById('approvalStatus').textContent = branch.approvalStatus;
+    document.getElementById('branchActive').checked = branch.active !== false;
+    document.getElementById('approvalStatus').textContent = branch.approvalStatus || branch.status || 'draft';
     updateDescriptionCount();
     document.title = `Edit ${WusoolUI.escape(branch.name)} | Wusool`;
   };
+  const setCompatibleSelectValue = (select, value) => {
+    const storedValue = String(value || '');
+    if (storedValue && !Array.from(select.options).some((option) => option.value === storedValue)) {
+      const option = document.createElement('option');
+      option.value = storedValue;
+      option.textContent = storedValue;
+      select.appendChild(option);
+    }
+    select.value = storedValue;
+  };
   const updatePageLinks = () => {
+    const branchId = encodeURIComponent(selectedBranchId);
     document.getElementById('workingHoursLink').href =
-      `./branch-working-hours.html?id=${selectedBranchId}`;
+      `./branch-working-hours.html?id=${branchId}`;
     document.getElementById('accessibilityLink').href =
-      `./branch-accessibility.html?id=${selectedBranchId}`;
+      `./branch-accessibility.html?id=${branchId}`;
     document.getElementById('cancelEditLink').href =
-      `./organization-branch-details.html?id=${selectedBranchId}`;
+      `./organization-branch-details.html?id=${branchId}`;
   };
   const connectPageEvents = () => {
     WusoolUI.listen(document.getElementById('editBranchForm'), 'submit', saveBranchChanges);
@@ -92,12 +103,13 @@ WusoolUI.enqueue(async () => {
       return;
     }
     const branchIndex = branches.findIndex((branch) => {
-      return branch.id === selectedBranchId;
+      return String(branch.id) === String(selectedBranchId);
     });
     if (branchIndex === -1) {
       return;
     }
-    branches[branchIndex] = {
+    const locationValue = document.getElementById('branchArea').value.trim();
+    branches[branchIndex] = WusoolBranchWorkflow.withLocationAliases({
       ...branches[branchIndex],
       name: document.getElementById('branchName').value.trim(),
       type: document.getElementById('branchType').value,
@@ -105,7 +117,6 @@ WusoolUI.enqueue(async () => {
       email: document.getElementById('branchEmail').value.trim(),
       description: document.getElementById('branchDescription').value.trim(),
       city: document.getElementById('branchCity').value,
-      area: document.getElementById('branchArea').value.trim(),
       address: document.getElementById('branchAddress').value.trim(),
       ...window.WusoolLocation.fields({
         googlePlaceId: document.querySelector('[data-location-place-id]')?.value,
@@ -114,8 +125,8 @@ WusoolUI.enqueue(async () => {
         longitude: document.getElementById('branchLongitude').value,
       }),
       active: document.getElementById('branchActive').checked,
-      lastUpdated: new Date().toISOString(),
-    };
+      updatedAt: new Date().toISOString(),
+    }, locationValue);
     await WusoolServices.rawWrite(branchStorageKey, JSON.stringify(branches));
     form.classList.remove('was-validated');
     successAlert.classList.remove('d-none');

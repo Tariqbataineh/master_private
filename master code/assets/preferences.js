@@ -221,7 +221,12 @@ if (/\/(?:my-tickets|my-visits|visitor-tickets|admin-tickets)\.html$/.test(locat
     const anchor=j?[...j.querySelectorAll('.journey-intro,.organization-stop,.journey-road-chapter,.academy-stop')].find(el=>{const top=el.getBoundingClientRect().top+y;return y>=top&&y<top+el.offsetHeight;}):null;
     const anchorProgress=anchor?(-anchor.getBoundingClientRect().top)/Math.max(1,anchor.offsetHeight):null;
     language=value; root.lang=value;root.dir=value==='ar'?'rtl':'ltr';translate(document.documentElement);sync();
-    if(persist) {if(window.WusoolServices) await WusoolServices.rawWrite('wusool-language',value); else {try{localStorage.setItem('wusool-language',value);}catch{}}}
+    if(persist) {
+      // Keep the bootstrap key and the service-backed preference in sync. Some
+      // pages initialize preferences before WusoolServices is available.
+      try{localStorage.setItem('wusool-language',value);}catch{}
+      if(window.WusoolServices) await WusoolServices.rawWrite('wusool-language',value);
+    }
     document.dispatchEvent(new Event('wxi:language'));document.dispatchEvent(new CustomEvent('wusool:preferences',{detail:{language:value}}));
     if(persist) requestAnimationFrame(()=>{focused?.isConnected&&focused.focus?.({preventScroll:true});const target=anchor?.isConnected?anchor.getBoundingClientRect().top+scrollY+anchorProgress*anchor.offsetHeight:progress!==null&&y>=j.offsetTop&&y<=j.offsetTop+j.offsetHeight ? j.offsetTop+progress*(j.offsetHeight-innerHeight):y; window.scrollTo({left:x,top:target,behavior:'instant'});});
   }
@@ -245,7 +250,9 @@ if (/\/(?:my-tickets|my-visits|visitor-tickets|admin-tickets)\.html$/.test(locat
     dictionary={...common};
     try{const response=await fetch(new URL('./translations/ar.json',script.src));const data=await response.json();dictionary={...Object.fromEntries(Object.entries(data).filter(([k,v])=>k!==v)),...common};}catch{}
     catalogue();
-    const saved=window.WusoolServices?await WusoolServices.rawRead('wusool-language'):language;
+    let bootstrapLanguage='';try{bootstrapLanguage=localStorage.getItem('wusool-language')||'';}catch{}
+    const serviceLanguage=window.WusoolServices?await WusoolServices.rawRead('wusool-language'):'';
+    const saved=['en','ar'].includes(serviceLanguage)?serviceLanguage:bootstrapLanguage||language;
     mount();await setLanguage(saved==='ar'?'ar':'en',false);
     observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:attributes});
     window.WusoolPreferences.ready=true;

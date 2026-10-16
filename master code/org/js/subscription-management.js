@@ -9,7 +9,7 @@ WusoolUI.enqueue(async () => {
     ]);
     const s = access.subscription || subscriptions.items.find(row => WusoolServices.subscriptionState(row) === 'active') || subscriptions.items[0];
     const capacity = WusoolServices.effectiveBranchCapacity(s);
-    const usage = branches.total;
+    const usage = WusoolServices.branchUsage(branches.items, account.id);
     const over = Math.max(0, usage - capacity);
     const local = WusoolServices.mode === 'local';
     const demonstration = Boolean(s?.developmentOnly);

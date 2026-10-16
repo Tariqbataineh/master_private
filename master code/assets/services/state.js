@@ -2,6 +2,9 @@
 // state: registers responsibilities against a private shared context.
 window.WusoolServiceModules.push(function registerstate(ctx) {
   const accountVersions = new Map();
+  const compatibilitySnapshots = new Map();
+  const compatibilityKey = (key, account) => `${key}:${account?.id || 'anonymous'}`;
+  const collectionFingerprint = items => JSON.stringify((items || []).map(item => [String(item.id), item]));
   const selectedSubscription=async(a)=>ctx.cfg.mode==='local'&&ctx.subscriptionFor?ctx.subscriptionFor(ctx.db(),a.id):(await ctx.list('subscriptions')).items.find(s=>ctx.api.subscriptionState?.(s)==='active')||null;
   ctx.entityKeys = {
     wusoolOrganizations: 'organizations',
@@ -160,6 +163,8 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
                 : {};
       const result = await ctx.listAll(kind, options);
       let items = result.items;
+      if (key === 'wusoolOrganizationBranches')
+        compatibilitySnapshots.set(compatibilityKey(key, a), collectionFingerprint(items));
       if (kind === 'bookings') {
         const actor = a || (await ctx.getCurrentAccount());
         items = items.map((x) =>
@@ -355,6 +360,13 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
                 }
               : {};
       const before = (await ctx.listAll(kind, scope)).items;
+      if (key === 'wusoolOrganizationBranches') {
+        const snapshotKey = compatibilityKey(key, a);
+        const expected = compatibilitySnapshots.get(snapshotKey);
+        if (expected != null && expected !== collectionFingerprint(before))
+          ctx.fail('CONFLICT', 'Branch records changed in another tab. Reload before saving so newer changes are preserved.');
+        compatibilitySnapshots.delete(snapshotKey);
+      }
       for (const x of values) {
         if (ctx.ticketKinds[key]) x.kind = ctx.ticketKinds[key];
         if (kind === 'bookings') {

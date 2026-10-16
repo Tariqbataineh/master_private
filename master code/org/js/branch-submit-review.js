@@ -102,10 +102,11 @@ WusoolUI.enqueue(async () => {
     const parameters = new URLSearchParams(window.location.search);
     const branchId = parameters.get('id');
     const branches = await getStoredObject(storageKeys.branches, []);
-    currentBranch =
-      branches.find((branch) => {
-        return String(branch.id) === String(branchId);
-      }) || (await getStoredObject(storageKeys.currentDraft, null));
+    currentBranch = WusoolBranchWorkflow.resolveBranch(
+      branches,
+      branchId,
+      await getStoredObject(storageKeys.currentDraft, null),
+    );
     if (!currentBranch) {
       window.location.href = './branches.html';
       return;

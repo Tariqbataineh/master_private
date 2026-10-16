@@ -330,7 +330,7 @@
                                                 for="branchServices"
                                                 class="form-label"
                                             >
-                                                Main Service
+                                                Service Summary (Descriptive)
                                             </label>
 
                                             <input
@@ -339,7 +339,11 @@
                                                 class="form-control"
                                                 placeholder="Example: Banking services"
                                                 maxlength="100"
+                                                aria-describedby="branchServicesHelp"
                                             >
+                                            <div id="branchServicesHelp" class="form-text">
+                                                This description does not create a bookable service. Configure bookable services from Branch Management after saving the branch.
+                                            </div>
                                         </div>
 
                                     </div>

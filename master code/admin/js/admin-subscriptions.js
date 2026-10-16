@@ -107,7 +107,7 @@ WusoolUI.enqueue(async () => {
                     </td>
 
                     <td>${WusoolUI.escape(WusoolServices.effectiveBranchCapacity(item))}
-                      <small class="d-block text-muted">Usage / الاستخدام: ${branchRows.filter(b => b.organizationId === item.organizationId && !b.isDeleted).length}<br>
+                      <small class="d-block text-muted">Usage / الاستخدام: ${WusoolServices.branchUsage(branchRows, item.organizationId)}<br>
                       Included / الأساسي: ${WusoolUI.escape(item.pricingSnapshot?.includedCapacity ?? '—')}<br>
                       Extra / الإضافي: ${WusoolUI.escape(item.pricingSnapshot?.extraBranches ?? '—')}<br>
                       ${WusoolUI.escape(item.pricingSnapshot ? item.pricingSnapshot.totalPrice + ' JOD / ' + item.billingCycle : item.developmentOnly || item.origin === 'admin-grant' ? 'No payment / لا يوجد دفع' : item.price == null ? 'Historical price unavailable' : item.price + ' JOD / ' + item.billingCycle)}</small>

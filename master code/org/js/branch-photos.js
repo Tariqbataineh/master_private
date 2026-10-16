@@ -5,6 +5,7 @@ WusoolUI.enqueue(async()=>{
  const id=new URLSearchParams(location.search).get('id')||JSON.parse(await WusoolServices.rawRead('wusoolCurrentBranchDraft')||'null')?.id;
  if(!id){WusoolUI.message(t('اختر فرعًا أولًا.','Choose a branch first.'));return;}
  const branch=await WusoolServices.getBranchById(id);if(!branch||branch.isDeleted){WusoolUI.message(t('الفرع غير موجود.','Branch not found.'));return;}
+ document.getElementById('backButton').href='./branch-accessibility.html?id='+encodeURIComponent(branch.id);
  const svc=WusoolServices.branchMedia;let data=await svc.read(id),items=[...data.photos.map(x=>({...x,kind:'photo'})),...data.videos.map(x=>({...x,kind:'video'}))],urls=new Map(),editor=null,disposed=false,busy=false,dirty=false,uploading=false;
  const limits={photoBytes:5*1024*1024,videoBytes:100*1024*1024,count:60,...window.WusoolApiConfig.branchMediaLimits};
  const categories=['main-entrance','entrance-route','accessible-parking','internal-pathway','reception-counter','elevator','accessible-restroom','destination-area'];

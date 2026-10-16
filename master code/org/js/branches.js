@@ -17,6 +17,9 @@ WusoolUI.enqueue(async () => {
   let organizationBranches = [];
   let branchToDeleteId = null;
   let deleteBranchModal = null;
+  const isArabic = () => document.documentElement.lang === 'ar';
+  const text = (english, arabic) => (isArabic() ? arabic : english);
+  const number = (value) => new Intl.NumberFormat(isArabic() ? 'ar-JO' : 'en-JO').format(value);
   const readStoredObject = async (key) => {
     try {
       const storedValue = await WusoolServices.rawRead(key);
@@ -58,11 +61,8 @@ WusoolUI.enqueue(async () => {
     const organization = await readStoredObject('wusoolOrganization');
     return (
       organization?.subscription ||
-      (await readStoredObject('wusoolActiveSubscription')) || {
-        planName: 'Multi Branch',
-        branchLimit: 5,
-        status: 'active',
-      }
+      (await readStoredObject('wusoolActiveSubscription')) ||
+      null
     );
   };
   const getBranchLimit = async () => {
@@ -110,8 +110,7 @@ WusoolUI.enqueue(async () => {
     const hasResults = filteredBranches.length > 0;
     document.querySelector('.branches-table').classList.toggle('d-none', !hasResults);
     emptyState.classList.toggle('d-none', hasResults);
-    document.getElementById('resultsCount').textContent =
-      `${filteredBranches.length} ${filteredBranches.length === 1 ? 'branch' : 'branches'}`;
+    document.getElementById('resultsCount').textContent = formatBranchCount(filteredBranches.length);
     updateStatistics();
     await updateSubscriptionUsage();
     await updateAddBranchButton();
@@ -151,7 +150,7 @@ WusoolUI.enqueue(async () => {
                            ${WusoolUI.escape(branch.score)}%
                        </span>`
                 : `<span class="text-secondary">
-                           Not scored
+                           ${text('Not evaluated', 'لم يُقيَّم')}
                        </span>`
             }
         </td>
@@ -176,19 +175,19 @@ WusoolUI.enqueue(async () => {
   const createStatusBadge = (status) => {
     const statusInformation = {
       approved: {
-        label: document.documentElement.lang === 'ar' ? 'نشط' : 'Active',
+        label: text('Approved', 'معتمد'),
         icon: 'bi-check-circle-fill',
       },
       'pending-review': {
-        label: 'Pending Review',
+        label: text('Pending review', 'قيد المراجعة'),
         icon: 'bi-hourglass-split',
       },
       'changes-required': {
-        label: 'Changes Required',
+        label: text('Changes required', 'التعديلات مطلوبة'),
         icon: 'bi-exclamation-circle-fill',
       },
       draft: {
-        label: 'Draft',
+        label: text('Draft', 'مسودة'),
         icon: 'bi-pencil',
       },
     };
@@ -209,12 +208,12 @@ WusoolUI.enqueue(async () => {
     let primaryIcon = 'bi-eye';
     if (branch.status === 'draft' || branch.status === 'changes-required') {
       primaryLink = `./edit-branch.html?id=${WusoolUI.escape(branch.id)}`;
-      primaryLabel = branch.status === 'draft' ? 'Continue' : 'Edit';
+      primaryLabel = branch.status === 'draft' ? text('Continue', 'متابعة') : text('Edit', 'تعديل');
       primaryIcon = 'bi-pencil-square';
     }
     if (branch.status === 'pending-review') {
       primaryLink = `./branch-review-status.html?id=${WusoolUI.escape(branch.id)}`;
-      primaryLabel = 'Track';
+      primaryLabel = text('Track', 'متابعة');
       primaryIcon = 'bi-clock-history';
     }
     const deleteAction =
@@ -224,10 +223,10 @@ WusoolUI.enqueue(async () => {
                     <button
                         type="button"
                         class="dropdown-item text-danger"
-                        onclick="openDeleteBranchModal(${WusoolUI.escape(branch.id)})"
+                        data-delete-draft="${WusoolUI.escape(branch.id)}"
                     >
                         <i class="bi bi-trash me-2"></i>
-                        Delete Draft
+                        ${text('Delete draft', 'حذف المسودة')}
                     </button>
                 </li>
             `
@@ -248,7 +247,7 @@ WusoolUI.enqueue(async () => {
                     class="btn btn-sm action-button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    aria-label="Branch actions"
+                    aria-label="${WusoolUI.escape(text(`Branch actions for ${branch.name}`, `إجراءات فرع ${branch.name}`))}"
                 >
                     <i class="bi bi-three-dots-vertical"></i>
                 </button>
@@ -260,7 +259,7 @@ WusoolUI.enqueue(async () => {
                             class="dropdown-item"
                         >
                             <i class="bi bi-eye me-2"></i>
-                            View Details
+                            ${text('View details', 'عرض التفاصيل')}
                         </a>
                     </li>
 
@@ -270,7 +269,7 @@ WusoolUI.enqueue(async () => {
                             class="dropdown-item"
                         >
                             <i class="bi bi-clock-history me-2"></i>
-                            Review Status
+                            ${text('Review status', 'حالة المراجعة')}
                         </a>
                     </li>
 
@@ -360,16 +359,40 @@ WusoolUI.enqueue(async () => {
   const updateSubscriptionUsage = async () => {
     const subscription = await getActiveSubscription();
     const branchLimit = await getBranchLimit();
-    const branchCount = organizationBranches.length;
+    const branchCount = WusoolServices.branchUsage(organizationBranches);
     const usagePercentage = Math.min((branchCount / branchLimit) * 100, 100);
-    document.getElementById('currentPlanName').textContent = `${subscription.planName} Plan`;
-    document.getElementById('branchUsageText').textContent =
-      `${branchCount} of ${branchLimit} branches`;
+    const excess = Math.max(0, branchCount - branchLimit);
+    document.getElementById('currentPlanName').textContent = text(
+      `${subscription.planName} plan`,
+      `خطة ${subscription.planName}`,
+    );
+    document.getElementById('branchUsageText').textContent = text(
+      `${number(branchCount)} used of ${number(branchLimit)} subscribed branches`,
+      `${number(branchCount)} مستخدمًا من أصل ${number(branchLimit)} فرعًا مشمولًا`,
+    );
+    const usageStatus = document.getElementById('branchCapacityStatus');
+    usageStatus.textContent = excess
+      ? text(
+          `Capacity exceeded by ${number(excess)}. Existing branches remain available, but a subscription upgrade is required before adding another branch.`,
+          `تم تجاوز السعة بمقدار ${number(excess)}. تبقى الفروع الحالية متاحة، ويلزم ترقية الاشتراك قبل إضافة فرع جديد.`,
+        )
+      : text(
+          `${number(branchLimit - branchCount)} branch capacity remaining.`,
+          `السعة المتبقية ${number(branchLimit - branchCount)} ${branchLimit - branchCount === 1 ? 'فرع' : 'فروع'}.`,
+        );
+    usageStatus.classList.toggle('capacity-exceeded', excess > 0);
     const progressBar = document.getElementById('branchUsageProgress');
     progressBar.style.width = `${usagePercentage}%`;
     progressBar.setAttribute('aria-valuenow', usagePercentage.toString());
     progressBar.setAttribute('aria-valuemin', '0');
     progressBar.setAttribute('aria-valuemax', '100');
+    progressBar.setAttribute(
+      'aria-valuetext',
+      text(
+        `${number(branchCount)} branches used of ${number(branchLimit)} subscribed${excess ? `; ${number(excess)} over capacity` : ''}`,
+        `${number(branchCount)} فرعًا مستخدمًا من أصل ${number(branchLimit)}${excess ? `؛ تجاوز بمقدار ${number(excess)}` : ''}`,
+      ),
+    );
   };
   const initializeAddBranchButtons = () => {
     WusoolUI.listen(document.getElementById('addBranchButton'), 'click', handleAddBranch);
@@ -379,7 +402,10 @@ WusoolUI.enqueue(async () => {
     const branchLimit = await getBranchLimit();
     if (organizationBranches.length >= branchLimit) {
       showToast(
-        `Your current plan allows ${branchLimit} ${branchLimit === 1 ? 'branch' : 'branches'}. Upgrade your subscription to add more.`,
+        text(
+          `Your subscription includes ${number(branchLimit)} branches. Upgrade your subscription to add another branch.`,
+          `يشمل اشتراكك ${number(branchLimit)} ${branchLimit === 1 ? 'فرعًا' : 'فروع'}. رقِّ الاشتراك لإضافة فرع آخر.`,
+        ),
         'warning',
       );
       return;
@@ -394,23 +420,34 @@ WusoolUI.enqueue(async () => {
       limitReached
         ? `
                 <i class="bi bi-lock me-2"></i>
-                Branch Limit Reached
+                ${text('Branch capacity reached', 'تم بلوغ سعة الفروع')}
             `
         : `
                 <i class="bi bi-plus-lg me-2"></i>
-                Add New Branch
+                ${text('Add new branch', 'إضافة فرع جديد')}
             `,
     );
     addBranchButton.classList.toggle('btn-wusool', !limitReached);
     addBranchButton.classList.toggle('btn-secondary', limitReached);
+    addBranchButton.setAttribute('aria-disabled', String(limitReached));
+    addBranchButton.setAttribute('aria-describedby', 'branchCapacityStatus');
+    document.getElementById('emptyStateAddButton')?.setAttribute('aria-disabled', String(limitReached));
   };
   const initializeDeleteBranch = () => {
     deleteBranchModal = new bootstrap.Modal(document.getElementById('deleteBranchModal'));
     WusoolUI.listen(document.getElementById('confirmDeleteButton'), 'click', deleteSelectedBranch);
+    WusoolUI.listen(document.getElementById('deleteBranchModal'), 'hidden.bs.modal', () => {
+      branchToDeleteId = null;
+    });
+    WusoolUI.listen(document.getElementById('branchesTableBody'), 'click', (event) => {
+      const trigger = event.target.closest('[data-delete-draft]');
+      if (!trigger) return;
+      openDeleteBranchModal(trigger.dataset.deleteDraft);
+    });
   };
   const openDeleteBranchModal = (branchId) => {
-    const branch = organizationBranches.find((item) => item.id === branchId);
-    if (!branch || branch.status !== 'draft') {
+    const branch = WusoolBranchWorkflow.eligibleDraft(organizationBranches, branchId);
+    if (!branch) {
       return;
     }
     branchToDeleteId = branchId;
@@ -455,15 +492,22 @@ WusoolUI.enqueue(async () => {
       sidebar.classList.add('open');
       overlay.classList.add('show');
       document.body.classList.add('overflow-hidden');
+      closeButton.focus();
     };
     const closeSidebar = () => {
       sidebar.classList.remove('open');
       overlay.classList.remove('show');
       document.body.classList.remove('overflow-hidden');
+      if (document.activeElement === closeButton || sidebar.contains(document.activeElement)) {
+        openButton.focus();
+      }
     };
     WusoolUI.listen(openButton, 'click', openSidebar);
     WusoolUI.listen(closeButton, 'click', closeSidebar);
     WusoolUI.listen(overlay, 'click', closeSidebar);
+    WusoolUI.listen(document, 'keydown', (event) => {
+      if (event.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+    });
     WusoolUI.listen(window, 'resize', () => {
       if (window.innerWidth >= 992) {
         closeSidebar();
@@ -499,11 +543,19 @@ WusoolUI.enqueue(async () => {
     toast.show();
   };
   const formatDate = (dateValue) => {
-    return new Intl.DateTimeFormat('en-JO', {
+    return new Intl.DateTimeFormat(isArabic() ? 'ar-JO' : 'en-JO', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
     }).format(new Date(dateValue));
+  };
+  const formatBranchCount = (count) => {
+    if (!isArabic()) return `${number(count)} ${count === 1 ? 'branch' : 'branches'}`;
+    if (count === 0) return 'لا توجد فروع';
+    if (count === 1) return 'فرع واحد';
+    if (count === 2) return 'فرعان';
+    if (count >= 3 && count <= 10) return `${number(count)} فروع`;
+    return `${number(count)} فرعًا`;
   };
   const escapeHtml = (value) => {
     const temporaryElement = document.createElement('div');
@@ -515,5 +567,5 @@ WusoolUI.enqueue(async () => {
       Needed because the table action is created
       dynamically using HTML.
   */
-  window.openDeleteBranchModal = openDeleteBranchModal;
+  WusoolUI.listen(document, 'wxi:language', renderBranches);
 });

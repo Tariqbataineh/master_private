@@ -440,7 +440,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
       ctx.fail('USE_GRANT_API','Edit an Enterprise grant through the audited grant action.');
     const x = ctx.normalize(kind, input, old, a);
     if (kind === 'subscriptions' && (!old || ctx.effectiveBranchCapacity(x) !== ctx.effectiveBranchCapacity(old))) {
-      const usage = data.branches.filter(b => b.organizationId === x.organizationId && !b.isDeleted).length;
+      const usage = ctx.branchUsage(data.branches, x.organizationId);
       if (ctx.effectiveBranchCapacity(x) < usage)
         ctx.fail('CAPACITY_BELOW_USAGE', 'Subscription capacity cannot be lower than existing branch usage.');
     }
@@ -531,16 +531,16 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
         );
       if (
         ctx.effectiveBranchCapacity(subscription) >= 0 &&
-        data.branches.filter((b) => b.organizationId === a.id && !b.isDeleted).length >=
+        ctx.branchUsage(data.branches, a.id) >=
           ctx.effectiveBranchCapacity(subscription)
       )
         ctx.fail('BRANCH_LIMIT', 'The subscription branch limit has been reached.');
     }
-    if (kind === 'branches' && !x.isDeleted && !['inactive','archived','suspended','rejected'].includes(x.status)) {
-      const wasActive = old && !old.isDeleted && !['inactive','archived','suspended','rejected'].includes(old.status);
-      const activeCount = data.branches.filter(b => b.id !== x.id && b.organizationId === x.organizationId && !b.isDeleted && !['inactive','archived','suspended','rejected'].includes(b.status)).length;
+    if (kind === 'branches' && ctx.branchCountsTowardCapacity(x)) {
+      const wasCounted = old && ctx.branchCountsTowardCapacity(old);
+      const countedWithoutCurrent = ctx.branchUsage(data.branches.filter(b => String(b.id) !== String(x.id)), x.organizationId);
       const capacity = ctx.effectiveBranchCapacity(ctx.subscriptionFor(data,x.organizationId));
-      if (!wasActive && activeCount >= capacity)
+      if (!wasCounted && countedWithoutCurrent >= capacity)
         ctx.fail('BRANCH_LIMIT', 'The confirmed subscription capacity has been reached. / تم بلوغ سعة الاشتراك المؤكدة.');
     }
     if (

@@ -146,10 +146,10 @@ WusoolUI.enqueue(async () => {
   const getCurrentBranch = async () => {
     const branchId = getBranchId();
     const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
-    return (
-      branches.find((branch) => {
-        return String(branch.id) === branchId;
-      }) || (await readStoredObject('wusoolCurrentBranchDraft'))
+    return WusoolBranchWorkflow.resolveBranch(
+      branches,
+      branchId,
+      await readStoredObject('wusoolCurrentBranchDraft'),
     );
   };
   // Each floor owns its own statuses and media references; legacy flat accessibility is

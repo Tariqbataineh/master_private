@@ -181,13 +181,14 @@ WusoolUI.ready(async () => {
       access.subscription?.entitlements?.auditHistory===false||a.permissions?.auditHistory===false?Promise.resolve([]):WusoolServices.getAuditLog(),
     ]);
     if (serial !== generation || (await WusoolServices.getCurrentAccount())?.id !== a.id) return;
-    text('totalBranches', branches.total);
+    const branchUsage = WusoolServices.branchUsage(branches.items, a.id);
+    text('totalBranches', branchUsage);
     text('pendingBranches', branches.items.filter((b) => b.status === 'pending').length);
     text(
       'accessibilityScore',
-      branches.total
+      branchUsage
         ? Math.round(
-            branches.items.reduce((sum, b) => sum + b.accessibilityScore, 0) / branches.total,
+            branches.items.reduce((sum, b) => sum + b.accessibilityScore, 0) / branchUsage,
           ) + '%'
         : '—',
     );
@@ -211,13 +212,13 @@ WusoolUI.ready(async () => {
           )
           .join(''),
       );
-    document.getElementById('noBranchesMessage')?.classList.toggle('d-none', branches.total > 0);
+    document.getElementById('noBranchesMessage')?.classList.toggle('d-none', branchUsage > 0);
     const sub = document.querySelector('.subscription-card'),
       s = access.subscription || subscriptions.items.find((x) => WusoolServices.subscriptionState(x) === 'active');
     if (sub)
       WusoolUI.html(
         sub,
-        `<header class="mb-4"><p class="section-label">CURRENT SUBSCRIPTION</p><h2 class="section-title">${WusoolUI.escape(s?.planName || s?.plan || 'No active subscription')}</h2><span class="status-badge">${WusoolUI.escape(s?.status || 'Inactive')}</span></header><p>${s?.developmentOnly ? 'Explicit development fixture — no payment processed.' : 'Subscription status supplied by the service.'}</p><p>Branch usage: ${branches.total}${s ? ' of ' + WusoolServices.effectiveBranchCapacity(s) : ''}</p><a class="btn btn-outline-wusool" href="./subscription-management.html">Manage Subscription</a>`,
+      `<header class="mb-4"><p class="section-label">CURRENT SUBSCRIPTION</p><h2 class="section-title">${WusoolUI.escape(s?.planName || s?.plan || 'No active subscription')}</h2><span class="status-badge">${WusoolUI.escape(s?.status || 'Inactive')}</span></header><p>${s?.developmentOnly ? 'Explicit development fixture — no payment processed.' : 'Subscription status supplied by the service.'}</p><p>Branch usage: ${branchUsage}${s ? ' of ' + WusoolServices.effectiveBranchCapacity(s) : ''}</p><a class="btn btn-outline-wusool" href="./subscription-management.html">Manage Subscription</a>`,
       );
     const activity = document.querySelector('.activity-list');
     if (activity)

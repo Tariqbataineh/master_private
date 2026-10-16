@@ -540,5 +540,8 @@ body {
 #mainContent .empty-state p{color:var(--wt-muted,#526b65);line-height:1.7}
 #mainContent :is(.form-control,.form-select){min-width:0;max-width:100%;line-height:1.5}
 #mainContent .action-button{color:var(--wt-accent,#147d68);border-color:var(--wt-border,#cbdcda)}
-#mainContent .branches-table a:focus-visible{outline:3px solid var(--wt-accent);outline-offset:2px}
+#mainContent #branchCapacityStatus{line-height:1.6;max-width:68ch}
+#mainContent #branchCapacityStatus.capacity-exceeded{color:var(--wt-warning-text,#7a4d00);font-weight:650}
+#mainContent [aria-disabled="true"]{cursor:not-allowed}
+#mainContent .branches-table :is(a,button):focus-visible{outline:3px solid var(--wt-accent);outline-offset:2px}
 @media(max-width:600px){#mainContent .branches-table :is(th,td){padding:12px}#mainContent .stat-card{padding:16px;gap:12px}}

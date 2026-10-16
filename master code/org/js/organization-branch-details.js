@@ -32,6 +32,7 @@ WusoolUI.enqueue(async () => {
     renderBranchHero();
     renderStatistics();
     renderGeneralInformation();
+    await renderServiceConfiguration();
     renderWorkingHours();
     renderAccessibility();
     renderPhotos();
@@ -39,6 +40,15 @@ WusoolUI.enqueue(async () => {
     renderAiResult();
     configureLinks();
     configureSidebar();
+    WusoolUI.listen(document, 'wxi:language', async () => {
+      if (!currentBranch) return;
+      renderBranchHero();
+      renderGeneralInformation();
+      renderWorkingHours();
+      renderAccessibility();
+      renderReviewInformation();
+      await renderServiceConfiguration();
+    });
   });
   const protectPage = async () => {
     const loggedIn = (await WusoolServices.rawRead(storageKeys.loggedIn)) === 'true';
@@ -65,10 +75,11 @@ WusoolUI.enqueue(async () => {
   const loadCurrentBranch = async () => {
     const branchId = new URLSearchParams(window.location.search).get('id');
     const branches = await getStoredObject(storageKeys.branches, []);
-    currentBranch =
-      branches.find((branch) => {
-        return String(branch.id) === String(branchId);
-      }) || (await getStoredObject(storageKeys.currentDraft, null));
+    currentBranch = WusoolBranchWorkflow.resolveBranch(
+      branches,
+      branchId,
+      await getStoredObject(storageKeys.currentDraft, null),
+    );
     if (!currentBranch) {
       window.location.href = './branches.html';
       return;
@@ -102,15 +113,53 @@ WusoolUI.enqueue(async () => {
   const renderGeneralInformation = () => {
     setText('branchCode', currentBranch.branchCode || currentBranch.code || 'Not provided');
     setText('branchType', currentBranch.branchType || currentBranch.type || 'Not provided');
-    setText('serviceType', currentBranch.serviceType || currentBranch.service || 'Not provided');
+    const descriptiveServices = Array.isArray(currentBranch.services)
+      ? currentBranch.services.join(', ')
+      : currentBranch.services;
+    setText(
+      'serviceType',
+      currentBranch.serviceType || currentBranch.service || descriptiveServices || 'Not provided',
+    );
     setText(
       'cityDistrict',
-      [currentBranch.city, currentBranch.district].filter(Boolean).join(', ') || 'Not provided',
+      [currentBranch.city, WusoolBranchWorkflow.locationArea(currentBranch)]
+        .filter(Boolean)
+        .join(', ') || 'Not provided',
     );
     setText('branchAddress', currentBranch.address || currentBranch.fullAddress || 'Not provided');
     setText('branchPhone', currentBranch.phone || currentBranch.phoneNumber || 'Not provided');
     setText('branchEmail', currentBranch.email || currentBranch.branchEmail || 'Not provided');
     setText('branchDescription', currentBranch.description || 'No description provided.');
+  };
+  const renderServiceConfiguration = async () => {
+    const statusElement = document.getElementById('bookableServicesStatus');
+    if (!statusElement) return;
+    const isArabic = document.documentElement.lang === 'ar';
+    try {
+      const result = await WusoolServices.getTicketServices(currentBranch.id, { manage: true });
+      const services = Array.isArray(result?.items) ? result.items : [];
+      const bookableServices = services.filter((service) => {
+        const status = String(service.status || 'published').toLowerCase();
+        return (
+          service.active !== false &&
+          service.available !== false &&
+          service.isPublished !== false &&
+          !['draft', 'disabled', 'archived'].includes(status)
+        );
+      });
+      const count = bookableServices.length;
+      statusElement.textContent = count
+        ? isArabic
+          ? `${new Intl.NumberFormat('ar-JO').format(count)} خدمة قابلة للحجز مهيأة لهذا الفرع.`
+          : `${count} bookable ${count === 1 ? 'service is' : 'services are'} configured for this branch.`
+        : isArabic
+          ? 'يمكن أن يكون الفرع ظاهرًا، لكنه لن يكون جاهزًا للحجز حتى تهيئة خدمة قابلة للحجز ونشرها.'
+          : 'The branch can be visible, but it is not ready for service booking until a bookable service is configured and published.';
+    } catch (error) {
+      statusElement.textContent = isArabic
+        ? 'تعذر تحميل حالة الخدمات الآن. افتح إدارة خدمات الفروع للمراجعة.'
+        : 'Service status is unavailable right now. Open branch service management to review it.';
+    }
   };
   const renderWorkingHours = () => {
     const container = document.getElementById('workingHoursContainer');
@@ -457,12 +506,16 @@ WusoolUI.enqueue(async () => {
     const closeSidebar = () => {
       sidebar.classList.remove('show');
       backdrop.classList.remove('show');
+      if (sidebar.contains(document.activeElement)) toggle.focus();
     };
     WusoolUI.listen(toggle, 'click', () => {
       sidebar.classList.toggle('show');
       backdrop.classList.toggle('show');
     });
     WusoolUI.listen(backdrop, 'click', closeSidebar);
+    WusoolUI.listen(document, 'keydown', (event) => {
+      if (event.key === 'Escape' && sidebar.classList.contains('show')) closeSidebar();
+    });
     WusoolUI.listen(window, 'resize', () => {
       if (window.innerWidth >= 992) {
         closeSidebar();

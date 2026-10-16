@@ -48,17 +48,10 @@ window.WusoolServiceModules.push(function registerConsumerPortal(ctx) {
     const rows = data.subscriptions.filter(
       s => s.organizationId === id && !s.isDeleted
     );
-
-    return (
-      rows
-        .filter(s => s.origin === "admin-grant")
-        .sort((a, b) =>
-          String(b.updatedAt).localeCompare(String(a.updatedAt))
-        )[0] ||
-      rows.find(s => subscriptionState(s) === "active") ||
-      rows[0] ||
-      null
-    );
+    const newest = (a, b) => String(b.updatedAt || b.startDate || b.createdAt || "")
+      .localeCompare(String(a.updatedAt || a.startDate || a.createdAt || ""));
+    const active = rows.filter(s => subscriptionState(s) === "active").sort(newest);
+    return active.find(s => s.origin === "admin-grant") || active[0] || rows.sort(newest)[0] || null;
   };
 
   ctx.requireEntitlement = (data, actor, feature) => {
@@ -237,7 +230,7 @@ window.WusoolServiceModules.push(function registerConsumerPortal(ctx) {
       snapshot[key] = value;
     }
 
-    if (snapshot.branches < data.branches.filter(b => b.organizationId === organizationId && !b.isDeleted).length) {
+    if (snapshot.branches < ctx.branchUsage(data.branches, organizationId)) {
       ctx.fail('CAPACITY_BELOW_USAGE', 'Grant capacity must cover existing branch usage.');
     }
 
@@ -252,9 +245,7 @@ window.WusoolServiceModules.push(function registerConsumerPortal(ctx) {
       snapshot[key] = entitlements[key];
     }
 
-    const usage = data.branches.filter(
-      b => b.organizationId === organizationId && !b.isDeleted
-    ).length;
+    const usage = ctx.branchUsage(data.branches, organizationId);
 
     if (snapshot.branches < usage) {
       ctx.fail(

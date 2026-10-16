@@ -88,6 +88,27 @@ window.WusoolBranchWorkflow = (() => {
     (stages.find(([key]) => missing(b).includes(key))?.[1] || 'branch-submit-review.html') +
     '?id=' +
     encodeURIComponent(b.id);
+  const resolveBranch = (branches, explicitId, fallback) => {
+    const owned = Array.isArray(branches) ? branches : [];
+    const explicit = explicitId == null ? '' : String(explicitId);
+    if (explicit) {
+      return owned.find((branch) => String(branch.id) === explicit) || null;
+    }
+    const fallbackId = fallback?.id == null ? '' : String(fallback.id);
+    return fallbackId
+      ? owned.find((branch) => String(branch.id) === fallbackId) || null
+      : null;
+  };
+  const locationArea = (branch = {}) => String(branch.district ?? branch.area ?? '');
+  const withLocationAliases = (branch = {}, value = '') => ({
+    ...branch,
+    district: String(value).trim(),
+    area: String(value).trim(),
+  });
+  const eligibleDraft = (branches, id) =>
+    resolveBranch(branches, id, null)?.status === 'draft'
+      ? resolveBranch(branches, id, null)
+      : null;
   const ar = () => typeof document !== 'undefined' && document.documentElement.lang === 'ar';
   const explain = (b) =>
     (ar()
@@ -112,6 +133,10 @@ window.WusoolBranchWorkflow = (() => {
     missing,
     complete,
     route,
+    resolveBranch,
+    locationArea,
+    withLocationAliases,
+    eligibleDraft,
     explain,
     canPublish,
     putLegacy,
