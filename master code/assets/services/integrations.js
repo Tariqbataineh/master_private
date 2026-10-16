@@ -117,29 +117,13 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
     const org = data.organizations.find((o) => o.id === branch.organizationId);
     if (!org || org.isDeleted || org.status !== 'active' || org.approvalStatus !== 'approved')
       ctx.fail('ORGANIZATION_PENDING', 'The organization must be approved and active.');
-    if(!window.WusoolBranchWorkflow.checks(branch).photos||!window.WusoolBranchWorkflow.checks(branch).aiReview)ctx.fail('BRANCH_INCOMPLETE','Demo publication requires provided evidence and its completed review. Submit to Admin without optional evidence instead.');
-    if (ctx.cfg.demoBranchPublication !== true || branch.scoreSource !== 'demo')
-      ctx.fail('DEMO_PUBLICATION_DISABLED', 'Submit this branch for administrator approval.');
-    if (branch.status === 'approved' && branch.demoPublication === true) return ctx.copy(branch);
-    branch.status = 'approved';
-    branch.isPublished = true;
-    branch.demoPublication = true;
-    branch.evidenceStatus = 'unverified';
-    branch.statusLabel = 'Published — Demo';
-    branch.completedSteps = {
-      ...branch.completedSteps,
-      submitted: true,
-    };
+    if (['pending','approved','published'].includes(branch.status)) return ctx.copy(branch);
+    branch.status = 'pending';
+    branch.isPublished = false;
+    branch.completedSteps = {...branch.completedSteps,submitted:true};
     branch.submittedAt = ctx.now();
     branch.updatedAt = ctx.now();
-    ctx.audit(
-      data,
-      a,
-      'demo-branch-published',
-      'branches',
-      branchId,
-      'Local demo publication only; no real administrator or AI verification.',
-    );
+    ctx.audit(data,a,'Submit branch for approval','branches',branchId);
     ctx.put(data);
     return ctx.copy(branch);
   };
@@ -153,6 +137,7 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
       });
       if (
         !result ||
+        result.demo===true || result.source==='demo' ||
         !['completed', 'uncertain', 'failed', 'unavailable'].includes(result.status) ||
         (result.status === 'completed' &&
           (!Number.isFinite(result.score) || result.score < 0 || result.score > 100))
@@ -165,54 +150,38 @@ window.WusoolServiceModules.push(function registerintegrations(ctx) {
       branch = data.branches.find((b) => b.id === branchId);
     if (!branch || !ctx.own(data, a, 'branches', branch))
       ctx.fail('FORBIDDEN', 'Select an owned branch.');
-    if (ctx.cfg.demoBranchAnalysis !== true)
-      ctx.fail('INTEGRATION_UNAVAILABLE', 'Demo analysis is disabled. Configure the backend.');
-    const checks = window.WusoolBranchWorkflow.checks(branch);
-    if (['details', 'workingHours', 'accessibility', 'photos'].some((k) => !checks[k]))
-      ctx.fail('BRANCH_INCOMPLETE', window.WusoolBranchWorkflow.explain(branch));
-    const answers = Object.values(branch.accessibility || {}).map((v) =>
-      String(v?.status || v).toLowerCase(),
-    );
-    const yes = answers.filter((v) => ['available', 'yes'].includes(v)).length;
-    const unknown = answers.filter((v) => ['not-sure', 'unknown'].includes(v)).length;
-    const score = Math.round((100 * yes) / Math.max(1, answers.length));
-    const result = {
-      id: ctx.id('demo-analysis'),
-      branchId,
-      status: 'completed',
-      score,
-      source: 'demo',
-      isDemo: true,
-      model: 'local-checklist-demo-v1',
-      generatedAt: ctx.now(),
-      message: 'Demo checklist estimate only. Images were not analyzed by AI.',
-      findings: [
-        {
-          category: 'declared-accessibility',
-          available: yes,
-          unknown,
-          total: answers.length,
-        },
-      ],
-      recommendations: unknown
-        ? ['Verify the unknown accessibility answers before a real assessment.']
-        : ['Connect the backend for actual photo analysis.'],
+    if (!ctx.cfg.demoBranchAnalysis)
+      ctx.fail('INTEGRATION_UNAVAILABLE', 'Demo analysis is disabled. Real AI requires a server integration.');
+    if (branch.isDeleted) ctx.fail('NOT_FOUND', 'Branch unavailable.');
+    const raw = branch.accessibility || branch.accessibilityFeatures || {};
+    const answers = Array.isArray(raw)
+      ? Object.fromEntries(raw.map(x => [x.key || x.id, x.status ?? x.value]))
+      : raw;
+    const keys = ['accessibleEntrance','entranceRamp','accessibleParking','elevator','widePathways','accessibleRestroom','seating','hearingSupport','brailleSigns','tactilePaving','staffAssistance','wheelchairAvailable','automaticDoors'];
+    const observations = keys.map(key => {
+      const input = answers[key];
+      const value = input && typeof input === 'object' ? input.status ?? input.value : input;
+      const state = value === true || ['available','yes'].includes(value) ? 'available'
+        : value === false || ['not-available','no'].includes(value) ? 'unavailable' : 'unknown';
+      return {key, state, source:'saved-declaration', confidence:null, evidenceReferences:[]};
+    });
+    const evidenceVersion = JSON.stringify({accessibility:raw,photos:branch.photos || []});
+    const review = {
+      status:'completed', source:'demo', demo:true, score:null,
+      analyzedAt:ctx.now(), evidenceVersion, observations,
+      summary:'محاكاة محلية تلخّص البيانات المسجلة فقط؛ لم تُحلل الصور ولم يُجرَ تحقق فعلي.',
+      limitations:['Not AI or field verification.','Photographs are not analyzed.','Unknown facilities remain unknown.'],
+      recommendations:observations.filter(x=>x.state==='unknown').map(x=>'تحقق من المرفق قبل الاعتماد: '+x.key),
     };
-    branch.aiReview = {
-      ...result,
-    };
-    branch.analysisId = result.id;
-    branch.accessibilityScore = score;
-    branch.score = score;
+    branch.aiReview = review;
     branch.scoreSource = 'demo';
-    branch.completedSteps = {
-      ...branch.completedSteps,
-      aiReview: true,
-    };
+    branch.accessibilityScore = null;
+    branch.score = null;
+    branch.completedSteps = {...branch.completedSteps, aiReview:true};
     branch.updatedAt = ctx.now();
-    ctx.audit(data, a, 'demo-branch-analysis', 'branches', branchId, result.message);
+    ctx.audit(data,a,'Run labelled demo accessibility summary','branches',branch.id,'No provider call, image inference, score, approval or publication.');
     ctx.put(data);
-    return ctx.copy(result);
+    return ctx.copy(review);
   };
   ctx.external = async function external(kind, input = {}, options = {}) {
     if (kind === 'ai/branch-analysis') return ctx.analyzeBranch(input.branchId);

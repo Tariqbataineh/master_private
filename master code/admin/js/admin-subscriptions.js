@@ -3,7 +3,7 @@
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
   WusoolUI.message(
-    'Local subscription status changes are development administration demonstrations. They do not confirm a processed payment.',
+    'Use Account Configuration for an audited Enterprise Admin grant with explicit entitlements. Grants do not represent a purchase or payment.',
     'info',
   );
   const service = WusoolDataService;

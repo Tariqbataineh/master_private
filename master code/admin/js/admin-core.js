@@ -161,8 +161,10 @@ WusoolUI.enqueue(async () => {
       const link = document.createElement('a');
       link.href = url;
       link.download = filename;
+      document.body.appendChild(link);
       link.click();
-      URL.revokeObjectURL(url);
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
     },
     bindCommandPalette() {
       const palette = document.getElementById('commandPalette');

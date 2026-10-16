@@ -12,6 +12,11 @@ window.WusoolServiceModules.push(function registerfacade(ctx) {
   };
   ctx.api = {
     getTicketServices: ctx.getTicketServices,
+    getPublishedServiceCatalog: async () => {
+      if (ctx.cfg.mode !== 'local') return null;
+      const data = ctx.db();
+      return { items: ctx.safe(data.branches.filter(b => ctx.visibleBranch(data, b)).flatMap(b => ctx.publishedBranchServices(data, b))) };
+    },
     saveTicketServices: ctx.saveTicketServices,
     getPlans: ctx.getPlans,
     resetAccountAccess: ctx.resetAccountAccess,
@@ -60,6 +65,23 @@ window.WusoolServiceModules.push(function registerfacade(ctx) {
     ctx.api['set' + name + 'Status'] = (entityId, status, reason) =>
       ctx.setStatus(kind, entityId, status, reason);
     ctx.api['delete' + name] = async (entityId, reason) => {
+      if (kind === 'branches' && ctx.cfg.mode === 'local') {
+        const actor = ctx.requireAccount(['Admin', 'Organization']), data = ctx.db();
+        const branch = data.branches.find(b => String(b.id) === String(entityId));
+        if (!branch) ctx.fail('NOT_FOUND', 'Branch not found.');
+        if (!ctx.own(data, actor, kind, branch)) ctx.fail('FORBIDDEN', 'Branch belongs to another account.');
+        ctx.requireEntitlement?.(data, actor, 'serviceManagement');
+        if (branch.isDeleted) return ctx.safe(branch);
+        // Archiving must not require repairing legacy contact details or destroy linked history.
+        branch.isDeleted = true;
+        branch.deletedAt = ctx.now();
+        branch.updatedAt = ctx.now();
+        branch.revision = (branch.revision || 0) + 1;
+        ctx.audit(data, actor, 'Archive branch', kind, branch.id, reason || 'Moved to Recovery Center');
+        ctx.closeRemovedHoursRequests?.(data, actor, kind, branch.id);
+        ctx.put(data);
+        return ctx.safe(branch);
+      }
       const x = await ctx.get(kind, entityId);
       if (!x) ctx.fail('NOT_FOUND', 'Record not found.');
       return ctx.save(kind, {
@@ -81,14 +103,15 @@ window.WusoolServiceModules.push(function registerfacade(ctx) {
     if (ctx.cfg.mode === 'api') return ctx.request('/audit');
     const a = ctx.requireAccount(),
       data = ctx.db();
+    ctx.requireEntitlement?.(data,a,'auditHistory');
     const dataBranchesOwned = (orgId, entityId) =>
-      data.branches.some((b) => b.id === entityId && b.organizationId === orgId);
+      data.branches.some((b) => b.id === entityId && b.organizationId === orgId && ctx.own(data,a,'branches',b));
     return ctx.copy(
       data.audit.filter(
         (x) =>
           ctx.isAdmin(a) ||
-          x.actorId === a.id ||
-          x.entityId === a.id ||
+          x.actorId === (a.accountId||a.id) ||
+          (x.entityId === a.id&&!Array.isArray(a.branchIds)) ||
           (a.role === 'Organization' && dataBranchesOwned(a.id, x.entityId)),
       ),
     );

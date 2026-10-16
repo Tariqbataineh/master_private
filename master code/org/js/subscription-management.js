@@ -1,7 +1,9 @@
+
 'use strict';
 
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
+
   WusoolUI.ready(async () => {
     const a = await WusoolServices.getCurrentAccount(),
       [subscriptions, branches] = await Promise.all([
@@ -10,103 +12,238 @@ WusoolUI.enqueue(async () => {
           organizationId: a.id,
         }),
       ]);
+
+    const access = await WusoolServices.getOrganizationAccess();
+
     const s =
-      subscriptions.items.find((s) => s.status.toLowerCase() === 'active') ||
+      access.subscription ||
+      subscriptions.items.find(
+        (s) => WusoolServices.subscriptionState(s) === 'active'
+      ) ||
       subscriptions.items[0];
+
+    // Display subscription messages in the selected language.
+    const isArabic = document.documentElement.lang === 'ar';
+
+    const statusMessage =
+      access.state === 'ready'
+        ? isArabic
+          ? 'اشتراك نشط'
+          : 'Active subscription'
+        : isArabic
+          ? `الاشتراك: ${access.reason || access.state}. حسابك وسجلك محفوظان؛ تواصل مع الأدمن لمنح أو تجديد الاشتراك.`
+          : `Subscription: ${access.reason || access.state}. Contact Admin to grant or renew access. Your login and historical data remain available.`;
+
+    WusoolUI.message(
+      statusMessage,
+      access.state === 'ready' ? 'info' : 'warning'
+    );
+
     const text = (id, v) => {
       const n = document.getElementById(id);
       if (n) n.textContent = v;
     };
+
     text('organizationName', a.name);
     text('planName', s?.planName || s?.plan || 'No subscription');
     text('billingCycle', s?.billingCycle || 'Not configured');
-    text('planBranchLimit', s?.branchLimit ? `${s.branchLimit} branches` : 'Not configured');
+
+    text(
+      'planBranchLimit',
+      s?.branchLimit ? `${s.branchLimit} branches` : 'Not configured'
+    );
+
     text(
       'planPrice',
-      s?.developmentOnly
-        ? 'Development fixture — no payment'
-        : s?.price == null
-          ? 'Not configured'
-          : s.price + ' JOD',
+      s?.origin === 'admin-grant'
+        ? 'Admin grant — no purchase or payment'
+        : s?.developmentOnly
+          ? 'Development fixture — no payment'
+          : s?.price == null
+            ? 'Not configured'
+            : s.price + ' JOD'
     );
+
     text('planPricePeriod', '');
-    text('nextPaymentDate', s?.renewalDate || 'Not configured');
+
+    text(
+      'nextPaymentDate',
+      s?.nonExpiring
+        ? 'Non-expiring Admin grant'
+        : s?.endDate || s?.renewalDate || 'Not configured'
+    );
+
     text(
       'daysUntilRenewal',
       s?.renewalDate
-        ? Math.max(0, Math.ceil((new Date(s.renewalDate) - new Date()) / 86400000))
-        : '—',
+        ? Math.max(
+            0,
+            Math.ceil(
+              (new Date(s.renewalDate) - new Date()) / 86400000
+            )
+          )
+        : '—'
     );
+
     text('usedBranchesCount', branches.total);
+
     text(
       'remainingBranchesCount',
-      s?.branchLimit ? Math.max(0, s.branchLimit - branches.total) : '—',
+      s?.branchLimit
+        ? Math.max(0, s.branchLimit - branches.total)
+        : '—'
     );
-    text('branchUsageText', branches.total + (s?.branchLimit ? ' of ' + s.branchLimit : ''));
-    text('paymentMethod', s?.paymentMethodLabel || 'No confirmed payment method');
-    text('savedCardName', s?.paymentMethodLabel || 'Use hosted payment management');
-    text('savedCardExpiry', 'No card details are stored in this frontend.');
+
+    text(
+      'branchUsageText',
+      branches.total +
+        (s?.branchLimit ? ' of ' + s.branchLimit : '')
+    );
+
+    text(
+      'paymentMethod',
+      s?.paymentMethodLabel || 'No confirmed payment method'
+    );
+
+    text(
+      'savedCardName',
+      s?.paymentMethodLabel || 'Use hosted payment management'
+    );
+
+    text(
+      'savedCardExpiry',
+      'No card details are stored in this frontend.'
+    );
+
     const progress = document.getElementById('branchUsageProgress');
+
     if (progress) {
-      const percent = s?.branchLimit ? Math.min(100, (branches.total / s.branchLimit) * 100) : 0;
+      const percent = s?.branchLimit
+        ? Math.min(100, (branches.total / s.branchLimit) * 100)
+        : 0;
+
       progress.style.width = percent + '%';
       progress.setAttribute('aria-valuenow', String(percent));
     }
+
     text(
       'branchUsageMessage',
-      s?.developmentOnly
-        ? 'Explicit local development fixture. No money was processed.'
-        : 'Limits and billing are supplied by the backend.',
+      s?.origin === 'admin-grant'
+        ? 'Admin grant. Entitlements are explicitly configured; no payment processed.'
+        : s?.developmentOnly
+          ? 'Explicit local development fixture. No money was processed.'
+          : 'Limits and billing are supplied by the backend.'
     );
+
     const features = document.getElementById('planFeatures');
-    if (features)
+
+    if (features) {
       WusoolUI.html(
         features,
-        (s?.features || []).map((v) => `<li>${WusoolUI.escape(v)}</li>`).join('') ||
-          '<li>No configured plan features.</li>',
+        (
+          s?.entitlements
+            ? Object.entries(s.entitlements).map(
+                ([k, v]) => k + ': ' + v
+              )
+            : s?.features || []
+        )
+          .map(
+            (v) => `<li>${WusoolUI.escape(v)}</li>`
+          )
+          .join('') ||
+          '<li>No configured plan features.</li>'
       );
+    }
+
     const history = document.getElementById('billingHistoryBody');
-    if (history)
+
+    if (history) {
       WusoolUI.html(
         history,
         (s?.billingHistory || [])
           .map(
             (x) =>
-              `<tr><td>${WusoolUI.escape(x.reference)}</td><td>${WusoolUI.escape(x.date)}</td><td>${WusoolUI.escape(x.amount)}</td><td>${WusoolUI.escape(x.status)}</td></tr>`,
+              `<tr><td>${WusoolUI.escape(x.reference)}</td><td>${WusoolUI.escape(x.date)}</td><td>${WusoolUI.escape(x.amount)}</td><td>${WusoolUI.escape(x.status)}</td></tr>`
           )
-          .join(''),
+          .join('')
       );
+    }
+
     document
       .getElementById('emptyBillingState')
-      ?.classList.toggle('d-none', Boolean(s?.billingHistory?.length));
-    document.querySelectorAll('#paymentMethodForm input').forEach((x) => {
-      x.disabled = true;
-      x.required = false;
-      x.value = '';
-    });
+      ?.classList.toggle(
+        'd-none',
+        Boolean(s?.billingHistory?.length)
+      );
+
+    document
+      .querySelectorAll('#paymentMethodForm input')
+      .forEach((x) => {
+        x.disabled = true;
+        x.required = false;
+        x.value = '';
+      });
+
     const hosted = async (e) => {
       e.preventDefault();
-      const result = await WusoolServices.external('payments/customer-portal', {
-        subscriptionId: s?.id,
-      });
-      if (!result?.url) throw new Error('The backend did not return a hosted payment URL.');
+
+      const result = await WusoolServices.external(
+        'payments/customer-portal',
+        {
+          subscriptionId: s?.id,
+        }
+      );
+
+      if (!result?.url) {
+        throw new Error(
+          'The backend did not return a hosted payment URL.'
+        );
+      }
+
       const url = new URL(result.url);
-      if (url.protocol !== 'https:') throw new Error('Invalid hosted payment URL.');
+
+      if (url.protocol !== 'https:') {
+        throw new Error('Invalid hosted payment URL.');
+      }
+
       location.assign(url.href);
     };
-    WusoolUI.listen(document.getElementById('updatePaymentButton'), 'click', hosted);
-    WusoolUI.listen(document.getElementById('paymentMethodForm'), 'submit', hosted);
+
+    WusoolUI.listen(
+      document.getElementById('updatePaymentButton'),
+      'click',
+      hosted
+    );
+
+    WusoolUI.listen(
+      document.getElementById('paymentMethodForm'),
+      'submit',
+      hosted
+    );
+
     const renewal = document.getElementById('autoRenewSwitch');
+
     if (renewal) {
+      renewal.disabled = s?.origin === 'admin-grant';
       renewal.checked = Boolean(s?.autoRenew);
+
       WusoolUI.listen(renewal, 'change', async () => {
         const desired = renewal.checked;
+
         try {
-          const result = await WusoolServices.external('subscriptions/auto-renew', {
-            subscriptionId: s?.id,
-            enabled: desired,
-          });
-          if (result?.autoRenew !== desired) throw new Error('Renewal change was not confirmed.');
+          const result = await WusoolServices.external(
+            'subscriptions/auto-renew',
+            {
+              subscriptionId: s?.id,
+              enabled: desired,
+            }
+          );
+
+          if (result?.autoRenew !== desired) {
+            throw new Error(
+              'Renewal change was not confirmed.'
+            );
+          }
         } catch (error) {
           renewal.checked = Boolean(s?.autoRenew);
           throw error;

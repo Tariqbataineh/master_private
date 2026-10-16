@@ -110,6 +110,8 @@ window.WusoolServiceModules.push(function registerlocal(ctx) {
           repairOwnerLinks &&
           kind === 'organizations' &&
           account.id &&
+          !account.directoryOnly && !account.imported && !account.sourceUrl &&
+          !!data.credentials[account.id] &&
           !account.isDeleted &&
           !data.memberships.some(
             (m) => m.organizationId === account.id && m.accountId === account.id,
@@ -190,6 +192,7 @@ window.WusoolServiceModules.push(function registerlocal(ctx) {
       }
       ctx.storage.local.setItem(ctx.DB, JSON.stringify(data));
     }
+    if(ctx.expireHolds(data)) ctx.storage.local.setItem(ctx.DB,JSON.stringify(data));
     return data;
   };
   ctx.put = (data) => {
@@ -223,7 +226,7 @@ window.WusoolServiceModules.push(function registerlocal(ctx) {
   ctx.current = function current(data = ctx.db()) {
     const s = ctx.session();
     if (!s) return null;
-    const collection = s.role === 'Organization' ? 'organizations' : 'users';
+    const collection = s.accountKind || (s.role === 'Organization' ? 'organizations' : 'users');
     const a = data[collection].find((x) => String(x.id) === String(s.id));
     if (s.role === 'Admin' && a?.role !== 'Admin') {
       ctx.clearSession();
@@ -241,6 +244,13 @@ window.WusoolServiceModules.push(function registerlocal(ctx) {
         'Account is unavailable. Sign in again after contacting support.',
       );
     }
+    if(s.role==='Organization'&&collection==='users'){
+      const m=data.memberships.find(m=>m.organizationId===s.organizationId&&m.accountId===a.id&&!m.isDeleted&&m.active!==false);
+      const o=data.organizations.find(o=>o.id===s.organizationId&&!o.isDeleted);
+      if(!m||!o)ctx.fail('REPRESENTATIVE_REQUIRED','Ask Admin to assign your representative account to an active institution.');
+      if(['blocked','suspended','disabled'].includes(o.status)){ctx.clearSession();ctx.fail('ACCOUNT_BLOCKED','Organization suspended. Contact Admin.');}
+      return ctx.accountDto({...o,id:o.id,accountId:a.id,organizationId:o.id,email:a.email,role:'Organization',requiresInitialSetup:a.requiresInitialSetup,representativeName:a.name,branchIds:m.branchIds??null,permissions:m.permissions??null,membershipRole:m.role});
+    }
     return ctx.accountDto({
       ...a,
       role: s.role,
@@ -253,9 +263,9 @@ window.WusoolServiceModules.push(function registerlocal(ctx) {
       ctx.fail('CREDENTIAL_CHANGE_REQUIRED', 'Set your new password before continuing.');
     if (
       a.role === 'Organization' &&
-      !ctx.db().memberships.some((m) => m.organizationId === a.id && m.accountId === a.id)
+      !ctx.db().memberships.some((m) => m.organizationId === a.id && m.accountId === (a.accountId||a.id) && !m.isDeleted && m.active!==false)
     )
-      ctx.fail('FORBIDDEN', 'Organization membership is required.');
+      ctx.fail('REPRESENTATIVE_REQUIRED', 'Ask Admin to assign an authorized representative to this organization.');
     if (roles.length && !roles.includes(a.role))
       ctx.fail('FORBIDDEN', 'This account cannot perform this operation.');
     return a;

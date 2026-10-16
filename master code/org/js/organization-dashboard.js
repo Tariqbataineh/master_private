@@ -1,154 +1,12 @@
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
-  await (async () => {
-    document.documentElement.style.visibility = 'hidden';
-    const readStoredObject = async (key) => {
-      try {
-        const storedValue = await WusoolServices.rawRead(key);
-        return storedValue ? JSON.parse(storedValue) : null;
-      } catch (error) {
-        if (WusoolServices.mode === 'api') throw error;
-        console.error(`Unable to read ${key}:`, error);
-        return null;
-      }
-    };
-    const redirectTo = (page) => {
-      window.location.replace(page);
-    };
-    const getOrganizationSession = async () => {
-      return await readStoredObject('wusoolOrganization');
-    };
-    const getActiveSubscription = async (organization) => {
-      return organization?.subscription || (await readStoredObject('wusoolActiveSubscription'));
-    };
-    const getApprovalStatus = async (organization) => {
-      return (
-        organization?.approvalStatus ||
-        (await WusoolServices.rawRead('wusoolOrganizationStatus')) ||
-        'pending'
-      ).toLowerCase();
-    };
-    const getSubscriptionStatus = async (organization) => {
-      return (
-        organization?.subscriptionStatus ||
-        (await WusoolServices.rawRead('wusoolSubscriptionStatus')) ||
-        'inactive'
-      ).toLowerCase();
-    };
-    const subscriptionIsExpired = (subscription) => {
-      if (!subscription?.renewalDate) {
-        return false;
-      }
-      const renewalDate = new Date(subscription.renewalDate);
-      const currentDate = new Date();
-      return renewalDate < currentDate;
-    };
-    const redirectInactiveSubscription = async () => {
-      const registrationStep = (
-        (await WusoolServices.rawRead('wusoolRegistrationStep')) || 'approved'
-      ).toLowerCase();
-      const selectedPlan = await readStoredObject('wusoolSelectedPlan');
-      if (registrationStep === 'payment-failed') {
-        redirectTo('./payment-failed.html');
-        return;
-      }
-      if (registrationStep === 'checkout' && selectedPlan) {
-        redirectTo('./subscription-checkout.html');
-        return;
-      }
-      redirectTo('./organization-approved.html');
-    };
-    const protectDashboard = async () => {
-      const organization = await getOrganizationSession();
-      const loggedIn = (await WusoolServices.rawRead('wusoolOrganizationLoggedIn')) === 'true';
-
-      /*
-          The organization must log in first.
-      */
-      if (!organization || !loggedIn) {
-        redirectTo('./organization-login.html');
-        return false;
-      }
-      const approvalStatus = await getApprovalStatus(organization);
-
-      /*
-          The organization is still waiting
-          for administrator approval.
-      */
-      if (approvalStatus === 'pending') {
-        redirectTo('./registration-pending.html');
-        return false;
-      }
-
-      /*
-          Any status other than approved
-          cannot access the dashboard.
-      */
-      if (approvalStatus !== 'approved') {
-        redirectTo('./organization-login.html');
-        return false;
-      }
-      const subscriptionStatus = await getSubscriptionStatus(organization);
-
-      /*
-          Approved organization without
-          an active subscription.
-      */
-      if (subscriptionStatus !== 'active') {
-        await redirectInactiveSubscription();
-        return false;
-      }
-      const activeSubscription = await getActiveSubscription(organization);
-
-      /*
-          Check whether the subscription
-          renewal date has passed.
-      */
-      if (subscriptionIsExpired(activeSubscription)) {
-        await WusoolServices.rawWrite('wusoolSubscriptionStatus', 'expired');
-        await WusoolServices.rawWrite('wusoolRegistrationStep', 'subscription-expired');
-        const updatedOrganization = {
-          ...organization,
-          subscriptionStatus: 'expired',
-        };
-        await WusoolServices.rawWrite('wusoolOrganization', JSON.stringify(updatedOrganization));
-        redirectTo('./subscription-plans.html');
-        return false;
-      }
-
-      /*
-          All access requirements are valid.
-      */
-      document.documentElement.style.visibility = 'visible';
-      return true;
-    };
-    const initializeSecureLogout = () => {
-      WusoolUI.ready(() => {
-        const logoutButton = document.querySelector(
-          '#logoutButton, ' + '#organizationLogout, ' + '[data-organization-logout]',
-        );
-        if (!logoutButton) {
-          return;
-        }
-        WusoolUI.listen(logoutButton, 'click', async (event) => {
-          event.preventDefault();
-
-          /*
-              Remove login session only.
-              Do not delete account,
-              payment, or subscription data.
-          */
-          await WusoolServices.rawRemove('wusoolOrganization');
-          await WusoolServices.rawRemove('wusoolOrganizationLoggedIn');
-          window.location.replace('./organization-login.html');
-        });
-      });
-    };
-    const accessGranted = await protectDashboard();
-    if (accessGranted) {
-      initializeSecureLogout();
-    }
-  })();
+  const access = await WusoolServices.getOrganizationAccess();
+  if (access.state !== 'ready') {
+    if (access.state === 'subscription-required') location.replace('./subscription-management.html?reason=' + encodeURIComponent(access.reason));
+    else if (access.state === 'pending') location.replace('./registration-pending.html');
+    else WusoolUI.message(access.message);
+    return;
+  }
   WusoolUI.ready(async () => {
     const organizationSidebar = document.getElementById('organizationSidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -208,7 +66,7 @@ WusoolUI.enqueue(async () => {
       } catch (error) {
         if (WusoolServices.mode === 'api') throw error;
         console.error('Unable to read organization session:', error);
-        await WusoolServices.rawRemove(sessionStorageKey);
+        await WusoolServices.logout();
         return null;
       }
     }
@@ -293,7 +151,7 @@ WusoolUI.enqueue(async () => {
       noBranchesMessage.classList.toggle('d-none', visibleRows !== 0);
     }
     async function logoutOrganization() {
-      await WusoolServices.rawRemove(sessionStorageKey);
+      await WusoolServices.logout();
       window.location.href = loginPage;
     }
     function redirectToLogin() {
@@ -310,7 +168,9 @@ WusoolUI.ready(async () => {
   async function refresh() {
     const serial = ++generation,
       a = await WusoolServices.getCurrentAccount();
-    if (a?.role !== 'Organization') return;
+    if (a?.role !== 'Organization'||a.requiresInitialSetup) return;
+    const access=await WusoolServices.getOrganizationAccess();
+    if(access.state!=='ready')return;
     const [branches, bookings, notifications, subscriptions, audit] = await Promise.all([
       WusoolServices.list('branches', {
         organizationId: a.id,
@@ -318,7 +178,7 @@ WusoolUI.ready(async () => {
       WusoolServices.list('bookings'),
       WusoolServices.list('notifications'),
       WusoolServices.list('subscriptions'),
-      WusoolServices.getAuditLog(),
+      access.subscription?.entitlements?.auditHistory===false||a.permissions?.auditHistory===false?Promise.resolve([]):WusoolServices.getAuditLog(),
     ]);
     if (serial !== generation || (await WusoolServices.getCurrentAccount())?.id !== a.id) return;
     text('totalBranches', branches.total);
@@ -353,7 +213,7 @@ WusoolUI.ready(async () => {
       );
     document.getElementById('noBranchesMessage')?.classList.toggle('d-none', branches.total > 0);
     const sub = document.querySelector('.subscription-card'),
-      s = subscriptions.items.find((x) => x.status.toLowerCase() === 'active');
+      s = access.subscription || subscriptions.items.find((x) => WusoolServices.subscriptionState(x) === 'active');
     if (sub)
       WusoolUI.html(
         sub,
@@ -388,3 +248,4 @@ WusoolUI.ready(async () => {
   window.WusoolLive?.watch('dashboard', refresh);
   WusoolUI.listen(window, 'wusool:account-changed', () => location.reload());
 });
+

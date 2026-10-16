@@ -73,21 +73,7 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
     const owns = (a, b) =>
       a.role === 'Admin' ||
       (a.role === 'User' && String(a.id) === String(b.userId)) ||
-      (a.role === 'Organization' &&
-        String(a.id) === String(b.organizationId || branch(b)?.organizationId));
-    const list = () => {
-      const a = actor();
-      return rows()
-        .filter(
-          (b) =>
-            owns(a, b) &&
-            !b.isDeleted &&
-            (a.role === 'Admin' ||
-              normalize(b.status) !== 'cancelled' ||
-              Date.now() - Date.parse(b.cancelledAt || b.updatedAt) < 86400000),
-        )
-        .map((b) => ctx.bookingDto(b, ctx.db(), 'org'));
-    };
+      (a.role === 'Organization' && ctx.own(ctx.db(),a,'bookings',b));
     function directions(b) {
       const p = branch(b) || b.locationSnapshot || {},
         finite = (x) => x != null && String(x).trim() !== '' && Number.isFinite(Number(x));
@@ -106,6 +92,8 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
           'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(destination),
       };
     }
+    // A visitor may still report "on my way" for 30 minutes after the start (same grace as no-show).
+    const DEPART_GRACE_MS = 1800000;
     function timing(b, now = Date.now()) {
       const slot = appointment(b),
         status = normalize(b.status),
@@ -119,7 +107,7 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
           state === 'not-started' &&
           day(now) === day(slot) &&
           now >= slot - 7200000 &&
-          now <= slot,
+          now <= slot + DEPART_GRACE_MS,
         late:
           active && !['arrived', 'serving', 'completed'].includes(state) && now >= slot + 900000,
         canNoShow:
@@ -182,54 +170,11 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
       return ctx.bookingDto(record, data, 'org');
     }
     function validateSchedule(b) {
-      const p = branch(b);
-      if (!p) error('INVALID_BRANCH', 'Booking branch is unavailable.');
-      const date = b.date || b.visitDate,
-        time = b.time || b.visitTime,
-        special = (p.specialHours || []).find((x) => x.date === date);
-      if (special?.status === 'closed' || (p.closedDates || []).includes(date))
-        error('BRANCH_CLOSED', 'The branch is closed on this date.');
-      const weekday = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'Asia/Amman',
-        weekday: 'long',
-      })
-        .format(new Date(appointment(b)))
-        .toLowerCase();
-      const hours =
-        special?.status === 'custom'
-          ? special
-          : Array.isArray(p.workingHours)
-            ? p.workingHours.find((x) => String(x.day || x.name).toLowerCase() === weekday)
-            : Object.entries(p.workingHours || {}).find(
-                ([key]) => key.toLowerCase() === weekday,
-              )?.[1];
-      if (hours) {
-        if (hours.isOpen === false || hours.isClosed || hours.closed)
-          error('BRANCH_CLOSED', 'The branch is closed on this day.');
-        if (
-          time < (hours.openTime || hours.open || '00:00') ||
-          time >= (hours.closeTime || hours.close || '24:00')
-        )
-          error('OUTSIDE_HOURS', 'Choose a time during branch working hours.');
-      }
-      const assisted = b.requiresAssistant || (b.support || []).includes('Staff assistance');
-      if (
-        assisted &&
-        rows().filter(
-          (x) =>
-            String(x.id) !== String(b.id) &&
-            String(x.branchId || x.placeId) === String(b.branchId || b.placeId) &&
-            (x.date || x.visitDate) === date &&
-            String(x.time || x.visitTime).slice(0, 2) === time.slice(0, 2) &&
-            (x.requiresAssistant || (x.support || []).includes('Staff assistance')) &&
-            ['pending', 'confirmed', 'in-progress'].includes(normalize(x.status)) &&
-            !x.isDeleted,
-        ).length >= 5
-      )
-        error('ASSISTANCE_FULL', 'This branch already has 5 assisted bookings in this clock hour.');
+      const data=ctx.db(),p=data.branches.find(x=>x.id===b.branchId);
+      return ctx.checkBookingSlot(data,p,b,b.id);
     }
     const create = (input) =>
-      ctx.createBooking(input, input.idempotencyKey || String(input.id || crypto.randomUUID()));
+      ctx.api.createBooking(input, input.idempotencyKey || String(input.id || crypto.randomUUID()));
     function change(
       id,
       action,
@@ -263,13 +208,13 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
         if (!timing(b, now).canDepart)
           error(
             'NOT_AVAILABLE',
-            'I am on my way is available on the booking day, from two hours before the confirmed appointment until its start.',
+            'I am on my way is available on the booking day, from two hours before the confirmed appointment until 30 minutes after its start.',
           );
         to = 'on-the-way';
         next.departedAt = new Date(now).toISOString();
       } else if (action === 'arrive') {
         if (a.role !== 'User') error('FORBIDDEN', 'Only the visitor can report arrival.');
-        if (state !== 'on-the-way' || status !== 'confirmed' || day(now) !== day(appointment(b)))
+        if (state !== 'on-the-way' || status !== 'confirmed' || day(now) !== day(appointment(b)) || now > appointment(b) + DEPART_GRACE_MS)
           error('INVALID_TRANSITION', 'Mark on the way first, on your booking day.');
         to = 'arrived';
         next.arrivedAt = new Date(now).toISOString();
@@ -278,7 +223,7 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
           error('INVALID_TRANSITION', 'Only staff can approve a pending booking.');
         if (appointment(b) <= now)
           error('PAST_DATE', 'The appointment has passed. Reschedule before approval.');
-        validateSchedule(b);
+        Object.assign(next,validateSchedule(b));
         next.status = 'confirmed';
         to = 'not-started';
       } else if (action === 'receive') {
@@ -307,40 +252,6 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
         next.status = 'cancelled';
         to = 'cancelled';
         next.cancellationReason = reason;
-      } else if (action === 'reschedule') {
-        if (!['pending', 'confirmed'].includes(status))
-          error('INVALID_TRANSITION', 'Only pending or confirmed bookings can be rescheduled.');
-        if (!staff && !(a.role === 'User' && status === 'pending'))
-          error('FORBIDDEN', 'Only staff can reschedule a confirmed booking.');
-        if (staff && !reason.trim()) error('REASON_REQUIRED', 'Explain the changed appointment.');
-        next = {
-          ...next,
-          date: patch.date,
-          time: patch.time,
-        };
-        if (patch.branchId && String(patch.branchId) !== String(b.branchId)) {
-          if (a.role !== 'Admin') error('FORBIDDEN', 'Only the admin can change the branch.');
-          const p = ctx
-            .db()
-            .branches.filter((x) => ctx.visibleBranch(ctx.db(), x))
-            .find((x) => String(x.id) === String(patch.branchId));
-          if (!p) error('INVALID_BRANCH', 'Choose an approved branch.');
-          next.branchId = p.id;
-          next.organizationId = p.organizationId;
-          next.branchName = p.name;
-          next.locationSnapshot = {
-            latitude: p.latitude,
-            longitude: p.longitude,
-            address: p.address,
-            city: p.city,
-          };
-        }
-        if (appointment(next) <= now) error('PAST_DATE', 'New booking time must be in the future.');
-        validateSchedule(next);
-        next.status = 'pending';
-        to = 'not-started';
-        for (const key of ['departedAt', 'arrivedAt', 'receivedAt', 'completedAt'])
-          delete next[key];
       } else if (action === 'correct') {
         if (a.role !== 'Admin' || !reason.trim())
           error('FORBIDDEN', 'Admin correction requires a reason.');
@@ -395,7 +306,6 @@ window.WusoolServiceModules.push(function registerjourney(ctx) {
     return {
       markNotificationsRead,
       actor,
-      list,
       create,
       change,
       branch,

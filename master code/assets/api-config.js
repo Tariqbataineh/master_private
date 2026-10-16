@@ -12,9 +12,10 @@ window.WusoolApiConfig = Object.freeze({
     path: '/auth/antiforgery',
     headerName: 'X-CSRF-TOKEN',
   }),
-  demoSubscription: true,
-  demoBranchAnalysis: true,
-  demoBranchPublication: true,
+  demoSubscription: false,
+  demoBranchAnalysis: false, // Actual analysis requires a backend/provider; no fallback to demo success.
+  demoBranchPublication: false,
+  pendingHoldMinutes: 1440, // Pending approval holds expire after 24h; null selects manual holds.
   googleMapsProvider: 'free-embed',
   googleMapsDiscoveryProvider: 'javascript', // System pins only; preserve existing location pickers.
   googleMapsEmbedKey: 'AIzaSyAeu7XcAtMFC5YJvNf_8Frxgd1_AalH1S0',

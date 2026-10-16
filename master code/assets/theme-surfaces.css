@@ -709,3 +709,10 @@ html[data-wusool-color-mode='dark']
   object-fit: cover;
   border-radius: 12px;
 }
+
+html[data-wusool-color-mode] body:not(.high-contrast) :is(.admin-sidebar, .organization-sidebar, .user-sidebar) {
+  background: var(--wt-surface);
+  color: var(--wt-text);
+  border-color: var(--wt-border);
+}
+html[data-wusool-color-mode='light'] body:not(.high-contrast) :is(.admin-sidebar, .organization-sidebar, .user-sidebar) :is(a, button, p, span) { color: var(--wt-text); }

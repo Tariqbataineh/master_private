@@ -35,7 +35,13 @@ WusoolUI.enqueue(async () => {
     hint.hidden = true;
     hint.setAttribute('role', 'status');
     password.after(hint);
-    WusoolUI.listen(password, 'keyup', (e) => (hint.hidden = !e.getModifierState('CapsLock')));
+    WusoolUI.listen(password, 'keyup', (e) => {
+  if (typeof e?.getModifierState === 'function') {
+    hint.hidden = !e.getModifierState('CapsLock');
+  } else {
+    hint.hidden = true;
+  }
+});
     WusoolUI.listen(password, 'blur', () => (hint.hidden = true));
     form.querySelectorAll('input:not([type=checkbox])').forEach((input) => {
       const group = input.closest('.input-group');

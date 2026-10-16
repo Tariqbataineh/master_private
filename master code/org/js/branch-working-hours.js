@@ -197,8 +197,11 @@ WusoolUI.enqueue(async () => {
             aria-label="${day.label} closing time"
             ${hours.isOpen ? '' : 'disabled'}
         >
+        <label>Break starts (optional)<input type="time" class="form-control break-start" value="${hours.periods?.length>1?hours.periods[0].closeTime:''}" ${hours.isOpen?'':'disabled'}></label>
+        <label>Break ends<input type="time" class="form-control break-end" value="${hours.periods?.[1]?.openTime||''}" ${hours.isOpen?'':'disabled'}></label>
     `,
     );
+    row.originalHours=JSON.parse(JSON.stringify(hours));
     return row;
   };
   const updateDayRowState = (row) => {
@@ -325,6 +328,8 @@ WusoolUI.enqueue(async () => {
         isOpen: row.querySelector('.day-toggle').checked,
         openTime: row.querySelector('.opening-time').value,
         closeTime: row.querySelector('.closing-time').value,
+        ...(()=>{const from=row.querySelector('.break-start').value,to=row.querySelector('.break-end').value;
+          const old=row.originalHours;if(old?.periods?.length>2&&from===old.periods[0].closeTime&&to===old.periods[1].openTime&&row.querySelector('.opening-time').value===old.openTime&&row.querySelector('.closing-time').value===old.closeTime)return {periods:old.periods};if(!from&&!to)return {};return {periods:[{openTime:row.querySelector('.opening-time').value,closeTime:from},{openTime:to,closeTime:row.querySelector('.closing-time').value}]};})(),
       };
     });
     return workingHours;

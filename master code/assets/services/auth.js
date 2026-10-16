@@ -42,6 +42,12 @@ window.WusoolServiceModules.push(function registerauth(ctx) {
     if (!account) ctx.fail('NOT_FOUND', 'Account not found.');
     if (account.role === 'Admin')
       ctx.fail('ADMIN_PROTECTED', 'Use the protected administrator login.');
+    if(kind==='organizations' && account.representativeAccountId && account.representativeAccountId!==account.id){
+      if(!data.memberships.some(m=>m.organizationId===account.id&&m.accountId===account.representativeAccountId&&!m.isDeleted&&m.active!==false))ctx.fail('REPRESENTATIVE_REQUIRED','Repair the primary representative assignment before resetting access.');
+      return ctx.resetAccountAccess('users',account.representativeAccountId);
+    }
+    if(kind==='organizations' && (!data.memberships.some(m=>m.organizationId===accountId&&m.accountId===accountId&&!m.isDeleted&&m.active!==false) || ((account.imported||account.directoryOnly||account.approvalStatus==='unclaimed')&&!account.adoption)))
+      ctx.fail('REPRESENTATIVE_REQUIRED','Assign an authorized project representative before resetting access. Public contact emails cannot receive login credentials.');
     const temporaryAccessCode =
         'Wusool@' + crypto.randomUUID().replace(/-/g, '').slice(0, 12) + '1',
       salt = crypto.randomUUID(),
@@ -147,17 +153,7 @@ window.WusoolServiceModules.push(function registerauth(ctx) {
         accountId: x.id,
         role: 'owner',
       });
-      if (ctx.cfg.demoSubscription)
-        data.subscriptions.push({
-          id: ctx.id('subscription'),
-          organizationId: x.id,
-          plan: 'Local development fixture',
-          planName: 'Local development fixture',
-          status: 'Active',
-          branchLimit: 50,
-          developmentOnly: true,
-          price: 0,
-        });
+
     }
     ctx.audit(data, null, 'Register', kind, x.id);
     ctx.put(data);
@@ -199,17 +195,27 @@ window.WusoolServiceModules.push(function registerauth(ctx) {
       );
       return ctx.accountDto(a);
     }
-    const data = ctx.db(),
-      kind = role === 'Organization' ? 'organizations' : 'users';
-    const a = data[kind].find(
+    const data = ctx.db();
+    let kind = role === 'Organization' ? 'organizations' : 'users';
+    let a = data[kind].find(
       (x) =>
         !x.isDeleted &&
         x.email === String(email).trim().toLowerCase() &&
         (role !== 'Admin' || x.role === 'Admin'),
     );
+    let membership;
+    if(role==='Organization'){
+      const user=data.users.find(x=>!x.isDeleted&&x.role!=='Admin'&&x.email===String(email).trim().toLowerCase());
+      const matches=user?data.memberships.filter(m=>m.accountId===user.id&&!m.isDeleted&&m.active!==false):[];
+      if(matches.length>1)ctx.fail('ORGANIZATION_SELECTION_REQUIRED','Multiple institution assignments found. Ask Admin to choose a primary institution for this login.');
+      if(user&&matches.length){a=user;kind='users';membership=matches[0];}
+      else if(user&&!a)ctx.fail('REPRESENTATIVE_REQUIRED','Ask Admin to assign your account to an institution.');
+    }
     if (!a) ctx.fail('INVALID_CREDENTIALS', 'The email or password is incorrect.');
     if (a.isDeleted || ['blocked', 'suspended', 'disabled'].includes(a.status))
       ctx.fail('ACCOUNT_BLOCKED', 'Account has been blocked or disabled. Contact support.');
+    if(role==='Organization' && kind==='organizations' && (!data.memberships.some(m=>m.organizationId===a.id&&m.accountId===a.id&&!m.isDeleted&&m.active!==false)||((a.imported||a.directoryOnly||a.approvalStatus==='unclaimed')&&!a.adoption)))
+      ctx.fail('REPRESENTATIVE_REQUIRED','Ask Admin to assign your project representative account to this institution. Public contact details do not authorize sign-in.');
     const c = data.credentials[a.id];
     if (!c?.salt || !c?.verifier)
       ctx.fail(
@@ -223,6 +229,8 @@ window.WusoolServiceModules.push(function registerauth(ctx) {
       JSON.stringify({
         id: a.id,
         role,
+        accountKind:kind,
+        ...(membership?{organizationId:membership.organizationId}:{}),
         version: data.revocations[a.id] || 0,
       }),
     );
@@ -234,10 +242,7 @@ window.WusoolServiceModules.push(function registerauth(ctx) {
         },
       }),
     );
-    return ctx.accountDto({
-      ...a,
-      role,
-    });
+    return ctx.current();
   };
   ctx.validateAccountInput = function validateAccountInput(kind, input) {
     const errors = {};
@@ -341,37 +346,40 @@ window.WusoolServiceModules.push(function registerauth(ctx) {
           },
         }),
       );
-    const data = ctx.db(),
-      a = ctx.current(data);
+    let data = ctx.db();
+    const a = ctx.current(data);
     if (!a) ctx.fail('UNAUTHENTICATED', 'Sign in first.');
     if (!a.requiresInitialSetup)
       ctx.fail('INVALID_TRANSITION', 'This account does not require first-login setup.');
-    const c = data.credentials[a.id];
+    const credentialId=a.accountId||a.id;
+    const c = data.credentials[credentialId];
     if (!c || (await ctx.hash(currentPassword, c.salt)) !== c.verifier)
       ctx.fail('INVALID_CREDENTIALS', 'The temporary password is incorrect.');
-    const salt = crypto.randomUUID();
-    data.credentials[a.id] = {
+    const salt = crypto.randomUUID(), verifier=await ctx.hash(newPassword,salt);
+    data=ctx.db();
+    const latest=ctx.current(data);
+    if((latest?.accountId||latest?.id)!==credentialId||!latest.requiresInitialSetup||data.credentials[credentialId]?.verifier!==c.verifier)ctx.fail('STALE_ACCOUNT','Account access changed during password setup. Sign in again with the latest temporary password.');
+    data.credentials[credentialId] = {
       salt,
-      verifier: await ctx.hash(newPassword, salt),
+      verifier,
     };
-    const kind = a.role === 'Organization' ? 'organizations' : 'users',
-      account = data[kind].find((x) => x.id === a.id);
+    const kind = a.accountId ? 'users' : a.role === 'Organization' ? 'organizations' : 'users',
+      account = data[kind].find((x) => x.id === credentialId);
     account.requiresInitialSetup = false;
-    data.revocations[a.id] = (data.revocations[a.id] || 0) + 1;
-    ctx.audit(data, a, 'Initial credential change', kind, a.id);
-    ctx.put(data);
+    data.revocations[credentialId] = (data.revocations[credentialId] || 0) + 1;
+    ctx.audit(data, a, 'Initial credential change', kind, credentialId);
+    const oldSession=ctx.session();
     ctx.storage.session.setItem(
       ctx.SESSION,
       JSON.stringify({
-        id: a.id,
+        ...oldSession,
+        id: credentialId,
         role: a.role,
-        version: data.revocations[a.id],
+        version: data.revocations[credentialId],
       }),
     );
-    return ctx.accountDto({
-      ...account,
-      role: a.role,
-    });
+    try{ctx.put(data);}catch(error){ctx.storage.session.setItem(ctx.SESSION,JSON.stringify(oldSession));throw error;}
+    return ctx.current(data);
   };
   ctx.seedAdmin = async function seedAdmin() {
     if (ctx.cfg.mode !== 'local')

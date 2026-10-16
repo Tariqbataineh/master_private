@@ -46,9 +46,7 @@ window.WusoolBranchWorkflow = (() => {
     return {
       details:
         !!String(b.name || b.branchName || '').trim() &&
-        !!String(b.city || '').trim() &&
-        !!String(b.address || '').trim() &&
-        !!String(b.phone || b.phoneNumber || '').trim(),
+        !!String(b.city || b.address || '').trim(),
       workingHours:
         steps.workingHours === true &&
         Object.keys(hours).length === 7 &&
@@ -76,13 +74,13 @@ window.WusoolBranchWorkflow = (() => {
       aiReview:
         steps.aiReview === true &&
         !!b.aiReview &&
-        b.aiReview.score != null &&
-        Number.isFinite(Number(b.aiReview.score)),
+        (b.aiReview.status === 'completed' ||
+          (b.aiReview.score != null && Number.isFinite(Number(b.aiReview.score)))),
     };
   }
   const missing = (b) => {
     const c = checks(b);
-    return stages.filter(([key]) => !['photos','aiReview'].includes(key)&&!c[key]).map(([key]) => key);
+    return stages.filter(([key]) => key === 'details' && !c[key]).map(([key]) => key);
   };
   const complete = (b) => missing(b).length === 0;
   const route = (b) =>

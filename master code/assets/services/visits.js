@@ -19,6 +19,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       if (!b) ctx.fail('NOT_FOUND', 'Booking not found.');
       if (!ctx.own(data, a, 'bookings', b))
         ctx.fail('FORBIDDEN', 'Booking belongs to another account.');
+      ctx.requireEntitlement?.(data,a,'bookingManagement');
       return b;
     };
     const revision = (b, r) => {
@@ -75,10 +76,11 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       delete b.receivedAt;
       delete b.departedAt;
     };
-    const locked = (fn) =>
-      typeof navigator !== 'undefined' && navigator.locks
-        ? navigator.locks.request('wusool-booking-write', fn)
-        : fn();
+    let writes=Promise.resolve();
+    const locked = fn => {
+      const run=()=>typeof navigator!=='undefined'&&navigator.locks ? navigator.locks.request('wusool-booking-write',fn) : fn();
+      const result=writes.then(run,run); writes=result.catch(()=>{}); return result;
+    };
     const baseCreate = ctx.api.createBooking,
       baseUpdate = ctx.api.updateBooking,
       baseDelete = ctx.api.deleteBooking,
@@ -92,7 +94,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
           b = data.bookings.find((b) => b.id === x.id);
         if (!b.qrToken) {
           b.qrToken = token();
-          b.durationMinutes = Number(input.durationMinutes) || 30;
+          b.durationMinutes = x.durationMinutes || 30;
           ctx.put(data);
         }
         return ctx.bookingDto(b, data, 'org');
@@ -132,7 +134,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
           if (!branch) ctx.fail('INVALID_BRANCH', 'Select a published branch.');
           Object.assign(candidate, ctx.ticketServiceSelection(data, branch, input, b));
           if(branch.id !== b.branchId && input.serviceId === undefined) Object.assign(candidate,{serviceId:null,serviceName:'',serviceSnapshot:null});
-          ctx.checkBookingSlot(data, branch, candidate, b.id);
+          Object.assign(candidate, ctx.checkBookingSlot(data, branch, candidate, b.id));
           b.appointmentProposal = {
             serviceId: candidate.serviceId ?? null, serviceName: candidate.serviceName || '', serviceSnapshot: candidate.serviceSnapshot || null,
             date: candidate.date,
@@ -141,7 +143,8 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
             organizationId: branch.organizationId,
             userId: candidate.userId,
             requiresAssistant: candidate.requiresAssistant,
-            durationMinutes: candidate.durationMinutes || 30,
+            durationMinutes: candidate.durationMinutes,
+            bufferMinutes: candidate.bufferMinutes,
             reason: input.reason,
             createdAt: stamp(),
             expiresAt: new Date(
@@ -159,7 +162,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
         const result = await baseUpdate(bookingId, input),
           fresh = ctx.db(),
           saved = fresh.bookings.find((x) => x.id === bookingId);
-        saved.durationMinutes = Number(input.durationMinutes) || saved.durationMinutes || 30;
+        saved.durationMinutes = saved.durationMinutes || 30;
         rotate(saved);
         delete saved.appointmentProposal;
         ctx.put(fresh);
@@ -186,6 +189,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       const a = local(),
         data = ctx.db(),
         b = scoped(data, a, bookingId);
+      if(['receive','finish','call','serve'].includes(action))ctx.requireEntitlement?.(data,a,'queueManagement');
       if (b.interviewId && ['cancel','reschedule','correct'].includes(action)) ctx.fail('INTERVIEW_MANAGED', 'Use Recruitment to change or cancel this interview and its linked visit.');
       if (action === 'receive') {
         const verification = b.qrVerified;
@@ -211,9 +215,10 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
         b.appointmentProposal
       )
         ctx.fail('PROPOSAL_PENDING', 'Respond to the proposed appointment before departing.');
+      let approvedSlot;
       if (action === 'approve') {
         const branch = data.branches.find((p) => p.id === b.branchId);
-        ctx.checkBookingSlot(data, branch, b, b.id);
+        approvedSlot = {...ctx.ticketServiceSelection(data,branch,b),...ctx.checkBookingSlot(data, branch, b, b.id)};
       }
       if (action === 'reschedule')
         ctx.fail(
@@ -232,6 +237,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
             })
             .catch(() => {}),
         );
+      if(approvedSlot){const fresh=ctx.db(),saved=fresh.bookings.find(x=>x.id===bookingId);Object.assign(saved,approvedSlot);ctx.put(fresh);Object.assign(result,ctx.bookingDto(saved,fresh,'org'));}
       if (action === 'receive') {
         const fresh = ctx.db(),
           saved = fresh.bookings.find((x) => x.id === bookingId);
@@ -392,7 +398,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
             ...p,
           };
           const branch = data.branches.find((x) => x.id === p.branchId);
-          ctx.checkBookingSlot(data, branch, candidate, b.id);
+          Object.assign(candidate, ctx.checkBookingSlot(data, branch, candidate, b.id));
           for (const k of [
             'serviceId', 'serviceName', 'serviceSnapshot',
             'date',
@@ -400,9 +406,9 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
             'branchId',
             'organizationId',
             'requiresAssistant',
-            'durationMinutes',
+            'durationMinutes', 'bufferMinutes',
           ])
-            b[k] = p[k];
+            b[k] = candidate[k];
           rotate(b);
           b.status = 'confirmed';
           b.journeyState = 'not-started';
@@ -456,8 +462,16 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
           )
         )
           ctx.fail('INVALID_REFERENCE', 'Choose an active visitor and branch.');
+        const requestHash = JSON.stringify(['waitlist', String(input.branchId), String(input.serviceId),
+          String(input.date), String(input.time), String(input.purpose || '')]);
         const prior = data.bookings.find((b) => b.userId === userId && b.idempotencyKey === key);
-        if (prior) return ctx.safe(prior);
+        if (prior) {
+          const previous = prior.requestHash || JSON.stringify(['waitlist', String(prior.branchId),
+            String(prior.serviceId), String(prior.date), String(prior.time), String(prior.purpose || '')]);
+          if (prior.status !== 'waitlisted' || previous !== requestHash)
+            ctx.fail('IDEMPOTENCY_CONFLICT', 'This retry key belongs to a different request.');
+          return ctx.safe(prior);
+        }
         try {
           ctx.checkBookingSlot(data, branch, {
             ...input,
@@ -493,9 +507,11 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
           status: 'waitlisted',
           journeyState: 'not-started',
           requiresAssistant: true,
-          durationMinutes: Number(input.durationMinutes) || 30,
+          durationMinutes: ctx.ticketServiceSelection(data,branch,input).serviceSnapshot.durationMinutes,
+          bufferMinutes: ctx.ticketServiceSelection(data,branch,input).serviceSnapshot.bufferMinutes,
           revision: 1,
           idempotencyKey: key,
+          requestHash,
           createdAt: stamp(),
           updatedAt: stamp(),
           qrToken: token(),
@@ -571,10 +587,11 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       if (
         !['Admin', 'Organization'].includes(a.role) ||
         !data.branches.some(
-          (p) => p.id === branchId && (a.role === 'Admin' || p.organizationId === a.id),
+          (p) => p.id === branchId && ctx.own(data,a,'branches',p),
         )
       )
         ctx.fail('FORBIDDEN', 'Branch reception access required.');
+      ctx.requireEntitlement?.(data,a,'queueManagement');
       const list = data.bookings
         .filter(
           (b) =>
@@ -617,7 +634,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       if (
         !branch ||
         !['Admin', 'Organization'].includes(a.role) ||
-        (a.role === 'Organization' && branch.organizationId !== a.id)
+        (a.role === 'Organization' && !ctx.own(data,a,'branches',branch))
       )
         ctx.fail('FORBIDDEN', 'Manage your own branch.');
       if (!String(reason || '').trim())
@@ -756,8 +773,9 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
           const branch = data.branches.find((p) => p.id === b.branchId);
           if (!branch || !ctx.visibleBranch(data, branch)) continue;
           try {
-            ctx.checkBookingSlot(data, branch, b, b.id);
+            Object.assign(b,ctx.ticketServiceSelection(data,branch,b),ctx.checkBookingSlot(data,branch,b,b.id));
             b.status = 'pending';
+            b.holdExpiresAt = ctx.holdExpiration(data,branch);
             b.revision = (b.revision || 0) + 1;
             b.updatedAt = stamp();
             notify(
@@ -820,6 +838,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
       if (ctx.cfg.mode === 'api') return ctx.request('/exports/me');
       const a = local(),
         data = ctx.db();
+      ctx.requireEntitlement?.(data,a,'reporting');
       const result = {
         format: 'wusool-portable-v1',
         exportedAt: stamp(),
@@ -836,7 +855,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
         ...result,
         account: ctx.accountDto(a),
         branches: data.branches
-          .filter((b) => a.role === 'Organization' && b.organizationId === a.id)
+          .filter((b) => a.role === 'Organization' && ctx.own(data,a,'branches',b))
           .map(ctx.safe),
         bookings: data.bookings
           .filter((b) => ctx.own(data, a, 'bookings', b))
@@ -884,7 +903,7 @@ window.WusoolServiceModules.push(function registervisits(ctx) {
               ? live
                 ? 'available'
                 : 'not-available'
-              : place.accessibility?.[key];
+              : (()=>{const a=place.accessibility||place.accessibilityFeatures||{},raw=Array.isArray(a)?a.find(x=>(x.key||x.id)===key):a[key],v=raw&&typeof raw==='object'?raw.status||raw.value:raw;return v===true?'available':v===false?'not-available':v;})();
         return {
           key,
           status:

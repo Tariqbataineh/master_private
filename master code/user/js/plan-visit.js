@@ -31,6 +31,8 @@ WusoolUI.enqueue(async () => {
     if (navbarUserName) navbarUserName.textContent = (await WusoolServices.rawRead('wusool-user-name')) || 'User';
     const parameters = new URLSearchParams(window.location.search);
     const requestedPlaceId = parameters.get('placeId') || 1;
+    // Optional service preselection from the institution portal. Never bypass existing validation.
+    const requestedService = parameters.get('service') || '';
     const setMinimumDate = () => {
       const formattedDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Amman', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
       visitDate.min = formattedDate;
@@ -44,13 +46,13 @@ WusoolUI.enqueue(async () => {
         placeSelect.appendChild(option);
       });
       const placeExists = visitPlaces.some((place) => {
-        return place.id === requestedPlaceId;
+        return String(place.id) === String(requestedPlaceId);
       });
       placeSelect.value = placeExists ? requestedPlaceId : visitPlaces[0].id;
     };
     const getSelectedPlace = () => {
       return visitPlaces.find((place) => {
-        return place.id === placeSelect.value;
+        return String(place.id) === String(placeSelect.value);
       });
     };
     const populateBranches = () => {
@@ -72,6 +74,10 @@ WusoolUI.enqueue(async () => {
         option.textContent = destination;
         destinationSelect.appendChild(option);
       });
+      // Preselect only an option that this selected place actually offers.
+      if (requestedService && Array.from(destinationSelect.options).some((option) => option.value === requestedService)) {
+        destinationSelect.value = requestedService;
+      }
     };
     const getSelectedSupport = () => {
       return Array.from(supportInputs)

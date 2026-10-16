@@ -248,6 +248,10 @@ WusoolUI.enqueue(async () => {
   };
   window.addEventListener('wusool:data-changed', () => refreshSupport().catch(WusoolUI.error));
   window.addEventListener('storage', () => refreshSupport().catch(WusoolUI.error));
+  window.WusoolLive?.watch('admin-support', async () => {
+    if (!document.getElementById('ticketModal').classList.contains('show')) await loadOptions();
+    await refreshSupport();
+  });
   await loadOptions();
   await refreshSupport();
 });

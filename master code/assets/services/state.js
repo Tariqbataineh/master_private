@@ -2,6 +2,7 @@
 // state: registers responsibilities against a private shared context.
 window.WusoolServiceModules.push(function registerstate(ctx) {
   const accountVersions = new Map();
+  const selectedSubscription=async(a)=>ctx.cfg.mode==='local'&&ctx.subscriptionFor?ctx.subscriptionFor(ctx.db(),a.id):(await ctx.list('subscriptions')).items.find(s=>ctx.api.subscriptionState?.(s)==='active')||null;
   ctx.entityKeys = {
     wusoolOrganizations: 'organizations',
     wusoolBranches: 'branches',
@@ -93,10 +94,9 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
         approvalStatus: a.approvalStatus,
       };
       if (a.role === 'Organization') {
-        const subs = (await ctx.list('subscriptions')).items;
-        x.subscription = subs[0] || null;
+        x.subscription = await selectedSubscription(a);
         x.subscriptionStatus =
-          x.subscription?.status?.toLowerCase() === 'active' ? 'active' : 'inactive';
+          ctx.api.subscriptionState?.(x.subscription) || 'inactive';
       }
       return JSON.stringify(x);
     }
@@ -105,13 +105,9 @@ window.WusoolServiceModules.push(function registerstate(ctx) {
     if (key === 'wusoolAdminProfile') return a?.role === 'Admin' ? JSON.stringify(a) : null;
     if (key === 'wusool-user-name') return a?.name || null;
     if (key === 'wusoolOrganizationStatus') return a?.approvalStatus || null;
-    if (key === 'wusoolSubscriptionStatus')
-      return a?.role === 'Organization' &&
-        (await ctx.list('subscriptions')).items.some((x) => x.status.toLowerCase() === 'active')
-        ? 'active'
-        : 'inactive';
+    if (key === 'wusoolSubscriptionStatus')return a?.role==='Organization'?ctx.api.subscriptionState(await selectedSubscription(a)):'inactive';
     if (key === 'wusoolActiveSubscription')
-      return JSON.stringify((await ctx.list('subscriptions')).items[0] || null);
+      return JSON.stringify(a?await selectedSubscription(a):null);
     if (key === 'wusoolAuditLog') return JSON.stringify(await ctx.api.getAuditLog());
     if (key === 'wusoolOrganizationAuditLog')
       return JSON.stringify(

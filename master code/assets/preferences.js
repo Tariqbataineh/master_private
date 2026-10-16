@@ -60,12 +60,13 @@ if (/\/(?:my-tickets|my-visits|visitor-tickets|admin-tickets)\.html$/.test(locat
   description.dataset.wusoolAr = descriptionAr;
   description.dataset.wusoolEn = descriptionEn;
 
-  description.textContent =
-    document.documentElement.lang === 'ar'
-      ? descriptionAr
-      : descriptionEn;
+  const descriptionText = document.documentElement.lang === 'ar' ? descriptionAr : descriptionEn;
+  if (description.textContent !== descriptionText) description.textContent = descriptionText;
 }
-    if(title.tagName!=='H1'){title.setAttribute('role','heading');title.setAttribute('aria-level','1');}
+    if(title.tagName!=='H1'){
+      if(title.getAttribute('role')!=='heading')title.setAttribute('role','heading');
+      if(title.getAttribute('aria-level')!=='1')title.setAttribute('aria-level','1');
+    }
     heading.classList.add('wu-title-only');
     for(const text of heading.querySelectorAll('p,nav,.section-label,.page-label,.header-label,.header-eyebrow,.eyebrow,.recommendations-label,.recruit-v2-hero-kicker,.recruitment-kicker,.dashboard-date')){
       if(!text.contains(title)&&!text.querySelector('button,input,select,a.btn')&&!text.closest('.wu-heading-actions'))text.classList.add('wu-heading-secondary');
@@ -216,7 +217,7 @@ if (/\/(?:my-tickets|my-visits|visitor-tickets|admin-tickets)\.html$/.test(locat
   }
   function mount() {
     const sidebar=document.querySelector('#userSidebar,#organizationSidebar,#adminSidebar');
-    let host=sidebar?.querySelector('.user-sidebar-footer,.sidebar-footer,.sidebar-account')||sidebar;
+    let host=sidebar?.querySelector('.user-sidebar-footer,.sidebar-footer,.sidebar-account')||sidebar||document.querySelector('.app-shell .header-tools,.wsp-global-links');
     if(!host) {
       const privatePage=/\/user\/html\//.test(location.pathname)||(/\/(org|admin)\/html\//.test(location.pathname)&&document.querySelector('#organizationSidebarContainer,#adminSidebarContainer'));
       if(privatePage)return;

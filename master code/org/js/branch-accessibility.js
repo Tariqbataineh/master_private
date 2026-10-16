@@ -1,3 +1,4 @@
+
 WusoolUI.enqueue(async () => {
   if (!(await WusoolUI.guard())) return;
   const defaultAccessibilityFeatures = [
@@ -204,11 +205,12 @@ WusoolUI.enqueue(async () => {
   const renderMedia = () => {
     const floor=getFloor(),host=document.getElementById('accessibilityFloorMedia');host.replaceChildren();
     if(!floor)return;
-    for(const [key,label] of [['stairs','Stairs / الدرج'],['elevator','Elevator / المصعد'],['ramp','Ramp / المنحدر']]){
+    const isArabic = document.documentElement.lang === 'ar';
+    for(const [key,label] of [['stairs',isArabic?'الدرج':'Stairs'],['elevator',isArabic?'المصعد':'Elevator'],['ramp',isArabic?'المنحدر':'Ramp']]){
       const applicable= key==='stairs' ? floor.accessibility.stairs==='available' : floor.accessibility[key==='ramp'?'entranceRamp':'elevator']==='available';
       if(!applicable)continue;
       const wrap=document.createElement('section');wrap.className='border rounded-3 p-3 mb-3';
-      wrap.innerHTML=`<h3 class="h6">${label} — ${esc(floor.name)}</h3><p class="small text-muted">Attach at least one photo for this floor only. Camera or gallery supported.</p><input type="file" accept="image/*" multiple aria-label="${label} photos" class="form-control mb-2"><button type="button" class="btn btn-outline-wusool btn-sm mb-2" data-camera>Open Camera / فتح الكاميرا</button><div class="d-flex flex-wrap gap-2" data-thumbs></div>`;
+      wrap.innerHTML=`<h3 class="h6">${label} — ${esc(floor.name)}</h3><p class="small text-muted">Attach at least one photo for this floor only. Camera or gallery supported.</p><input type="file" accept="image/*" multiple aria-label="${label} photos" class="form-control mb-2"><button type="button" class="btn btn-outline-wusool btn-sm mb-2" data-camera>${isArabic ? 'فتح الكاميرا' : 'Open Camera'}</button><div class="d-flex flex-wrap gap-2" data-thumbs></div>`;
       const gallery=wrap.querySelector('input');
       const camera=document.createElement('input');camera.type='file';camera.accept='image/*';camera.setAttribute('capture','environment');camera.hidden=true;wrap.append(camera);
       wrap.querySelector('[data-camera]').onclick=()=>camera.click();

@@ -20,9 +20,7 @@ WusoolUI.enqueue(async () => {
       if (button) {
         button.disabled = !branch || !window.WusoolBranchWorkflow.complete(branch);
         button.textContent =
-          WusoolServices.mode === 'local'
-            ? t('إنهاء الإجراءات ونشر الفرع تجريبيًا', 'Finish setup and publish demo branch')
-            : t('إنهاء الإجراءات وإرسال للموافقة', 'Finish setup and submit for approval');
+          t('إنهاء الإجراءات وإرسال للموافقة', 'Finish setup and submit for approval');
       }
       if (!results) return;
       results.classList.remove('d-none');
@@ -31,10 +29,10 @@ WusoolUI.enqueue(async () => {
         complete = window.WusoolBranchWorkflow.checks(branch || {}).aiReview;
       WusoolUI.html(
         results,
-        `<article class="card p-4"><div class="alert ${demo ? 'alert-warning' : 'alert-info'}" role="status">${escape(demo ? t('تحليل تجريبي لتكملة الإجراءات. النتيجة محسوبة من إجابات الإتاحة؛ الصور لم يتم تحليلها بذكاء اصطناعي حقيقي.', 'Demo analysis to complete setup. The estimate uses accessibility answers; images have not been analyzed by real AI.') : t('التحليل يتم عبر الخادم المتصل.', 'Analysis runs through the connected backend.'))}</div>${complete ? `<h2>${escape(t('نتيجة مراجعة الإتاحة', 'Accessibility review result'))}: ${escape(review.score)} / 100</h2><p>${escape(review.source === 'demo' ? t('تقييم تجريبي — يحتاج تحققًا فعليًا', 'Demo estimate — requires real verification') : t('نتيجة التحليل من الخادم', 'Backend analysis result'))}</p>` : ''}<p>${escape(t('بعد اكتمال التحليل يمكنك متابعة المراجعة النهائية وإرسال الفرع للأدمن.', 'After analysis, continue to final review and submit the branch to the administrator.'))}</p><button type="button" id="runAnalysisButton" class="btn btn-wusool align-self-start">${escape(demo ? t('تشغيل التحليل التجريبي', 'Run demo analysis') : t('تشغيل تحليل AI', 'Run AI analysis'))}</button><div id="analysisError" class="mt-3" role="alert"></div></article>`,
+        `<article class="card p-4"><div class="alert ${demo ? 'alert-warning' : 'alert-info'}" role="status">${escape(demo ? t('تحليل تجريبي لتكملة الإجراءات. ملخص للإجابات المحفوظة فقط؛ لا توجد درجة ولا تحليل صور ولا تحقق فعلي.', 'Demo analysis to complete setup. Saved answers only; no score, image analysis or real verification.') : t('التحليل يتم عبر الخادم المتصل.', 'Analysis runs through the connected backend.'))}</div>${complete ? `<h2>${escape(t('نتيجة مراجعة الإتاحة', 'Accessibility review result'))}: ${review.score == null ? escape(t('بدون درجة — محاكاة فقط','No score — simulation only')) : escape(review.score)+' / 100'}</h2><p>${escape(review.source === 'demo' ? t('تقييم تجريبي — يحتاج تحققًا فعليًا', 'Demo estimate — requires real verification') : t('نتيجة التحليل من الخادم', 'Backend analysis result'))}</p>` : ''}<p>${escape(t('بعد اكتمال التحليل يمكنك متابعة المراجعة النهائية وإرسال الفرع للأدمن.', 'After analysis, continue to final review and submit the branch to the administrator.'))}</p><button type="button" id="runAnalysisButton" class="btn btn-wusool align-self-start">${escape(demo ? t('تشغيل التحليل التجريبي', 'Run demo analysis') : t('تشغيل تحليل AI', 'Run AI analysis'))}</button><div id="analysisError" class="mt-3" role="alert"></div></article>`,
       );
       const analyze = document.getElementById('runAnalysisButton');
-      analyze.disabled = !branch || !(branch.photos||[]).length;
+      analyze.disabled = !branch;
       WusoolUI.listen(analyze, 'click', async () => {
         analyze.disabled = true;
         try {
@@ -72,7 +70,7 @@ WusoolUI.enqueue(async () => {
       }
       const dialog = document.createElement('dialog');
       dialog.className = 'wusool-initial-dialog';
-      dialog.innerHTML = `<form method="dialog"><h2>${escape(t('إنهاء إجراءات الفرع', 'Finish branch setup'))}</h2><p>${escape(t('هل تريد نشر الفرع للمستخدمين في النسخة التجريبية؟ سيظهر التقييم كتجريبي وليس توثيق AI حقيقي.', 'Publish this branch to users in the local demo? The score remains a demo estimate, not real AI verification.'))}</p><p role="alert" data-error></p><div class="d-flex gap-2"><button class="btn btn-light" value="cancel">${escape(t('إلغاء', 'Cancel'))}</button><button type="button" class="btn btn-wusool" data-publish>${escape(t('تأكيد وإنهاء الإجراءات', 'Confirm and finish setup'))}</button></div></form>`;
+      dialog.innerHTML = `<form method="dialog"><h2>${escape(t('إنهاء إجراءات الفرع', 'Finish branch setup'))}</h2><p>${escape(t('إرسال الفرع إلى مراجعة الأدمن؟ ملخص الديمو لا يمنح موافقة أو نشرًا.', 'Submit the branch for administrator review? The demo summary grants no approval or publication.'))}</p><p role="alert" data-error></p><div class="d-flex gap-2"><button class="btn btn-light" value="cancel">${escape(t('إلغاء', 'Cancel'))}</button><button type="button" class="btn btn-wusool" data-publish>${escape(t('تأكيد وإنهاء الإجراءات', 'Confirm and finish setup'))}</button></div></form>`;
       document.body.append(dialog);
       dialog.addEventListener('close', () => dialog.remove());
       dialog.showModal();
@@ -84,8 +82,8 @@ WusoolUI.enqueue(async () => {
           dialog.close();
           WusoolUI.message(
             t(
-              'اكتملت الإجراءات وتم نشر الفرع تجريبيًا للمستخدمين.',
-              'Setup completed and branch published to demo users.',
+              'تم إرسال الفرع للمراجعة؛ النشر يحتاج قرار الأدمن.',
+              'Branch submitted for review. Publication requires an administrator decision.',
             ),
             'success',
           );

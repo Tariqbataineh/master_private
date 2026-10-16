@@ -102,6 +102,10 @@ window.WusoolUI = (() => {
       message('This page requires a different account role.');
       return false;
     }
+    if(role==='Organization'){
+      const access=await WusoolServices.getOrganizationAccess();
+      if(access.state==='representative-required') {message(access.message);return false;}
+    }
     return true;
   }
   async function completeFirstLogin(account, temporaryPassword) {

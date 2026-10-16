@@ -80,6 +80,7 @@ window.WusoolServiceModules.push(function registercore(ctx) {
               'hoursRevision',
               'hoursUpdatedAt',
               'requiresInitialSetup',
+              'accountId','organizationId','branchIds','permissions','membershipRole',
             ]
               .filter((k) => k in a)
               .map((k) => [k, a[k]]),
@@ -88,7 +89,7 @@ window.WusoolServiceModules.push(function registercore(ctx) {
   ctx.audit = function audit(data, a, action, entityType, entityId, reason = '') {
     data.audit.unshift({
       id: ctx.id('audit'),
-      actorId: a?.id || null,
+      actorId: a?.accountId || a?.id || null,
       actor: a?.name || 'Unauthenticated registration',
       action,
       entityType,
@@ -100,10 +101,13 @@ window.WusoolServiceModules.push(function registercore(ctx) {
     });
   };
   ctx.isAdmin = (a) => a?.role === 'Admin';
+  ctx.publicBranchDto = b => ctx.safe(Object.fromEntries(Object.entries(b).filter(([key])=>!['ticketServices','notes','adminNotes','adminFeedback','navigationDraft','navigationVersions','reviewedBy','approvedBy'].includes(key))));
   ctx.visibleBranch = function visibleBranch(data, b) {
     const o = data.organizations.find((x) => x.id === b.organizationId);
     return (
-      window.WusoolBranchWorkflow.complete(b) &&
+      !!String(b.name || b.branchName || "").trim() &&
+      !!String(b.city || b.address || "").trim() &&
+      b.active !== false && b.isPublished !== false &&
       !b.isDeleted &&
       ['approved', 'published'].includes(b.status) &&
       o &&
@@ -112,8 +116,29 @@ window.WusoolServiceModules.push(function registercore(ctx) {
       o.approvalStatus === 'approved'
     );
   };
+  ctx.holdExpiration = (data, branch) => {
+    const minutes=Object.hasOwn(branch,'pendingHoldMinutes')?branch.pendingHoldMinutes:Object.hasOwn(data.settings,'pendingHoldMinutes')?data.settings.pendingHoldMinutes:ctx.cfg.pendingHoldMinutes??null;
+    if(minutes===null) return null; // Explicit manual approval: holds remain until staff decide.
+    if(!Number.isInteger(minutes)||minutes<1||minutes>43200) ctx.fail('VALIDATION_ERROR','Pending hold must be 1–43200 minutes or null for manual approval.');
+    return new Date(Date.now()+minutes*60000).toISOString();
+  };
+  ctx.expireHolds = data => {
+    let changed=false;
+    for(const b of data.bookings) if(!b.isDeleted&&b.status==='pending'&&b.holdExpiresAt&&Date.parse(b.holdExpiresAt)<=Date.now()) {
+      b.status='cancelled';b.cancelledAt=ctx.now();b.updatedAt=b.cancelledAt;b.cancellationReason='Pending approval hold expired';b.revision=(b.revision||0)+1;
+      b.journeyHistory=[...(b.journeyHistory||[]),{id:ctx.id('history'),event:'hold-expired',actorRole:'System',at:b.cancelledAt}];
+      for(const ownerId of new Set([b.userId,b.organizationId])) {
+        const automationKey='hold-expired:'+b.id+':'+b.holdExpiresAt;
+        if(!data.notifications.some(n=>n.ownerId===ownerId&&n.automationKey===automationKey)) data.notifications.push({id:ctx.id('notification'),ownerId,bookingId:b.id,automationKey,title:'Reservation hold expired',message:b.reference||b.id,status:'unread',createdAt:b.cancelledAt});
+      }
+      ctx.audit(data,{id:'system',name:'Automation'},'hold-expired','bookings',b.id);changed=true;
+    }
+    return changed;
+  };
   ctx.own = function own(data, a, kind, x) {
     if (ctx.isAdmin(a)) return true;
+    if(a?.role==='Organization'&&Array.isArray(a.branchIds)&&kind==='branches'&&!a.branchIds.includes(x.id))return false;
+    if(a?.role==='Organization'&&Array.isArray(a.branchIds)&&['bookings','tickets','reviews'].includes(kind)&&x.branchId&&!a.branchIds.includes(x.branchId))return false;
     if (kind === 'branches' || kind === 'subscriptions' || kind === 'applications')
       return a?.role === 'Organization' && x.organizationId === a.id;
     if (kind === 'memberships')

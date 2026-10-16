@@ -172,7 +172,7 @@ WusoolUI.enqueue(async () => {
                             </td>
 
                             <td>
-                                <div class="action-menu"><button class="btn btn-sm btn-outline-primary" type="button" data-edit-hours-id="${WusoolUI.escape(item.id)}" data-hours-kind="branches"><i class="bi bi-clock" aria-hidden="true"></i> Working hours</button>
+                                <p class="small text-muted">${WusoolUI.escape(item.isPublished===false ? 'Not published. Use Approve to explicitly publish after review.' : !['approved','published'].includes(item.status) ? 'Not public: administrator approval is required.' : 'Approved. Booking additionally requires published services and operating hours.')}</p><div class="action-menu"><button class="btn btn-sm btn-outline-primary" type="button" data-edit-hours-id="${WusoolUI.escape(item.id)}" data-hours-kind="branches"><i class="bi bi-clock" aria-hidden="true"></i> Working hours</button>
                                     <button
                                         class="btn btn-sm btn-outline-secondary"
                                         data-view-id="${WusoolUI.escape(item.id)}"
@@ -188,7 +188,7 @@ WusoolUI.enqueue(async () => {
                                     </button>
 
                                     ${
-                                      item.status !== 'approved'
+                                      item.status !== 'approved' || item.isPublished === false
                                         ? `
                                                 <button
                                                     class="btn btn-sm btn-outline-success"
@@ -320,7 +320,7 @@ WusoolUI.enqueue(async () => {
       const id = statusButton.dataset.statusId;
       const status = statusButton.dataset.statusValue;
       if (!(await WusoolAdmin.confirm(`Change branch status to ${status}?`))) return;
-      await service.setBranchStatus(id, status);
+      await service.saveBranch({id,status,isPublished:['approved','published'].includes(status),reason:'Explicit administrator publication decision'});
       await renderAll();
       WusoolAdmin.toast(`Branch status changed to ${status}.`);
     }

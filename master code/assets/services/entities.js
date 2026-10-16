@@ -32,6 +32,8 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
       x.phone = x.phone || x.phoneNumber || '';
     }
     if (kind === 'branches') {
+      for(const key of ['assistanceCapacity','capacity','minAdvanceMinutes','maxAdvanceDays','pendingHoldMinutes'])
+        if(key in input && input[key]!==null && (!Number.isInteger(input[key])||input[key]<(['pendingHoldMinutes','capacity'].includes(key)?1:0))) ctx.fail('VALIDATION_ERROR','Invalid branch configuration: '+key);
       x.name =
         input.branchName && input.branchName !== old?.branchName
           ? input.branchName
@@ -67,6 +69,8 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
         : null;
       x.score = x.accessibilityScore;
       x.scoreSource = ['ai', 'demo'].includes(old?.scoreSource) ? old.scoreSource : null;
+      if('accessibility' in input && JSON.stringify(input.accessibility)!==JSON.stringify(old?.accessibility)) {x.accessibilityDeclaredBy=a.id;x.accessibilityDeclaredAt=ctx.now();}
+      x.aiReview = old?.aiReview || null;
       x.photos = x.photos || [];
       if (ctx.branchMedia) {
         x.photos=x.photos.map(p=>ctx.branchMedia.metadata(p));
@@ -99,7 +103,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
         x.accessibilityScore = null;
         x.score = null;
         x.scoreSource = null;
-        if (['approved', 'published'].includes(x.status)) x.status = 'draft';
+        // Declared facilities may change without fabricating an approval or AI result.
       }
       if (
         x.accessibilityScore != null &&
@@ -119,6 +123,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
       )
         ctx.fail('FORBIDDEN', 'Only an administrator can approve a branch.');
       if (a?.role === 'Organization') {
+        if(input.isPublished===true && old?.isPublished!==true) ctx.fail('FORBIDDEN','Administrator publication review is required.');
         x.evidenceStatus = 'unverified';
         if (
           old &&
@@ -241,18 +246,13 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
     let items = data[kind];
     if (!Array.isArray(items)) ctx.fail('INVALID_ENTITY', 'Unknown entity.');
     items = items.filter((x) => options.includeDeleted || !x.isDeleted);
-    if (kind === 'bookings' && !ctx.isAdmin(a))
-      items = items.filter(
-        (x) =>
-          x.status !== 'cancelled' ||
-          Date.now() - Date.parse(x.cancelledAt || x.updatedAt) < 86400000,
-      );
+    // Authorized users retain their cancelled booking history; ownership is checked below.
     if (!ctx.isAdmin(a)) {
       if (kind === 'branches')
         items = items.filter((x) => ctx.visibleBranch(data, x) || ctx.own(data, a, kind, x));
       else if (kind === 'reviews')
         items = items.filter((x) => a?.role === 'Organization'
-          ? data.branches.some(b => b.id === x.branchId && b.organizationId === a.id)
+          ? data.branches.some(b => b.id === x.branchId && ctx.own(data,a,'branches',b))
           : x.status === 'Visible' || ctx.own(data, a, kind, x));
       else if (kind === 'organizations')
         items = items.filter(
@@ -308,6 +308,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
                     .map((k) => [k, x[k]]),
                 ),
               )
+            : kind==='branches' && !ctx.own(data,a,kind,x) ? ctx.publicBranchDto(x)
             : ['users', 'organizations'].includes(kind)
               ? ctx.accountDto(x)
               : ctx.safe(x),
@@ -377,6 +378,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
         ...window.WusoolLocation.fields(input),
       };
     if (ctx.cfg.mode === 'api' && kind === 'branches') {
+      if(input.isPublished===true && (await ctx.getCurrentAccount())?.role!=='Admin') ctx.fail('FORBIDDEN','Administrator publication review is required.');
       input = {
         ...input,
       };
@@ -391,7 +393,6 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
         'approvedAt',
         'evidenceStatus',
         'demoPublication',
-        'isPublished',
         'statusLabel',
       ])
         delete input[key];
@@ -407,6 +408,9 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
       old = data[kind]?.find((x) => String(x.id) === String(input.id));
     if (old && !ctx.own(data, a, kind, old))
       ctx.fail('FORBIDDEN', 'Record belongs to another account.');
+    if(kind==='memberships')ctx.fail('USE_ASSIGNMENT_API','Use the audited representative assignment action.');
+    if(kind==='organizations' && 'representativeAccountId' in input && input.representativeAccountId!==old?.representativeAccountId)ctx.fail('USE_ASSIGNMENT_API','Use the explicit representative assignment action.');
+    if(kind==='subscriptions'&&!old&&(input.origin==='admin-grant'||input.entitlements))ctx.fail('USE_GRANT_API','Use the audited Enterprise grant action.');
     if (
       !old &&
       !ctx.isAdmin(a) &&
@@ -420,7 +424,33 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
     if (kind === 'reviews' && old && !ctx.isAdmin(a) &&
         (old.moderationLocked || old.approvedAt || ['visible','published','approved'].includes(String(old.status).toLowerCase())))
       ctx.fail('REVIEW_LOCKED', 'This review was approved by Admin and can no longer be changed or deleted.');
+    for (const key of ['isDeleted','active','isPublished','bookingEnabled'])
+      if (key in input && typeof input[key] !== 'boolean') ctx.fail('VALIDATION_ERROR', key + ' must be true or false.');
+    if (kind === 'branches' && 'ticketServices' in input && JSON.stringify(input.ticketServices) !== JSON.stringify(old?.ticketServices))
+      ctx.fail('USE_SERVICE_API', 'Configure services through the branch service editor.');
+    if(['organizations','branches'].includes(kind)) for(const key of ['sourceUrl','source','imported','directoryOnly','provenance','adoption'])
+      if(old && key in old && key in input && JSON.stringify(old[key])!==JSON.stringify(input[key])) ctx.fail('VALIDATION_ERROR','Imported provenance must be preserved: '+key);
+    if(['organizations','branches'].includes(kind)) {
+      for(const key of ['website','officialUrl','sourceUrl']) if(input[key]) {let url;try{url=new URL(input[key]);}catch{ctx.fail('VALIDATION_ERROR','Enter a valid '+key+' URL.');}if(!['https:','http:'].includes(url.protocol))ctx.fail('VALIDATION_ERROR','Use an HTTP or HTTPS '+key+' URL.');}
+      for(const key of ['phone','phoneNumber']) if(input[key]&&!/^[+\d\s()-]{7,24}$/.test(String(input[key]))) ctx.fail('VALIDATION_ERROR','Enter a valid contact phone number.');
+    }
+    if(kind==='branches'&&a.role==='Organization')ctx.requireEntitlement?.(data,a,'serviceManagement');
+    if(kind==='documents'&&a.role==='Organization')ctx.requireEntitlement?.(data,a,'accessibilityEvidence');
+    if(kind==='subscriptions' && old?.origin==='admin-grant' && ['entitlements','origin','organizationId','grantHistory','grantedBy','startDate','endDate','nonExpiring','plan','branchLimit','paymentStatus','price'].some(k=>k in input&&JSON.stringify(input[k])!==JSON.stringify(old[k])))
+      ctx.fail('USE_GRANT_API','Edit an Enterprise grant through the audited grant action.');
     const x = ctx.normalize(kind, input, old, a);
+    if (kind === 'branches' && 'assistanceResources' in input) {
+      const resources = input.assistanceResources;
+      if (!Array.isArray(resources) || resources.length > 100 || new Set(resources.map(r => r?.id)).size !== resources.length)
+        ctx.fail('VALIDATION_ERROR', 'Provide at most 100 distinct assistant resources.');
+      for (const resource of resources) {
+        if (!resource || typeof resource.id !== 'string' || !resource.id.trim() || resource.id.length > 120 || ('active' in resource && typeof resource.active !== 'boolean'))
+          ctx.fail('VALIDATION_ERROR', 'Invalid assistant resource.');
+        if (resource.branchIds && (!Array.isArray(resource.branchIds) || !resource.branchIds.includes(x.id) || resource.branchIds.some(id => id !== x.id && !data.branches.some(b => b.id === id && b.organizationId === x.organizationId && !b.isDeleted))))
+          ctx.fail('INVALID_REFERENCE', 'Assistant branch assignments must belong to this organization.');
+        if (resource.workingHours) ctx.hours.normalize(resource);
+      }
+    }
     if (
       kind === 'branches' &&
       ['pending', 'approved', 'published'].includes(x.status) &&
@@ -484,14 +514,15 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
     )
       ctx.fail('INVALID_REFERENCE', 'Organization does not exist.');
     if (kind === 'branches' && a.role === 'Organization' && !old) {
-      const subscription = data.subscriptions.find(
+      if(Array.isArray(a.branchIds))ctx.fail('FORBIDDEN','A branch-scoped representative cannot create branches. Contact the organization owner.');
+      const subscription = ctx.subscriptionFor ? ctx.subscriptionFor(data,a.id) : data.subscriptions.find(
         (t) =>
           t.organizationId === a.id && !t.isDeleted && String(t.status).toLowerCase() === 'active',
       );
-      if (!subscription)
+      if (!subscription || (ctx.api.subscriptionState && ctx.api.subscriptionState(subscription)!=='active'))
         ctx.fail(
           'SUBSCRIPTION_REQUIRED',
-          'An active subscription or explicit development fixture is required to create a branch.',
+          'An active subscription is required to create a branch. Open Subscription Management or contact Admin.',
         );
       if (
         Number.isFinite(Number(subscription.branchLimit)) &&
@@ -499,6 +530,12 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
           Number(subscription.branchLimit)
       )
         ctx.fail('BRANCH_LIMIT', 'The subscription branch limit has been reached.');
+    }
+    if (kind === 'branches' && !x.isDeleted && !['inactive','archived','suspended','rejected'].includes(x.status)) {
+      const wasActive = old && !old.isDeleted && !['inactive','archived','suspended','rejected'].includes(old.status);
+      const activeCount = data.branches.filter(b => b.id !== x.id && b.organizationId === x.organizationId && !b.isDeleted && !['inactive','archived','suspended','rejected'].includes(b.status)).length;
+      if (!wasActive && activeCount >= 12)
+        ctx.fail('BRANCH_LIMIT', 'Maximum 12 active branches per organization. Archive an unused branch before creating or restoring another. / الحد الأقصى 12 فرعًا نشطًا للمؤسسة.');
     }
     if (
       kind === 'tickets' &&
@@ -544,7 +581,11 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
       x.reviewedAt = ctx.now();
       x.statusUpdatedAt = x.reviewedAt;
       x.adminFeedback = input.reason || '';
-      if (['approved', 'published'].includes(x.status)) x.approvedAt = x.reviewedAt;
+      if (['approved', 'published'].includes(x.status)) {
+        x.approvedAt = x.reviewedAt;
+        // Approval of a submission publishes it; existing hidden approvals need explicit publication.
+        x.isPublished = input.isPublished ?? true;
+      } else x.isPublished = false;
     }
     if (old) data[kind][data[kind].indexOf(old)] = x;
     else data[kind].push(x);
@@ -601,6 +642,7 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
     return ctx.save(kind, {
       ...old,
       status,
+      ...(kind === 'branches' ? {isPublished: ['approved','published'].includes(status)} : {}),
       reason,
     });
   };
@@ -655,25 +697,29 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
               ? reviews.reduce((v, r) => v + r.rating, 0) / reviews.length
               : 0;
           return {
-            ...ctx.safe(b),
+            ...ctx.publicBranchDto(b),
+            directoryOnly: !!b.directoryOnly&&!o.adoption,
+            accessibilitySource: b.accessibilityDeclaredAt?"institution":(b.sourceUrl||o.sourceUrl)?"imported":"institution",
+            
             name: o.name + ' — ' + b.name,
             organizationName: o.name,
-            organizationProfile: {id:o.id,name:o.name,type:o.type||o.organizationType||'Other',description:o.publicDescription||o.description||'',address:o.address||'',city:o.city||'',phone:o.phone||''},
+            organizationProfile: {id:o.id,name:o.name,type:o.type||o.organizationType||'Other',description:o.publicDescription||o.description||'',logo:o.logo||'',address:o.address||'',city:o.city||'',phone:o.phone||''},
             placeId: b.id,
             branchName: b.name,
             branch: b.name,
-            score: b.accessibilityScore,
+            score: b.scoreSource==='demo'?null:b.accessibilityScore,
+            accessibilityScore: b.scoreSource==='demo'?null:b.accessibilityScore,
             rating,
             reviewCount: reviews.length,
             branches: [b.name],
-            destinations: b.services.map((s) => (typeof s === 'string' ? s : s.name)),
+            destinations: (b.services || []).map((s) => (typeof s === 'string' ? s : s.name)),
             features: ctx.branchFeatures(b),
             supports: ctx.branchFeatures(b),
             accessibilityFeatures: ctx.branchFeatures(b),
             category: o.type || o.organizationType || 'Other',
             scoreSource: b.scoreSource,
             scoreDescription:
-              b.scoreSource === 'demo'
+              b.directoryOnly ? 'تسهيلات الوصول غير مقيمة ميدانيًا في وصول' : b.scoreSource === 'demo'
                 ? 'Demo checklist estimate — not AI verified'
                 : b.evidenceStatus === 'approved'
                   ? 'Approved accessibility evidence'
@@ -681,9 +727,9 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
             mapQuery: b.address || b.city,
             type: o.type || o.organizationType || 'Other',
             image:
-              b.photos[0]?.url ||
-              b.photos[0]?.imageData ||
-              '../../assets/images/wusool-login-campus.png',
+              b.photos?.[0]?.url ||
+              b.photos?.[0]?.imageData ||
+              (b.directoryOnly ? '' : '../../assets/images/wusool-login-campus.png'),
             latitude: window.WusoolLocation.number(b.latitude),
             longitude: window.WusoolLocation.number(b.longitude),
           };
@@ -748,7 +794,7 @@ window.WusoolServiceModules.push(ctx => {
     if(x.locationTimestamp&&!Number.isFinite(Date.parse(x.locationTimestamp)))fail('VALIDATION_ERROR','Invalid location timestamp.');
     return x;
   };
-  const localBranch=(id,write=false)=>{const a=ctx.requireAccount(write?['Organization','Admin']:[]),data=ctx.db(),b=data.branches.find(x=>String(x.id)===String(id)&&!x.isDeleted);if(!b)fail('NOT_FOUND','Branch not found.');const o=data.organizations.find(x=>String(x.id)===String(b.organizationId)&&!x.isDeleted);if(!o)fail('NOT_FOUND','Organization not found.');if(a.role!=='Admin'&&(a.role!=='Organization'||String(a.id)!==String(b.organizationId)))fail('FORBIDDEN','Branch ownership required.');if(write&&a.role==='Organization'&&o.approvalStatus!=='approved')fail('ORGANIZATION_PENDING','Organization approval is required.');return {a,data,b};};
+  const localBranch=(id,write=false)=>{const a=ctx.requireAccount(write?['Organization','Admin']:[]),data=ctx.db(),b=data.branches.find(x=>String(x.id)===String(id)&&!x.isDeleted);if(!b)fail('NOT_FOUND','Branch not found.');const o=data.organizations.find(x=>String(x.id)===String(b.organizationId)&&!x.isDeleted);if(!o)fail('NOT_FOUND','Organization not found.');if(a.role!=='Admin'&&!ctx.own(data,a,'branches',b))fail('FORBIDDEN','Branch ownership required.');if(write)ctx.requireEntitlement?.(data,a,'accessibilityEvidence');if(write&&a.role==='Organization'&&o.approvalStatus!=='approved')fail('ORGANIZATION_PENDING','Organization approval is required.');return {a,data,b};};
   const fields=b=>({branchId:b.id,photos:(b.photos||[]).map((m,i)=>({...m,id:m.id||'legacy-photo-'+b.id+'-'+i})),videos:(b.videos||[]).map((m,i)=>({...m,id:m.id||'legacy-video-'+b.id+'-'+i})),draft:b.navigationDraft||{points:[],connections:[],destinations:[]},versions:b.navigationVersions||[]});
   const validateRoute=(route,b)=>{
     const r=copy(route),ids=new Set(),media=[...(b.photos||[]),...(b.videos||[])];
@@ -766,7 +812,7 @@ window.WusoolServiceModules.push(ctx => {
   const service={metadata,path,validateRoute,
     async read(branchId){if(ctx.cfg.mode==='api'){const result=await ctx.request(`/branches/${encodeURIComponent(branchId)}/media-navigation`);if(String(result.branchId)!==String(branchId))fail('INVALID_RESPONSE','Media branch mismatch.');return result;}const {b}=localBranch(branchId);return copy(fields(b));},
     async upload(branchId,file){if(ctx.cfg.mode!=='api')return {uploaded:false,status:'local-draft'};const limits={photoBytes:5*1048576,videoBytes:100*1048576,...ctx.cfg.branchMediaLimits};const video=file?.type?.startsWith('video/'),allowed=video?['video/mp4','video/webm']:['image/jpeg','image/png','image/webp'];if(!file||!allowed.includes(file.type)||file.size>(video?limits.videoBytes:limits.photoBytes))fail('INVALID_FILE','Unsupported media type or size.');const form=new FormData();form.append('file',file);const result=await ctx.request(`/branches/${encodeURIComponent(branchId)}/media/uploads`,{method:'POST',body:form});if(!result.id||result.uploaded!==true||String(result.branchId)!==String(branchId))fail('INVALID_RESPONSE','Server upload was not confirmed for this branch.');return result;},
-    async saveMedia(branchId,items){const photos=items.filter(x=>x.kind!=='video').map(metadata),videos=items.filter(x=>x.kind==='video').map(metadata);if(items.length>(ctx.cfg.branchMediaLimits?.count||60))fail('VALIDATION_ERROR','Branch media count limit reached.');if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/media`,{method:'PUT',body:{items:[...photos,...videos]}});const {a,b,data}=localBranch(branchId,true);const points=[...(b.navigationDraft?.points||[]),...(b.navigationVersions||[]).flatMap(r=>r.points||[])],destinations=[...(b.navigationDraft?.destinations||[]),...(b.navigationVersions||[]).flatMap(r=>r.destinations||[])];for(const m of [...photos,...videos]){if(m.pointId&&!points.some(p=>p.id===m.pointId))fail('INVALID_REFERENCE','Media point must belong to this branch.');if(m.destinationId&&!destinations.some(d=>d.id===m.destinationId))fail('INVALID_REFERENCE','Media destination must belong to this branch.');}const retained=new Set(items.map(x=>x.id));for(const r of b.navigationVersions||[])for(const p of r.points)for(const ref of p.references||[])if(!retained.has(ref.mediaId))fail('MEDIA_REFERENCED','A reviewed route still references this media. Keep it or retire the route first.');const changed=JSON.stringify(b.photos||[])!==JSON.stringify(photos);b.photos=photos;b.videos=videos;b.mediaState=!items.length?'not-provided':items.some(m=>['queued','processing'].includes(m.processingState))?'processing':items.every(m=>m.processingState==='failed')?'failed':'completed';b.completedSteps={...b.completedSteps,photos:photos.some(p=>p.processingState!=='failed'&&!!(p.blobId||p.url||p.imageData))};if(changed){b.completedSteps.aiReview=false;b.aiReview=null;b.accessibilityScore=null;b.score=null;b.scoreSource=null;if(['approved','published'].includes(b.status))b.status='draft';}b.updatedAt=ctx.now();ctx.audit(data,a,'Save branch media','branches',b.id);ctx.put(data);return copy(fields(b));},
+    async saveMedia(branchId,items){const photos=items.filter(x=>x.kind!=='video').map(metadata),videos=items.filter(x=>x.kind==='video').map(metadata);if(items.length>(ctx.cfg.branchMediaLimits?.count||60))fail('VALIDATION_ERROR','Branch media count limit reached.');if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/media`,{method:'PUT',body:{items:[...photos,...videos]}});const {a,b,data}=localBranch(branchId,true);const points=[...(b.navigationDraft?.points||[]),...(b.navigationVersions||[]).flatMap(r=>r.points||[])],destinations=[...(b.navigationDraft?.destinations||[]),...(b.navigationVersions||[]).flatMap(r=>r.destinations||[])];for(const m of [...photos,...videos]){if(m.pointId&&!points.some(p=>p.id===m.pointId))fail('INVALID_REFERENCE','Media point must belong to this branch.');if(m.destinationId&&!destinations.some(d=>d.id===m.destinationId))fail('INVALID_REFERENCE','Media destination must belong to this branch.');}const retained=new Set(items.map(x=>x.id));for(const r of b.navigationVersions||[])for(const p of r.points)for(const ref of p.references||[])if(!retained.has(ref.mediaId))fail('MEDIA_REFERENCED','A reviewed route still references this media. Keep it or retire the route first.');const changed=JSON.stringify(b.photos||[])!==JSON.stringify(photos);b.photos=photos;b.videos=videos;b.mediaState=!items.length?'not-provided':items.some(m=>['queued','processing'].includes(m.processingState))?'processing':items.every(m=>m.processingState==='failed')?'failed':'completed';b.completedSteps={...b.completedSteps,photos:photos.some(p=>p.processingState!=='failed'&&!!(p.blobId||p.url||p.imageData))};if(changed){b.completedSteps.aiReview=false;b.aiReview=null;b.accessibilityScore=null;b.score=null;b.scoreSource=null;}b.updatedAt=ctx.now();ctx.audit(data,a,'Save branch media','branches',b.id);ctx.put(data);return copy(fields(b));},
     async saveRoute(branchId,route){if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/navigation/draft`,{method:'PUT',body:route});const {a,b,data}=localBranch(branchId,true);b.photos=fields(b).photos;b.videos=fields(b).videos;b.navigationDraft=validateRoute(route,b);b.navigationDraft.state='draft';ctx.audit(data,a,'Save navigation draft','branches',b.id);ctx.put(data);return copy(b.navigationDraft);},
     async publishRoute(branchId,{reviewConfirmed=false}={}){if(!reviewConfirmed)fail('REVIEW_REQUIRED','Review the actual landmarks, photos and both travel directions before publishing.');if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/navigation/versions`,{method:'POST',body:{reviewConfirmed}});const {a,b,data}=localBranch(branchId,true);const r=validateRoute(b.navigationDraft||{},b);if(!r.points.length||!r.destinations.length||r.connections.some(c=>!c.verified))fail('REVIEW_REQUIRED','A reviewed route needs points, destinations and verified connections.');for(const p of r.points)if(!(p.references||[]).some(ref=>(b.photos||[]).some(m=>m.id===ref.mediaId)))fail('REVIEW_REQUIRED','Every reviewed point needs a branch reference photo.');const version={...r,id:ctx.id('route'),branchId:b.id,state:'published',reviewedBy:a.id,reviewedAt:ctx.now()};b.navigationVersions=[...(b.navigationVersions||[]),version];b.publishedNavigationVersionId=version.id;ctx.audit(data,a,'Publish reviewed navigation','branches',b.id);ctx.put(data);return copy(version);},
     async retireVersion(branchId,id){if(ctx.cfg.mode==='api')return ctx.request(`/branches/${encodeURIComponent(branchId)}/navigation/versions/${encodeURIComponent(id)}/retire`,{method:'POST'});const {b,data,a}=localBranch(branchId,true);const r=b.navigationVersions?.find(x=>x.id===id);if(!r)fail('NOT_FOUND','Route version not found.');r.state='retired';if(b.publishedNavigationVersionId===id)b.publishedNavigationVersionId=null;ctx.audit(data,a,'Retire navigation version','branches',b.id);ctx.put(data);},
@@ -779,3 +825,4 @@ window.WusoolServiceModules.push(ctx => {
   };
   ctx.branchMedia=Object.freeze(service);
 });
+

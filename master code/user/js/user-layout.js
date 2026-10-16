@@ -173,128 +173,50 @@ WusoolUI.enqueue(async () => {
         })
         .join('');
     };
-    const sidebar = document.createElement('aside');
-    sidebar.className = 'user-sidebar';
-    sidebar.id = 'userSidebar';
-    sidebar.setAttribute('aria-label', 'User navigation');
-    WusoolUI.html(
-      sidebar,
-      `
-    <header class="user-sidebar-header d-flex align-items-center justify-content-between gap-3">
-      <a class="user-sidebar-brand" href="./user-dashboard.html">
-        <span class="user-sidebar-logo" aria-hidden="true">
-          <i class="bi bi-universal-access"></i>
-        </span>
-        <span>Wusool</span>
-      </a>
-
-      <button
-        class="btn user-sidebar-close"
-        id="closeUserSidebar"
-        type="button"
-        aria-label="Close navigation menu"
-      >
-        <i class="bi bi-x-lg"></i>
-      </button>
-    </header>
-
-    <div class="user-sidebar-scroll">
-      ${createNavigation()}
-    </div>
-
-    <footer class="user-sidebar-footer">
-      <a class="user-sidebar-profile" href="./user-profile.html">
-        <span class="user-sidebar-avatar" aria-hidden="true">
-          <i class="bi bi-person-fill"></i>
-        </span>
-        <span class="flex-grow-1 overflow-hidden">
-          <span class="user-sidebar-name">${userName}</span>
-          <span class="user-sidebar-role">Registered User</span>
-        </span>
-        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-      </a>
-
-      <button class="user-sidebar-logout" id="logoutUserButton" type="button">
-        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-        <span>Log Out</span>
-      </button>
-    </footer>
-  `,
-    );
-    const overlay = document.createElement('div');
-    overlay.className = 'user-sidebar-overlay';
-    overlay.id = 'userSidebarOverlay';
-    const mobileTopbar = document.createElement('div');
-    mobileTopbar.className = 'user-mobile-topbar';
-    WusoolUI.html(
-      mobileTopbar,
-      `
-    <a class="user-mobile-brand" href="./user-dashboard.html">
-      <span class="user-sidebar-logo" aria-hidden="true">
-        <i class="bi bi-universal-access"></i>
-      </span>
-      <span>Wusool</span>
-    </a>
-
-    <button
-      class="user-mobile-menu"
-      id="openUserSidebar"
-      type="button"
-      aria-controls="userSidebar"
-      aria-expanded="false"
-      aria-label="Open navigation menu"
-    >
-      <i class="bi bi-list fs-4"></i>
-    </button>
-  `,
-    );
-    document.body.classList.add('user-sidebar-layout');
-    const skipLink = document.querySelector('.skip-link');
-    if (skipLink) {
-      skipLink.insertAdjacentElement('afterend', mobileTopbar);
-      mobileTopbar.insertAdjacentElement('afterend', sidebar);
-      sidebar.insertAdjacentElement('afterend', overlay);
-    } else {
-      document.body.prepend(overlay);
-      document.body.prepend(sidebar);
-      document.body.prepend(mobileTopbar);
-    }
-    const openButton = document.getElementById('openUserSidebar');
-    const closeButton = document.getElementById('closeUserSidebar');
-    const logoutButton = document.getElementById('logoutUserButton');
-    const openSidebar = () => {
-      sidebar.classList.add('is-open');
-      overlay.classList.add('is-visible');
-      document.body.classList.add('sidebar-open');
-      openButton.setAttribute('aria-expanded', 'true');
-      closeButton.focus();
-    };
-    const closeSidebar = () => {
-      sidebar.classList.remove('is-open');
-      overlay.classList.remove('is-visible');
-      document.body.classList.remove('sidebar-open');
-      openButton.setAttribute('aria-expanded', 'false');
-    };
-    WusoolUI.listen(openButton, 'click', openSidebar);
-    WusoolUI.listen(closeButton, 'click', closeSidebar);
-    WusoolUI.listen(overlay, 'click', closeSidebar);
+    // Unified customer portal navigation, shared by all authenticated User pages.
+    const nav = document.createElement('header');
+    nav.className = 'wsp-global-nav';
+    const arabic = (document.documentElement.lang || 'en').toLowerCase().startsWith('ar');
+    const labels = arabic ? ['الرئيسية','المؤسسات والخدمات','الخريطة','حجوزاتي','المفضلة','المزيد','الدعم','حسابي','تسجيل الخروج','فتح قائمة التنقل'] : ['Home','Institutions & Services','Map','My Bookings','Favorites','More','Support','Account','Log out','Open navigation'];
+    const entries = [
+      ['user-dashboard.html',labels[0]],['service-directory.html',labels[1]],['explore-places.html',labels[2]],['my-tickets.html',labels[3]],['saved-places.html',labels[4]]
+    ];
+    const moreEntries = [
+      ['my-visits.html',arabic?'زياراتي':'My visits'],
+      ['my-reviews.html',arabic?'تقييماتي':'My reviews'],
+      ['my-reports.html',arabic?'تقاريري':'My reports'],
+      ['notifications.html',arabic?'الإشعارات':'Notifications'],
+      ['compare-places.html',arabic?'مقارنة المؤسسات':'Compare places'],
+      ['smart-recommendations.html',arabic?'الاقتراحات':'Recommendations'],
+      ['recruitment.html',arabic?'التوظيف':'Recruitment'],
+      ['accessibility-preferences.html',arabic?'إمكانية الوصول':'Accessibility'],
+      ['account-settings.html',arabic?'الإعدادات':'Settings']
+    ];
+    const linkMarkup = (items) => items.map(([page, title]) => `<a href="./${page}" data-page="${page}">${title}</a>`).join('');
+    nav.innerHTML = `<a class="wsp-global-brand" href="./user-dashboard.html"><i class="bi bi-universal-access" aria-hidden="true"></i><span>${arabic?'وصول':'Wusool'} <small>WUSOOL</small></span></a>
+      <button class="wsp-global-toggle" type="button" aria-label="${labels[9]}" aria-expanded="false" aria-controls="wspGlobalLinks"><i class="bi bi-list" aria-hidden="true"></i></button>
+      <nav class="wsp-global-links" id="wspGlobalLinks" aria-label="${arabic?'تنقل المستخدم':'User navigation'}">
+      ${linkMarkup(entries)}
+      <details class="wsp-global-more"><summary>${labels[5]}</summary><div class="wsp-global-more-items">${linkMarkup(moreEntries)}</div></details>
+      <a href="./help-support.html" data-page="help-support.html">${labels[6]}</a>
+      <a href="./user-profile.html" data-page="user-profile.html"><i class="bi bi-person-circle" aria-hidden="true"></i> ${labels[7]}</a>
+      <button type="button" class="wsp-global-logout" id="logoutUserButton">${labels[8]}</button>
+      </nav>`;
+    document.body.classList.add('wsp-unified-layout');
+    document.body.classList.remove('user-sidebar-layout');
+    const oldNav = document.querySelector('.main-navbar');
+    if (oldNav) { const header = oldNav.closest('header'); if (header) header.remove(); else oldNav.remove(); }
+    document.body.insertBefore(nav, document.body.firstChild);
+    const menuButton = nav.querySelector('.wsp-global-toggle');
+    const menu = nav.querySelector('.wsp-global-links');
+    const closeMenu = () => { menu.classList.remove('is-open'); menuButton.setAttribute('aria-expanded','false'); nav.querySelectorAll('details').forEach(item=>item.open=false); };
+    WusoolUI.listen(menuButton,'click',()=>{const open=menu.classList.toggle('is-open');menuButton.setAttribute('aria-expanded',String(open));});
+    WusoolUI.listen(document,'keydown',e=>{if(e.key==='Escape')closeMenu();});
+    menu.querySelectorAll('a').forEach(link=>{if(link.dataset.page===activePage || (link.dataset.page==='service-directory.html' && currentPage==='organization-services.html'))link.setAttribute('aria-current','page'); WusoolUI.listen(link,'click',closeMenu);});
+    const logoutButton = nav.querySelector('#logoutUserButton');
     WusoolUI.listen(logoutButton, 'click', async () => {
       await WusoolServices.logout();
       window.location.href = '../../visitor/html/home.html';
-    });
-    sidebar.querySelectorAll('a').forEach((link) => {
-      WusoolUI.listen(link, 'click', closeSidebar);
-    });
-    WusoolUI.listen(document, 'keydown', (event) => {
-      if (event.key === 'Escape' && sidebar.classList.contains('is-open')) {
-        closeSidebar();
-        openButton.focus();
-      }
-    });
-    WusoolUI.listen(window, 'resize', () => {
-      if (window.innerWidth >= 1200) {
-        closeSidebar();
-      }
     });
   });
 });

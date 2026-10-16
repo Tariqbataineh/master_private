@@ -1,0 +1,46 @@
+/* Unified user portal readability and surface repair (loaded after theme styles). */
+:root { --wu-header-height: 76px; }
+body[data-page] .header {
+  min-height: var(--wu-header-height);
+  height: auto;
+  gap: clamp(12px, 1.4vw, 22px);
+  padding-inline: clamp(16px, 2vw, 28px);
+  background: var(--wt-surface, var(--surface, #fff));
+  border-color: var(--wt-border, var(--border, #cbdcda));
+  color: var(--wt-text, var(--text, #10233f));
+}
+body[data-page] .header .brand,
+body[data-page] .header .main-nav a,
+body[data-page] .header .user-link,
+body[data-page] .header .icon-btn {
+  color: var(--wt-text, var(--text, #10233f));
+  opacity: 1;
+}
+body[data-page] .header .main-nav { gap: clamp(10px, 1.2vw, 18px); min-width: 0; }
+body[data-page] .header .main-nav a { font-size: .875rem; font-weight: 600; }
+body[data-page] .header .main-nav a[aria-current] { color: var(--wt-accent, var(--primary, #0f766e)); }
+body[data-page] .header .header-tools { margin-inline-start: auto; gap: 6px; flex-shrink: 0; }
+body[data-page] .header .header-tools .icon-btn { width: 44px; height: 44px; padding: 8px; }
+body[data-page] .header :is(button, select, a):focus-visible { outline: 2px solid var(--wt-accent, #0f766e); outline-offset: 2px; }
+html[data-wusool-color-mode='dark'] body[data-page] {
+  background: var(--wt-page, #101517);
+  color: var(--wt-text, #edf5f3);
+}
+html[data-wusool-color-mode='dark'] body[data-page] :is(.header, .panel, .institution-card, .service-card, .booking-row, .review-row, .sort-control select) {
+  background-color: var(--wt-surface, #1b2326);
+  color: var(--wt-text, #edf5f3);
+  border-color: var(--wt-border, #465955);
+}
+html[data-wusool-color-mode='dark'] body[data-page] :is(.header a, .header .brand, .header .main-nav a, .header .user-link, .header .icon-btn, h1, h2, h3, h4) {
+  color: var(--wt-text, #edf5f3);
+}
+html[data-wusool-color-mode='dark'] body[data-page] :is(input, textarea, select) {
+  color: var(--wt-text, #edf5f3);
+  background-color: var(--wt-field, #242e32);
+  border-color: var(--wt-border, #465955);
+}
+html[data-wusool-color-mode='dark'] body[data-page] :is(input,textarea)::placeholder { color: var(--wt-muted, #b1c3bf); opacity: 1; }
+@media(max-width: 900px) {
+  body[data-page] .header { gap: 10px; }
+  body[data-page] .header .header-tools { gap: 4px; }
+}

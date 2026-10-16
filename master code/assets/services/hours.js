@@ -11,12 +11,19 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
     new Date(value + 'T00:00:00Z').toISOString().slice(0, 10) === value;
   const timeValid = (value) => /^([01]\d|2[0-3]):[0-5]\d$/.test(value || '');
   function interval(raw, label) {
+    for(const flag of ['isOpen','closed','isClosed']) if(raw&&flag in raw&&typeof raw[flag]!=='boolean') ctx.fail('VALIDATION_ERROR',label+': '+flag+' must be true or false.');
     const isOpen = raw?.isOpen !== false && raw?.closed !== true && raw?.isClosed !== true;
-    const openTime = raw?.openTime || raw?.open || '',
-      closeTime = raw?.closeTime || raw?.close || '';
+    const openTime = raw?.openTime || raw?.open || raw?.periods?.[0]?.openTime || '',
+      closeTime = raw?.closeTime || raw?.close || raw?.periods?.at(-1)?.closeTime || ''; 
     if (isOpen && (!timeValid(openTime) || !timeValid(closeTime) || openTime >= closeTime))
       ctx.fail('VALIDATION_ERROR', label + ': enter an opening time before the closing time.');
-    return { isOpen, openTime: isOpen ? openTime : '', closeTime: isOpen ? closeTime : '' };
+    let periods;
+    if(isOpen && raw.periods!=null){
+      if(!Array.isArray(raw.periods)||!raw.periods.length) ctx.fail('VALIDATION_ERROR',label+': provide operating periods.');
+      periods=raw.periods.map(p=>interval(p,label)).sort((a,b)=>a.openTime.localeCompare(b.openTime));
+      if(periods.some((p,i)=>!p.isOpen||(i&&p.openTime<periods[i-1].closeTime))) ctx.fail('VALIDATION_ERROR',label+': operating periods overlap.');
+    }
+    return { isOpen, openTime: isOpen ? (periods?.[0].openTime||openTime) : '', closeTime: isOpen ? (periods?.at(-1).closeTime||closeTime) : '', ...(periods?{periods}: {}) };
   }
   function normalize(input, strict = true) {
     const raw = input?.workingHours || {},
@@ -62,6 +69,7 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
           status: raw.status,
           openTime: value.openTime,
           closeTime: value.closeTime,
+          ...(value.periods?{periods:value.periods}:{}),
           note: String(raw.note || '')
             .trim()
             .slice(0, 300),
@@ -73,11 +81,7 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
     return { workingHours, specialHours, closedDates: [...closed].sort() };
   }
   function owns(actor, kind, target) {
-    return (
-      actor.role === 'Admin' ||
-      (actor.role === 'Organization' &&
-        (kind === 'organizations' ? target.id === actor.id : target.organizationId === actor.id))
-    );
+    return ctx.own(ctx.db(),actor,kind,target);
   }
   function targetOf(data, kind, id, actor) {
     if (!['organizations', 'branches'].includes(kind))
@@ -120,7 +124,7 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
     return org && Object.keys(org.workingHours || {}).length ? canonical(org) : null;
   }
   function allows(schedule, date, time, duration = 0) {
-    if (!schedule) return true;
+    if (!schedule) return false;
     if (schedule.closedDates.includes(date)) return false;
     const special = schedule.specialHours.find((x) => x.date === date);
     if (special?.status === 'closed') return false;
@@ -129,6 +133,7 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
         ? { ...special, isOpen: true }
         : schedule.workingHours[days[new Date(date + 'T00:00:00Z').getUTCDay()]];
     const minutes = (t) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3));
+    if(value?.periods) return value.isOpen!==false && value.periods.some(p=>time>=p.openTime&&minutes(time)+duration<=minutes(p.closeTime));
     return (
       value?.isOpen !== false &&
       time >= (value?.openTime || '00:00') &&
@@ -224,6 +229,7 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
       data = ctx.db(),
       target = targetOf(data, kind, id, actor);
     if (!owns(actor, kind, target)) ctx.fail('FORBIDDEN', 'You do not own this schedule.');
+    ctx.requireEntitlement?.(data,actor,'serviceManagement');
     return {
       resourceKind: kind,
       resourceId: id,
@@ -243,7 +249,7 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
     const actor = ctx.requireAccount(['Admin', 'Organization']),
       data = ctx.db();
     let items = data.hoursChangeRequests.filter(
-      (r) => actor.role === 'Admin' || r.organizationId === actor.id,
+      (r) => actor.role === 'Admin' || (r.organizationId === actor.id&&(!Array.isArray(actor.branchIds)||(r.resourceKind==='branches'&&actor.branchIds.includes(r.resourceId)))),
     );
     for (const key of ['status', 'resourceKind', 'resourceId'])
       if (options[key]) items = items.filter((r) => r[key] === options[key]);
@@ -440,35 +446,21 @@ window.WusoolServiceModules.push(function registerHours(ctx) {
   }
   // Route legacy/full-form schedule updates through exactly the same approval boundary.
   const oldSave = ctx.save;
+  ctx.closeRemovedHoursRequests = (data, actor, kind, resourceId) => {
+    let changed = false;
+    for (const request of data.hoursChangeRequests.filter(r => r.status === 'pending' && ((r.resourceKind === kind && r.resourceId === resourceId) || (kind === 'organizations' && r.organizationId === resourceId)))) {
+      Object.assign(request, { status: 'superseded', reviewReason: 'The organization or branch was removed.', reviewedBy: actor?.id, reviewedAt: ctx.now(), revision: request.revision + 1 });
+      ctx.audit(data, actor, 'Close removed resource hours request', 'hoursChangeRequests', request.id, request.reviewReason);
+      changed = true;
+    }
+    return changed;
+  };
   async function persistEntity(kind, input) {
     const result = await oldSave(kind, input);
     if (ctx.cfg.mode === 'local' && result.isDeleted) {
       const data = ctx.db(),
         actor = ctx.current();
-      let changed = false;
-      for (const request of data.hoursChangeRequests.filter(
-        (r) =>
-          r.status === 'pending' &&
-          ((r.resourceKind === kind && r.resourceId === result.id) ||
-            (kind === 'organizations' && r.organizationId === result.id)),
-      )) {
-        Object.assign(request, {
-          status: 'superseded',
-          reviewReason: 'The organization or branch was removed.',
-          reviewedBy: actor?.id,
-          reviewedAt: ctx.now(),
-          revision: request.revision + 1,
-        });
-        ctx.audit(
-          data,
-          actor,
-          'Close removed resource hours request',
-          'hoursChangeRequests',
-          request.id,
-          request.reviewReason,
-        );
-        changed = true;
-      }
+      const changed = ctx.closeRemovedHoursRequests(data, actor, kind, result.id);
       if (changed) ctx.put(data);
     }
     return result;

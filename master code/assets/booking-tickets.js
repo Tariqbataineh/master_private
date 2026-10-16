@@ -27,7 +27,7 @@ WusoolUI.enqueue(async () => {
         .map(([v, label]) => `<option value="${v}">${label}</option>`)
         .join(
           '',
-        )}</select><select aria-label="${t('الفرع', 'Branch')}" class="form-select" data-branch><option value="">${t('كل الفروع', 'All branches')}</option></select></div></div>${!organization ? `<button class="btn btn-wusool d-inline-flex align-items-center gap-2" data-new><i class="bi bi-plus-lg" aria-hidden="true"></i>${t('إنشاء تيكت', 'Add Ticket')}</button>` : ''}</div><p class="booking-capacity text-secondary small">${t('الحد لكل فرع: ٥ حجوزات مع شخص مساعد خلال الساعة. الحجوزات بدون مساعد لا تدخل بهذا الحد.', 'Each branch accepts 5 assisted bookings per clock hour. Bookings without assistance are not subject to this limit.')}</p><div class="d-flex justify-content-between flex-wrap gap-2 mb-3"><span data-count class="text-secondary small"></span><span data-jordan-clock class="text-secondary small" aria-live="off"></span></div><div data-error role="alert" class="alert alert-danger" hidden></div><div class="table-responsive"><table class="table align-middle"><thead><tr><th>${t('المرجع', 'Reference')}</th><th>${t('الفرع', 'Branch')}</th><th>${t('المستخدم', 'User')}</th><th>${t('الموعد', 'Date/time')}</th><th>${t('مساعد', 'Assistant')}</th><th>${t('الحالة', 'Status')}</th><th>${t('الإجراءات', 'Actions')}</th></tr></thead><tbody data-rows></tbody></table></div></article>`,
+        )}</select><select aria-label="${t('الفرع', 'Branch')}" class="form-select" data-branch><option value="">${t('كل الفروع', 'All branches')}</option></select></div></div>${!organization ? `<button class="btn btn-wusool d-inline-flex align-items-center gap-2" data-new><i class="bi bi-plus-lg" aria-hidden="true"></i>${t('إنشاء تيكت', 'Add Ticket')}</button>` : ''}</div><p class="booking-capacity text-secondary small">${t('يعتمد توفر المواعيد على دوام الخدمة ومدتها ووقت التجهيز والسعة وسعة المساعدة المهيأة.', 'Availability respects operating periods, service duration, buffer, service capacity and configured assistance capacity.')}</p><div class="d-flex justify-content-between flex-wrap gap-2 mb-3"><span data-count class="text-secondary small"></span><span data-jordan-clock class="text-secondary small" aria-live="off"></span></div><div data-error role="alert" class="alert alert-danger" hidden></div><div class="table-responsive"><table class="table align-middle"><thead><tr><th>${t('المرجع', 'Reference')}</th><th>${t('الفرع', 'Branch')}</th><th>${t('المستخدم', 'User')}</th><th>${t('الموعد', 'Date/time')}</th><th>${t('مساعد', 'Assistant')}</th><th>${t('الحالة', 'Status')}</th><th>${t('الإجراءات', 'Actions')}</th></tr></thead><tbody data-rows></tbody></table></div></article>`,
     );
     const host = document.querySelector('[data-booking-host]');
     if (host) host.appendChild(panel);
@@ -41,6 +41,16 @@ WusoolUI.enqueue(async () => {
       branches = [],
       users = [],
       placeDetails = [];
+    const organizationFilter = document.createElement('select');
+    organizationFilter.className = 'form-select';
+    organizationFilter.setAttribute('aria-label', t('المؤسسة', 'Organization'));
+    panel.querySelector('[data-branch]').before(organizationFilter);
+    const syncBranches = () => {
+      const select = panel.querySelector('[data-branch]'), previous = select.value;
+      const scoped = branches.filter(b => !organizationFilter.value || b.organizationId === organizationFilter.value);
+      WusoolUI.html(select, `<option value="">${t('كل الفروع','All branches')}</option>` + scoped.map(b => `<option value="${esc(b.id)}">${esc(b.name || b.branchName)}</option>`).join(''));
+      select.value = scoped.some(b => b.id === previous) ? previous : '';
+    };
     const showError = (e) => {
       const n = panel.querySelector('[data-error]');
       n.hidden = false;
@@ -82,7 +92,7 @@ WusoolUI.enqueue(async () => {
         if (b.status === 'confirmed' && (!b.journeyState || b.journeyState === 'not-started')) {
           result += button('depart', t('أنا بالطريق', 'I am on my way'), Boolean(timing.canDepart));
           if (!timing.canDepart)
-            result += `<small class="booking-action-note text-secondary">${t('يتفعّل في يوم الحجز خلال ساعتين قبل الموعد، وحتى بدايته.', 'Available on the booking day, within two hours before the appointment until its start.')}</small>`;
+            result += `<small class="booking-action-note text-secondary">${t('يتفعّل في يوم الحجز من ساعتين قبل الموعد وحتى 30 دقيقة بعد بدايته.', 'Available on the booking day, from two hours before the appointment until 30 minutes after it starts.')}</small>`;
         }
         if (b.status === 'confirmed' && b.journeyState === 'on-the-way')
           result += button('arrive', t('لقد وصلت', 'I have arrived'), Boolean(timing.sameDay));
@@ -151,6 +161,7 @@ WusoolUI.enqueue(async () => {
       const shown = bookings.filter(
         (b) =>
           (!status || b.status === status) &&
+          (!organizationFilter.value || b.organizationId === organizationFilter.value) &&
           (!branchFilter || b.branchId === branchFilter) &&
           (!q ||
             [
@@ -206,14 +217,12 @@ WusoolUI.enqueue(async () => {
           ? await WusoolServices.getBranches()
           : (await WusoolServices.places()).items;
       users = admin ? await WusoolServices.getUsers() : [];
-      const branchSelect = panel.querySelector('[data-branch]'),
-        previousBranch = branchSelect.value;
-      WusoolUI.html(
-        branchSelect,
-        `<option value="">${t('كل الفروع', 'All branches')}</option>` +
-          branches.map((b) => `<option value="${esc(b.id)}">${esc(b.name)}</option>`).join(''),
-      );
-      branchSelect.value = branches.some((b) => b.id === previousBranch) ? previousBranch : '';
+      const previousOrganization = organizationFilter.value;
+      const organizations = await WusoolServices.portal.organizations();
+      const available = organizations.items.filter(o => !organization || o.id === account.id);
+      WusoolUI.html(organizationFilter, `<option value="">${t('كل المؤسسات','All organizations')}</option>` + available.map(o => `<option value="${esc(o.id)}">${esc(o.name)}</option>`).join(''));
+      organizationFilter.value = available.some(o => o.id === previousOrganization) ? previousOrganization : '';
+      syncBranches();
       render();
       window.WusoolVisitUX?.update(bookings, branches);
     };
@@ -221,6 +230,11 @@ WusoolUI.enqueue(async () => {
     panel.querySelector('[data-search]').addEventListener('input', render);
     panel.querySelector('[data-status]').addEventListener('change', render);
     panel.querySelector('[data-branch]').addEventListener('change', render);
+    organizationFilter.addEventListener('change', () => {
+      panel.querySelector('[data-branch]').value = '';
+      syncBranches();
+      render();
+    });
     document
       .getElementById('refreshTicketsButton')
       ?.addEventListener('click', () => refresh().catch(showError));

@@ -6,3 +6,28 @@ button#highContrast,button#contrastButton {display:none}
 html[data-wusool-color-mode=dark] .wusool-preferences button,html[data-wusool-color-mode=dark] .wusool-preferences select{background:#152e3c;color:#ecf7f6;border-color:#52757c}body.high-contrast .wusool-preferences :is(button,select){background:#000!important;color:#fff!important;border:2px solid #fff!important}
 @media(max-width:991px){.navbar>.container>.wusool-preferences{margin-inline-start:0;order:1}.wusool-preferences[data-location=navbar]{font-size:11px;gap:5px}.wusool-preferences label{display:none}.wusool-preferences button,.wusool-preferences select{min-height:38px;padding:6px 8px}.navbar>.container>.navbar-collapse{order:3;width:100%}}
 .wusool-preferences[data-location=navbar]{flex-wrap:nowrap;flex-shrink:0}.wusool-preferences[data-location=navbar] label{display:none}.wusool-preferences[data-location=navbar] select{width:86px}.wusool-preferences[data-location=navbar] button{white-space:nowrap}
+
+:root {
+  --wu-title-size: 1.875rem;
+  --wu-section-size: 1.5rem;
+  --wu-card-size: 1.125rem;
+  --wu-body-size: 1rem;
+  --wu-control-size: .875rem;
+  --wu-helper-size: .8125rem;
+}
+/* Portal typography stays outside the cinematic visitor homepage. */
+:is(.app-shell, .admin-layout, .organization-main, #recruitmentRoot) {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: var(--wu-body-size);
+  line-height: 1.5;
+}
+html[lang='ar'] :is(.app-shell, .admin-layout, .organization-main, #recruitmentRoot) {
+  font-family: Tajawal, system-ui, sans-serif;
+  line-height: 1.65;
+}
+:is(.app-shell, .admin-layout, .organization-main) h1 { font-size: var(--wu-title-size); font-weight: 700; }
+:is(.app-shell, .admin-layout, .organization-main) h2 { font-size: var(--wu-section-size); font-weight: 700; }
+:is(.app-shell, .admin-layout, .organization-main) h3 { font-size: var(--wu-card-size); font-weight: 600; }
+:is(.app-shell, .admin-layout, .organization-main) :is(button, .btn, label, th, td) { font-size: var(--wu-control-size); }
+:is(.app-shell, .admin-layout, .organization-main) :is(input, textarea, select) { font: inherit; font-size: var(--wu-body-size); }
+:is(.app-shell, .admin-layout, .organization-main) small { font-size: var(--wu-helper-size); }

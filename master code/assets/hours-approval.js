@@ -211,7 +211,7 @@ WusoolUI.enqueue(async () => {
           };
       const node = dialog(
         t('تعديل دوام: ', 'Edit working hours: ') + view.name,
-        `<p>${admin ? t('تعديل الأدمن يُعتمد مباشرة ويرسل إشعارًا للمؤسسة.', 'Admin edits apply immediately and notify the organization.') : t('تعديل الدوام المعتمد يحتاج موافقة الأدمن. إعداد الفرع الأولي يدخل ضمن مراجعة الفرع الكاملة.', 'Changes to approved hours require Admin approval. Initial draft setup is included in full branch review.')}</p><div class="hours-editor-week">${days.map((day, i) => `<div data-hour-day="${day}"><label><input type="checkbox" data-open ${schedule.workingHours[day].isOpen ? 'checked' : ''}> ${labels[i]}</label><label>${t('من', 'Opens')}<input class="form-control" type="time" data-start value="${esc(schedule.workingHours[day].openTime)}" ${schedule.workingHours[day].isOpen ? 'required' : 'disabled'}></label><label>${t('إلى', 'Closes')}<input class="form-control" type="time" data-end value="${esc(schedule.workingHours[day].closeTime)}" ${schedule.workingHours[day].isOpen ? 'required' : 'disabled'}></label></div>`).join('')}</div><h3>${t('عطل وأوقات استثنائية', 'Holidays & special hours')}</h3><div data-special-list></div><button type="button" class="btn btn-outline-primary mb-3" data-special-add>${t('إضافة يوم استثنائي', 'Add special date')}</button><label class="d-block">${t('سبب التعديل (اختياري)', 'Reason for change (optional)')}<textarea class="form-control" name="reason" maxlength="500"></textarea></label><div class="hours-dialog-actions"><button class="btn btn-wusool" type="submit">${admin ? t('تأكيد وتطبيق الدوام', 'Confirm & apply hours') : t('إرسال التعديل للمراجعة', 'Submit change for review')}</button></div>`,
+        `<p>${admin ? t('تعديل الأدمن يُعتمد مباشرة ويرسل إشعارًا للمؤسسة.', 'Admin edits apply immediately and notify the organization.') : t('تعديل الدوام المعتمد يحتاج موافقة الأدمن. إعداد الفرع الأولي يدخل ضمن مراجعة الفرع الكاملة.', 'Changes to approved hours require Admin approval. Initial draft setup is included in full branch review.')}</p><div class="hours-editor-week">${days.map((day, i) => `<div data-hour-day="${day}"><label><input type="checkbox" data-open ${schedule.workingHours[day].isOpen ? 'checked' : ''}> ${labels[i]}</label><label>${t('من', 'Opens')}<input class="form-control" type="time" data-start value="${esc(schedule.workingHours[day].openTime)}" ${schedule.workingHours[day].isOpen ? 'required' : 'disabled'}></label><label>${t('إلى', 'Closes')}<input class="form-control" type="time" data-end value="${esc(schedule.workingHours[day].closeTime)}" ${schedule.workingHours[day].isOpen ? 'required' : 'disabled'}></label><label>${t('بداية الاستراحة (اختياري)','Break starts (optional)')}<input type="time" class="form-control" data-break-from value="${esc(schedule.workingHours[day].periods?.[0]?.closeTime && schedule.workingHours[day].periods?.length>1?schedule.workingHours[day].periods[0].closeTime:'')}"></label><label>${t('نهاية الاستراحة','Break ends')}<input type="time" class="form-control" data-break-to value="${esc(schedule.workingHours[day].periods?.[1]?.openTime||'')}"></label></div>`).join('')}</div><h3>${t('عطل وأوقات استثنائية', 'Holidays & special hours')}</h3><div data-special-list></div><button type="button" class="btn btn-outline-primary mb-3" data-special-add>${t('إضافة يوم استثنائي', 'Add special date')}</button><label class="d-block">${t('سبب التعديل (اختياري)', 'Reason for change (optional)')}<textarea class="form-control" name="reason" maxlength="500"></textarea></label><div class="hours-dialog-actions"><button class="btn btn-wusool" type="submit">${admin ? t('تأكيد وتطبيق الدوام', 'Confirm & apply hours') : t('إرسال التعديل للمراجعة', 'Submit change for review')}</button></div>`,
         trigger,
       );
       function specialRow(
@@ -229,7 +229,7 @@ WusoolUI.enqueue(async () => {
         const toggle = () =>
           row.querySelectorAll('[type=time]').forEach((input) => {
             input.disabled = status.value === 'closed';
-            input.required = !input.disabled;
+            input.required = !input.disabled&&!input.hasAttribute('data-break-from')&&!input.hasAttribute('data-break-to');
           });
         toggle();
         WusoolUI.listen(status, 'change', toggle);
@@ -248,8 +248,8 @@ WusoolUI.enqueue(async () => {
         WusoolUI.listen(row.querySelector('[data-open]'), 'change', () =>
           row.querySelectorAll('[type=time]').forEach((input) => {
             input.disabled = !row.querySelector('[data-open]').checked;
-            input.required = !input.disabled;
-            if (!input.value) input.value = input.hasAttribute('data-start') ? '09:00' : '17:00';
+            input.required = !input.disabled&&!input.hasAttribute('data-break-from')&&!input.hasAttribute('data-break-to');
+            if (!input.value&&!input.hasAttribute('data-break-from')&&!input.hasAttribute('data-break-to')) input.value = input.hasAttribute('data-start') ? '09:00' : '17:00';
           }),
         );
       WusoolUI.listen(node.querySelector('form'), 'submit', async (event) => {
@@ -262,6 +262,10 @@ WusoolUI.enqueue(async () => {
                 isOpen: row.querySelector('[data-open]').checked,
                 openTime: row.querySelector('[data-start]').value,
                 closeTime: row.querySelector('[data-end]').value,
+                ...(()=>{const from=row.querySelector('[data-break-from]').value,to=row.querySelector('[data-break-to]').value,old=schedule.workingHours[row.dataset.hourDay];
+                  if(old.periods?.length>2&&from===old.periods[0].closeTime&&to===old.periods[1].openTime&&row.querySelector('[data-start]').value===old.openTime&&row.querySelector('[data-end]').value===old.closeTime)return {periods:old.periods};
+                  if(!from&&!to)return {};if(!from||!to||from>=to)throw Error(t('حدد بداية ونهاية استراحة صحيحة.','Specify a valid break start and end.'));
+                  return {periods:[{openTime:row.querySelector('[data-start]').value,closeTime:from},{openTime:to,closeTime:row.querySelector('[data-end]').value}]};})(),
               },
             ]),
           );

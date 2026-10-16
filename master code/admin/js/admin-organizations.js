@@ -24,6 +24,16 @@ WusoolUI.enqueue(async () => {
       suspended: 'badge-soft-danger',
       rejected: 'badge-soft-danger',
     };
+    
+const isDirectoryOrganization = (item) =>
+  item.directoryOnly === true ||
+  item.approvalStatus === "unclaimed";
+
+const organizationLabel = (item) =>
+  isDirectoryOrganization(item)
+    ? '<span class="badge badge-soft-info ms-2">Directory</span>'
+    : '<span class="badge badge-soft-success ms-2">Registered</span>';
+
     return map[String(status).toLowerCase()] || 'badge-soft-info';
   };
   const getFiltered = async () => {
@@ -164,9 +174,10 @@ WusoolUI.enqueue(async () => {
                                             Edit
                                         </button>
 
+${item.directoryOnly||item.imported||item.approvalStatus==='unclaimed'||item.sourceUrl ? `<button class="btn btn-sm btn-outline-warning" data-adopt-id="${WusoolUI.escape(item.id)}">Authorize representative (imported record)</button><p class="small">Imported source data; adoption does not verify its content.</p>` : ''}
 <button class="btn btn-sm btn-outline-info" data-reset-access="${WusoolUI.escape(item.id)}" data-account-kind="organizations">Reset login access</button>
                                         ${
-                                          item.status !== 'active'
+                                          item.status !== 'active' || item.approvalStatus !== 'approved'
                                             ? `
                                                     <button
                                                         class="btn btn-sm btn-outline-success"
@@ -315,6 +326,13 @@ WusoolUI.enqueue(async () => {
     }
   });
   WusoolUI.listen(tableBody, 'click', async (event) => {
+    const adoptButton=event.target.closest('[data-adopt-id]');
+    if(adoptButton){
+      const email=window.prompt('Authorized representative email (verify authorization before continuing):');if(!email)return;
+      const reason=window.prompt('Record how representative authorization was verified:');if(!reason)return;
+      const invitation=await WusoolServices.adoptOrganization({id:adoptButton.dataset.adoptId,email,reason});
+      await renderAll();await WusoolAdmin.showInvitation(invitation);return;
+    }
     const editButton = event.target.closest('[data-edit-id]');
     const deleteButton = event.target.closest('[data-delete-id]');
     const statusButton = event.target.closest('[data-status-id]');

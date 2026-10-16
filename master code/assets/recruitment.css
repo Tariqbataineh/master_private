@@ -429,3 +429,19 @@
     flex-direction: column;
   }
 }
+.employment-offer-card {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border: 1px solid rgba(16, 122, 98, 0.18);
+  border-radius: 14px;
+  background: rgba(16, 122, 98, 0.06);
+}
+
+.employment-offer-card p {
+  margin: 0 0 10px;
+  line-height: 1.6;
+}
+
+.employment-offer-card p:last-child {
+  margin-bottom: 0;
+}

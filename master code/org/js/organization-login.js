@@ -34,6 +34,17 @@ WusoolUI.enqueue(async () => {
         const alert = document.getElementById('loginAlert');
         if (alert) {
           alert.textContent = error.message;
+          if (error.code === 'REPRESENTATIVE_REQUIRED') {
+            const arabic = document.documentElement.lang === 'ar';
+            alert.textContent = arabic
+              ? 'هذا البريد غير مرتبط بممثل مخوّل. افتح إعداد الحساب من الأدمن، عيّن حساب المستخدم ممثلًا أساسيًا، ثم أعد تعيين كلمة مرور الممثل وسجّل الدخول ببريده.'
+              : 'This email has no authorized representative assignment. In Admin account setup, assign a project user as the primary representative, reset that representative’s password, then sign in with their email.';
+            const link = document.createElement('a');
+            link.href = '../../admin/html/account-data-review.html?email=' + encodeURIComponent(email.trim());
+            link.className = 'btn btn-outline-wusool mt-3';
+            link.textContent = arabic ? 'إعداد الحساب — يتطلب دخول الأدمن' : 'Set up account — Admin sign-in required';
+            alert.append(document.createElement('br'), link);
+          }
           alert.classList.remove('d-none');
         } else WusoolUI.message(error.message);
       }

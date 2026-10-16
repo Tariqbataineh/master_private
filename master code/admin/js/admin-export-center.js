@@ -10,6 +10,23 @@ WusoolUI.enqueue(async () => {
     reviews: async () => await WusoolDataService.getReviews(),
     subscriptions: async () => await WusoolDataService.getSubscriptions(),
   };
+  const backup = document.createElement('button');
+  backup.type = 'button'; backup.className = 'btn btn-outline-primary';
+  backup.textContent = document.documentElement.lang === 'ar' ? 'تصدير نسخة بيانات الأعمال (دون كلمات المرور)' : 'Export business data backup (no passwords)';
+  document.getElementById('exportButton').after(backup);
+  WusoolUI.listen(backup, 'click', async () => {
+    const snapshot = await WusoolServices.visits.exportData();
+    if (snapshot.role !== 'Admin' || !snapshot.data) throw Error('Administrator business export is unavailable.');
+    document.getElementById('businessBackupLink')?.remove();
+    const link = document.createElement('a'); link.id = 'businessBackupLink';
+
+link.textContent = document.documentElement.lang === 'ar'
+  ? 'تنزيل نسخة بيانات الأعمال الجاهزة'
+  : 'Download prepared business backup';
+    link.download = 'wusool-business-backup-' + new Date().toISOString().replace(/[:.]/g, '-') + '.json';
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(snapshot, null, 2)], {type:'application/json'}));
+    link.className = 'btn btn-success'; backup.after(link);
+  });
   const toCsv = (rows) => {
     if (!rows.length) {
       return '';

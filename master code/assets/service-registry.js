@@ -88,6 +88,9 @@ window.WusoolConstants = (() => {
     },
     authErrors: ['UNAUTHENTICATED', 'SESSION_EXPIRED', 'ACCOUNT_BLOCKED'],
     routes: [
+      '/user/html/institutions.html',
+      '/user/html/reschedule-visit.html',
+      '/user/html/support-request.html',
       '/admin/html/admin-accessibility-heatmap.html',
       '/admin/html/admin-ai-copilot.html',
       '/admin/html/admin-ai-management.html',

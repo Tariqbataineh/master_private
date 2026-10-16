@@ -16,7 +16,7 @@
     document.documentElement.dataset.wusoolThemePreference = preference;
   };
   apply();
-  try { const lang = localStorage.getItem('wusool-language'); if (['en','ar'].includes(lang)) { document.documentElement.lang=lang; document.documentElement.dir=lang==='ar'?'rtl':'ltr'; } } catch {}
+  try { const savedLanguage = localStorage.getItem('wusool-language'); const lang = ['en','ar'].includes(savedLanguage) ? savedLanguage : 'en'; document.documentElement.lang = lang; document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'; } catch { document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr'; }
   system.addEventListener('change', () => {
     if (preference === 'system') apply();
   });
