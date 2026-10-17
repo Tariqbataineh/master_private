@@ -1,0 +1,141 @@
+/* ========================================
+   My Accessibility Reports
+   ======================================== */
+
+.reports-hero {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(34, 197, 184, 0.22),
+            transparent 35%
+        ),
+        #f4fbfa;
+
+    border-bottom: 1px solid #d5e6e4;
+}
+
+/* Statistics */
+
+.report-stat {
+    border: 1px solid #d5e6e4;
+    border-radius: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 0.75rem 2rem rgba(11, 43, 75, 0.06);
+}
+
+/* Filter Toolbar */
+
+.report-toolbar {
+    border: 1px solid #d5e6e4;
+    border-radius: 1rem;
+    background-color: #ffffff;
+}
+
+/* Report Cards */
+
+.report-card {
+    border: 1px solid #d5e6e4;
+    border-radius: 1.25rem;
+    background-color: #ffffff;
+    box-shadow: 0 1rem 2.5rem rgba(11, 43, 75, 0.08);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#reportsContainer .report-card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 1.25rem 3rem rgba(11, 43, 75, 0.12);
+}
+
+/* Report Description */
+
+.report-description {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+/* Empty State Icon */
+
+.report-info-icon {
+    width: 4rem;
+    height: 4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+    color: #0f7f75;
+    background-color: #e8f7f5;
+    font-size: 1.6rem;
+}
+
+/* Severity */
+
+.severity-critical {
+    color: #ffffff;
+    background-color: #7f1d1d;
+}
+
+/* Status Badges */
+
+.badge {
+    padding: 0.55rem 0.75rem;
+    font-weight: 600;
+}
+
+.text-bg-warning {
+    color: #664d03 !important;
+    background-color: #fff3cd !important;
+}
+
+.text-bg-success {
+    color: #0f5132 !important;
+    background-color: #d1e7dd !important;
+}
+
+.text-bg-danger {
+    color: #842029 !important;
+    background-color: #f8d7da !important;
+}
+
+/* Form Controls */
+
+.form-control,
+.form-select {
+    border-color: #cbdedc;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0f7f75;
+    box-shadow: 0 0 0 0.2rem rgba(15, 127, 117, 0.15);
+}
+
+/* Report Details Modal */
+
+#reportDetailsContent dt {
+    color: #617184;
+    font-weight: 600;
+}
+
+#reportDetailsContent dd {
+    color: #0b2b4b;
+    font-weight: 600;
+}
+
+/* Responsive */
+
+@media (max-width: 767.98px) {
+    .reports-hero {
+        text-align: center;
+    }
+
+    .report-card {
+        border-radius: 1rem;
+    }
+
+    .report-card footer .btn {
+        width: 100%;
+    }
+}

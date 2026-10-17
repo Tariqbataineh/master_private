@@ -1,0 +1,52 @@
+.visit-operations-tools {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.visit-board-head {
+  display: flex;
+  justify-content: space-between;
+}
+.visit-queue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+.visit-queue-card {
+  padding: 1.25rem;
+  border: 1px solid var(--wt-border, #bed5d8);
+  border-radius: 16px;
+  background: var(--wt-raised, #eef8f7);
+}
+.visit-queue-card button {
+  display: block;
+  margin-top: 1rem;
+}
+.visit-qr {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  max-width: 350px;
+  margin: 1rem auto;
+}
+.visit-qr svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.visit-operations-dialog video {
+  max-width: 100%;
+  max-height: 250px;
+  margin: 1rem 0;
+  border-radius: 12px;
+}
+.visit-operations-dialog textarea[readonly] {
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+.visit-operations-dialog label {
+  display: block;
+  margin: 0.75rem 0;
+}

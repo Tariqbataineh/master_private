@@ -1,0 +1,2 @@
+'use strict';
+WusoolUI.enqueue(async()=>{if(!await WusoolUI.guard())return;const bookingId=new URLSearchParams(location.search).get('bookingId');const main=document.querySelector('main');if(!bookingId){main.replaceChildren();WusoolUI.message(document.documentElement.lang==='ar'?'افتح التوجيه من تتبع التيكت المرتبط بالفرع.':'Open guidance from the booked ticket Track control.');return;}main.replaceChildren();const host=document.createElement('section');main.append(host);await WusoolIndoorGuidance.mount(host,bookingId);});

@@ -1,0 +1,244 @@
+WusoolUI.enqueue(async () => {
+  if (!(await WusoolUI.guard())) return;
+  WusoolUI.ready(async () => {
+    if (!(await protectAddBranchPage())) {
+      return;
+    }
+    initializeSidebar();
+    initializeBranchForm();
+    initializeSaveDraft();
+    // LocationUI owns geolocation with explicit confirmation.
+    initializeDescriptionCounter();
+    initializeLogout();
+    await loadOrganizationName();
+    await restoreCurrentDraft();
+  });
+  const readStoredObject = async (key) => {
+    try {
+      const value = await WusoolServices.rawRead(key);
+      return value ? JSON.parse(value) : null;
+    } catch (error) {
+      if (WusoolServices.mode === 'api') throw error;
+      console.error(`Unable to read ${key}:`, error);
+      return null;
+    }
+  };
+  const protectAddBranchPage = async () => {
+    const organization = await readStoredObject('wusoolOrganization');
+    const loggedIn = (await WusoolServices.rawRead('wusoolOrganizationLoggedIn')) === 'true';
+    const subscriptionStatus = (
+      organization?.subscriptionStatus ||
+      (await WusoolServices.rawRead('wusoolSubscriptionStatus')) ||
+      'inactive'
+    ).toLowerCase();
+    if (!organization || !loggedIn) {
+      window.location.replace('./organization-login.html');
+      return false;
+    }
+    if (subscriptionStatus !== 'active') {
+      window.location.replace('./subscription-plans.html');
+      return false;
+    }
+    const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
+    const subscription =
+      organization.subscription || (await readStoredObject('wusoolActiveSubscription'));
+    const branchLimit = WusoolServices.effectiveBranchCapacity(subscription);
+    const currentDraft = await resolveRequestedDraft(branches);
+    const draftAlreadyExists =
+      currentDraft &&
+      branches.some((branch) => {
+        return branch.id === currentDraft.id;
+      });
+    if (WusoolServices.branchUsage(branches) >= branchLimit && !draftAlreadyExists) {
+      window.location.replace('./branches.html');
+      return false;
+    }
+    return true;
+  };
+  const initializeBranchForm = () => {
+    const form = document.getElementById('branchForm');
+    WusoolUI.listen(form, 'submit', async (event) => {
+      event.preventDefault();
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) {
+        const invalidField = form.querySelector(':invalid');
+        showToast(invalidField?.validationMessage || 'Complete the required fields before continuing.');
+        invalidField?.focus();
+        return;
+      }
+      if (window.WusoolBranchLocationPicker && !window.WusoolBranchLocationPicker.canSave()) {
+        showToast('Confirm the branch location on the map before continuing to working hours.');
+        return;
+      }
+      const savedBranch = await saveBranchDraft({ completeDetails: true });
+      window.location.href = `./branch-working-hours.html?id=${encodeURIComponent(savedBranch.id)}`;
+    });
+  };
+  const initializeSaveDraft = () => {
+    WusoolUI.listen(document.getElementById('saveDraftButton'), 'click', async () => {
+      const branchName = document.getElementById('branchName').value.trim();
+      if (!branchName) {
+        showToast('Enter the branch name before saving the draft.');
+        document.getElementById('branchName').focus();
+        return;
+      }
+      await saveBranchDraft();
+      showToast('Branch draft saved successfully. Continue adding details when ready.');
+    });
+  };
+  const createBranchData = async ({ completeDetails = false } = {}) => {
+    const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
+    const currentDraft = await resolveRequestedDraft(branches);
+    const nextId = 'branch-' + crypto.randomUUID();
+    return {
+      ...(currentDraft || {}),
+      id: currentDraft?.id || nextId,
+      name: document.getElementById('branchName').value.trim(),
+      code: document.getElementById('branchCode').value.trim(),
+      type: document.getElementById('branchType').value || 'Service Branch',
+      services: document.getElementById('branchServices').value.trim(),
+      city: document.getElementById('branchCity').value,
+      district: document.getElementById('branchDistrict').value.trim(),
+      area: document.getElementById('branchDistrict').value.trim(),
+      address: document.getElementById('branchAddress').value.trim(),
+      ...window.WusoolLocation.fields({
+        googlePlaceId: document.querySelector('[data-location-place-id]')?.value,
+        governorate: document.querySelector('[data-location-governorate]')?.value,
+        latitude: document.getElementById('latitude').value,
+        longitude: document.getElementById('longitude').value,
+      }),
+      phone: document.getElementById('branchPhone').value.trim(),
+      email: document.getElementById('branchEmail').value.trim(),
+      description: document.getElementById('branchDescription').value.trim(),
+      score: currentDraft?.score ?? null,
+      status: 'draft',
+      completedSteps: {
+        details: completeDetails || Boolean(currentDraft?.completedSteps?.details && document.getElementById('branchForm').checkValidity()),
+        workingHours: currentDraft?.completedSteps?.workingHours || false,
+        accessibility: currentDraft?.completedSteps?.accessibility || false,
+        photos: currentDraft?.completedSteps?.photos || false,
+        review: false,
+      },
+      createdAt: currentDraft?.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+  };
+  const saveBranchDraft = async (options = {}) => {
+    const branchData = await createBranchData(options);
+    // Save only this branch. Rewriting a full branch list can delete/overwrite
+    // someone else's newer updates and can be rejected by stale-write checks.
+    const saved = await WusoolServices.save('branches', branchData);
+    await WusoolServices.rawWrite('wusoolCurrentBranchDraft', JSON.stringify(saved));
+    return saved;
+  };
+  const restoreCurrentDraft = async () => {
+    const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
+    const currentDraft = await resolveRequestedDraft(branches);
+    if (!currentDraft || currentDraft.status !== 'draft') {
+      return;
+    }
+    setInputValue('branchName', currentDraft.name);
+    setInputValue('branchCode', currentDraft.code);
+    setInputValue('branchType', currentDraft.type);
+    setInputValue('branchServices', currentDraft.services);
+    setInputValue('branchCity', currentDraft.city);
+    setInputValue('branchDistrict', WusoolBranchWorkflow.locationArea(currentDraft));
+    setInputValue('branchAddress', currentDraft.address);
+    setInputValue('latitude', currentDraft.latitude);
+    setInputValue('longitude', currentDraft.longitude);
+    setInputValue('branchPhone', currentDraft.phone);
+    setInputValue('branchEmail', currentDraft.email);
+    setInputValue('branchDescription', currentDraft.description);
+    updateDescriptionCounter();
+  };
+  const resolveRequestedDraft = async (branches) => {
+    const explicitId = new URLSearchParams(window.location.search).get('id');
+    const fallback = await readStoredObject('wusoolCurrentBranchDraft');
+    const branch = WusoolBranchWorkflow.resolveBranch(branches, explicitId, fallback);
+    return branch?.status === 'draft' ? branch : null;
+  };
+  const setInputValue = (elementId, value) => {
+    document.getElementById(elementId).value = value || '';
+  };
+  const initializeLocationButton = () => {
+    WusoolUI.listen(document.getElementById('useLocationButton'), 'click', requestCurrentLocation);
+  };
+  const requestCurrentLocation = () => {
+    const message = document.getElementById('locationMessage');
+    if (!navigator.geolocation) {
+      message.textContent = 'Location is not supported by this browser.';
+      message.className = 'd-block text-danger mt-2';
+      return;
+    }
+    message.textContent = 'Getting your current location...';
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        document.getElementById('latitude').value = position.coords.latitude.toFixed(6);
+        document.getElementById('longitude').value = position.coords.longitude.toFixed(6);
+        message.textContent = 'Current coordinates added successfully.';
+        message.className = 'd-block text-success mt-2';
+      },
+      () => {
+        message.textContent = 'Location permission was denied. Enter the coordinates manually.';
+        message.className = 'd-block text-danger mt-2';
+      },
+    );
+  };
+  const initializeDescriptionCounter = () => {
+    WusoolUI.listen(
+      document.getElementById('branchDescription'),
+      'input',
+      updateDescriptionCounter,
+    );
+  };
+  const updateDescriptionCounter = () => {
+    const description = document.getElementById('branchDescription').value;
+    document.getElementById('descriptionCounter').textContent = `${description.length} / 500`;
+  };
+  const initializeSidebar = () => {
+    const sidebar = document.getElementById('organizationSidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const openButton = document.getElementById('openSidebarButton');
+    const closeButton = document.getElementById('closeSidebarButton');
+    const openSidebar = () => {
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+      document.body.classList.add('overflow-hidden');
+      closeButton.focus();
+    };
+    const closeSidebar = () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      document.body.classList.remove('overflow-hidden');
+      if (document.activeElement === closeButton || sidebar.contains(document.activeElement)) {
+        openButton.focus();
+      }
+    };
+    WusoolUI.listen(openButton, 'click', openSidebar);
+    WusoolUI.listen(closeButton, 'click', closeSidebar);
+    WusoolUI.listen(overlay, 'click', closeSidebar);
+    WusoolUI.listen(document, 'keydown', (event) => {
+      if (event.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+    });
+  };
+  const initializeLogout = () => {
+    WusoolUI.listen(document.getElementById('logoutButton'), 'click', async () => {
+      await WusoolServices.rawRemove('wusoolOrganization');
+      await WusoolServices.rawRemove('wusoolOrganizationLoggedIn');
+      window.location.replace('./organization-login.html');
+    });
+  };
+  const loadOrganizationName = async () => {
+    const organization = await readStoredObject('wusoolOrganization');
+    const organizationName =
+      organization?.organizationName ||
+      organization?.companyName ||
+      organization?.name ||
+      'Organization';
+    document.getElementById('sidebarOrganizationName').textContent = organizationName;
+  };
+  const showToast = (message) => {
+    document.getElementById('toastMessage').textContent = message;
+    bootstrap.Toast.getOrCreateInstance(document.getElementById('branchToast')).show();
+  };
+});

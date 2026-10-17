@@ -1,0 +1,128 @@
+/* ========================================
+   Report Accessibility Issue
+   ======================================== */
+
+.reports-hero {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(34, 197, 184, 0.22),
+            transparent 35%
+        ),
+        #f4fbfa;
+
+    border-bottom: 1px solid #d5e6e4;
+}
+
+/* Main Cards */
+
+.report-card {
+    border: 1px solid #d5e6e4;
+    border-radius: 1.25rem;
+    background-color: #ffffff;
+    box-shadow: 0 1rem 2.5rem rgba(11, 43, 75, 0.08);
+}
+
+/* Information Icon */
+
+.report-info-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+    color: #0f7f75;
+    background-color: #e8f7f5;
+    font-size: 1.4rem;
+}
+
+/* Report Process */
+
+.report-process li {
+    padding-left: 0.35rem;
+    color: #617184;
+}
+
+.report-process li::marker {
+    color: #0f7f75;
+    font-weight: 700;
+}
+
+/* Form Controls */
+
+.form-control,
+.form-select {
+    border-color: #cbdedc;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0f7f75;
+    box-shadow: 0 0 0 0.2rem rgba(15, 127, 117, 0.15);
+}
+
+.form-check-input:checked {
+    border-color: #0f7f75;
+    background-color: #0f7f75;
+}
+
+.form-check-input:focus {
+    border-color: #0f7f75;
+    box-shadow: 0 0 0 0.2rem rgba(15, 127, 117, 0.15);
+}
+
+/* Photo Upload */
+
+.photo-upload-box {
+    border: 2px dashed #b8d4d1;
+    border-radius: 1rem;
+    background-color: #f8fbfb;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.photo-upload-box:hover {
+    border-color: #0f7f75;
+    background-color: #eef9f7;
+}
+
+.report-photo-preview {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border: 1px solid #d5e6e4;
+}
+
+/* Success Section */
+
+.success-icon {
+    width: 5rem;
+    height: 5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ffffff;
+    background-color: #0f7f75;
+    font-size: 2.5rem;
+}
+
+.text-wusool {
+    color: #0f7f75;
+}
+
+/* Responsive */
+
+@media (max-width: 767.98px) {
+    .reports-hero {
+        text-align: center;
+    }
+
+    .report-card {
+        border-radius: 1rem;
+    }
+
+    .report-card .btn-lg {
+        width: 100%;
+    }
+}

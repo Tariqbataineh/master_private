@@ -1,0 +1,179 @@
+/* Wusool presentation system. CSS only; no visibility, authorization or state rules. */
+:root {
+  --wu-font-en: 'Segoe UI', Arial, sans-serif;
+  --wu-font-ar: Tahoma, 'Segoe UI', Arial, sans-serif;
+  --wu-font: var(--wu-font-en);
+  --wu-body: 1rem;
+  --wu-small: .875rem;
+  --wu-caption: .8125rem;
+  --wu-card-title: 1.375rem;
+  --wu-page-title: clamp(2.25rem, 3.4vw, 3.25rem);
+  --wu-section-title: clamp(1.75rem, 2.7vw, 2.5rem);
+  --wu-brand: #0f766e;
+  --wu-brand-hover: #0b5f59;
+  --wu-navy: #0f2747;
+  --wu-text: var(--wt-text, #10233f);
+  --wu-muted: var(--wt-muted, #5c6f7d);
+  --wu-surface: var(--wt-surface, #fff);
+  --wu-soft: var(--wt-raised, #f0f7f5);
+  --wu-page: var(--wt-page, #f7faf9);
+  --wu-border: var(--wt-border, #cbdcda);
+  --wu-success: #067647;
+  --wu-warning: #925600;
+  --wu-danger: #b42318;
+  --wu-info: #17618a;
+  --wu-focus: var(--wt-accent, #0f766e);
+  --wu-space-1: .25rem;
+  --wu-space-2: .5rem;
+  --wu-space-3: .75rem;
+  --wu-space-4: 1rem;
+  --wu-space-6: 1.5rem;
+  --wu-space-8: 2rem;
+  --wu-space-12: 3rem;
+  --wu-space-16: 4rem;
+  --wu-space-24: 6rem;
+  --wu-radius-control: .75rem;
+  --wu-radius-card: 1.125rem;
+  --wu-radius-dialog: 1.5rem;
+  --wu-shadow: 0 4px 20px rgb(15 39 71 / 5%);
+  --wu-shadow-raised: 0 16px 40px rgb(15 39 71 / 12%);
+  --wu-control-height: 2.875rem;
+  --wu-compact-height: 2.5rem;
+  --wu-cta-height: 3.125rem;
+  --wu-feedback: 180ms;
+  --wusool-primary: var(--wu-brand);
+  --wusool-primary-dark: var(--wu-brand-hover);
+  --wusool-navy: var(--wu-text);
+  --wusool-muted: var(--wu-muted);
+  --wusool-text-muted: var(--wu-muted);
+  --wusool-border: var(--wu-border);
+  --wusool-light: var(--wu-soft);
+  --wusool-card-radius: var(--wu-radius-card);
+}
+html:lang(ar) {--wu-font: var(--wu-font-ar)}
+html[data-wusool-color-mode=dark] {
+  --wu-success: #8bdfb0;
+  --wu-warning: #ffd08a;
+  --wu-danger: #ffb4b4;
+  --wu-info: #a6d9ee;
+  --wu-shadow: 0 4px 20px rgb(0 0 0 / 15%);
+  --wu-shadow-raised: 0 16px 40px rgb(0 0 0 / 28%);
+}
+/* Home geometry and native scroll stages are deliberately excluded. */
+html body:not(:has(.wusool-journey)) {
+  font-family: var(--wu-font);
+  font-size: var(--wu-body);
+  line-height: 1.65;
+  color: var(--wu-text);
+  background-color: var(--wu-page);
+  -webkit-font-smoothing: antialiased;
+}
+body:not(:has(.wusool-journey)) :is(h1,h2,h3,h4,h5,h6) {font-family:inherit;line-height:1.25;font-weight:700;overflow-wrap:break-word;text-wrap:pretty}
+body:not(:has(.wusool-journey)) :is(h1,.page-heading h1,.page-header h1,.page-title) {font-size:var(--wu-page-title);letter-spacing:-.035em}
+body:not(:has(.wusool-journey)) :is(.section-title,.page-heading h2,.page-header h2) {font-size:var(--wu-section-title);letter-spacing:-.025em}
+body:not(:has(.wusool-journey)) :is(.card-title,.content-card h2,.form-card h2,.details-card h2,.review-card h3,.visit-review-card h3,.modal-title) {font-size:var(--wu-card-title);letter-spacing:-.015em}
+body:not(:has(.wusool-journey)) :is(.section-description,.page-description,.form-text,.small,small,.stat-label,.stat-card p) {font-size:var(--wu-small);line-height:1.6}
+body:not(:has(.wusool-journey)) :is(.form-label,label:not(.form-check-label),.filter-label) {font-size:var(--wu-small);font-weight:600;line-height:1.5}
+html:lang(ar) body:not(:has(.wusool-journey)) :is(h1,h2,h3,h4,h5,h6,p,label,button,a,th,td,.page-label,.section-label,.header-label,.modal-label,.section-small-title) {letter-spacing:normal}
+html:lang(ar) body:not(:has(.wusool-journey)) {line-height:1.8}
+/* Standard controls: never change display conditions or disabled behavior. */
+body:not(:has(.wusool-journey)) :is(.btn,.wxi-button,.wusool-primary-button,.wusool-secondary-button) {
+  --bs-btn-font-size: .9375rem;
+  --bs-btn-font-weight: 600;
+  --bs-btn-border-radius: var(--wu-radius-control);
+  --bs-btn-padding-x: 1.125rem;
+  --bs-btn-padding-y: .625rem;
+  min-height:var(--wu-control-height);
+  font-family:inherit;font-size:.9375rem;font-weight:600;line-height:1.4;
+  border-radius:var(--wu-radius-control);
+  padding:.625rem 1.125rem;
+  vertical-align:middle;white-space:normal;overflow-wrap:break-word;
+  transition:background-color var(--wu-feedback),border-color var(--wu-feedback),color var(--wu-feedback),box-shadow var(--wu-feedback);
+}
+body:not(:has(.wusool-journey)) :is(.btn-lg,.login-button,.register-button,.confirm-button) {min-height:var(--wu-cta-height);font-size:1rem;padding:.75rem 1.375rem}
+body:not(:has(.wusool-journey)) :is(.btn-sm,.table .btn,.action-menu .btn) {min-height:var(--wu-compact-height);font-size:var(--wu-small);padding:.5rem .875rem}
+body:not(:has(.wusool-journey)) :is(.btn-wusool,.btn-primary) {--bs-btn-bg:var(--wu-brand);--bs-btn-border-color:var(--wu-brand);--bs-btn-hover-bg:var(--wu-brand-hover);--bs-btn-hover-border-color:var(--wu-brand-hover);--bs-btn-active-bg:var(--wu-brand-hover);color:#fff;background:var(--wu-brand);border-color:var(--wu-brand)}
+body:not(:has(.wusool-journey)) :is(.btn-wusool,.btn-primary):hover:not(:disabled):not(.disabled) {background:var(--wu-brand-hover);color:#fff;border-color:var(--wu-brand-hover)}
+body:not(:has(.wusool-journey)) :is(.btn-outline-wusool,.btn-wusool-outline,.btn-outline-primary) {--bs-btn-color:var(--wu-focus);--bs-btn-border-color:var(--wu-focus);color:var(--wu-focus);border-color:var(--wu-focus);background:transparent}
+body:not(:has(.wusool-journey)) :is(.btn-outline-wusool,.btn-wusool-outline,.btn-outline-primary):hover:not(:disabled):not(.disabled) {background:var(--wu-brand);border-color:var(--wu-brand);color:#fff}
+body:not(:has(.wusool-journey)) :is(.btn-outline-secondary,.btn-light) {--bs-btn-color:var(--wu-text);--bs-btn-border-color:var(--wu-border);color:var(--wu-text);border-color:var(--wu-border);background:var(--wu-surface)}
+body:not(:has(.wusool-journey)) :is(.btn-outline-secondary,.btn-light):hover:not(:disabled):not(.disabled) {background:var(--wu-soft);color:var(--wu-text);border-color:var(--wu-focus)}
+body:not(:has(.wusool-journey)) .btn-outline-danger {color:var(--wu-danger);border-color:var(--wu-danger);background:transparent}
+body:not(:has(.wusool-journey)) .btn-outline-danger:hover:not(:disabled):not(.disabled) {color:#fff;border-color:#b42318;background:#b42318}
+body:not(:has(.wusool-journey)) .btn-danger {background:#b42318;border-color:#b42318;color:#fff}
+body:not(:has(.wusool-journey)) .btn-link {background:transparent;border-color:transparent;color:var(--wu-focus)}
+body:not(:has(.wusool-journey)) .btn:hover {transform:none}
+body:not(:has(.wusool-journey)) :is(.btn,.wxi-button):is(:disabled,.disabled) {opacity:.55;box-shadow:none}
+body:not(:has(.wusool-journey)) .btn .bi {font-size:1.05em;vertical-align:-.08em}
+body:not(:has(.wusool-journey)) :is(.sidebar-toggle,.navbar-toggler,.password-toggle,.password-toggle-button,.btn-close) {min-width:2.75rem;min-height:2.75rem;border-radius:var(--wu-radius-control)}
+body:not(:has(.wusool-journey)) :is(.form-control,.form-select) {min-height:var(--wu-control-height);font-family:inherit;font-size:1rem;line-height:1.5;border-radius:var(--wu-radius-control);padding:.625rem .875rem;box-shadow:none}
+body:not(:has(.wusool-journey)) .form-select {padding-inline-end:2.5rem}
+body:not(:has(.wusool-journey)) textarea.form-control {min-height:7rem;line-height:1.65}
+body:not(:has(.wusool-journey)) :is(.input-group-text,.input-group>.btn) {border-radius:var(--wu-radius-control);padding:.625rem .875rem}
+body:not(:has(.wusool-journey)) .input-group>:not(:first-child) {border-start-start-radius:0;border-end-start-radius:0}
+body:not(:has(.wusool-journey)) .input-group>:not(:last-child) {border-start-end-radius:0;border-end-end-radius:0}
+body:not(:has(.wusool-journey)) :is(.form-check-input,input[type=checkbox],input[type=radio]) {accent-color:var(--wu-brand)}
+body:not(:has(.wusool-journey)) .form-check-input {width:1.125em;height:1.125em}
+body:not(:has(.wusool-journey)) .form-switch .form-check-input {width:2.4em;height:1.3em}
+body:not(:has(.wusool-journey)) :is(.invalid-feedback,.valid-feedback,.validation-message,.error-message) {font-size:var(--wu-small);line-height:1.5;margin-top:.5rem;overflow-wrap:anywhere}
+body:not(:has(.wusool-journey)) :is(.content-card,.data-card,.form-card,.details-card,.filter-card,.review-card,.visit-review-card,.summary-card,.dashboard-card,.stat-card,.builder-card,.card,.wusool-card) {border-radius:var(--wu-radius-card);border-color:var(--wu-border);box-shadow:var(--wu-shadow)}
+body:not(:has(.wusool-journey)) :is(.content-card,.data-card,.form-card,.details-card,.filter-card,.summary-card) {padding:var(--wu-space-6)}
+body:not(:has(.wusool-journey)) :is(.page-heading,.page-header) {background-image:none;border-color:var(--wu-border)}
+body:not(:has(.wusool-journey)) :is(.page-label,.section-label,.section-small-title,.header-label,.modal-label) {font-size:var(--wu-caption);font-weight:700;line-height:1.5;letter-spacing:.075em}
+body:not(:has(.wusool-journey)) :is(.stat-card,.dashboard-stat) {padding:1.25rem;min-height:0}
+body:not(:has(.wusool-journey)) :is(.stat-value,.stat-card h2,.stat-card h3,.report-stat strong) {font-size:1.875rem;font-weight:700;line-height:1.2;font-variant-numeric:tabular-nums}
+body:not(:has(.wusool-journey)) :is(.stat-icon,.stat-card-icon) {width:2.625rem;height:2.625rem;font-size:1.125rem;border-radius:.875rem;flex-shrink:0}
+body:not(:has(.wusool-journey)) :is(.table,.table td,.table th) {font-size:var(--wu-small);line-height:1.5}
+body:not(:has(.wusool-journey)) .table {--bs-table-border-color:var(--wu-border);--bs-table-hover-bg:var(--wu-soft);font-variant-numeric:tabular-nums}
+body:not(:has(.wusool-journey)) .table :is(th,td) {padding:.9375rem .875rem;vertical-align:middle}
+body:not(:has(.wusool-journey)) .table th {font-size:var(--wu-caption);font-weight:600;letter-spacing:.025em}
+body:not(:has(.wusool-journey)) :is(.action-menu,.ticket-actions .d-flex,.initial-actions,.modal-footer) {gap:.5rem;flex-wrap:wrap}
+body:not(:has(.wusool-journey)) :is(.badge,.status-badge,.ticket-status,.priority-high,.priority-medium,.priority-low) {font-size:var(--wu-caption);line-height:1.45;font-weight:600;border-radius:100px;padding:.375rem .625rem;white-space:normal}
+body:not(:has(.wusool-journey)) :is(.badge-soft-success,.status-approved) {color:var(--wu-success);background:color-mix(in srgb,var(--wu-success) 10%,var(--wu-surface))}
+body:not(:has(.wusool-journey)) :is(.badge-soft-warning,.priority-medium) {color:var(--wu-warning);background:color-mix(in srgb,var(--wu-warning) 10%,var(--wu-surface))}
+body:not(:has(.wusool-journey)) :is(.badge-soft-danger,.priority-high) {color:var(--wu-danger);background:color-mix(in srgb,var(--wu-danger) 10%,var(--wu-surface))}
+body:not(:has(.wusool-journey)) :is(.alert,.wusool-ui-message) {font-size:var(--wu-small);line-height:1.6;padding:1rem 1.25rem;border-radius:var(--wu-radius-control);overflow-wrap:anywhere}
+body:not(:has(.wusool-journey)) :is(.modal-content,.wusool-initial-dialog,.visit-operations-dialog) {border:1px solid var(--wu-border);border-radius:var(--wu-radius-dialog);box-shadow:var(--wu-shadow-raised);color:var(--wu-text);background:var(--wu-surface)}
+body:not(:has(.wusool-journey)) :is(.modal-header,.modal-body,.modal-footer) {padding:1.25rem 1.5rem}
+body:not(:has(.wusool-journey)) :is(.wusool-initial-dialog,.visit-operations-dialog) {padding:1.5rem;max-width:calc(100vw - 2rem)}
+body:not(:has(.wusool-journey)) :is(.wusool-initial-dialog,.visit-operations-dialog) h2 {font-size:1.5rem;margin-bottom:1.25rem}
+body:not(:has(.wusool-journey)) :is(dialog)::backdrop {background:rgb(7 27 38 / 56%);backdrop-filter:blur(3px)}
+body:not(:has(.wusool-journey)) :is(.dropdown-menu,.notification-dropdown) {border-radius:var(--wu-radius-control);border-color:var(--wu-border);box-shadow:var(--wu-shadow-raised);font-size:var(--wu-small)}
+body:not(:has(.wusool-journey)) :is(.empty-state,.empty-reviews,.empty-visits,.booking-empty) {font-size:var(--wu-small);line-height:1.7}
+/* Existing sidebar positions, collapse conditions and direction are untouched. */
+body:not(:has(.wusool-journey)) :is(.user-sidebar,.organization-sidebar,.admin-sidebar) {box-shadow:none}
+body:not(:has(.wusool-journey)) :is(.user-sidebar-link,.sidebar-link,.sidebar-navigation .nav-link) {font-size:var(--wu-small);line-height:1.45;border-radius:.75rem;padding:.75rem .875rem}
+body:not(:has(.wusool-journey)) :is(.user-sidebar-label,.sidebar-section-label,.sidebar-label) {font-size:.6875rem;font-weight:600;letter-spacing:.07em}
+body:not(:has(.wusool-journey)) .main-navbar .nav-link {font-size:var(--wu-small);font-weight:600}
+body:not(:has(.wusool-journey)) .wusool-preferences {font-family:inherit;font-size:var(--wu-small);gap:.5rem}
+body:not(:has(.wusool-journey)) .wusool-preferences :is(button,select) {min-height:2.75rem;border-radius:.75rem;padding:.5rem .625rem}
+body:not(:has(.wusool-journey)) .wusool-preferences[data-location=sidebar] :is(button,select) {font-size:.8125rem}
+body:not(:has(.wusool-journey)) .wusool-preferences label {font-size:var(--wu-caption)}
+body:not(:has(.wusool-journey)) :is(.main-footer,.user-footer,.organization-footer) {font-size:var(--wu-small);line-height:1.6}
+body:not(:has(.wusool-journey)) :is(a,button,input,select,textarea,[tabindex]):focus-visible {outline:3px solid var(--wu-focus);outline-offset:3px;box-shadow:none}
+/* High contrast inherits existing behavior; only semantic tokens and visual boundaries change. */
+body.high-contrast {--wu-text:#fff;--wu-muted:#eee;--wu-surface:#000;--wu-soft:#111;--wu-border:#fff;--wu-focus:#ffeb3b;--wu-success:#fff;--wu-warning:#fff;--wu-danger:#fff;--wu-info:#fff}
+body.high-contrast:not(:has(.wusool-journey)) :is(.btn,.badge,.status-badge,.content-card,.stat-card) {border-color:#fff}
+@media (max-width:767px) {
+ body:not(:has(.wusool-journey)) :is(h1,.page-heading h1,.page-header h1,.page-title) {font-size:clamp(1.875rem,7vw,2.5rem)}
+ body:not(:has(.wusool-journey)) :is(.content-card,.data-card,.form-card,.details-card,.filter-card,.summary-card) {padding:1.125rem}
+ body:not(:has(.wusool-journey)) :is(.modal-header,.modal-body,.modal-footer) {padding:1.125rem}
+ body:not(:has(.wusool-journey)) :is(.btn-sm,.table .btn,.action-menu .btn) {min-height:2.75rem}
+ body:not(:has(.wusool-journey)) .form-select {max-width:100%}
+}
+@media (prefers-reduced-motion:reduce) {
+ body:not(:has(.wusool-journey)) :is(.btn,.wxi-button,.form-control,.form-select) {transition:none}
+}
+/* Home: surface polish only. No dimensions, positioning, camera or timing changes. */
+.wusool-journey .showcase-panel {box-shadow:0 18px 48px rgb(12 39 37 / 22%);border-color:#d1e2d5}
+.wusool-journey .showcase-actions :is(a,button):focus-visible {outline:3px solid #f1cb78;outline-offset:3px}
+
+/* Narrow toolbars use their available column width, not the select's intrinsic width. */
+body:not(:has(.wusool-journey)) .page-header .flex-xl-row {flex-wrap:wrap}
+body:not(:has(.wusool-journey)) .page-header .d-flex:has(>.search-box) {flex-wrap:wrap;min-width:0;max-width:100%}
+body:not(:has(.wusool-journey)) .page-header .search-box {min-width:0;flex:1}
+body:not(:has(.wusool-journey)) .main-content>.row:has(>button.btn-outline-wusool) {margin:1.5rem;--bs-gutter-x:0;--bs-gutter-y:0;gap:.75rem}
+body:not(:has(.wusool-journey)) .wusool-preferences[data-location=sidebar] {display:grid;grid-template-columns:max-content minmax(0,1fr);gap:.25rem .5rem;align-items:end}
+body:not(:has(.wusool-journey)) .wusool-preferences[data-location=sidebar] button {grid-row:1 / span 2;grid-column:1}
+body:not(:has(.wusool-journey)) .wusool-preferences[data-location=sidebar] label {grid-row:1;grid-column:2;font-size:.6875rem;font-weight:400}
+body:not(:has(.wusool-journey)) .wusool-preferences[data-location=sidebar] select {grid-row:2;grid-column:2;min-width:0;width:100%}

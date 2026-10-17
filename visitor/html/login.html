@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+  <head>
+<script src="../../assets/interaction-theme.js"></script>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | Wusool</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="../../assets/vendor/bootstrap-5.3.3/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="../../assets/site.css" />
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/premium-login.css" />
+      <!-- Dynamic Platform Runtime -->
+    <link rel="stylesheet" href="../../assets/platform-runtime.css">
+    <!-- Wusool Premium Motion System -->
+    <link rel="stylesheet" href="../../assets/css/wusool-motion.css">
+    <!-- Wusool Unified Experience -->
+    <link rel="stylesheet" href="../../assets/css/wusool-experience.css">
+<link rel="stylesheet" href="../../assets/css/login-transition.css"/>
+<link rel="stylesheet" href="../../assets/css/auth-cinematic.css">
+<script src="../../assets/api-config.js"></script>
+<script src="../../assets/interaction-policy.js"></script>
+<script src="../../assets/location-service.js"></script>
+<script src="../../assets/branch-workflow.js"></script>
+<script src="../../assets/service-registry.js"></script>
+<script src="../../assets/storage-adapter.js"></script>
+<script src="../../assets/http-client.js"></script>
+<script src="../../assets/services/core.js"></script>
+<script src="../../assets/services/local.js"></script>
+
+<script src="../../assets/services/directory.js"></script>
+<script src="../../assets/services/entities.js"></script>
+<script src="../../assets/services/auth.js"></script>
+<script src="../../assets/services/bookings.js"></script>
+<script src="../../assets/services/integrations.js"></script>
+<script src="../../assets/services/facade.js"></script>
+<script src="../../assets/services/state.js"></script>
+<script src="../../assets/services/journey.js"></script>
+<script src="../../assets/services/visits.js"></script>
+<script src="../../assets/services/hours.js"></script>
+    <script src="../../assets/services/portal.js"></script>
+<script src="../../assets/app-services.js"></script>
+<script src="../../assets/data-service.js"></script>
+<script src="../../assets/page-runtime.js"></script>
+<script src="../../assets/external-screens.js"></script>
+<script src="../../assets/live-sync.js"></script>
+<script src="../../assets/catalog-runtime.js"></script>
+<script src="../../assets/feature-store.js"></script>
+<script src="../../assets/behavior-service.js"></script>
+<link rel="stylesheet" href="../../assets/interactions.css"/>
+<script src="../../assets/interaction-i18n.js"></script>
+<script defer src="../../assets/interactions.js"></script>
+<link rel="stylesheet" href="../../assets/form-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/theme-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/preferences.css">
+<script defer src="../../assets/preferences.js"></script>
+<link rel="stylesheet" href="../../assets/presentation.css">
+<link rel="stylesheet" href="../../assets/portal-refinement.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Sora:wght@500;600;700&amp;family=Tajawal:wght@400;500;700&amp;display=swap" data-wusool-fonts="online-with-fallback">
+<link rel="stylesheet" href="../../assets/wusool-unified-design.css" data-wusool-design="unified-v1">
+<link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
+</head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="./home.html">
+          <span class="brand-icon">
+            <i class="bi bi-universal-access"></i>
+          </span>
+
+          Wusool
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav mx-auto gap-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html"> Home </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./accessibility-map.html">
+                Accessibility Map
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html#aboutWusool"> About Us </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./home.html#contact"> Contact </a>
+            </li>
+          </ul>
+
+          <div class="d-flex gap-2">
+            <a href="./login.html" class="btn btn-outline-wusool active-button">
+              Log in
+            </a>
+
+            <a href="./register.html" class="btn btn-wusool"> Join now </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Accessibility Tools -->
+    <section class="accessibility-toolbar">
+      <div class="container d-flex flex-wrap align-items-center gap-2">
+        <strong class="me-2">
+          <i class="bi bi-universal-access me-1"></i>
+          Accessibility Tools
+        </strong>
+
+        <button
+          class="btn accessibility-button"
+          id="decreaseText"
+          type="button"
+        >
+          A-
+        </button>
+
+        <button
+          class="btn accessibility-button"
+          id="increaseText"
+          type="button"
+        >
+          A+
+        </button>
+
+        <button
+          class="btn accessibility-button"
+          id="contrastButton"
+          type="button"
+        >
+          <i class="bi bi-circle-half me-1"></i>
+          High Contrast
+        </button>
+
+        <button class="btn accessibility-button" id="readPage" type="button">
+          <i class="bi bi-volume-up me-1"></i>
+          Read Page
+        </button>
+      </div>
+    </section>
+
+    <!-- Login Page -->
+    <main class="login-page">
+      <div class="container">
+        <div class="login-container">
+          <!-- Left Side -->
+          <section class="login-hero">
+            <div class="hero-decoration decoration-one"></div>
+            <div class="hero-decoration decoration-two"></div>
+
+            <div class="hero-content">
+              <span class="hero-label"> ACCESSIBILITY FOR EVERYONE </span>
+
+              <h1>
+                Access Every Place
+                <span>With Confidence</span>
+              </h1>
+
+              <p>
+                Find accessible places and explore the city with clear, trusted
+                accessibility information.
+              </p>
+
+              <div class="hero-brand">
+                <div class="hero-logo">W</div>
+
+                <div>
+                  <strong>Wusool</strong>
+                  <small>Accessibility for everyone</small>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Right Side -->
+          <section class="login-form-section">
+            <div class="login-form-wrapper">
+              <div class="mobile-logo">
+                <span>W</span>
+                Wusool
+              </div>
+
+              <span class="form-label-top"> WELCOME TO WUSOOL </span>
+
+              <h2>Welcome Back</h2>
+
+              <p class="form-description">
+                Sign in to continue to your Wusool account.
+              </p>
+
+              <!-- Alert -->
+              <div id="loginAlert" class="alert d-none" role="alert"></div>
+
+              <!-- Login Form -->
+              <form id="loginForm" method="post" data-backend-controller="Account" data-backend-action="Login" novalidate>
+                <!-- Email -->
+                <div class="mb-4">
+                  <label for="email" class="form-label"> Email Address </label>
+
+                  <div class="input-group custom-input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-envelope"></i>
+                    </span>
+
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="Email"
+                      placeholder="name@example.com"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+
+                  <div class="invalid-feedback" id="emailError">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label"> Password </label>
+
+                  <div class="input-group custom-input-group">
+                    <span class="input-group-text">
+                      <i class="bi bi-lock"></i>
+                    </span>
+
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="Password"
+                      placeholder="Enter your password"
+                      autocomplete="current-password"
+                      minlength="6"
+                      required
+                    />
+
+                    <button
+                      class="btn password-toggle"
+                      type="button"
+                      id="togglePassword"
+                      aria-label="Show password"
+                    >
+                      <i class="bi bi-eye" id="passwordIcon"> </i>
+                    </button>
+                  </div>
+
+                  <div class="invalid-feedback" id="passwordError">
+                    Password must contain at least 6 characters.
+                  </div>
+                </div>
+
+                <!-- Remember and Forgot -->
+                <div class="login-options">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="rememberMe"
+                      name="RememberMe"
+                    />
+
+                    <label class="form-check-label" for="rememberMe">
+                      Remember me
+                    </label>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="forgot-password"
+                    id="forgotPasswordButton"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+
+                <!-- Submit -->
+                <button
+                  type="submit"
+                  class="btn btn-wusool login-button"
+                  id="loginButton"
+                >
+                  <span id="loginButtonText"> Log in </span>
+
+                  <span
+                    id="loginSpinner"
+                    class="spinner-border spinner-border-sm d-none"
+                    aria-hidden="true"
+                  >
+                  </span>
+                </button>
+              </form>
+
+              <div class="register-link">
+                Don’t have an account?
+
+                <a href="./register.html"> Create Account </a>
+              </div>
+
+              <div class="privacy-message">
+                <i class="bi bi-shield-check"></i>
+                Your information is protected and secure.
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <!-- Forgot Password Modal -->
+    <div
+      class="modal fade"
+      id="forgotPasswordModal"
+      tabindex="-1"
+      aria-labelledby="forgotPasswordTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="forgotPasswordTitle">
+              Reset Password
+            </h2>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <p class="text-secondary">
+              Enter your email address and we will send you password reset
+              instructions.
+            </p>
+
+            <label for="resetEmail" class="form-label"> Email Address </label>
+
+            <input
+              type="email"
+              class="form-control"
+              id="resetEmail"
+              name="ResetEmail"
+              placeholder="name@example.com"
+            />
+
+            <div id="resetMessage" class="alert alert-success mt-3 d-none">
+              Reset instructions were sent successfully.
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+
+            <button type="button" class="btn btn-wusool" id="sendResetButton">
+              Send Instructions
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-md-4">
+            <h2>Wusool</h2>
+            <p>Accessibility for everyone.</p>
+          </div>
+
+          <div class="col-md-4 text-md-center">
+            <a href="./home.html">Home</a>
+            <a href="./accessibility-map.html">Map</a>
+            <a href="./home.html#contact">Contact</a>
+          </div>
+
+          <div class="col-md-4 text-md-end">
+            <p>© 2026 Wusool</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../../assets/vendor/bootstrap-5.3.3/bootstrap.bundle.min.js"></script>
+
+    <script src="../../assets/site.js"></script>
+    <script src="../../assets/js/login-transition.js"></script>
+<script src="../js/login.js"></script>
+      <!-- Dynamic Platform Runtime -->
+    
+    <script src="../../assets/platform-runtime.js"></script>
+    <script src="../../assets/public-data-bridge.js"></script>
+    <script src="../../assets/dynamic-form-runtime.js"></script>
+    
+    <script src="../../assets/behavior-runtime.js"></script>
+    
+    <script src="../../assets/error-runtime.js"></script>
+    <script src="../../assets/maintenance-runtime.js"></script>
+    <!-- Wusool Premium Motion System -->
+    <script src="../../assets/js/wusool-motion.js"></script>
+    <!-- Wusool Unified Experience -->
+    <script src="../../assets/js/wusool-experience.js"></script>
+    <!-- Wusool Automatic Arabic / English Translation -->
+    <script src="../../assets/auto-translate.js"></script>
+<script src="../../assets/js/auth-cinematic.js"></script>
+</body>
+</html>
+

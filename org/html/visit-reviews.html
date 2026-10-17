@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script src="../../assets/interaction-theme.js"></script>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Review history for organization branches."
+    >
+
+    <title>Visit Reviews | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="../../assets/vendor/bootstrap-5.3.3/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Website CSS -->
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/visit-reviews.css"
+    >
+
+    <!-- Shared Sidebar CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/organization-sidebar.css"
+    >
+    <!-- Dynamic Platform Runtime -->
+    <link rel="stylesheet" href="../../assets/platform-runtime.css">
+<script src="../../assets/api-config.js"></script>
+<script src="../../assets/interaction-policy.js"></script>
+<script src="../../assets/location-service.js"></script>
+<script src="../../assets/branch-workflow.js"></script>
+<script src="../../assets/service-registry.js"></script>
+<script src="../../assets/storage-adapter.js"></script>
+<script src="../../assets/http-client.js"></script>
+<script src="../../assets/services/core.js"></script>
+<script src="../../assets/services/local.js"></script>
+
+<script src="../../assets/services/directory.js"></script>
+<script src="../../assets/services/entities.js"></script>
+<script src="../../assets/services/auth.js"></script>
+<script src="../../assets/services/bookings.js"></script>
+<script src="../../assets/services/integrations.js"></script>
+<script src="../../assets/services/facade.js"></script>
+<script src="../../assets/services/state.js"></script>
+<script src="../../assets/services/journey.js"></script>
+<script src="../../assets/services/visits.js"></script>
+<script src="../../assets/services/hours.js"></script>
+    <script src="../../assets/services/portal.js"></script>
+<script src="../../assets/app-services.js"></script>
+<script src="../../assets/data-service.js"></script>
+<script src="../../assets/page-runtime.js"></script>
+<script src="../../assets/external-screens.js"></script>
+<script src="../../assets/live-sync.js"></script>
+<script src="../../assets/catalog-runtime.js"></script>
+<script src="../../assets/feature-store.js"></script>
+<script src="../../assets/behavior-service.js"></script>
+<link rel="stylesheet" href="../../assets/interactions.css"/>
+<script src="../../assets/interaction-i18n.js"></script>
+<script defer src="../../assets/interactions.js"></script>
+<link rel="stylesheet" href="../../assets/form-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/theme-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/preferences.css">
+<script defer src="../../assets/preferences.js"></script>
+<link rel="stylesheet" href="../../assets/presentation.css">
+<link rel="stylesheet" href="../../assets/portal-refinement.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Sora:wght@500;600;700&amp;family=Tajawal:wght@400;500;700&amp;display=swap" data-wusool-fonts="online-with-fallback">
+<link rel="stylesheet" href="../../assets/wusool-unified-design.css" data-wusool-design="unified-v1">
+<link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
+</head>
+
+<body class="visit-reviews-page">
+<a href="#mainContent" class="visually-hidden-focusable">Skip to reviews</a>
+<div id="organizationSidebarContainer"></div>
+<main id="mainContent" class="organization-main-content reviews-workspace">
+<header class="reviews-header"><div><p class="page-label">VISITOR EXPERIENCE</p><h1>Visit Reviews</h1><p class="text-secondary">Verified feedback from completed visits to your branches. Admin approval locks the visitor's review.</p></div><button id="openSidebarButton" type="button" class="btn btn-outline-primary d-lg-none" aria-label="Open navigation"><i class="bi bi-list"></i></button></header>
+<section class="reviews-metrics" aria-label="Review statistics" aria-live="polite"><article><span>Total reviews</span><strong id="reviewsTotal">0</strong></article><article><span>Approved rating</span><strong id="reviewsAverage">—</strong></article><article><span>Approved</span><strong id="reviewsApproved">0</strong></article><article><span>Pending review</span><strong id="reviewsPending">0</strong></article></section>
+<section class="reviews-filters" aria-label="Filter reviews"><label>Search<input id="reviewSearch" class="form-control" type="search" maxlength="200" placeholder="Visitor, branch or comment"></label><label>Branch<select id="reviewBranchFilter" class="form-select"><option value="">All branches</option></select></label><label>Status<select id="reviewStatusFilter" class="form-select"><option value="">All statuses</option><option value="Visible">Approved</option><option value="Pending">Pending</option><option value="Rejected">Rejected</option><option value="Hidden">Hidden</option></select></label><label>Rating<select id="reviewRatingFilter" class="form-select"><option value="">All ratings</option><option value="5">5 stars</option><option value="4">4 stars</option><option value="3">3 stars</option><option value="2">2 stars</option><option value="1">1 star</option></select></label></section>
+<p id="reviewResults" class="text-secondary small" role="status" aria-live="polite"></p><section id="visitReviewsGrid" class="visit-reviews-grid" aria-label="Visitor reviews"></section><p id="reviewEmpty" class="review-empty" hidden>No reviews yet. Reviews appear after a visitor completes a visit and submits feedback.</p>
+</main>
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="../../assets/vendor/bootstrap-5.3.3/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Shared Website JavaScript -->
+
+    <!-- Page JavaScript -->
+    <script src="../js/visit-reviews.js"></script>
+
+    <!-- Shared Sidebar JavaScript -->
+    <script src="../js/organization-sidebar.js"></script>
+
+    <!-- Dynamic Platform Runtime -->
+    
+    <script src="../../assets/platform-runtime.js"></script>
+    <script src="../../assets/dynamic-form-runtime.js"></script>
+    
+    <script src="../../assets/behavior-runtime.js"></script>
+    
+    <script src="../../assets/error-runtime.js"></script>
+    <script src="../../assets/maintenance-runtime.js"></script>
+</body>
+</html>

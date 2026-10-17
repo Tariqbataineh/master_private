@@ -1,0 +1,45 @@
+
+.filter-select {
+    width: auto;
+    min-width: 165px;
+}
+
+.avatar-box {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--wusool-primary);
+    background: var(--wusool-light);
+    border-radius: 12px;
+    font-weight: 800;
+}
+
+.action-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+}
+
+.rating-stars {
+    color: #f79009;
+    letter-spacing: 2px;
+}
+
+.priority-high {
+    color: #b42318;
+    background: #fef3f2;
+}
+
+.priority-medium {
+    color: #b54708;
+    background: #fffaeb;
+}
+
+.priority-low {
+    color: #067647;
+    background: #ecfdf3;
+}

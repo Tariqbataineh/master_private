@@ -1,0 +1,750 @@
+:root { --wu-card-padding:clamp(16px,2vw,24px); --wu-card-gap:16px; --wu-card-radius:16px; }
+/* Button semantics shared by Bootstrap portals and the User Portal. */
+:root {
+ --wu-button-primary:#147d68; --wu-button-primary-hover:#106451;
+ --wu-button-on-primary:#ffffff; --wu-button-danger:#ae302b;
+ --wu-button-small:34px; --wu-button-medium:40px; --wu-button-large:46px;
+ --wu-button-radius:10px;
+}
+body:not(:has(.wusool-journey)) .btn {
+ min-height:var(--wu-button-medium);padding:8px 16px;border-radius:var(--wu-button-radius);
+ font-size:.875rem;line-height:1.4;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ max-width:100%;white-space:normal;text-align:center;
+}
+body .btn.btn-sm{min-height:var(--wu-button-small);padding:6px 12px;font-size:.8125rem}
+body .btn.btn-lg{min-height:var(--wu-button-large);padding:10px 20px}
+body .btn:is(:disabled,.disabled,[aria-disabled="true"]){cursor:not-allowed;box-shadow:none;opacity:.65}
+body .btn[aria-busy="true"]{cursor:progress}
+body .btn:focus-visible{outline:3px solid var(--wt-accent);outline-offset:3px}
+@media(pointer:coarse){body .btn:not(.btn-sm){min-height:44px}}
+/* Shared spacing tokens; no component geometry changes. */
+:root {
+  --wu-space-4: 4px;
+  --wu-space-8: 8px;
+  --wu-space-12: 12px;
+  --wu-space-16: 16px;
+  --wu-space-20: 20px;
+  --wu-space-24: 24px;
+  --wu-space-32: 32px;
+  --wu-space-40: 40px;
+  --wu-space-48: 48px;
+  --wu-space-64: 64px;
+}
+/* Wusool semantic theme. Last stylesheet on every complete portal page. */
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) .accessibility-toolbar-title {
+  color: var(--wt-text);
+}
+:root {
+  --wt-page: #f7faf9;
+  --wt-surface: #ffffff;
+  --wt-raised: #f0f7f5;
+  --wt-field: #ffffff;
+  --wt-text: #17322d;
+  --wt-muted: #526b65;
+  --wt-border: #cbdcda;
+  --wt-accent: #0f766e;
+  --wt-disabled: #eef2f2;
+  --wt-scheme: light;
+}
+html[data-wusool-color-mode='light'] {
+  color-scheme: light;
+  --wxi-surface: #ffffff;
+  --wxi-ink: #172033;
+  --wxi-line: #d6e6e4;
+}
+html[data-wusool-color-mode='dark'] {
+  color-scheme: dark;
+  --wt-page: #0f1718;
+  --wt-surface: #1d2928;
+  --wt-raised: #253034;
+  --wt-field: #242e32;
+  --wt-text: #f4f8f6;
+  --wt-muted: #c4d1ce;
+  --wt-border: #465955;
+  --wt-accent: #70ddcc;
+  --wt-disabled: #1e272a;
+  --wt-scheme: dark;
+  --background-color: var(--wt-page);
+  --section-background: var(--wt-raised);
+  --light-color: var(--wt-raised);
+  --text-color: var(--wt-text);
+  --muted-color: var(--wt-muted);
+  --border-color: var(--wt-border);
+  --wusool-background: var(--wt-page);
+  --wusool-light: var(--wt-raised);
+  --wusool-light-teal: var(--wt-raised);
+  --wusool-text: var(--wt-text);
+  --wusool-muted: var(--wt-muted);
+  --wusool-text-muted: var(--wt-muted);
+  --wusool-border: var(--wt-border);
+  --wx-bg: var(--wt-page);
+  --wx-ink: var(--wt-text);
+  --wx-muted: var(--wt-muted);
+  --wx-line: var(--wt-border);
+  --wxi-surface: var(--wt-surface);
+  --wxi-ink: var(--wt-text);
+  --wxi-line: var(--wt-border);
+  --wxi-teal: var(--wt-accent);
+  --bs-body-bg: var(--wt-page);
+  --bs-body-color: var(--wt-text);
+  --bs-secondary-color: var(--wt-muted);
+  --bs-border-color: var(--wt-border);
+  --bs-tertiary-bg: var(--wt-raised);
+  --bs-emphasis-color: var(--wt-text);
+}
+html[data-wusool-color-mode='dark'],
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) {
+  background: var(--wt-page) !important;
+  color: var(--wt-text) !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    main,
+    .main-content,
+    .organization-main,
+    .user-main,
+    .register-page,
+    .login-page,
+    .page-background,
+    .section-background,
+    .section-bg,
+    .bg-light,
+    .welcome-section,
+    .page-header,
+    .home-section,
+    .home-section-soft
+  ) {
+  background-color: var(--wt-page) !important;
+  background-image: none !important;
+  color: var(--wt-text) !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .academy-arrival-copy,
+    .academy-close,
+    .academy-detail-grid div,
+    .academy-dialog,
+    .accessibility-button,
+    .accessibility-feature,
+    .accessibility-item,
+    .accessibility-toolbar,
+    .accordion-button,
+    .accordion-item,
+    .account-type-card,
+    .action-card,
+    .ai-result-card,
+    .approval-card,
+    .approval-header,
+    .audit-table-card,
+    .auth-account-switch,
+    .auth-account-switch a,
+    .bg-white,
+    .booking-preview-card,
+    .booking-steps,
+    .branch-photo-card,
+    .branch-summary-card,
+    .branches-card,
+    .builder-card,
+    .calendar-preview,
+    .card,
+    .chat-card,
+    .checkout-card,
+    .checkout-header,
+    .comparison-container,
+    .comparison-controls,
+    .comparison-empty,
+    .completion-card,
+    .confirm-card,
+    .content-card,
+    .copy-button,
+    .dashboard-card,
+    .data-card,
+    .details-card,
+    .draft-information,
+    .dropdown-menu,
+    .empty-recommendations,
+    .empty-reviews,
+    .empty-state,
+    .empty-visits,
+    .experiences-card,
+    .facilities-section,
+    .failed-card,
+    .failed-header,
+    .feature-card,
+    .features-section,
+    .filter-card,
+    .filter-panel,
+    .form-card,
+    .guidance-control,
+    .guidance-navbar,
+    .guidance-option,
+    .help-card,
+    .information-card,
+    .information-item,
+    .input-group-text,
+    .journey-stop > .container,
+    .list-group-item,
+    .login-card,
+    .login-container,
+    .login-form-section,
+    .login-form-wrapper,
+    .main-navbar,
+    .map-search-form,
+    .marker-information,
+    .match-card,
+    .match-panel,
+    .media-card,
+    .media-picker-card,
+    .missing-card,
+    .mobile-header,
+    .modal-content,
+    .modal-footer,
+    .modal-header,
+    .navbar,
+    .need-option,
+    .next-step-item,
+    .notification-button,
+    .notification-card,
+    .offcanvas,
+    .order-summary,
+    .organization-card,
+    .organization-header,
+    .page-actions,
+    .panel,
+    .place-card,
+    .place-details-cta,
+    .place-summary,
+    .plan-card,
+    .plans-header,
+    .preference-option,
+    .preference-summary,
+    .preferences-card,
+    .preferences-summary,
+    .premium-search-dock,
+    .preview-canvas,
+    .preview-card,
+    .preview-shell,
+    .preview-stage,
+    .profile-button,
+    .profile-card,
+    .prompt-button,
+    .quick-action-card,
+    .receipt-button,
+    .receipt-item,
+    .recommendation-card,
+    .register-card,
+    .register-container,
+    .register-form-section,
+    .register-form-wrapper,
+    .remove-saved-button,
+    .report-card,
+    .result-card,
+    .review-card,
+    .review-process-card,
+    .review-search-card,
+    .review-toolbar,
+    .reviews-table-card,
+    .route-instruction,
+    .route-option,
+    .route-preview,
+    .save-place-button,
+    .saved-place-card,
+    .setup-progress-card,
+    .special-hours-item,
+    .stat-card,
+    .step-number,
+    .subscription-usage,
+    .success-card,
+    .success-header,
+    .success-main,
+    .summary-card,
+    .ticket-card,
+    .tickets-table-card,
+    .timeline-marker,
+    .toolbar-button,
+    .verification-card,
+    .verified-place,
+    .visit-card,
+    .visit-summary-card,
+    .visit-tab,
+    .wizard-progress,
+    .wusool-card,
+    .wxi-calendar-dialog,
+    .wxi-slide article,
+    .wxi-theme-controls
+  ) {
+  background: var(--wt-surface) !important;
+  color: var(--wt-text) !important;
+  border-color: var(--wt-border) !important;
+  box-shadow: 0 12px 32px #00000020;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    label,
+    .form-label,
+    .text-dark,
+    .text-body,
+    .text-body-emphasis,
+    .login-title,
+    .register-title,
+    .wxi-password,
+    .account-type-title,
+    .navbar-brand,
+    .nav-link,
+    .brand-link,
+    .wusool-logo
+  ) {
+  color: var(--wt-text) !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    p,
+    small,
+    .text-muted,
+    .text-secondary,
+    .text-body-secondary,
+    .form-text,
+    .login-description,
+    .form-description,
+    .register-description,
+    .privacy-message,
+    .wxi-password p,
+    .wxi-password li
+  ) {
+  color: var(--wt-muted) !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(a:not(.btn), .page-label, .eyebrow, .form-eyebrow, .login-eyebrow, .register-eyebrow) {
+  color: var(--wt-accent);
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .auth-account-switch a[aria-current],
+    .account-type-card.active,
+    .account-type-card.selected,
+    .preference-option.active,
+    .nav-pills .nav-link.active
+  ) {
+  background: #17463e !important;
+  color: #a7f3df !important;
+  border-color: #45b9a5 !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .auth-scene,
+    .register-hero,
+    .login-hero,
+    .hero-section,
+    .journey-intro,
+    .user-sidebar,
+    .organization-sidebar,
+    .admin-sidebar,
+    .sidebar,
+    .page-footer,
+    footer
+  ) {
+  color: #edf5f3;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(.auth-scene, .register-hero, .login-hero, .hero-section, .journey-intro, .sidebar, footer)
+  :is(h1, h2, h3, p, small, a, label) {
+  color: #edf5f3 !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .sidebar,
+    .user-sidebar,
+    .organization-sidebar,
+    .admin-sidebar,
+    .mobile-header,
+    footer,
+    .page-footer
+  ) {
+  background-color: #152321 !important;
+  border-color: var(--wt-border) !important;
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) .table {
+  --bs-table-bg: var(--wt-surface);
+  --bs-table-color: var(--wt-text);
+  --bs-table-border-color: var(--wt-border);
+  --bs-table-striped-bg: var(--wt-raised);
+  --bs-table-striped-color: var(--wt-text);
+  --bs-table-hover-bg: #2a3a36;
+  --bs-table-hover-color: var(--wt-text);
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) :is(.table-light, .table thead) {
+  --bs-table-bg: var(--wt-raised);
+  --bs-table-color: var(--wt-text);
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(.btn-wusool, .btn-primary, .btn-teal, .btn-organization) {
+  background: #167b6a !important;
+  color: #fff !important;
+  border-color: #269f89 !important;
+  -webkit-text-fill-color: #fff !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(.btn-outline-wusool, .btn-outline-primary, .btn-outline-secondary) {
+  color: var(--wt-accent) !important;
+  border-color: #4aac99 !important;
+  background: transparent !important;
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) :is(.alert-info, .alert-success) {
+  background: #173b34 !important;
+  color: #b9f5e5 !important;
+  border-color: #3f796c !important;
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) :is(.alert-warning) {
+  background: #3f3320 !important;
+  color: #ffe0a3 !important;
+  border-color: #87703e !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(.alert-danger, .invalid-feedback, .text-danger) {
+  color: #ffa9a3 !important;
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) :is(.wxi-password-meter span) {
+  background: #455a55;
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) .wxi-password-meter .wxi-met {
+  background: #70ddcc;
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) :is(.navbar-toggler, .btn-close) {
+  filter: invert(1) grayscale(1);
+}
+html[data-wusool-color-mode='dark'] body:not(.high-contrast) :focus-visible {
+  outline: 3px solid #70ddcc;
+  outline-offset: 3px;
+}
+@media (forced-colors: active) {
+  html[data-wusool-color-mode] body {
+    forced-color-adjust: auto;
+  }
+}
+
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .stat-value,
+    .stat-number,
+    .metric-value,
+    .card-title,
+    .place-title,
+    .branch-name,
+    .review-name,
+    .account-type-card strong,
+    .account-type-card span,
+    .auth-account-switch a,
+    .wxi-password strong,
+    .navbar-brand span,
+    .brand-link span,
+    .sidebar .nav-link,
+    .user-sidebar .nav-link,
+    .organization-sidebar .nav-link,
+    .admin-sidebar .nav-link
+  ) {
+  color: var(--wt-text) !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(.account-type-card, .preference-option):hover {
+  background: var(--wt-raised) !important;
+  border-color: var(--wt-accent) !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(.form-control, .form-select, .input-group):focus-within {
+  box-shadow: 0 0 0 3px #70ddcc20;
+}
+
+/* Shared page-title bands: replace their fixed light gradients in dark mode. */
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .preferences-heading,
+    .saved-heading,
+    .visit-heading,
+    .details-heading,
+    .visits-heading,
+    .recommendations-heading,
+    .compare-heading,
+    .summary-heading,
+    .profile-heading,
+    .guidance-heading,
+    .report-heading,
+    .experiences-heading,
+    .reviews-heading,
+    .assistant-heading,
+    .page-heading,
+    .page-hero,
+    .review-hero,
+    .reviews-hero,
+    .reports-hero,
+    .navigation-hero,
+    .dashboard-hero,
+    .map-page-header,
+    .booking-hero,
+    .guidance-hero,
+    .match-hero,
+    .branch-hero,
+    .plans-hero,
+    .checkout-hero,
+    .status-hero,
+    .page-header
+  ) {
+  background:
+    radial-gradient(ellipse at 90% 0%, #244c434d, transparent 60%),
+    linear-gradient(135deg, #1b2528, #17201f) !important;
+  color: #edf5f3 !important;
+  border-color: #465955 !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .preferences-heading,
+    .saved-heading,
+    .visit-heading,
+    .details-heading,
+    .visits-heading,
+    .recommendations-heading,
+    .compare-heading,
+    .summary-heading,
+    .profile-heading,
+    .guidance-heading,
+    .report-heading,
+    .experiences-heading,
+    .reviews-heading,
+    .assistant-heading,
+    .page-heading,
+    .page-hero,
+    .review-hero,
+    .reviews-hero,
+    .reports-hero,
+    .navigation-hero,
+    .dashboard-hero,
+    .map-page-header,
+    .booking-hero,
+    .guidance-hero,
+    .match-hero,
+    .branch-hero,
+    .plans-hero,
+    .checkout-hero,
+    .status-hero,
+    .page-header
+  )
+  :is(h1, h2, h3, .display-4, .display-5, .display-6) {
+  color: #edf5f3 !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .preferences-heading,
+    .saved-heading,
+    .visit-heading,
+    .details-heading,
+    .visits-heading,
+    .recommendations-heading,
+    .compare-heading,
+    .summary-heading,
+    .profile-heading,
+    .guidance-heading,
+    .report-heading,
+    .experiences-heading,
+    .reviews-heading,
+    .assistant-heading,
+    .page-heading,
+    .page-hero,
+    .review-hero,
+    .reviews-hero,
+    .reports-hero,
+    .navigation-hero,
+    .dashboard-hero,
+    .map-page-header,
+    .booking-hero,
+    .guidance-hero,
+    .match-hero,
+    .branch-hero,
+    .plans-hero,
+    .checkout-hero,
+    .status-hero,
+    .page-header
+  )
+  :is(p, small, .lead, .breadcrumb-item.active) {
+  color: #b1c3bf !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .preferences-heading,
+    .saved-heading,
+    .visit-heading,
+    .details-heading,
+    .visits-heading,
+    .recommendations-heading,
+    .compare-heading,
+    .summary-heading,
+    .profile-heading,
+    .guidance-heading,
+    .report-heading,
+    .experiences-heading,
+    .reviews-heading,
+    .assistant-heading,
+    .page-heading,
+    .page-hero,
+    .review-hero,
+    .reviews-hero,
+    .reports-hero,
+    .navigation-hero,
+    .dashboard-hero,
+    .map-page-header,
+    .booking-hero,
+    .guidance-hero,
+    .match-hero,
+    .branch-hero,
+    .plans-hero,
+    .checkout-hero,
+    .status-hero,
+    .page-header
+  )
+  :is([class$='-label'], .section-label, .page-label, .eyebrow, .breadcrumb a) {
+  color: #70ddcc !important;
+}
+html[data-wusool-color-mode='dark']
+  body:not(.high-contrast)
+  :is(
+    .preferences-heading,
+    .saved-heading,
+    .visit-heading,
+    .details-heading,
+    .visits-heading,
+    .recommendations-heading,
+    .compare-heading,
+    .summary-heading,
+    .profile-heading,
+    .guidance-heading,
+    .report-heading,
+    .experiences-heading,
+    .reviews-heading,
+    .assistant-heading,
+    .page-heading,
+    .page-hero,
+    .review-hero,
+    .reviews-hero,
+    .reports-hero,
+    .navigation-hero,
+    .dashboard-hero,
+    .map-page-header,
+    .booking-hero,
+    .guidance-hero,
+    .match-hero,
+    .branch-hero,
+    .plans-hero,
+    .checkout-hero,
+    .status-hero,
+    .page-header
+  )
+  .breadcrumb-item
+  + .breadcrumb-item::before {
+  color: #91a8a2 !important;
+}
+
+.wusool-initial-dialog {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  overflow: auto;
+  padding: 28px;
+  border-radius: 22px;
+  border: 1px solid var(--wt-border);
+  background: var(--wt-surface);
+  color: var(--wt-text);
+  box-shadow: 0 24px 80px #0005;
+}
+.wusool-initial-dialog::backdrop {
+  background: #081619aa;
+  backdrop-filter: blur(5px);
+}
+.wusool-initial-dialog h2 {
+  font-size: 1.5rem;
+}
+.wusool-initial-dialog p,
+.wusool-initial-dialog small {
+  color: var(--wt-muted);
+  line-height: 1.6;
+}
+.wusool-initial-dialog label {
+  display: block;
+  margin: 16px 0 8px;
+  font-weight: 600;
+}
+.wusool-initial-dialog small {
+  display: block;
+  margin-top: 12px;
+}
+.wusool-initial-dialog [data-error] {
+  color: #c84151;
+}
+.initial-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+.initial-actions button {
+  min-height: 44px;
+}
+.ticket-place-preview {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 16px;
+  background: var(--wt-raised);
+  border: 1px solid var(--wt-border);
+  color: var(--wt-text);
+}
+.ticket-place-preview h3 {
+  font-size: 1.2rem;
+}
+.ticket-place-preview h4 {
+  font-size: 1rem;
+  margin-top: 18px;
+}
+.ticket-place-preview p,
+.ticket-place-preview li {
+  color: var(--wt-muted);
+}
+.ticket-place-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.ticket-place-photos img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+html[data-wusool-color-mode] body:not(.high-contrast) :is(.admin-sidebar, .organization-sidebar, .user-sidebar) {
+  background: var(--wt-surface);
+  color: var(--wt-text);
+  border-color: var(--wt-border);
+}
+html[data-wusool-color-mode='light'] body:not(.high-contrast) :is(.admin-sidebar, .user-sidebar) :is(a, button, p, span) { color: var(--wt-text); }

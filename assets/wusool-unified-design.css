@@ -1,0 +1,685 @@
+/* WUSOOL UNIFIED DESIGN SYSTEM v1.0 — VISUAL ONLY.
+   Loaded after existing page CSS; no change to business services, state, routing or event handlers.
+   Home cinematic 3D stages are deliberately excluded from layout/header overrides. */
+:root,
+html[data-wusool-color-mode="light"] {
+  --wu-font-ar: "Tajawal", Tahoma, "Segoe UI", sans-serif;
+  --wu-font-en: "Inter", "Segoe UI", Arial, sans-serif;
+  --wu-heading-ar: "Alexandria", "Tajawal", Tahoma, sans-serif;
+  --wu-heading-en: "Sora", "Inter", "Segoe UI", sans-serif;
+  --wu-font: var(--wu-font-en);
+  --wu-heading-font: var(--wu-heading-en);
+  --wu-brand: #167b63;
+  --wu-brand-hover: #11634f;
+  --wu-focus: #167b63;
+  --wu-page: var(--wt-page);
+  --wu-surface: var(--wt-surface);
+  --wu-soft: var(--wt-raised);
+  --wu-text: var(--wt-text);
+  --wu-muted: var(--wt-muted);
+  --wu-border: var(--wt-border);
+  --wu-shadow: 0 6px 25px rgb(13 59 43 / 6%);
+  --wu-shadow-raised: 0 20px 50px rgb(13 59 43 / 11%);
+  --wu-radius-card: 18px;
+  --wu-radius-control: 11px;
+  --wu-radius-dialog: 22px;
+  --wu-page-title: clamp(1.875rem,2.5vw,2.25rem);
+}
+html:lang(ar){--wu-font:var(--wu-font-ar);--wu-heading-font:var(--wu-heading-ar)}
+html[data-wusool-color-mode="dark"]{
+  --wu-brand: #75dac0;
+  --wu-brand-hover: #a3f0da;
+  --wu-focus: #92e8ce;
+  --wu-page: var(--wt-page);
+  --wu-surface: var(--wt-surface);
+  --wu-soft: var(--wt-raised);
+  --wu-text: var(--wt-text);
+  --wu-muted: var(--wt-muted);
+  --wu-border: var(--wt-border);
+  --wu-shadow: 0 8px 28px rgb(0 0 0 / 16%);
+  --wu-shadow-raised: 0 20px 50px rgb(0 0 0 / 30%);
+  --bs-body-bg: var(--wt-page);
+  --bs-body-color: var(--wt-text);
+  --bs-secondary-color: var(--wt-muted);
+  --bs-border-color: var(--wt-border);
+  --bs-tertiary-bg: var(--wt-raised);
+  --bs-emphasis-color: var(--wt-text);
+}
+/* Consistent fonts; avoid changing spatial animation on cinematic homepage. */
+html body {font-family:var(--wu-font)!important;}
+html body :is(button,input,select,textarea,option) {font-family:var(--wu-font);}
+html body:not(:has(.wusool-journey)) :is(h1,h2,h3,.page-title,.page-heading,.dashboard-title,.section-heading,.modal-title,.recruit-v2-hero h1){
+  font-family:var(--wu-heading-font);text-wrap:pretty;overflow-wrap:break-word;
+}
+html:lang(ar) body :is(h1,h2,h3,h4,h5,h6,button,label,.page-title,.modal-title) {letter-spacing:normal!important;}
+/* Structural consistency without replacing role-specific page grids. */
+body:not(:has(.wusool-journey)) :is(.page-header,.page-heading,.dashboard-header,.content-header,.recruit-v2-hero) {
+  border-radius:var(--wu-radius-card);
+}
+body:not(:has(.wusool-journey)) :is(.page-header,.page-heading,.dashboard-header,.content-header) :is(h1,.page-title,.dashboard-title){
+  font-family:var(--wu-heading-font);line-height:1.24;
+}
+body:not(:has(.wusool-journey)) :is(.stat-card,.stats-card,.content-card,.dashboard-card,.filters-card,.filter-card,.form-card,.recruit-v2-item,.recruit-v2-metric) {
+  border-radius:var(--wu-radius-card);
+}
+body :is(.btn,.form-control,.form-select,.wusool-preferences select,.wusool-preferences button) {
+  border-radius:var(--wu-radius-control);
+}
+body :is(.form-control,.form-select,input:not([type=checkbox]):not([type=radio]):not([type=range]),textarea,select) {
+  accent-color:var(--wt-accent);
+}
+body :is(button,a,input,textarea,select,summary,[tabindex]):focus-visible {
+  outline:3px solid var(--wu-focus);outline-offset:2px;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.form-control,.form-select,.input-group-text,.dropdown-menu,.list-group-item,.accordion-body,.accordion-button,.offcanvas,.popover,.toast) {
+  background-color:var(--wt-field);color:var(--wt-text);border-color:var(--wt-border);
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(input,textarea,select)::placeholder {
+  color:var(--wt-muted);opacity:1;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.text-muted,.text-secondary,.form-text,.small,.recruit-v2-muted,.form-label) {
+  color:var(--wt-muted)!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.dropdown-item,.list-group-item,.accordion-button) {
+  color:var(--wt-text);
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.dropdown-item,.list-group-item):hover {
+  color:var(--wt-text);background:var(--wt-raised);
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.table,.table-responsive) {
+  --bs-table-bg:transparent;--bs-table-color:var(--wt-text);--bs-table-border-color:var(--wt-border);
+  color:var(--wt-text);
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.modal-content,.recruitment-dialog,.wusool-initial-dialog,.booking-tracking-dialog,.hours-dialog,.wusool-confirm-dialog,.wxi-calendar-dialog,.media-editor-dialog) {
+  background-color:var(--wt-surface);color:var(--wt-text);border-color:var(--wt-border);
+}
+/* Bootstrap modals: true viewport centering, including small devices. Do not touch hidden modals. */
+body .modal.show:not(.modal-dialog) {
+  display:flex!important;
+  align-items:center;
+  justify-content:center;
+  padding:clamp(10px,2.5vmin,22px)!important;
+  overflow-x:hidden;overflow-y:auto;
+}
+body .modal.show > .modal-dialog {
+  transform:none!important;
+  margin:auto!important;
+  max-height:calc(100dvh - 24px);
+  width:min(100%,var(--bs-modal-width,720px));
+  display:flex;flex-direction:column;
+  min-width:0;
+}
+body .modal.show .modal-content {
+  max-height:calc(100dvh - 24px);
+  display:flex;flex-direction:column;
+  min-width:0;
+  border-radius:var(--wu-radius-dialog);
+  overflow:hidden;
+}
+body .modal.show .modal-body {min-height:0;overflow-y:auto;overscroll-behavior:contain;}
+body .modal.show :is(.modal-header,.modal-footer){flex-shrink:0;}
+/* Native HTML dialogs, including exam, bookings, branch/media, and confirmations. */
+html body dialog[open]:not([popover]){
+  position:fixed!important;
+  inset:0!important;
+  margin:auto!important;
+  transform:none!important;
+  box-sizing:border-box;
+  max-width:calc(100vw - 24px);
+  max-height:calc(100dvh - 24px);
+  border-radius:var(--wu-radius-dialog);
+  color:var(--wt-text);
+  border-color:var(--wt-border);
+  overscroll-behavior:contain;
+}
+html body dialog[open] :is(.recruitment-detail,.modal-body,.booking-tracking-content){overscroll-behavior:contain;}
+/* Light: NEVER dim/blur the page behind a dialog; Dark: gentle dimming only. */
+html[data-wusool-color-mode="light"] body dialog::backdrop,
+html:not([data-wusool-color-mode]) body dialog::backdrop{
+  background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+html[data-wusool-color-mode="dark"] body dialog::backdrop{
+  background:rgb(4 13 11 / 34%)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+html[data-wusool-color-mode="light"] body .modal-backdrop,
+html:not([data-wusool-color-mode]) body .modal-backdrop{
+  background:transparent!important;opacity:0!important;backdrop-filter:none!important;
+}
+html[data-wusool-color-mode="dark"] body .modal-backdrop{
+  background:#06140f!important;opacity:.34!important;backdrop-filter:none!important;
+}
+html[data-wusool-color-mode="light"] body :is(.modal-content,.recruitment-dialog,.wusool-initial-dialog,.booking-tracking-dialog,.hours-dialog,.wusool-confirm-dialog,.wxi-calendar-dialog){
+  background-color:#fff;color:#193a31;border-color:#d3e4db;
+}
+/* Consistent buttons and form fields within popup, not their handlers/validation. */
+body :is(dialog[open],.modal.show) :is(input:not([type=checkbox]):not([type=radio]),textarea,select,.form-control,.form-select) {
+  max-width:100%;min-width:0;
+}
+body :is(dialog[open],.modal.show) :is(.modal-header,.modal-footer,header) {flex-shrink:0;}
+body :is(dialog[open],.modal.show) :is(button,.btn) {min-height:40px;}
+body.high-contrast :is(dialog[open],.modal.show .modal-content){background:#000!important;color:#fff!important;border:2px solid #fff!important;}
+body.high-contrast :is(dialog[open],.modal.show) :is(button,a,input,select,textarea):focus-visible{outline:3px solid #ff0;}
+@media(max-width:640px){
+ body .modal.show {padding:10px!important;}
+ body .modal.show > .modal-dialog {max-height:calc(100dvh - 20px);width:100%;}
+ html body dialog[open]:not([popover]) {max-height:calc(100dvh - 20px);max-width:calc(100vw - 20px);}
+ body :is(dialog[open],.modal.show) :is(.modal-footer,.recruit-v3-cta-actions){flex-wrap:wrap;}
+}
+@media(prefers-reduced-motion:reduce){body :is(dialog[open],.modal.show) {scroll-behavior:auto;}}
+/* Unified calm-green dashboard identity across non-cinematic role portals. */
+html[data-wusool-color-mode="light"] body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header) {
+  background:linear-gradient(115deg,#e4f4e9 0%,#f9fdfb 75%);
+  border-color:var(--wu-border);
+}
+html[data-wusool-color-mode="dark"] body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header) {
+  background:linear-gradient(115deg,#204235 0%,#1b302b 85%);
+  border-color:var(--wu-border);
+}
+html body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header) :is(h1,.dashboard-title,.page-title) {
+  color:var(--wu-brand);
+}
+html[data-wusool-color-mode="dark"] body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header) :is(p,small,.text-muted,.text-secondary) {
+  color:var(--wu-muted)!important;
+}
+/* Form controls across role portals retain readable colors in both modes. */
+html[data-wusool-color-mode="light"] body:not(.high-contrast) :is(.form-control,.form-select,.input-group-text){
+  background-color:#fff;color:#193a31;border-color:#c6ddd2;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.form-control,.form-select,.input-group-text){
+  background-color:#20312d!important;color:#eef9f4!important;border-color:#557267!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) select option {background-color:#20312d;color:#eef9f4;}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.card,.content-card,.stat-card,.dashboard-card,.recruit-v2-item) {
+  border-color:var(--wu-border);color:var(--wu-text);
+}
+/* Native/light modal backgrounds must not inherit accidentally dark local gradients. */
+html[data-wusool-color-mode="light"] body dialog[open]:not([popover]) {
+  background-image:none;
+  background-color:#fff;
+}
+/* Consistent brand-green action system for any page lacking the older presentation sheet. */
+html[data-wusool-color-mode="light"] body :is(.btn-primary,.btn-wusool),
+html[data-wusool-color-mode="light"] body :is(.btn-primary,.btn-wusool):focus-visible {
+  --bs-btn-bg:#167b63;--bs-btn-color:#fff;--bs-btn-border-color:#167b63;
+  --bs-btn-hover-bg:#11634f;--bs-btn-hover-color:#fff;--bs-btn-hover-border-color:#11634f;
+  --bs-btn-active-bg:#11634f;--bs-btn-active-color:#fff;--bs-btn-active-border-color:#11634f;
+  background:#167b63;color:#fff;border-color:#167b63;
+}
+html[data-wusool-color-mode="dark"] body :is(.btn-primary,.btn-wusool),
+html[data-wusool-color-mode="dark"] body :is(.btn-primary,.btn-wusool):focus-visible {
+  --bs-btn-bg:var(--wu-button-primary);--bs-btn-color:#fff;--bs-btn-border-color:var(--wu-button-primary);
+  --bs-btn-hover-bg:var(--wu-button-primary-hover);--bs-btn-hover-color:#fff;--bs-btn-hover-border-color:var(--wu-button-primary-hover);
+  --bs-btn-active-bg:#a3f0da;--bs-btn-active-color:#102f25;--bs-btn-active-border-color:#a3f0da;
+  background:var(--wu-button-primary);color:var(--wu-button-on-primary);border-color:var(--wu-button-primary);
+}
+html[data-wusool-color-mode="light"] body :is(.btn-primary,.btn-wusool):hover:not(:disabled),
+html[data-wusool-color-mode="dark"] body :is(.btn-primary,.btn-wusool):hover:not(:disabled){
+  background:var(--wu-button-primary-hover);border-color:var(--wu-button-primary-hover);
+  color:var(--bs-btn-hover-color);
+}
+html body :is(.btn-primary,.btn-wusool):disabled {cursor:not-allowed;opacity:.6;}
+
+/* Final visual polish: one Wusool header language across Visitor, User, Organization and Admin pages. */
+body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) {
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--wu-border);
+  border-radius:24px!important;
+  padding:clamp(22px,3.4vw,42px)!important;
+  box-shadow:var(--wu-shadow);
+}
+html[data-wusool-color-mode="light"] body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) {
+  background:
+    radial-gradient(circle at 88% 16%,rgba(122,205,161,.22),transparent 32%),
+    linear-gradient(120deg,#e4f5e9 0%,#f7fcf9 74%)!important;
+  color:#193a31!important;
+}
+html[data-wusool-color-mode="dark"] body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) {
+  background:
+    radial-gradient(circle at 86% 18%,rgba(117,218,192,.18),transparent 32%),
+    linear-gradient(120deg,#15372d 0%,#122521 80%)!important;
+  color:#eef9f4!important;
+}
+body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero)::after {
+  content:"";
+  position:absolute;
+  inset:auto 28px 18px auto;
+  width:120px;
+  height:120px;
+  border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--wu-brand) 22%,transparent);
+  opacity:.55;
+  pointer-events:none;
+}
+body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) :is(.page-label,.recruit-v2-hero-kicker,.recruitment-kicker,.section-label,.eyebrow) {
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  color:var(--wu-brand)!important;
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) :is(h1,h2,.page-title,.dashboard-title) {
+  color:var(--wu-brand)!important;
+  font-family:var(--wu-heading-font)!important;
+  letter-spacing:-.015em;
+  margin-bottom:.45rem;
+}
+html:lang(ar) body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) :is(h1,h2,.page-title,.dashboard-title) {
+  letter-spacing:0!important;
+}
+body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) :is(p,.lead,small) {
+  color:var(--wu-muted)!important;
+  max-width:74ch;
+}
+
+/* One primary portal heading; controls retain their existing nodes and handlers. */
+html body .wu-primary-heading {
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  gap:16px!important;
+  margin-bottom:24px!important;
+  padding:24px 28px!important;
+  border-radius:18px!important;
+  min-width:0;
+  overflow:visible;
+  border:1px solid var(--wu-border)!important;
+}
+html[data-wusool-color-mode="light"] body .wu-primary-heading {background:#e7f5ed!important;color:#193a31!important;}
+html[data-wusool-color-mode="dark"] body .wu-primary-heading {background:#15372d!important;color:#eef9f4!important;}
+html body .wu-primary-heading :is(h1,h2,.page-title,.dashboard-title) {color:var(--wu-brand)!important;}
+html body .wu-primary-heading::before,html body .wu-primary-heading::after {display:none!important;}
+html body .wu-heading-secondary {display:none!important;}
+html body .wu-title-only {padding:24px 28px!important;}
+html body .wu-title-only :is(h1,h2,.page-title,.dashboard-title) {margin:0!important;}
+html body .wu-title-only .wu-heading-actions:empty {display:none;}
+html body .wu-title-only .organization-account {display:none!important;}
+html body main > .wu-title-only:not(.wu-heading-promoted) {margin:24px!important;width:auto!important;max-width:calc(100% - 48px)!important;}
+html body .wu-title-only .container {max-width:none;width:100%;padding:0!important;}
+html body .wu-primary-heading .container-fluid {padding:0!important;}
+html body .wu-primary-heading:not(.plans-hero) div:has(>h1,>h2,>.page-title,>.dashboard-title),
+html body .wu-primary-heading:not(.plans-hero) > .container,
+html body .wu-primary-heading:not(.plans-hero) > .container-fluid,
+html body .wu-primary-heading:not(.plans-hero) div.d-flex:has(h1,h2),
+html body .wu-primary-heading:not(.plans-hero) .row:has(h1,h2),
+html body .wu-primary-heading:not(.plans-hero) .row:has(h1,h2)>div {display:contents!important;}
+html body .wu-primary-heading :is(h1,h2,.page-title,.dashboard-title) {
+  flex:1 1 280px;
+  min-width:0;
+  font-size:2rem!important;
+  line-height:1.35;
+  letter-spacing:0!important;
+  overflow-wrap:anywhere;
+}
+html body .wu-primary-heading p {line-height:1.65;}
+html body .wu-heading-promoted {margin:24px!important;}
+html body [data-wu-heading-merged][hidden] {display:none!important;}
+html body .wu-heading-actions {display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-end;margin:0!important;margin-inline-start:auto!important;}
+html body .wu-heading-eyebrow {font-size:.75rem;font-weight:700;color:var(--wu-brand);letter-spacing:.08em;}
+html[data-wusool-color-mode="dark"] body .wu-primary-heading :is(h1,h2,.page-title,.dashboard-title) {color:#b1efcf!important;}
+@media(max-width:767px){
+  html body main > .wu-title-only:not(.wu-heading-promoted) {margin:16px 12px!important;max-width:calc(100% - 24px)!important;}
+  html body .wu-primary-heading {padding:18px!important;border-radius:14px!important;gap:12px!important;}
+  html body .wu-primary-heading :is(h1,h2,.page-title,.dashboard-title) {font-size:1.5rem!important;flex-basis:100%;}
+  html body .wu-heading-promoted {margin:16px 12px!important;}
+  html body .wu-heading-actions {gap:8px;width:100%;justify-content:flex-start;}
+  html body .wu-heading-actions :is(input,select,.input-group) {max-width:100%;min-width:0;}
+}
+
+/* Dark mode audit layer for page builder, theme studio, reports and recruitment surfaces. */
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  .builder-card,.builder-panel,.theme-card,.theme-panel,.visual-builder-shell,
+  .subscription-card,.subscription-panel,.notification-card,.report-card,.accessibility-report-card,
+  .settings-card,.profile-card,.organization-summary-card,.dashboard-widget,.widget-card,
+  .recruitment-panel,.recruitment-stat,.recruitment-card,.recruit-v2-guide,.recruit-v2-flow-step,
+  .recruit-v2-tools,.recruit-v2-item,.recruit-v2-metric,.recruitment-timeline article
+) {
+  background:var(--wt-surface)!important;
+  color:var(--wt-text)!important;
+  border-color:var(--wt-border)!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  .builder-card,.builder-panel,.theme-card,.theme-panel,.visual-builder-shell,
+  .subscription-card,.subscription-panel,.notification-card,.report-card,.accessibility-report-card,
+  .settings-card,.profile-card,.organization-summary-card,.dashboard-widget,.widget-card,
+  .recruitment-panel,.recruitment-stat,.recruitment-card,.recruit-v2-guide,.recruit-v2-flow-step,
+  .recruit-v2-tools,.recruit-v2-item,.recruit-v2-metric,.recruitment-timeline article
+) :is(h1,h2,h3,h4,h5,h6,strong,label,dt,th) {
+  color:var(--wt-text)!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(
+  .builder-card,.builder-panel,.theme-card,.theme-panel,.visual-builder-shell,
+  .subscription-card,.subscription-panel,.notification-card,.report-card,.accessibility-report-card,
+  .settings-card,.profile-card,.organization-summary-card,.dashboard-widget,.widget-card,
+  .recruitment-panel,.recruitment-stat,.recruitment-card,.recruit-v2-guide,.recruit-v2-flow-step,
+  .recruit-v2-tools,.recruit-v2-item,.recruit-v2-metric,.recruitment-timeline article
+) :is(p,small,span,dd,td,li,.recruit-v2-muted,.recruit-v2-meta,.recruit-v2-footer-sub) {
+  color:var(--wt-muted);
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.table thead th,.recruitment-table th) {
+  color:var(--wu-brand)!important;
+  background:color-mix(in srgb,var(--wt-raised) 78%,transparent)!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-outline-secondary,.btn-light,.btn-outline-dark) {
+  color:var(--wt-text)!important;
+  background:var(--wt-raised)!important;
+  border-color:var(--wt-border)!important;
+}
+html[data-wusool-color-mode="dark"] body:not(.high-contrast) :is(.btn-outline-secondary,.btn-light,.btn-outline-dark):hover {
+  color:#102f25!important;
+  background:var(--wu-brand)!important;
+  border-color:var(--wu-brand)!important;
+}
+
+/* Recruitment visual consistency with the Wusool green system while preserving all JS workflows. */
+.recruitment-shell {
+  --rv-ink:var(--wu-text)!important;
+  --rv-muted:var(--wu-muted)!important;
+  --rv-line:var(--wu-border)!important;
+  --rv-soft:var(--wu-soft)!important;
+  --rv-panel:var(--wu-surface)!important;
+  --rv-primary:var(--wu-brand)!important;
+  --rv-primary-bright:var(--wu-brand-hover)!important;
+}
+.recruitment-shell :is(.btn,.recruit-v2-footer-actions .btn) {
+  border-radius:var(--wu-radius-control);
+}
+.recruitment-dialog {
+  color:var(--wt-text)!important;
+  background:var(--wt-surface)!important;
+  border-color:var(--wu-border)!important;
+}
+.recruitment-dialog header {
+  background:linear-gradient(120deg,#15372d,#167b63)!important;
+}
+html[data-wusool-color-mode="dark"] .recruitment-dialog header {
+  background:linear-gradient(120deg,#10231f,#265c4d)!important;
+}
+.recruitment-dialog :is(.recruitment-detail,.recruitment-card,.recruitment-preview,.recruitment-note) {
+  color:var(--wt-text);
+}
+html[data-wusool-color-mode="dark"] .recruitment-dialog :is(.recruitment-card,.recruitment-preview,.recruitment-note) {
+  background:var(--wt-raised)!important;
+  border-color:var(--wt-border)!important;
+}
+
+@media(max-width:720px){
+  body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero) {
+    border-radius:18px!important;
+    padding:22px!important;
+  }
+  body:not(:has(.wusool-journey)) :is(.dashboard-header,.page-heading,.page-header,.content-header,.map-page-header,.recruit-v2-hero)::after {display:none;}
+}
+/* Remove excess space above organization headings */
+html body main.organization-main {
+  padding-top: 24px !important;
+}
+
+html body main.organization-main > .wu-primary-heading {
+  margin-top: 0 !important;
+  margin-inline: 0 !important;
+  margin-bottom: 24px !important;
+  max-width: 100% !important;
+}
+
+/* Recruitment: title only, without decorative artwork */
+html body .recruit-v2-hero.wu-primary-heading {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 24px 28px !important;
+}
+
+html body .wu-primary-heading .recruit-v2-hero-art,
+html body .wu-primary-heading .recruit-v2-hero-small {
+  display: none !important;
+}
+
+html body .wu-primary-heading .recruit-v2-hero-copy {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100% !important;
+}
+
+/* Keep spacing between headings and content */
+html body .wu-primary-heading {
+  margin-bottom: 24px !important;
+}
+
+@media (max-width: 767px) {
+  html body main.organization-main {
+    padding-top: 16px !important;
+  }
+
+  html body .recruit-v2-hero.wu-primary-heading {
+    padding: 18px !important;
+  }
+}
+/* Shared dark-mode sidebar palette */
+html[data-wusool-color-mode="dark"] {
+  --organization-sidebar-background: #152722;
+  --organization-sidebar-surface: #203830;
+  --organization-sidebar-text: #eef9f4;
+  --organization-sidebar-muted: #b7d2c7;
+  --organization-sidebar-accent: #75dac0;
+  --organization-sidebar-border: #355448;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar) {
+  background: #152722 !important;
+  background-image: none !important;
+  color: #eef9f4 !important;
+  border-color: #355448 !important;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar)
+:is(.sidebar-header, .user-sidebar-header,
+    .sidebar-footer, .user-sidebar-footer,
+    .sidebar-account) {
+  background: #152722 !important;
+  background-image: none !important;
+  border-color: #355448 !important;
+  color: #eef9f4 !important;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar)
+:is(.sidebar-link, .nav-link, .brand-link) {
+  color: #d8eae2 !important;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar)
+:is(.sidebar-link, .nav-link):hover {
+  background: #203830 !important;
+  color: #ffffff !important;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar)
+:is(.sidebar-link, .nav-link):is(.active, [aria-current="page"]) {
+  background: #245044 !important;
+  color: #a7f3d4 !important;
+  border-color: #487e69 !important;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar)
+:is(.sidebar-label, .sidebar-section-title,
+    .nav-section-title, .text-muted, .text-secondary) {
+  color: #a9c7b9 !important;
+}
+
+html[data-wusool-color-mode="dark"]
+:is(#userSidebar, #organizationSidebar, #adminSidebar)
+:is(select, .form-control, .form-select) {
+  background: #203830 !important;
+  color: #eef9f4 !important;
+  border-color: #48695b !important;
+}
+/* توحيد مقاسات الهيدر الأخضر */
+html body:not(:has(.wusool-journey)) .wu-primary-heading {
+  box-sizing: border-box !important;
+
+  min-height: 240px !important;
+  height: auto !important;
+
+  padding: 32px 40px !important;
+  border-radius: 24px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 24px !important;
+}
+
+html body:not(:has(.wusool-journey))
+.wu-primary-heading :is(h1, h2, .page-title, .dashboard-title) {
+  margin: 0 !important;
+  font-size: 32px !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
+
+  flex: 1 1 280px !important;
+  min-width: 0 !important;
+  overflow-wrap: anywhere;
+}
+
+/* البحث والكبسات يظلوا ظاهرين */
+html body .wu-primary-heading .wu-heading-actions {
+  max-width: 100% !important;
+  min-width: 0 !important;
+  flex-wrap: wrap !important;
+}
+
+/* الهاتف */
+@media (max-width: 767px) {
+  html body:not(:has(.wusool-journey)) .wu-primary-heading {
+    min-height: 160px !important;
+    padding: 24px 20px !important;
+    border-radius: 18px !important;
+    gap: 16px !important;
+  }
+
+  html body:not(:has(.wusool-journey))
+  .wu-primary-heading :is(h1, h2, .page-title, .dashboard-title) {
+    font-size: 26px !important;
+    flex-basis: 100% !important;
+  }
+}
+/* إظهار نصوص الهيدر الأخضر فقط */
+html body .wu-primary-heading .wu-heading-secondary:not(nav) {
+  display: block !important;
+}
+
+html body .wu-primary-heading p.wu-heading-secondary {
+  margin: 10px 0 0 !important;
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: var(--wu-muted) !important;
+  flex-basis: 100%;
+}
+
+html body .wu-primary-heading
+:is(.section-label, .page-label, .header-label,
+    .header-eyebrow, .eyebrow, .recruit-v2-hero-kicker) {
+  margin-bottom: 8px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  color: var(--wu-brand) !important;
+}
+/* ترتيب محتوى الهيدر عموديًا بكل الصفحات */
+html body:not(:has(.wusool-journey)) .wu-primary-heading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  text-align: start !important;
+}
+
+/* إلغاء تمدد العنوان السابق الذي يسبب فراغًا كبيرًا */
+html body:not(:has(.wusool-journey))
+.wu-primary-heading :is(
+  h1, h2, .page-title, .dashboard-title,
+  p.wu-heading-secondary,
+  .section-label, .page-label,
+  .header-label, .header-eyebrow,
+  .eyebrow, .recruit-v2-hero-kicker
+) {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+/* البحث والكبسات بسطر مستقل تحت النصوص */
+html body:not(:has(.wusool-journey))
+.wu-primary-heading .wu-heading-actions {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  margin: 12px 0 0 !important;
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+}
+
+/* محتوى عنوان التوظيف */
+html body .wu-primary-heading .recruit-v2-hero-copy {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 100% !important;
+}
+html body .wu-primary-heading p.wu-ticket-description {
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  margin: 10px 0 0 !important;
+
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.8 !important;
+  text-align: start !important;
+  color: var(--wu-muted) !important;
+}
+/* Responsive text hierarchy; excludes the cinematic scene and icon fonts. */
+body:not(:has(.wusool-journey)) h1{font-size:var(--wu-page-title);line-height:1.35}
+body:not(:has(.wusool-journey)) h2{font-size:clamp(1.375rem,2vw,1.625rem);line-height:1.4}
+body:not(:has(.wusool-journey)) h3{font-size:clamp(1.0625rem,1.5vw,1.25rem);line-height:1.45}
+html:lang(ar) body:not(:has(.wusool-journey)) :is(h1,h2,h3){line-height:1.55}
+
+/* D1: navigation surfaces and controls, independent of page headings. */
+body :is(.organization-header,.organization-topbar,.user-topbar){background:var(--wt-surface);color:var(--wt-text);border-color:var(--wt-border);height:auto;min-height:64px;gap:var(--wu-space-16);align-items:center}
+body :is(.organization-header,.organization-topbar,.user-topbar) :is(button,a.btn,.organization-account){width:auto;flex:0 0 auto}
+body .organization-sidebar .sidebar-navigation .nav-link,
+body .admin-sidebar .sidebar-navigation .nav-link{font-family:var(--wu-font);font-size:.875rem;line-height:1.5;display:flex;align-items:center;gap:var(--wu-space-12);color:#e5efeb!important}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-section-title{color:#b7ccc4;line-height:1.5;font-size:.75rem}
+body :is(.organization-sidebar,.admin-sidebar) .nav-link i{flex:0 0 20px;text-align:center;font-size:1rem}
+body :is(.organization-sidebar,.admin-sidebar) .nav-link:focus-visible{outline:3px solid #92e8ce;outline-offset:-3px}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-navigation{min-height:0;overscroll-behavior:contain}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-brand{white-space:nowrap}
+body :is(.organization-sidebar,.admin-sidebar) .sidebar-brand strong{font-size:1.125rem}
+body .organization-sidebar .sidebar-header{min-height:80px;padding:var(--wu-space-16) var(--wu-space-20)}
+body .app-shell .header .brand{white-space:nowrap;flex:0 0 auto;font-size:1rem}
+body .app-shell .header .brand strong{font-size:1.25rem;line-height:1.2}
+body .app-shell .header .brand span{font-size:.8125rem;line-height:1.4}
+body .app-shell .header .main-nav{margin-inline-end:auto;min-width:0}
+body .app-shell .header .header-tools{margin-inline-start:auto;align-items:center}
+@media(max-width:991px){body :is(.organization-header,.organization-topbar,.user-topbar){flex-wrap:wrap;min-width:0}body .app-shell .header .main-nav{max-width:100%;overflow-x:auto}body .app-shell .header .header-tools{flex-wrap:wrap;min-width:0}}
+/* D1: text on the permanently dark Admin navigation surface. */
+html body #adminSidebar .brand-link,
+html body #adminSidebar .brand-link :is(strong,span),
+html body #adminSidebar .sidebar-account :is(strong,.fw-bold){color:#f4f8f6!important}
+html body #adminSidebar :is(.sidebar-section-title,.sidebar-account small,.sidebar-brand small,.wusool-preferences label){color:#c4d1ce!important}
+html body #adminSidebar .wusool-preferences :is(button,select){color:#f4f8f6;background:#163e51;border-color:#78958f}
+html[data-wusool-color-mode="light"] body:has(#adminSidebar) .main-content .wu-primary-heading :is(.section-label,.page-label,.header-label,.eyebrow){color:#14705e!important}
+html[data-wusool-color-mode="light"] body:has(#adminSidebar) .main-content .wu-primary-heading p.wu-heading-secondary{color:#526b65!important}
+/* Page-heading actions should not stretch across their flex-column parent.
+   Explicit full-width classes and form/booking actions retain their contracts. */
+body .wu-primary-heading :is(a.btn,button.btn):not(.w-100):not([type="submit"]){align-self:flex-start;flex:0 0 auto}

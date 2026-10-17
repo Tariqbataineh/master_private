@@ -1,0 +1,112 @@
+/* Solid form surfaces across all portals. Loaded after page and theme styles.
+   Inputs follow the shared color theme; high contrast remains independent. */
+html[data-wusool-color-mode]
+  body:not(.high-contrast)
+  :is(
+    input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not(
+        [type='button']
+      ):not([type='submit']):not([type='reset']):not([type='hidden']),
+    select,
+    textarea,
+    .form-control,
+    .form-select
+  ) {
+  background-color: var(--wt-field, #ffffff) !important;
+  color: var(--wt-text, #172033) !important;
+  border-color: var(--wt-border, #aebfbd) !important;
+  opacity: 1 !important;
+  color-scheme: var(--wt-scheme, light) !important;
+  -webkit-text-fill-color: var(--wt-text, #172033) !important;
+}
+html[data-wusool-color-mode] body:not(.high-contrast) :is(input, textarea)::placeholder {
+  color: var(--wt-muted, #64748b) !important;
+  -webkit-text-fill-color: var(--wt-muted, #64748b) !important;
+  opacity: 1 !important;
+}
+html[data-wusool-color-mode] body:not(.high-contrast) :is(.input-group, .custom-input-group) {
+  background-color: var(--wt-field, #ffffff) !important;
+  border-color: var(--wt-border, #aebfbd) !important;
+}
+html[data-wusool-color-mode]
+  body:not(.high-contrast)
+  :is(
+    .input-group-text,
+    .password-toggle,
+    .password-toggle-button,
+    [data-password-target],
+    #togglePassword,
+    #toggleConfirmPassword,
+    #toggleAdminPassword
+  ) {
+  background-color: var(--wt-field, #ffffff) !important;
+  color: var(--wt-accent, #0f766e) !important;
+  -webkit-text-fill-color: var(--wt-accent, #0f766e) !important;
+  border-color: var(--wt-border, #aebfbd) !important;
+}
+html[data-wusool-color-mode] body:not(.high-contrast) :is(input, select, textarea):focus {
+  border-color: var(--wt-accent, #0f766e) !important;
+  outline-color: var(--wt-accent, #0f766e);
+}
+html[data-wusool-color-mode]
+  body:not(.high-contrast)
+  :is(input, select, textarea):is(:disabled, [readonly]) {
+  background-color: var(--wt-disabled, #eef2f2) !important;
+  color: var(--wt-muted, #475569) !important;
+  -webkit-text-fill-color: var(--wt-muted, #475569) !important;
+}
+html[data-wusool-color-mode]
+  body:not(.high-contrast)
+  :is(input, select, textarea):is(.is-invalid, :user-invalid) {
+  border-color: #b42318 !important;
+}
+html[data-wusool-color-mode] body:not(.high-contrast) :is(input, select, textarea).is-valid {
+  border-color: var(--wt-accent, #0f766e) !important;
+}
+html[data-wusool-color-mode] body:not(.high-contrast) :is(select option, select optgroup) {
+  background-color: var(--wt-field, #fff) !important;
+  color: var(--wt-text, #172033) !important;
+}
+html[data-wusool-color-mode] body:not(.high-contrast) input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--wt-field, #ffffff) inset !important;
+  -webkit-text-fill-color: var(--wt-text, #172033) !important;
+}
+html[data-wusool-color-mode]
+  body:not(.high-contrast)
+  :is(.wxi-calendar-dialog, .wxi-theme-controls) {
+  background-color: var(--wxi-surface) !important;
+}
+html[data-wusool-color-mode]
+  body.high-contrast
+  :is(
+    .form-control,
+    .form-select,
+    input:not([type='checkbox']):not([type='radio']):not([type='range']),
+    select,
+    textarea,
+    .input-group,
+    .custom-input-group,
+    .input-group-text,
+    .password-toggle,
+    .password-toggle-button,
+    [data-password-target]
+  ) {
+  background-color: #000 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  border-color: #fff !important;
+  color-scheme: dark !important;
+  opacity: 1 !important;
+}
+html[data-wusool-color-mode] body.high-contrast :is(input, textarea)::placeholder {
+  color: #ddd !important;
+  -webkit-text-fill-color: #ddd !important;
+  opacity: 1 !important;
+}
+
+/* D2B: field geometry without changing validation or special input widgets. */
+body:not(:has(.wusool-journey)) :is(.form-control,.form-select){min-width:0;max-width:100%;min-height:42px;border-radius:10px;line-height:1.5}
+body:not(:has(.wusool-journey)) textarea.form-control{min-height:112px;resize:vertical}
+body :is(.form-label,.field > label){font-size:.875rem;font-weight:600;line-height:1.6;margin-block-end:8px}
+body :is(.form-text,.invalid-feedback,.valid-feedback){font-size:.8125rem;line-height:1.6;overflow-wrap:anywhere}
+body :is(.form-control,.form-select):focus-visible{outline:3px solid var(--wt-accent);outline-offset:2px}
+body :is(.input-group,.custom-input-group){min-width:0;max-width:100%}

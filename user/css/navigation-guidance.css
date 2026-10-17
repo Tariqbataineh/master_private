@@ -1,0 +1,555 @@
+/* =========================================
+   Navigation Guidance
+   ========================================= */
+
+.guidance-heading {
+    background: #f8fafc;
+}
+
+
+/* =========================================
+   AI Status
+   ========================================= */
+
+.guidance-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 10px 16px;
+
+    border-radius: 999px;
+
+    background: #e8f4ff;
+
+    color: #0875d1;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   Navigation Progress
+   ========================================= */
+
+.navigation-progress {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    padding: 0;
+
+    margin: 0;
+
+    list-style: none;
+}
+
+
+.progress-step {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #8a96a3;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.step-number {
+    width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #edf0f3;
+
+    color: #697586;
+
+    font-size: 0.8rem;
+}
+
+
+.progress-step.completed {
+    color: #1683dc;
+}
+
+
+.progress-step.completed .step-number {
+    background: #1683dc;
+
+    color: #ffffff;
+}
+
+
+.progress-step.active {
+    color: #0b2d4a;
+}
+
+
+.progress-step.active .step-number {
+    background: #0b2d4a;
+
+    color: #ffffff;
+}
+
+
+.progress-line {
+    width: 50px;
+
+    height: 2px;
+
+    background: #dce2e8;
+}
+
+
+/* =========================================
+   Main Cards
+   ========================================= */
+
+.navigation-card {
+    background: #ffffff;
+
+    border: 1px solid #e6ebf0;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 8px 24px rgba(15, 43, 70, 0.06);
+}
+
+
+.navigation-card h2 {
+    color: #0b2d4a;
+}
+
+
+/* =========================================
+   Section Icon
+   ========================================= */
+
+.section-icon {
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 14px;
+
+    background: #e9f5ff;
+
+    color: #1683dc;
+
+    font-size: 1.35rem;
+}
+
+
+/* =========================================
+   Route Steps
+   ========================================= */
+
+.route-steps {
+    display: flex;
+
+    flex-direction: column;
+
+    margin-top: 24px;
+}
+
+
+.route-step {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 16px;
+
+    position: relative;
+
+    padding-bottom: 24px;
+}
+
+
+.route-step:last-child {
+    padding-bottom: 0;
+}
+
+
+.route-step:not(:last-child)::before {
+    content: "";
+
+    position: absolute;
+
+    left: 18px;
+
+    top: 38px;
+
+    bottom: 0;
+
+    width: 2px;
+
+    background: #d9e4ec;
+}
+
+
+.route-step-icon {
+    position: relative;
+
+    z-index: 1;
+
+    width: 38px;
+
+    height: 38px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e9f5ff;
+
+    color: #1683dc;
+
+    border: 4px solid #ffffff;
+
+    box-shadow: 0 2px 8px rgba(15, 43, 70, 0.08);
+}
+
+
+.route-step-content {
+    padding-top: 3px;
+}
+
+
+.route-step-title {
+    margin-bottom: 4px;
+
+    color: #0b2d4a;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+}
+
+
+.route-step-description {
+    margin: 0;
+
+    color: #687789;
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================================
+   Current Instruction
+   ========================================= */
+
+.instruction-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    background: #eaf5ff;
+
+    border: 1px solid #cfe8fb;
+}
+
+
+.instruction-icon {
+    width: 72px;
+
+    height: 72px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #1683dc;
+
+    color: #ffffff;
+
+    font-size: 2rem;
+}
+
+
+.instruction-card h2 {
+    color: #0b2d4a;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================
+   Hazard
+   ========================================= */
+
+.hazard-card {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background: #fff7e8;
+
+    border: 1px solid #f4d69b;
+}
+
+
+.hazard-icon {
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #fff0c9;
+
+    color: #a96b00;
+
+    font-size: 1.2rem;
+}
+
+
+/* =========================================
+   Destination Summary
+   ========================================= */
+
+.navigation-summary {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+.navigation-summary > div {
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #edf0f3;
+}
+
+
+.navigation-summary > div:last-child {
+    padding-bottom: 0;
+
+    border-bottom: 0;
+}
+
+
+.navigation-summary dt {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 5px;
+
+    color: #687789;
+
+    font-size: 0.82rem;
+
+    font-weight: 600;
+}
+
+
+.navigation-summary dt i {
+    color: #1683dc;
+}
+
+
+.navigation-summary dd {
+    margin: 0;
+
+    color: #0b2d4a;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   AI Analysis
+   ========================================= */
+
+.ai-analysis-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+.ai-analysis-item {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: #f7f9fb;
+}
+
+
+.ai-analysis-item i {
+    color: #1683dc;
+}
+
+
+.ai-analysis-item span {
+    color: #334155;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   Arrival Card
+   ========================================= */
+
+.arrival-card {
+    padding: 28px;
+
+    border-radius: 18px;
+
+    background: #0b2d4a;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 8px 24px rgba(15, 43, 70, 0.12);
+}
+
+
+.arrival-card .section-icon {
+    background: rgba(255, 255, 255, 0.12);
+
+    color: #ffffff;
+}
+
+
+.arrival-card h2 {
+    color: #ffffff;
+}
+
+
+.arrival-card .text-secondary {
+    color: #d3dce5 !important;
+}
+
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .navigation-progress {
+        justify-content: flex-start;
+
+        overflow-x: auto;
+
+        padding-bottom: 5px;
+    }
+
+
+    .progress-line {
+        width: 25px;
+
+        flex-shrink: 0;
+    }
+
+
+    .step-name {
+        display: none;
+    }
+
+
+    .navigation-card {
+        padding: 22px;
+    }
+
+
+    .instruction-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 24px;
+    }
+
+
+    .instruction-icon {
+        width: 60px;
+
+        height: 60px;
+    }
+
+}

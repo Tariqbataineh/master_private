@@ -1,0 +1,11 @@
+/* Native Google InfoWindow content; attribution and map chrome remain untouched. */
+.wusool-map-card{width:min(320px,65vw);min-width:180px;padding:12px;color:var(--wt-text,#10233f);background:var(--wt-surface,#fff);font-family:var(--wu-font,inherit);border-radius:12px;overflow-wrap:anywhere}
+.wusool-map-card img{width:100%;height:135px;object-fit:cover;border-radius:12px;margin-bottom:12px}
+.wusool-map-card h3{font-size:1.25rem;margin:8px 0;color:inherit}
+.wusool-map-card small{color:var(--wt-accent,#0f766e);font-size:.875rem}
+.wusool-map-card p{font-size:.875rem;color:var(--wt-muted,#526b72);line-height:1.65;margin:8px 0}
+.wusool-map-card .wusool-map-rating{font-weight:600;color:var(--wt-text,#10233f)}
+.wusool-map-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.wusool-map-actions .btn{min-height:44px;border-radius:12px;display:flex;align-items:center;font-size:.875rem;padding:8px 12px}
+.wusool-map-card :is(a,button):focus-visible{outline:3px solid var(--wt-accent,#0f766e);outline-offset:3px}
+body.high-contrast .wusool-map-card{--wt-surface:#000;--wt-text:#fff;--wt-muted:#eee;--wt-accent:#ffeb3b;border:2px solid #fff}

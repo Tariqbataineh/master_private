@@ -1,0 +1,833 @@
+/* ==================================================
+   Wusool - Shared Organization Sidebar
+   ================================================== */
+
+:root {
+    --organization-sidebar-width: 280px;
+    --sidebar-width: var(--organization-sidebar-width);
+    --organization-sidebar-background: #09213c;
+    --organization-sidebar-surface: #102d4b;
+    --organization-sidebar-text: #ffffff;
+    --organization-sidebar-muted: #a9bfd2;
+    --organization-sidebar-accent: #16b6b0;
+    --organization-sidebar-border: rgba(255, 255, 255, 0.12);
+}
+
+.organization-sidebar {
+    position: fixed !important;
+    inset: 0 auto 0 0 !important;
+    z-index: 1045 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: var(--organization-sidebar-width) !important;
+    max-width: 86vw !important;
+    height: 100vh !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    color: var(--organization-sidebar-text) !important;
+    background: var(--organization-sidebar-background) !important;
+    border: 0 !important;
+    box-shadow: 10px 0 35px rgba(9, 33, 60, 0.12);
+    visibility: visible !important;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 96px;
+    padding: 1.25rem 1.35rem;
+    border-bottom: 1px solid var(--organization-sidebar-border);
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    color: var(--organization-sidebar-text) !important;
+    text-decoration: none !important;
+}
+
+.sidebar-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.35rem;
+    color: #ffffff;
+    background: linear-gradient(135deg, #16b6b0, #1388e7);
+    border-radius: 0.85rem;
+    box-shadow: 0 8px 20px rgba(19, 136, 231, 0.25);
+}
+
+.sidebar-brand strong,
+.sidebar-brand small {
+    display: block;
+}
+
+.sidebar-brand strong {
+    font-size: 1.25rem;
+    line-height: 1.2;
+}
+
+.sidebar-brand small {
+    margin-top: 0.2rem;
+    color: var(--organization-sidebar-muted);
+    font-size: 0.75rem;
+}
+
+.sidebar-close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--organization-sidebar-border);
+    border-radius: 0.7rem;
+}
+/* Profile Link */
+
+.sidebar-organization {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sidebar-organization:hover,
+.sidebar-organization:focus-visible {
+    color: #ffffff;
+    background-color: rgba(22, 182, 176, 0.15);
+    border-color: rgba(112, 217, 212, 0.55);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.sidebar-organization-details {
+    flex-grow: 1;
+}
+
+.sidebar-profile-arrow {
+    flex-shrink: 0;
+    color: #70d9d4;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease;
+}
+
+.sidebar-organization:hover .sidebar-profile-arrow {
+    transform: translateX(3px);
+}
+
+
+/* Sidebar Scrollbar */
+
+.organization-sidebar .sidebar-navigation {
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(112, 217, 212, 0.55)
+        transparent;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar {
+    width: 6px;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-thumb {
+    background-color: rgba(112, 217, 212, 0.45);
+    border-radius: 20px;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-thumb:hover {
+    background-color: #70d9d4;
+}
+
+.organization-sidebar .sidebar-navigation::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+}
+.sidebar-organization {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 1rem 0;
+    padding: 0.85rem;
+    background: var(--organization-sidebar-surface);
+    border: 1px solid var(--organization-sidebar-border);
+    border-radius: 0.9rem;
+}
+
+.sidebar-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    color: #062d3a;
+    font-size: 0.8rem;
+    font-weight: 800;
+    background: #b9f2ef;
+    border-radius: 50%;
+}
+
+.sidebar-organization-details {
+    min-width: 0;
+}
+
+.sidebar-organization-details strong,
+.sidebar-organization-details small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sidebar-organization-details strong {
+    color: #ffffff;
+    font-size: 0.86rem;
+}
+
+.sidebar-organization-details small {
+    margin-top: 0.2rem;
+    color: var(--organization-sidebar-muted);
+    font-size: 0.72rem;
+}
+
+.organization-sidebar .sidebar-navigation {
+    flex: 1 1 auto;
+    padding: 1rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.sidebar-label {
+    margin: 0 0.6rem 0.55rem;
+    color: var(--organization-sidebar-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.sidebar-label-secondary {
+    margin-top: 1.2rem;
+}
+
+.organization-sidebar .sidebar-link {
+    display: flex !important;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    min-height: 46px;
+    margin-bottom: 0.25rem;
+    padding: 0.72rem 0.85rem !important;
+    color: #dce9f3 !important;
+    font-size: 0.91rem;
+    font-weight: 600;
+    text-decoration: none !important;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 0.75rem !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.organization-sidebar .sidebar-link i {
+    flex: 0 0 1.15rem;
+    color: #70d9d4;
+    font-size: 1.05rem;
+    text-align: center;
+}
+
+.organization-sidebar .sidebar-link:hover,
+.organization-sidebar .sidebar-link:focus-visible {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.organization-sidebar .sidebar-link.active,
+.organization-sidebar .sidebar-link[aria-current="page"] {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, rgba(22, 182, 176, 0.28), rgba(19, 136, 231, 0.12)) !important;
+    border-color: rgba(112, 217, 212, 0.34) !important;
+    box-shadow: inset 3px 0 0 var(--organization-sidebar-accent);
+}
+
+.sidebar-footer {
+    flex: 0 0 auto;
+    padding: 0.85rem 1rem 1rem;
+    border-top: 1px solid var(--organization-sidebar-border);
+}
+
+.organization-sidebar .sidebar-logout {
+    margin: 0;
+    color: #ffd8d8 !important;
+}
+
+.organization-sidebar .sidebar-logout i {
+    color: #ffaaaa;
+}
+
+/* Offset only the outer page wrapper.
+   Nested .organization-main elements must not receive a second sidebar margin. */
+body.has-organization-sidebar > .main-content,
+body.has-organization-sidebar > .organization-main-content,
+body.has-organization-sidebar > .organization-main,
+body.has-organization-sidebar > .organization-content,
+body.has-organization-sidebar > .page-content {
+    width: calc(100% - var(--organization-sidebar-width));
+    max-width: none;
+    margin-left: var(--organization-sidebar-width) !important;
+}
+
+.sidebar-overlay,
+.sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    display: none;
+    background: rgba(4, 18, 32, 0.58);
+    backdrop-filter: blur(2px);
+}
+
+.sidebar-overlay.show,
+.sidebar-backdrop.show {
+    display: block;
+}
+
+@media (max-width: 991.98px) {
+    .organization-sidebar {
+        transform: translateX(-105%) !important;
+        transition: transform 0.25s ease !important;
+    }
+
+    .organization-sidebar.open,
+    .organization-sidebar.show {
+        transform: translateX(0) !important;
+    }
+
+    body.has-organization-sidebar > .main-content,
+    body.has-organization-sidebar > .organization-main-content,
+    body.has-organization-sidebar > .organization-main,
+    body.has-organization-sidebar > .organization-content,
+    body.has-organization-sidebar > .page-content {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+    body.organization-sidebar-open {
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 992px) {
+    .organization-sidebar {
+        transform: none !important;
+    }
+}
+
+/* ================================================================
+   WUSOOL — ORGANIZATION PORTAL / FINAL VISUAL REFINEMENT (ORG-5)
+   Presentation only. No DOM, service, routing or event changes.
+   Loaded through the existing shared organization-sidebar.css on
+   every authenticated Organization page.
+   ================================================================ */
+
+:root {
+    --org-shell-height: 76px;
+    --org-shell-radius: 16px;
+    --org-shell-line: var(--wt-border, #dce8e4);
+    --org-shell-panel: var(--wt-surface, #ffffff);
+    --org-shell-text: var(--wt-text, #102747);
+    --org-shell-muted: var(--wt-muted, #677a81);
+}
+
+/* Consistent typography, including dynamically inserted sidebar content. */
+html body .organization-sidebar,
+html body :is(.organization-header, .organization-topbar, .mobile-header, .reviews-header) {
+    font-family: var(--wu-font, Inter, system-ui, sans-serif) !important;
+}
+html body .organization-sidebar :is(.sidebar-brand strong, .sidebar-organization-details strong),
+html body :is(.organization-header, .organization-topbar, .mobile-header, .reviews-header)
+    :is(h1, h2, h3, .topbar-title, strong),
+html body :is(.organization-main, .organization-main-content, .organization-content, .page-content, .main-content)
+    :is(h1, h2, h3, .display-6) {
+    font-family: var(--wu-heading-font, Sora, Inter, sans-serif) !important;
+    text-wrap: pretty;
+}
+html:lang(ar) body :is(.organization-sidebar, .organization-header, .organization-topbar, .mobile-header, .reviews-header)
+    :is(h1, h2, h3, strong, .sidebar-label),
+html:lang(ar) body :is(.organization-main, .organization-main-content, .organization-content, .page-content, .main-content)
+    :is(h1, h2, h3, .display-6) {
+    letter-spacing: normal !important;
+    line-height: 1.5;
+}
+
+/* Shared navigation: clear hierarchy, predictable alignment, easy scanning. */
+html body .organization-sidebar {
+    font-family: var(--wu-font, Inter, system-ui, sans-serif);
+    border-inline-end: 1px solid var(--organization-sidebar-border) !important;
+}
+html body .organization-sidebar .sidebar-header {
+    min-height: 88px;
+    padding: 18px 19px;
+    gap: 12px;
+}
+html body .organization-sidebar .sidebar-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 12px;
+}
+html body .organization-sidebar .sidebar-brand-icon {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+}
+html body .organization-sidebar .sidebar-brand strong {
+    font-size: 1.19rem;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+}
+html body .organization-sidebar .sidebar-brand small {
+    margin-top: 5px;
+    font-size: .76rem;
+    line-height: 1.25;
+}
+html body .organization-sidebar .sidebar-organization {
+    min-width: 0;
+    min-height: 75px;
+    margin: 15px 13px 9px;
+    padding: 11px 12px;
+    border-radius: 13px;
+    gap: 11px;
+}
+html body .organization-sidebar .sidebar-avatar {
+    flex-basis: 42px;
+    width: 42px;
+    height: 42px;
+    line-height: 1;
+}
+html body .organization-sidebar .sidebar-organization-details strong {
+    font-size: .87rem;
+    line-height: 1.4;
+}
+html body .organization-sidebar .sidebar-organization-details small {
+    font-size: .74rem;
+    line-height: 1.4;
+    direction: ltr;
+    text-align: start;
+}
+html body .organization-sidebar .sidebar-navigation {
+    padding: 10px 12px 14px;
+    overscroll-behavior: contain;
+}
+html body .organization-sidebar .sidebar-label {
+    margin: 11px 12px 9px;
+    font-size: .69rem;
+    line-height: 1.4;
+    letter-spacing: .09em;
+}
+html body .organization-sidebar .sidebar-label-secondary {
+    margin-top: 23px;
+}
+html body .organization-sidebar .sidebar-link {
+    gap: 12px;
+    min-height: 45px;
+    margin: 2px 0;
+    padding: 10px 13px !important;
+    font-size: .89rem;
+    line-height: 1.45;
+    border-radius: 11px !important;
+    transition: color .16s ease, background-color .16s ease, border-color .16s ease;
+}
+html body .organization-sidebar .sidebar-link i {
+    flex: 0 0 21px;
+    width: 21px;
+    font-size: 1.08rem;
+    text-align: center;
+}
+html body .organization-sidebar .sidebar-link > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+html body .organization-sidebar .sidebar-link.active,
+html body .organization-sidebar .sidebar-link[aria-current="page"] {
+    box-shadow: inset 3px 0 0 var(--organization-sidebar-accent);
+    font-weight: 700;
+}
+html body .organization-sidebar .sidebar-footer {
+    padding: 12px;
+}
+html body .organization-sidebar .sidebar-logout {
+    margin: 0;
+}
+
+/* Compact consistent application bar, without hiding actions or labels. */
+html body :is(.organization-header, .organization-topbar) {
+    min-height: var(--org-shell-height);
+    gap: 14px;
+    padding: 13px clamp(16px, 2.1vw, 30px);
+    color: var(--org-shell-text);
+    background: var(--org-shell-panel);
+    border-bottom: 1px solid var(--org-shell-line);
+    box-shadow: 0 1px 0 rgba(15, 62, 58, .025);
+}
+html body .organization-topbar {
+    height: var(--org-shell-height);
+}
+html body .organization-header > :is(div, span, h1),
+html body .organization-topbar .topbar-title {
+    min-width: 0;
+}
+html body .organization-header > div:has(> h1) {
+    flex: 1 1 auto;
+}
+html body .organization-header :is(.header-label, .header-eyebrow),
+html body .reviews-header .page-label {
+    margin: 0 0 5px;
+    font-size: .72rem;
+    font-weight: 800;
+    line-height: 1.4;
+    letter-spacing: .08em;
+    color: var(--wu-brand, #167b63);
+}
+html body .organization-header h1,
+html body .organization-topbar .topbar-title {
+    margin: 0;
+    font-size: clamp(1.04rem, 1.2vw, 1.2rem);
+    font-weight: 700;
+    line-height: 1.4;
+    color: var(--org-shell-text);
+}
+html body .organization-header :is(.organization-account, .btn, .dropdown),
+html body .organization-topbar .topbar-actions {
+    flex: 0 0 auto;
+}
+html body .organization-header .organization-account {
+    gap: 10px;
+    min-width: 0;
+    max-width: min(36%, 310px);
+}
+html body .organization-header .organization-account :is(strong, small) {
+    display: block;
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+html body .organization-header .sidebar-toggle,
+html body .organization-topbar .sidebar-toggle-button,
+html body .mobile-header :is(#openSidebarButton, #sidebarToggle, .btn[data-bs-target]),
+html body .reviews-header #openSidebarButton {
+    flex: 0 0 42px;
+    min-width: 42px;
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    border: 1px solid var(--org-shell-line);
+    border-radius: 12px;
+    color: var(--org-shell-text);
+    background: var(--org-shell-panel);
+    box-shadow: none;
+}
+/* Desktop toggles stay hidden, per Bootstrap's responsive utility. */
+@media (min-width: 992px) {
+    html body .organization-header .sidebar-toggle.d-lg-none,
+    html body .mobile-header.d-lg-none,
+    html body .reviews-header #openSidebarButton.d-lg-none {
+        display: none !important;
+    }
+    html body .organization-topbar .sidebar-toggle-button {
+        display: none !important;
+    }
+}
+html body .organization-header .sidebar-toggle:focus-visible,
+html body .organization-topbar .sidebar-toggle-button:focus-visible,
+html body .organization-sidebar :is(a, button):focus-visible {
+    outline: 3px solid var(--wu-focus, #39d4bd) !important;
+    outline-offset: 2px;
+}
+
+/* Mobile bar and responsive alignment for older wizard screens. */
+html body .mobile-header {
+    min-height: 68px;
+    color: var(--org-shell-text);
+    background: var(--org-shell-panel);
+    border-bottom: 1px solid var(--org-shell-line);
+    box-shadow: 0 1px 0 rgba(15, 62, 58, .025);
+}
+html body .mobile-header > .container-fluid {
+    min-height: 68px;
+    padding-block: 10px !important;
+    gap: 10px;
+}
+html body .mobile-header :is(strong, .fw-bold) {
+    min-width: 0;
+    font-size: 1rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+/* Normalize hero rhythm, avoid tall empty first-screen sections. */
+html body :is(.organization-content, .organization-main, .organization-main-content, .page-content, .main-content)
+    :is(.page-heading, .page-header) {
+    border-radius: var(--org-shell-radius);
+}
+html body .organization-content > .page-heading,
+html body .organization-content > .container-fluid > .page-heading,
+html body .page-content .page-heading {
+    margin-bottom: clamp(16px, 1.8vw, 25px);
+}
+html body .organization-content > .container-fluid > .page-heading,
+html body .organization-main-content > .page-heading {
+    padding: clamp(20px, 2.2vw, 30px);
+}
+html body :is(.organization-content, .organization-main, .organization-main-content, .page-content, .main-content)
+    :is(.page-heading, .page-header) :is(h1, h2, .display-6) {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.32;
+    margin-bottom: 8px;
+}
+html body :is(.organization-content, .organization-main, .organization-main-content, .page-content, .main-content)
+    :is(.page-heading, .page-header) p:last-child {
+    max-width: 75ch;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+html body .reviews-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: clamp(20px, 2.2vw, 30px);
+    border: 1px solid var(--org-shell-line);
+    border-radius: var(--org-shell-radius);
+    background: var(--org-shell-panel);
+    margin-bottom: 20px;
+}
+html body .reviews-header > div {
+    min-width: 0;
+    flex: 1 1 300px;
+}
+html body .reviews-header h1 {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    line-height: 1.3;
+    margin: 0 0 6px;
+}
+html body .reviews-header p:last-child {
+    margin: 0;
+    max-width: 75ch;
+    line-height: 1.6;
+}
+
+/* Work surfaces, input heights and table readability, no change to form logic. */
+html body .organization-main :is(.form-control, .form-select),
+html body .organization-content :is(.form-control, .form-select),
+html body .organization-main-content :is(.form-control, .form-select),
+html body .page-content :is(.form-control, .form-select) {
+    min-height: 43px;
+    border-radius: 11px;
+}
+html body :is(.organization-main, .organization-content, .organization-main-content, .page-content)
+    :is(.filter-card, .filters-card, .stat-card, .review-card, .reviews-metrics > article) {
+    border-radius: var(--org-shell-radius);
+}
+html body :is(.organization-main, .organization-content, .organization-main-content, .page-content)
+    :is(.table-responsive, .table-container, .table-wrapper) {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Arabic reading direction and sidebar placement. */
+html[dir="rtl"] body .organization-sidebar {
+    inset: 0 0 0 auto !important;
+    box-shadow: -10px 0 35px rgba(9, 33, 60, .12);
+    border-inline-end: 0 !important;
+    border-inline-start: 1px solid var(--organization-sidebar-border) !important;
+}
+html[dir="rtl"] body .organization-sidebar .sidebar-link.active,
+html[dir="rtl"] body .organization-sidebar .sidebar-link[aria-current="page"] {
+    box-shadow: inset -3px 0 0 var(--organization-sidebar-accent);
+}
+html[dir="rtl"] body .organization-sidebar .sidebar-label {
+    letter-spacing: normal;
+    text-transform: none;
+}
+html[dir="rtl"] body .organization-sidebar .sidebar-profile-arrow {
+    transform: rotate(180deg);
+}
+html[dir="rtl"] body .organization-sidebar .sidebar-organization:hover .sidebar-profile-arrow {
+    transform: rotate(180deg) translateX(3px);
+}
+html[dir="rtl"] body .organization-sidebar .sidebar-organization-details small {
+    direction: ltr;
+    text-align: right;
+}
+html[dir="rtl"] body.has-organization-sidebar > :is(.main-content, .organization-main-content, .organization-main, .organization-content, .page-content),
+html[dir="rtl"] body .organization-layout > .organization-content {
+    margin-left: 0 !important;
+    margin-right: var(--organization-sidebar-width) !important;
+}
+html[dir="rtl"] body .organization-topbar {
+    left: 0;
+    right: var(--organization-sidebar-width);
+}
+html[dir="rtl"] body .organization-sidebar .sidebar-footer,
+html[dir="rtl"] body .organization-sidebar .sidebar-navigation {
+    direction: rtl;
+}
+
+/* Theme-aware header surfaces; respect the app's current palette. */
+html[data-wusool-color-mode="dark"] body {
+    --org-shell-line: var(--wt-border, #39544e);
+    --org-shell-panel: var(--wd-panel, var(--wt-surface, #1b302b));
+    --org-shell-text: var(--wd-text, var(--wt-text, #eef9f4));
+    --org-shell-muted: var(--wd-secondary, var(--wt-muted, #bacdc8));
+}
+html[data-wusool-color-mode="dark"] body :is(.organization-header, .organization-topbar, .mobile-header, .reviews-header) {
+    background: var(--org-shell-panel) !important;
+    color: var(--org-shell-text) !important;
+    border-color: var(--org-shell-line) !important;
+}
+html[data-wusool-color-mode="dark"] body :is(.organization-header, .organization-topbar, .reviews-header) :is(h1, h2, h3, .topbar-title) {
+    color: var(--org-shell-text) !important;
+}
+html[data-wusool-color-mode="dark"] body .mobile-header :is(#openSidebarButton, #sidebarToggle, .btn[data-bs-target]),
+html[data-wusool-color-mode="dark"] body .organization-header .sidebar-toggle {
+    background: var(--org-shell-panel) !important;
+    color: var(--org-shell-text) !important;
+    border-color: var(--org-shell-line) !important;
+}
+
+/* Ensure usable layout at all breakpoints without affecting modal dialogs. */
+@media (max-width: 991.98px) {
+    html body :is(.organization-header, .organization-topbar) {
+        padding-inline: 15px;
+        gap: 12px;
+    }
+    html body .organization-topbar {
+        left: 0;
+        right: 0;
+    }
+    html[dir="rtl"] body .organization-sidebar {
+        transform: translateX(105%) !important;
+    }
+    html[dir="rtl"] body .organization-sidebar.open,
+    html[dir="rtl"] body .organization-sidebar.show {
+        transform: translateX(0) !important;
+    }
+    html[dir="rtl"] body.has-organization-sidebar > :is(.main-content, .organization-main-content, .organization-main, .organization-content, .page-content),
+    html[dir="rtl"] body .organization-layout > .organization-content {
+        margin-inline: 0 !important;
+    }
+    html body .organization-header .organization-account {
+        max-width: min(38%, 190px);
+    }
+}
+@media (max-width: 575.98px) {
+    html body .organization-sidebar .sidebar-header {
+        min-height: 76px;
+        padding: 13px 15px;
+    }
+    html body .organization-header h1,
+    html body .organization-topbar .topbar-title {
+        font-size: 1rem;
+    }
+    html body .organization-header :is(.header-eyebrow, .header-label) {
+        font-size: .66rem;
+    }
+    html body :is(.organization-header, .organization-topbar) {
+        min-height: 66px;
+        padding-block: 10px;
+    }
+    html body .organization-topbar {
+        height: 66px;
+    }
+    html body .reviews-header,
+    html body .organization-content > .container-fluid > .page-heading {
+        padding: 18px;
+    }
+    html body .organization-header .organization-account {
+        max-width: 46px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    html body .organization-sidebar .sidebar-link {
+        transition: none;
+    }
+}
+
+/* ORG-6: consistent single-heading layout and sidebar seam */
+@media (min-width: 992px) {
+  html body.has-organization-sidebar > :is(.organization-content,.organization-main,.organization-main-content,.main-content,.page-content) {
+    box-sizing: border-box !important;
+    width: calc(100% - var(--organization-sidebar-width)) !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin-inline-start: var(--organization-sidebar-width) !important;
+    margin-inline-end: 0 !important;
+    padding-inline-start: 0 !important;
+  }
+  html[dir="rtl"] body.has-organization-sidebar > :is(.organization-content,.organization-main,.organization-main-content,.main-content,.page-content) {
+    margin-left: 0 !important;
+    margin-right: var(--organization-sidebar-width) !important;
+  }
+  html[dir="ltr"] body.has-organization-sidebar > :is(.organization-content,.organization-main,.organization-main-content,.main-content,.page-content) {
+    margin-left: var(--organization-sidebar-width) !important;
+    margin-right: 0 !important;
+  }
+}
+html body :is(.organization-content,.organization-main,.organization-main-content,.main-content,.page-content) {
+  min-width: 0;
+}
+html body .org6-unified-heading { position: relative; }
+html body .org6-unified-heading .org6-header-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .65rem;
+  margin-block-start: 1rem;
+}
+html body .org6-unified-heading .org6-header-actions .btn { min-height: 40px; }
+html body .org6-unified-heading .org6-mobile-menu { margin-inline-end: .6rem; }
+html body .org6-unified-heading :is(h1,h2,.display-6) {
+  font-family: 'Sora','Inter',sans-serif !important;
+  font-weight: 700;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+}
+html[lang="ar"] body .org6-unified-heading :is(h1,h2,.display-6),
+html[dir="rtl"] body .org6-unified-heading :is(h1,h2,.display-6) {
+  font-family: 'Alexandria','Tajawal',sans-serif !important;
+}
+html body :is(.organization-content,.organization-main,.organization-main-content) :is(.text-secondary,.text-muted) { opacity: 1; }
+html body :is(.organization-content,.organization-main,.organization-main-content) :is(.form-label, label, th) { font-weight: 600; }
+html body :is(.organization-content,.organization-main,.organization-main-content) :is(input,select,textarea,button) { font-family: inherit; }
+html body .org6-unified-heading .org6-header-actions > :is(a,button) { white-space: normal; }
+@media (max-width: 991.98px) {
+ html body.has-organization-sidebar > :is(.organization-content,.organization-main,.organization-main-content,.main-content,.page-content) {
+   width: 100% !important; margin-inline: 0 !important; padding-inline-start: 0 !important;
+ }
+ html body .org6-unified-heading .org6-mobile-menu { display: inline-flex !important; }
+}
+@media (max-width: 575.98px) {
+ html body .org6-unified-heading .org6-header-actions { align-items: stretch; }
+ html body .org6-unified-heading .org6-header-actions > :is(a,button) { max-width: 100%; }
+}

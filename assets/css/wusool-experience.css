@@ -1,0 +1,1478 @@
+/* =========================================================
+   WUSOOL EXPERIENCE LAYER
+   Shared visual system for production-style motion and UI.
+   ========================================================= */
+
+:root {
+  --wx-bg: #f4f8f8;
+  --wx-surface: rgba(255, 255, 255, 0.78);
+  --wx-surface-strong: #ffffff;
+  --wx-ink: #10233f;
+  --wx-muted: #66758b;
+  --wx-teal: #0f766e;
+  --wx-teal-2: #14b8a6;
+  --wx-navy: #0f2747;
+  --wx-line: rgba(15, 39, 71, 0.1);
+  --wx-shadow: 0 22px 60px rgba(15, 39, 71, 0.11);
+  --wx-shadow-strong: 0 34px 90px rgba(15, 39, 71, 0.18);
+  --wx-radius: 24px;
+  --wx-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  color-scheme: light;
+}
+body {
+  min-height: 100vh;
+  background-color: var(--wx-bg) !important;
+  background-image:
+    radial-gradient(circle at 9% 8%, rgba(20, 184, 166, 0.09), transparent 28rem),
+    radial-gradient(circle at 95% 16%, rgba(15, 39, 71, 0.07), transparent 30rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 248, 0.97)) !important;
+  background-attachment: scroll !important;
+  color: var(--wx-ink);
+}
+
+/* Keep the same background language while allowing dark product panels. */
+main,
+.page-content,
+.content-wrapper {
+  position: relative;
+}
+
+/* Shared floating header treatment */
+body .navbar,
+body .main-navbar,
+body [class*='topbar'] {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(15, 39, 71, 0.08) !important;
+  box-shadow: 0 10px 38px rgba(15, 39, 71, 0.06);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* More expressive cards without becoming noisy. */
+.wusool-motion-enabled .wm-interactive-surface.wx-card-motion {
+  --wx-cx: 50%;
+  --wx-cy: 50%;
+  overflow: hidden;
+  border-color: rgba(15, 39, 71, 0.09);
+  box-shadow: 0 15px 45px rgba(15, 39, 71, 0.08);
+}
+
+.wusool-motion-enabled .wm-interactive-surface.wx-card-motion::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 11;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(20, 184, 166, 0.72),
+    rgba(255, 255, 255, 0.16) 34%,
+    rgba(45, 97, 202, 0.36) 66%,
+    rgba(20, 184, 166, 0.64)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity 0.34s ease;
+}
+
+.wusool-motion-enabled .wm-interactive-surface.wx-card-motion:hover {
+  --wm-lift: -10px;
+  box-shadow: var(--wx-shadow-strong);
+}
+
+.wusool-motion-enabled .wm-interactive-surface.wx-card-motion:hover::before {
+  opacity: 0.95;
+}
+
+.wx-card-motion .wx-motion-layer,
+.wx-card-motion h2,
+.wx-card-motion h3,
+.wx-card-motion h4,
+.wx-card-motion p,
+.wx-card-motion [class*='icon'],
+.wx-card-motion .badge,
+.wx-card-motion .btn {
+  transform: translate3d(calc(var(--wx-layer-x, 0px)), calc(var(--wx-layer-y, 0px)), 0);
+  transition:
+    transform 0.46s var(--wx-spring),
+    opacity 0.3s ease;
+}
+
+.wx-card-motion:hover h3,
+.wx-card-motion:hover h4 {
+  transform: translate3d(0, -3px, 0);
+}
+.wx-card-motion:hover p {
+  transform: translate3d(0, -1px, 0);
+}
+.wx-card-motion:hover [class*='icon'] {
+  transform: translate3d(0, -5px, 24px) scale(1.06) rotate(-2deg);
+}
+
+.wx-card-motion .wx-card-orbit {
+  position: absolute;
+  right: -52px;
+  top: -52px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.22;
+  border: 1px solid rgba(20, 184, 166, 0.28);
+  box-shadow: inset 0 0 0 18px rgba(20, 184, 166, 0.025);
+  transform: scale(0.82) rotate(0deg);
+  transition:
+    transform 0.8s var(--wx-spring),
+    opacity 0.35s ease;
+}
+.wx-card-motion:hover .wx-card-orbit {
+  opacity: 0.62;
+  transform: scale(1.12) rotate(24deg);
+}
+
+/* Sidebar language inspired by glass product UIs. */
+.user-sidebar,
+.admin-sidebar,
+.organization-sidebar {
+  background:
+    radial-gradient(circle at 18% 4%, rgba(52, 231, 208, 0.17), transparent 24rem),
+    linear-gradient(165deg, rgba(8, 33, 54, 0.97), rgba(12, 54, 66, 0.96)) !important;
+  color: #eefcf9 !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.07) !important;
+  box-shadow: 18px 0 60px rgba(5, 27, 45, 0.14);
+  backdrop-filter: none;
+}
+
+.user-sidebar a,
+.admin-sidebar a,
+.organization-sidebar a,
+.organization-sidebar .sidebar-link,
+.user-sidebar .user-sidebar-link {
+  color: rgba(244, 255, 252, 0.78) !important;
+}
+
+.user-sidebar a:hover,
+.admin-sidebar a:hover,
+.organization-sidebar a:hover,
+.organization-sidebar .sidebar-link:hover,
+.user-sidebar .user-sidebar-link:hover,
+.user-sidebar .user-sidebar-link.active,
+.organization-sidebar .sidebar-link.active,
+.admin-sidebar a.active {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Live auth identity preview ---------- */
+.wx-auth-preview {
+  width: min(100%, 440px);
+  margin: 28px auto 0;
+  perspective: 1200px;
+}
+
+.wx-auth-caption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+.wx-auth-caption::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5eead4;
+  box-shadow: 0 0 16px rgba(94, 234, 212, 0.78);
+}
+
+.wx-access-pass {
+  --wx-pass-rx: 0deg;
+  --wx-pass-ry: 0deg;
+  position: relative;
+  min-height: 246px;
+  padding: 22px;
+  overflow: hidden;
+  border-radius: 28px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  background:
+    radial-gradient(circle at 88% 8%, rgba(94, 234, 212, 0.25), transparent 26%),
+    radial-gradient(circle at 10% 90%, rgba(77, 163, 255, 0.2), transparent 32%),
+    linear-gradient(145deg, rgba(10, 31, 53, 0.97), rgba(12, 79, 83, 0.94));
+  box-shadow:
+    0 30px 65px rgba(3, 20, 34, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--wx-pass-rx)) rotateY(var(--wx-pass-ry));
+  transition:
+    transform 0.45s var(--wx-spring),
+    box-shadow 0.35s ease;
+}
+
+.wx-access-pass::before {
+  content: '';
+  position: absolute;
+  inset: -40% -15%;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.12) 48%,
+    transparent 58%
+  );
+  transform: translateX(-55%) rotate(12deg);
+  animation: wxPassSweep 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.wx-access-pass::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -85px;
+  bottom: -100px;
+  border-radius: 50%;
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  box-shadow:
+    0 0 0 18px rgba(94, 234, 212, 0.03),
+    0 0 0 38px rgba(94, 234, 212, 0.02);
+}
+
+.wx-access-pass.is-typing {
+  animation: wxTypingPulse 0.34s var(--wx-spring);
+}
+.wx-access-pass.is-password-active {
+  box-shadow:
+    0 32px 76px rgba(3, 20, 34, 0.38),
+    0 0 0 1px rgba(94, 234, 212, 0.13),
+    0 0 40px rgba(20, 184, 166, 0.12);
+}
+
+.wx-pass-top,
+.wx-pass-person,
+.wx-pass-footer {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(26px);
+}
+.wx-pass-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.wx-pass-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.wx-pass-brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+}
+.wx-pass-type {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.wx-pass-person {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 15px;
+  align-items: center;
+  margin-top: 28px;
+}
+.wx-pass-avatar {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+  color: #082c31;
+  font-size: 20px;
+  font-weight: 900;
+  background: linear-gradient(145deg, #d8fff8, #72e6d7);
+  box-shadow: 0 14px 28px rgba(94, 234, 212, 0.13);
+}
+.wx-pass-person small {
+  display: block;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+.wx-pass-person strong {
+  display: block;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 19px;
+}
+.wx-pass-email {
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wx-pass-footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+  margin-top: 25px;
+}
+.wx-pass-secret {
+  min-width: 0;
+}
+.wx-pass-secret small {
+  display: block;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.wx-pass-secret strong {
+  display: block;
+  margin-top: 5px;
+  letter-spacing: 0.18em;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wx-pass-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  color: #cafff6;
+  font-size: 10px;
+  font-weight: 800;
+  background: rgba(94, 234, 212, 0.1);
+  border: 1px solid rgba(94, 234, 212, 0.18);
+}
+.wx-pass-status span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5eead4;
+  box-shadow: 0 0 12px rgba(94, 234, 212, 0.8);
+}
+
+/* visitor auth left panels need room for the live card */
+.login-hero .hero-content,
+.register-hero .hero-content {
+  width: min(100%, 560px);
+}
+.login-hero .wx-auth-preview,
+.register-hero .wx-auth-preview {
+  margin-left: 0;
+}
+
+/* Organization visual area */
+.login-visual-section .wx-auth-preview,
+.register-information .wx-auth-preview {
+  margin-left: 0;
+}
+
+/* ---------- Interactive payment card ---------- */
+.wx-payment-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+  margin: 4px 0 30px;
+  padding: 26px;
+  border-radius: 28px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(20, 184, 166, 0.13), transparent 34%),
+    radial-gradient(circle at 90% 75%, rgba(15, 39, 71, 0.08), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(238, 247, 246, 0.9));
+  border: 1px solid rgba(15, 39, 71, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  perspective: 1200px;
+}
+
+.wx-payment-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(15, 39, 71, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 39, 71, 0.025) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(to bottom, #000, transparent 85%);
+}
+
+.wx-payment-card {
+  --wx-card-rx: 0deg;
+  --wx-card-ry: 0deg;
+  width: min(100%, 430px);
+  aspect-ratio: 1.586 / 1;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--wx-card-rx)) rotateY(calc(var(--wx-card-ry) + var(--wx-card-flip, 0deg)));
+  transition: transform 0.72s var(--wx-spring);
+}
+.wx-payment-card.is-flipped {
+  --wx-card-flip: 180deg;
+}
+
+.wx-card-face {
+  position: absolute;
+  inset: 0;
+  padding: 25px 27px;
+  border-radius: 25px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  color: #fff;
+  box-shadow: 0 28px 60px rgba(10, 31, 53, 0.23);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.wx-card-front {
+  background:
+    radial-gradient(circle at 88% 18%, rgba(101, 255, 232, 0.23), transparent 28%),
+    radial-gradient(circle at 0% 110%, rgba(51, 126, 255, 0.2), transparent 40%),
+    linear-gradient(145deg, #09263b, #0b5960 67%, #0f766e);
+}
+.wx-card-front::after {
+  content: '';
+  position: absolute;
+  inset: -50% -20%;
+  background: linear-gradient(
+    110deg,
+    transparent 41%,
+    rgba(255, 255, 255, 0.12) 49%,
+    transparent 57%
+  );
+  transform: translateX(-65%);
+  animation: wxCardShine 5.5s ease-in-out infinite;
+}
+.wx-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #09263b, #123d55 65%, #0f766e);
+}
+.wx-card-back::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 26px;
+  height: 54px;
+  background: rgba(1, 10, 19, 0.88);
+}
+
+.wx-card-brand-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wx-card-chip {
+  width: 48px;
+  height: 36px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #ffe8a3, #d7b86b);
+  box-shadow: inset 0 0 0 1px rgba(97, 75, 18, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+.wx-card-chip::before,
+.wx-card-chip::after {
+  content: '';
+  position: absolute;
+  background: rgba(105, 81, 21, 0.22);
+}
+.wx-card-chip::before {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+}
+.wx-card-chip::after {
+  height: 1px;
+  left: 0;
+  right: 0;
+  top: 50%;
+}
+.wx-card-network {
+  font-size: 20px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.05em;
+}
+.wx-card-number {
+  position: relative;
+  z-index: 2;
+  margin-top: 44px;
+  font-size: clamp(19px, 3vw, 25px);
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.wx-card-bottom {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  margin-top: 24px;
+}
+.wx-card-bottom small {
+  display: block;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.wx-card-bottom strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.wx-card-stripe-label {
+  position: absolute;
+  top: 96px;
+  left: 27px;
+  right: 27px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 10px;
+}
+.wx-card-signature {
+  position: absolute;
+  top: 124px;
+  left: 27px;
+  right: 27px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 12px;
+  color: #10233f;
+  background: repeating-linear-gradient(-45deg, #fff, #fff 6px, #eef2f3 6px, #eef2f3 12px);
+  border-radius: 6px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+.wx-card-back-note {
+  position: absolute;
+  left: 27px;
+  right: 27px;
+  bottom: 26px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 10px;
+  line-height: 1.45;
+}
+.wx-payment-help {
+  position: relative;
+  z-index: 2;
+  margin-top: 18px;
+  color: var(--wx-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ---------- Home hierarchy ---------- */
+.home-section-intro {
+  max-width: 760px;
+}
+.home-section-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--wx-teal);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.home-section-number::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+/* ---------- Motion keyframes ---------- */
+@keyframes wxPassSweep {
+  0%,
+  20% {
+    transform: translateX(-65%) rotate(12deg);
+  }
+  55%,
+  100% {
+    transform: translateX(70%) rotate(12deg);
+  }
+}
+@keyframes wxTypingPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.012);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes wxCardShine {
+  0%,
+  24% {
+    transform: translateX(-70%);
+  }
+  58%,
+  100% {
+    transform: translateX(78%);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .wx-auth-preview {
+    margin-top: 22px;
+  }
+  .wx-payment-stage {
+    min-height: 265px;
+    padding: 18px;
+  }
+  .wx-card-face {
+    padding: 20px;
+  }
+  .wx-card-number {
+    margin-top: 32px;
+  }
+  .user-sidebar,
+  .admin-sidebar,
+  .organization-sidebar {
+    border-radius: 0 24px 24px 0;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .wx-payment-stage {
+    margin-inline: -4px;
+  }
+  .wx-payment-card {
+    width: 100%;
+  }
+  .wx-card-number {
+    font-size: 16px;
+    letter-spacing: 0.08em;
+  }
+  .wx-card-face {
+    padding: 18px;
+    border-radius: 20px;
+  }
+  .wx-card-bottom {
+    margin-top: 18px;
+  }
+  .wx-access-pass {
+    min-height: 232px;
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wx-access-pass::before,
+  .wx-card-front::after {
+    animation: none !important;
+  }
+  .wx-access-pass,
+  .wx-payment-card,
+  .wx-card-motion * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Local photographic auth surfaces: no remote image dependency. */
+.register-hero {
+  background:
+    linear-gradient(145deg, rgba(6, 31, 45, 0.55), rgba(7, 73, 78, 0.82)),
+    url('../images/orange_home.jpg') center / cover no-repeat !important;
+}
+.login-visual-section,
+.register-information {
+  background:
+    linear-gradient(155deg, rgba(5, 28, 44, 0.74), rgba(8, 79, 80, 0.86)),
+    url('../images/orange_home.jpg') center / cover no-repeat !important;
+  color: #fff;
+}
+
+/* =========================================================
+   Final interaction polish
+   ========================================================= */
+
+/* Stronger, faster card motion without slowing navigation. */
+.wusool-motion-enabled .wm-interactive-surface.wx-card-motion {
+  transition:
+    transform 0.28s var(--wx-spring),
+    box-shadow 0.28s ease,
+    border-color 0.22s ease;
+}
+
+.wusool-motion-enabled .wm-interactive-surface.wx-card-motion:hover {
+  --wm-lift: -13px;
+  box-shadow: 0 32px 72px rgba(15, 39, 71, 0.17);
+}
+
+.wx-card-motion:hover .badge {
+  transform: translate3d(3px, -4px, 28px) scale(1.04);
+}
+.wx-card-motion:hover .btn {
+  transform: translate3d(0, -3px, 30px);
+}
+.wx-card-motion:hover [class*='icon'] {
+  transform: translate3d(0, -7px, 34px) scale(1.1) rotate(-4deg);
+}
+.wx-card-motion:hover .wx-card-orbit {
+  opacity: 0.72;
+  transform: scale(1.18) rotate(38deg);
+}
+
+/* Auth preview: compact, cinematic and resilient across viewport sizes. */
+.wx-auth-preview {
+  width: min(100%, 420px);
+  margin-top: 24px;
+  perspective: 1400px;
+}
+
+.wx-access-pass {
+  min-height: 214px;
+  padding: 20px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 84% 12%, rgba(92, 246, 220, 0.22), transparent 30%),
+    linear-gradient(145deg, rgba(5, 28, 45, 0.95), rgba(8, 65, 73, 0.9));
+  box-shadow:
+    0 28px 70px rgba(2, 18, 31, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(9px) saturate(115%);
+  -webkit-backdrop-filter: blur(9px) saturate(115%);
+}
+
+.wx-pass-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -70px;
+  top: -90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(94, 234, 212, 0.3), transparent 68%);
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+.wx-pass-brand {
+  min-width: 0;
+}
+.wx-pass-brand > span:last-child {
+  display: grid;
+  line-height: 1.05;
+}
+.wx-pass-brand strong {
+  font-size: 14px;
+  color: #fff;
+}
+.wx-pass-brand small {
+  margin-top: 4px;
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.48);
+  font-weight: 600;
+}
+.wx-pass-brand-mark {
+  flex: 0 0 auto;
+}
+.wx-pass-type {
+  flex: 0 1 auto;
+  max-width: 48%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wx-pass-person {
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 13px;
+  margin-top: 23px;
+}
+
+.wx-pass-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  font-size: 18px;
+}
+
+.wx-pass-copy {
+  min-width: 0;
+}
+.wx-pass-person strong {
+  max-width: 100%;
+  font-size: 17px;
+}
+.wx-pass-email {
+  max-width: 100%;
+}
+.wx-pass-footer {
+  margin-top: 21px;
+}
+.wx-pass-secret strong {
+  font-size: 13px;
+  max-width: 190px;
+}
+.wx-pass-status {
+  padding: 7px 10px;
+}
+
+.wx-auth-caption {
+  margin-top: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+}
+.wx-auth-caption::before {
+  display: none;
+}
+.wx-auth-caption i {
+  color: #7cebdc;
+}
+
+.login-hero,
+.login-visual-section,
+.register-hero,
+.register-information {
+  overflow: hidden;
+}
+
+/* Realistic organization payment card. */
+.wx-payment-stage {
+  min-height: 318px;
+  padding: 30px 24px;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(20, 184, 166, 0.12), transparent 34%),
+    radial-gradient(circle at 92% 90%, rgba(26, 68, 112, 0.1), transparent 38%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(239, 247, 247, 0.94));
+}
+
+.wx-payment-shell {
+  width: min(100%, 455px);
+  position: relative;
+  z-index: 2;
+}
+.wx-payment-card {
+  width: 100%;
+  aspect-ratio: 1.586 / 1;
+}
+
+.wx-card-face {
+  padding: 24px 26px;
+  border-radius: 24px;
+  box-shadow:
+    0 28px 68px rgba(7, 29, 45, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.wx-card-front {
+  background:
+    radial-gradient(circle at 88% 13%, rgba(104, 255, 232, 0.24), transparent 27%),
+    radial-gradient(circle at 4% 110%, rgba(62, 139, 255, 0.18), transparent 38%),
+    linear-gradient(135deg, #071f34 0%, #0b4051 46%, #0f766e 100%);
+}
+
+.wx-card-brand-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 13px;
+  align-items: center;
+}
+
+.wx-card-contactless {
+  display: inline-flex;
+  align-items: center;
+  transform: rotate(90deg);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+}
+
+.wx-card-network {
+  justify-self: end;
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.06em;
+}
+
+.wx-card-number {
+  margin-top: 42px;
+  font-size: clamp(18px, 3vw, 24px);
+  letter-spacing: 0.11em;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.22);
+}
+
+.wx-card-bottom {
+  margin-top: 25px;
+}
+.wx-card-bottom strong {
+  font-size: 12px;
+  max-width: 250px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.wx-card-watermark {
+  position: absolute;
+  right: 24px;
+  bottom: 19px;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.055);
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.wx-card-back {
+  background: linear-gradient(145deg, #071f34, #123f53 58%, #0d6a66);
+}
+.wx-card-back::before {
+  display: none;
+}
+.wx-card-magnetic {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 32px;
+  height: 54px;
+  background: rgba(0, 0, 0, 0.78);
+}
+.wx-card-signature-row {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  top: 106px;
+}
+.wx-card-signature-row > span {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.wx-card-signature {
+  position: static;
+  width: 100%;
+  height: 44px;
+  border-radius: 7px;
+}
+.wx-card-network-back {
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+}
+.wx-card-back-note {
+  left: 25px;
+  bottom: 25px;
+  right: auto;
+  font-size: 9px;
+}
+.wx-payment-help {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  color: #607186;
+}
+
+@media (max-width: 991.98px) {
+  .wx-auth-preview {
+    width: min(100%, 390px);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .wx-access-pass {
+    min-height: 205px;
+    padding: 17px;
+    border-radius: 22px;
+  }
+  .wx-pass-type {
+    max-width: 44%;
+  }
+  .wx-pass-person {
+    margin-top: 19px;
+  }
+  .wx-pass-footer {
+    margin-top: 18px;
+  }
+  .wx-payment-stage {
+    min-height: 275px;
+    padding: 18px 12px;
+  }
+  .wx-card-face {
+    padding: 18px;
+    border-radius: 20px;
+  }
+  .wx-card-number {
+    margin-top: 31px;
+    font-size: 16px;
+    letter-spacing: 0.07em;
+  }
+  .wx-card-bottom {
+    margin-top: 19px;
+  }
+  .wx-card-watermark {
+    display: none;
+  }
+  .wx-card-magnetic {
+    top: 25px;
+    height: 46px;
+  }
+  .wx-card-signature-row {
+    top: 88px;
+    left: 18px;
+    right: 18px;
+  }
+}
+/* Make the entire feature card clickable */
+.wusool-motion-enabled .feature-card > h3,
+.wusool-motion-enabled .feature-card:hover > h3 {
+  position: static;
+  transform: none;
+}
+
+.feature-card .feature-card-link {
+  position: static;
+  color: inherit;
+  text-decoration: none;
+}
+
+.feature-card .feature-card-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  content: '';
+}
+
+.feature-card {
+  cursor: pointer;
+}
+
+.feature-card:focus-within {
+  outline: 3px solid #0f766e;
+  outline-offset: 4px;
+}
+/* Make the entire place card clickable */
+.wusool-motion-enabled .place-card h3,
+.wusool-motion-enabled .place-card:hover h3 {
+  position: static;
+  transform: none;
+}
+
+.place-card .place-title-link {
+  position: static;
+  color: inherit;
+  text-decoration: none;
+}
+
+.place-card .place-title-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  content: '';
+}
+
+.place-card {
+  cursor: pointer;
+}
+
+.place-card:focus-within {
+  outline: 3px solid #0f766e;
+  outline-offset: 4px;
+}
+/* Login: fix the image-side layout */
+.wusool-motion-enabled .login-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 24px;
+  min-width: 0;
+  padding: clamp(28px, 3.5vw, 52px);
+}
+
+/* Decorations must not occupy layout space */
+.wusool-motion-enabled .login-hero > .hero-decoration {
+  position: absolute;
+  pointer-events: none;
+}
+
+.wusool-motion-enabled .login-hero > .hero-content {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  overflow: visible;
+  transform: none;
+}
+
+.wusool-motion-enabled .login-hero .hero-label {
+  display: inline-block;
+  max-width: 100%;
+  font-size: 11px;
+  letter-spacing: 1px;
+  white-space: normal;
+}
+
+.wusool-motion-enabled .login-hero h1 {
+  margin: 18px 0;
+  font-size: clamp(32px, 3.4vw, 48px);
+  line-height: 1.12;
+  letter-spacing: -1px;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.wusool-motion-enabled .login-hero h1 span {
+  display: block;
+  margin-top: 6px;
+}
+
+.wusool-motion-enabled .login-hero .hero-content > p {
+  margin-bottom: 0;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.wusool-motion-enabled .login-hero .hero-brand {
+  margin-top: 24px;
+  padding-top: 20px;
+  gap: 12px;
+  overflow: visible;
+}
+
+.login-hero .hero-logo {
+  flex-shrink: 0;
+}
+
+/* Keep the live account preview neatly aligned */
+.login-hero .wx-auth-preview {
+  width: 100%;
+  max-width: 380px;
+  margin: 24px 0 0;
+}
+
+.login-hero .wx-access-pass {
+  width: 100%;
+  min-height: 210px;
+}
+
+/* Arrange floating badges below the content */
+.login-hero > .wm-auth-chip-wrap {
+  position: relative;
+  inset: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.login-hero .wm-auth-chip {
+  position: static;
+  max-width: 100%;
+  padding: 8px 10px;
+  font-size: 10px;
+  white-space: normal;
+  animation: none;
+  transform: none;
+}
+
+/* Remove extra decorative effects from text elements */
+.wusool-motion-enabled .login-hero .hero-content::before,
+.wusool-motion-enabled .login-hero .hero-label::before,
+.wusool-motion-enabled .login-hero .hero-brand::before,
+.wusool-motion-enabled .login-hero .hero-logo::before,
+.wusool-motion-enabled .login-hero > .hero-decoration::before {
+  content: none;
+}
+
+/* Preserve the existing mobile layout */
+@media (max-width: 991px) {
+  .wusool-motion-enabled .login-hero {
+    display: none;
+  }
+}
+/* Register: fix the image-side layout */
+.wusool-motion-enabled .register-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(28px, 3.5vw, 48px);
+}
+
+.wusool-motion-enabled .register-hero > .hero-circle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.wusool-motion-enabled .register-hero > .hero-content {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  overflow: visible;
+  transform: none;
+}
+
+.wusool-motion-enabled .register-hero .hero-label {
+  display: inline-block;
+  max-width: 100%;
+  color: #b8fff4;
+  font-size: 11px;
+  letter-spacing: 1px;
+  white-space: normal;
+}
+
+.wusool-motion-enabled .register-hero h1 {
+  margin: 18px 0;
+  color: #ffffff;
+  font-size: clamp(32px, 3.2vw, 46px);
+  line-height: 1.15;
+  letter-spacing: -1px;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.wusool-motion-enabled .register-hero h1 span {
+  display: block;
+  margin-top: 6px;
+  color: #b8fff4;
+}
+
+.wusool-motion-enabled .register-hero .hero-content > p {
+  margin-bottom: 0;
+  color: #e0eeeb;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.register-hero .wx-auth-preview {
+  width: 100%;
+  max-width: 380px;
+  margin: 24px 0 0;
+}
+
+.register-hero .wx-access-pass {
+  width: 100%;
+  min-height: 210px;
+}
+
+.register-hero .benefits-list {
+  margin-top: 24px;
+  gap: 12px;
+}
+
+.register-hero .benefit-item {
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.register-hero .benefit-item i {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #b8fff4;
+}
+
+.wusool-motion-enabled .register-hero .hero-brand {
+  margin-top: 24px;
+  padding-top: 20px;
+  gap: 12px;
+  overflow: visible;
+}
+
+.register-hero .hero-logo {
+  flex-shrink: 0;
+}
+
+/* Remove decorative overlays from the text */
+.wusool-motion-enabled .register-hero .hero-content::before,
+.wusool-motion-enabled .register-hero .hero-label::before,
+.wusool-motion-enabled .register-hero .hero-brand::before,
+.wusool-motion-enabled .register-hero .hero-logo::before,
+.wusool-motion-enabled .register-hero > .hero-circle::before {
+  content: none;
+}
+
+@media (max-width: 991px) {
+  .wusool-motion-enabled .register-hero {
+    display: none;
+  }
+}
+/* Organization login layout */
+.organization-login-page .login-container {
+  max-width: 1120px;
+}
+
+.organization-login-page .login-card {
+  min-height: auto;
+  border-radius: 28px;
+}
+
+/* Organization visual panel */
+.organization-login-page .login-visual-section {
+  min-width: 0;
+  background:
+    linear-gradient(145deg, rgba(7, 27, 47, 0.9), rgba(8, 84, 78, 0.85)),
+    url('../images/orange_home.jpg') center / cover;
+}
+
+.organization-login-page .login-visual-section > .d-flex {
+  width: 100%;
+  min-width: 0;
+  padding: clamp(28px, 3.5vw, 48px) !important;
+}
+
+.organization-login-page .visual-icon {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  font-size: 28px;
+  margin-bottom: 20px !important;
+}
+
+.organization-login-page .visual-label {
+  color: #b8fff4;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+}
+
+.organization-login-page .visual-title {
+  max-width: 440px;
+  color: #ffffff;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  margin-bottom: 16px !important;
+}
+
+.organization-login-page .visual-description {
+  color: #d6e9e6;
+  font-size: 14px;
+  line-height: 1.75;
+  margin-bottom: 0 !important;
+}
+
+/* Live organization access card */
+.organization-login-page .wx-auth-preview {
+  width: 100%;
+  max-width: 400px;
+  margin: 24px 0;
+}
+
+.organization-login-page .wx-access-pass {
+  width: 100%;
+  min-height: 210px;
+  border: 1px solid rgba(184, 255, 244, 0.25);
+  border-radius: 22px;
+}
+
+.organization-login-page .wx-pass-avatar {
+  border-radius: 14px;
+}
+
+.organization-login-page .wx-pass-type {
+  max-width: 52%;
+  font-size: 10px;
+}
+
+.organization-login-page .wx-auth-caption {
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* Organization capabilities */
+.organization-login-page .visual-features {
+  display: grid;
+  gap: 12px;
+}
+
+.organization-login-page .visual-features li {
+  font-size: 13px;
+  line-height: 1.6;
+  gap: 10px !important;
+}
+
+.organization-login-page .visual-features i {
+  flex-shrink: 0;
+  color: #8debdc;
+}
+
+/* Remove overlapping floating labels */
+.organization-login-page .wm-auth-chip-wrap {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .organization-login-page .login-visual-section {
+    order: -1;
+  }
+}
+
+@media (max-width: 991px) {
+  .organization-login-page .login-card {
+    max-width: 620px;
+    margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .organization-login-page .wx-access-pass {
+    animation: none !important;
+    transition: none !important;
+  }
+}

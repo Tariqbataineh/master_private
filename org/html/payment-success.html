@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="../../assets/interaction-theme.js"></script>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="View your Wusool subscription activation status."
+    >
+
+    <title>Subscription Status | Wusool</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="../../assets/vendor/bootstrap-5.3.8/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Page CSS -->
+    <link
+        rel="stylesheet"
+        href="../css/payment-success.css"
+    >
+    <!-- Dynamic Platform Runtime -->
+    <link rel="stylesheet" href="../../assets/platform-runtime.css">
+<script src="../../assets/api-config.js"></script>
+<script src="../../assets/interaction-policy.js"></script>
+<script src="../../assets/location-service.js"></script>
+<script src="../../assets/branch-workflow.js"></script>
+<script src="../../assets/service-registry.js"></script>
+<script src="../../assets/storage-adapter.js"></script>
+<script src="../../assets/http-client.js"></script>
+<script src="../../assets/services/core.js"></script>
+<script src="../../assets/services/local.js"></script>
+
+<script src="../../assets/services/directory.js"></script>
+<script src="../../assets/services/entities.js"></script>
+<script src="../../assets/services/auth.js"></script>
+<script src="../../assets/services/bookings.js"></script>
+<script src="../../assets/services/integrations.js"></script>
+<script src="../../assets/services/facade.js"></script>
+<script src="../../assets/services/state.js"></script>
+<script src="../../assets/services/journey.js"></script>
+<script src="../../assets/services/visits.js"></script>
+<script src="../../assets/services/hours.js"></script>
+    <script src="../../assets/services/portal.js"></script>
+<script src="../../assets/app-services.js"></script>
+<script src="../../assets/data-service.js"></script>
+<script src="../../assets/page-runtime.js"></script>
+<script src="../../assets/external-screens.js"></script>
+<script src="../../assets/live-sync.js"></script>
+<script src="../../assets/catalog-runtime.js"></script>
+<script src="../../assets/feature-store.js"></script>
+<script src="../../assets/behavior-service.js"></script>
+<link rel="stylesheet" href="../../assets/interactions.css"/>
+<script src="../../assets/interaction-i18n.js"></script>
+<script defer src="../../assets/interactions.js"></script>
+<link rel="stylesheet" href="../../assets/form-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/theme-surfaces.css"/>
+<link rel="stylesheet" href="../../assets/preferences.css">
+<script defer src="../../assets/preferences.js"></script>
+<link rel="stylesheet" href="../../assets/presentation.css">
+<link rel="stylesheet" href="../../assets/portal-refinement.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=Sora:wght@500;600;700&amp;family=Tajawal:wght@400;500;700&amp;display=swap" data-wusool-fonts="online-with-fallback">
+<link rel="stylesheet" href="../../assets/wusool-unified-design.css" data-wusool-design="unified-v1">
+<link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
+</head>
+
+<body class="org-subscription-result">
+
+    <!-- Header -->
+    <header class="success-header">
+        <nav class="container py-3">
+            <a
+                href="./organization-login.html"
+                class="navbar-brand d-flex align-items-center gap-2 m-0"
+                aria-label="Wusool home"
+            >
+                <span class="brand-icon">
+                    <i class="bi bi-universal-access"></i>
+                </span>
+
+                <span class="brand-name">Wusool</span>
+            </a>
+        </nav>
+    </header>
+
+    <main class="success-main">
+
+        <section class="container py-5">
+
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9 col-xl-8">
+
+                    <article class="success-card">
+
+                        <!-- Success Heading -->
+                        <header class="text-center">
+
+                            <div class="success-icon">
+                                <i class="bi bi-check-lg"></i>
+                            </div>
+
+                            <p class="section-label mb-2">
+                                SUBSCRIPTION STATUS
+                            </p>
+
+                            <h1>Subscription status</h1>
+
+                            <p class="success-description">
+                                Review the confirmed subscription status below.
+                            </p>
+
+                        </header>
+
+                        <!-- Completed Progress -->
+                        <section
+                            class="registration-progress my-5"
+                            aria-label="Registration progress"
+                        >
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Registered</small>
+                            </div>
+
+                            <div class="progress-line"></div>
+
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Approved</small>
+                            </div>
+
+                            <div class="progress-line"></div>
+
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Plan Selected</small>
+                            </div>
+
+                            <div class="progress-line"></div>
+
+                            <div class="progress-item completed">
+                                <span>
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+
+                                <small>Activated</small>
+                            </div>
+                        </section>
+
+                        <!-- Subscription Information -->
+                        <section class="subscription-details">
+
+                            <div
+                                class="d-flex flex-column flex-sm-row
+                                       justify-content-between
+                                       align-items-sm-center gap-3 mb-4"
+                            >
+                                <div
+                                    class="d-flex align-items-center gap-3"
+                                >
+                                    <span class="section-icon">
+                                        <i class="bi bi-patch-check"></i>
+                                    </span>
+
+                                    <div>
+                                        <p class="section-label mb-1">
+                                            SUBSCRIPTION DETAILS
+                                        </p>
+
+                                        <h2 class="details-title mb-0">
+                                            Payment Receipt
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <span class="active-badge subscription-status">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Active
+                                </span>
+                            </div>
+
+                            <!-- Plan Summary -->
+                            <article class="plan-summary mb-4">
+
+                                <div
+                                    class="d-flex align-items-center gap-3"
+                                >
+                                    <span class="plan-icon">
+                                        <i class="bi bi-buildings"></i>
+                                    </span>
+
+                                    <div>
+                                        <p class="mb-1">
+                                            Selected Plan
+                                        </p>
+
+                                        <h3
+                                            id="planName"
+                                            class="mb-0"
+                                        >
+                                            Multi Branch
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="text-sm-end">
+                                    <strong id="paymentAmount">
+                                        JOD 75.00
+                                    </strong>
+
+                                    <small id="billingCycle">
+                                        Monthly billing
+                                    </small>
+                                </div>
+
+                            </article>
+
+                            <!-- Receipt Information -->
+                            <dl class="row g-0 receipt-information">
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Organization</dt>
+
+                                    <dd id="organizationName">
+                                        Your Organization
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Transaction ID</dt>
+
+                                    <dd id="transactionId">
+                                        WSL-PAY-00000000
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Payment Date</dt>
+
+                                    <dd id="paymentDate">
+                                        September 22, 2026
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Payment Method</dt>
+
+                                    <dd id="paymentMethod">
+                                        Card ending in 4242
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Branch Limit</dt>
+
+                                    <dd id="branchLimit">
+                                        Up to 5 branches
+                                    </dd>
+                                </div>
+
+                                <div class="col-12 col-md-6 receipt-item">
+                                    <dt>Next Renewal</dt>
+
+                                    <dd id="renewalDate">
+                                        October 22, 2026
+                                    </dd>
+                                </div>
+
+                            </dl>
+
+                        </section>
+
+                        <!-- What Happens Next -->
+                        <section class="next-steps mt-4">
+
+                            <div
+                                class="d-flex align-items-center gap-2 mb-3"
+                            >
+                                <i class="bi bi-stars"></i>
+
+                                <h2 class="mb-0">
+                                    What happens next?
+                                </h2>
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12 col-md-4">
+                                    <article class="next-step-item">
+                                        <span>1</span>
+
+                                        <div>
+                                            <h3>Open Dashboard</h3>
+
+                                            <p>
+                                                Access your organization
+                                                management area.
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <article class="next-step-item">
+                                        <span>2</span>
+
+                                        <div>
+                                            <h3>Add Branches</h3>
+
+                                            <p>
+                                                Add branches according to
+                                                your subscription limit.
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <article class="next-step-item">
+                                        <span>3</span>
+
+                                        <div>
+                                            <h3>Submit for Review</h3>
+
+                                            <p>
+                                                Complete branch information
+                                                before publishing.
+                                            </p>
+                                        </div>
+                                    </article>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                        <!-- Actions -->
+                        <div
+                            class="d-flex flex-column flex-sm-row
+                                   justify-content-center gap-3 mt-5"
+                        >
+                            <a
+                                href="./organization-dashboard.html"
+                                id="dashboardButton"
+                                class="btn btn-wusool btn-lg"
+                            >
+                                Go to Organization Dashboard
+
+                                <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+
+                            <button
+                                type="button"
+                                id="printReceiptButton"
+                                class="btn btn-light btn-lg"
+                            >
+                                <i class="bi bi-printer me-2"></i>
+                                Print Receipt
+                            </button>
+                        </div>
+
+                        <p class="email-notice text-center mt-4 mb-0">
+                            <i class="bi bi-envelope-check me-1"></i>
+
+                            No email delivery is confirmed by this page.
+
+                            <strong id="billingEmail">
+                                —
+                            </strong>.
+                        </p>
+
+                    </article>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="success-footer">
+        <div
+            class="container py-4 d-flex flex-column flex-md-row
+                   justify-content-between align-items-center gap-2"
+        >
+            <p class="mb-0">
+                © 2026 Wusool. Accessibility for everyone.
+            </p>
+
+            <nav aria-label="Footer navigation">
+                <span>Privacy</span>
+                <span>Terms</span>
+                <a href="./help-support.html">Support</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="../../assets/vendor/bootstrap-5.3.8/bootstrap.bundle.min.js"
+    ></script>
+
+    <!-- Page JavaScript -->
+    <script src="../js/payment-success.js"></script>
+
+    <!-- Dynamic Platform Runtime -->
+    
+    <script src="../../assets/platform-runtime.js"></script>
+    <script src="../../assets/dynamic-form-runtime.js"></script>
+    
+    <script src="../../assets/behavior-runtime.js"></script>
+    
+    <script src="../../assets/error-runtime.js"></script>
+    <script src="../../assets/maintenance-runtime.js"></script>
+</body>
+</html>

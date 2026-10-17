@@ -1,0 +1,252 @@
+:root {
+    --wusool-navy: #082744;
+    --wusool-teal: #07867e;
+    --wusool-light-teal: #eaf8f6;
+    --wusool-border: #cfe2e1;
+    --wusool-background: #f6fbfb;
+    --wusool-secondary: #66758a;
+}
+
+body {
+    color: var(--wusool-navy);
+    background-color: var(--wusool-background);
+}
+
+.organization-content {
+    min-height: 100vh;
+}
+
+.organization-header {
+    min-height: 72px;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.page-heading {
+    background: linear-gradient(
+        110deg,
+        #f3fbfa 0%,
+        #eaf8f6 55%,
+        #ccf2ed 100%
+    );
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.breadcrumb a {
+    color: var(--wusool-teal);
+    text-decoration: none;
+}
+
+.section-label {
+    color: var(--wusool-teal);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08rem;
+}
+
+.content-card {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid var(--wusool-border);
+    border-radius: 1rem;
+    box-shadow: 0 0.75rem 2rem rgba(8, 39, 68, 0.05);
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.heading-icon,
+.user-avatar {
+    width: 3.25rem;
+    height: 3.25rem;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    color: var(--wusool-teal);
+    background-color: var(--wusool-light-teal);
+    border-radius: 0.9rem;
+    font-size: 1.35rem;
+}
+
+.user-information {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.information-label {
+    margin-bottom: 0.35rem;
+    color: var(--wusool-secondary);
+    font-size: 0.85rem;
+}
+
+.information-value {
+    margin-bottom: 0;
+    color: var(--wusool-navy);
+    font-weight: 700;
+}
+
+.ticket-description {
+    color: #3f5066;
+    line-height: 1.8;
+}
+
+.information-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.information-row i {
+    color: var(--wusool-teal);
+    font-size: 1.1rem;
+}
+
+.information-row span,
+.information-row strong {
+    display: block;
+}
+
+.information-row span {
+    color: var(--wusool-secondary);
+    font-size: 0.8rem;
+}
+
+.ticket-status {
+    width: fit-content;
+    padding: 0.55rem 1rem;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.status-open {
+    color: #8a5b00;
+    background-color: #fff3cd;
+}
+
+.status-in-progress {
+    color: #075985;
+    background-color: #e0f2fe;
+}
+
+.status-resolved {
+    color: #146c43;
+    background-color: #dff5e8;
+}
+
+.ticket-image {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border: 1px solid var(--wusool-border);
+    border-radius: 0.8rem;
+}
+
+.empty-attachments {
+    margin-top: 1rem;
+    padding: 2rem;
+    color: var(--wusool-secondary);
+    text-align: center;
+    background-color: #f8fbfb;
+    border-radius: 0.8rem;
+}
+
+.empty-attachments i {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+.form-control,
+.form-select {
+    min-height: 48px;
+    border-color: var(--wusool-border);
+}
+
+textarea.form-control {
+    min-height: 150px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--wusool-teal);
+    box-shadow: 0 0 0 0.2rem rgba(7, 134, 126, 0.14);
+}
+
+.btn-wusool {
+    color: #ffffff;
+    background-color: var(--wusool-teal);
+    border-color: var(--wusool-teal);
+    font-weight: 700;
+}
+
+.btn-wusool:hover {
+    color: #ffffff;
+    background-color: #066f69;
+    border-color: #066f69;
+}
+
+.btn-outline-wusool {
+    color: var(--wusool-teal);
+    border-color: var(--wusool-teal);
+    font-weight: 700;
+}
+
+.btn-outline-wusool:hover {
+    color: #ffffff;
+    background-color: var(--wusool-teal);
+}
+
+.history-item {
+    padding: 1rem 0;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.history-item:last-child {
+    border-bottom: 0;
+}
+
+.history-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    color: var(--wusool-teal);
+    background-color: var(--wusool-light-teal);
+    border-radius: 50%;
+}
+
+.history-date {
+    color: var(--wusool-secondary);
+    font-size: 0.8rem;
+}
+
+@media (min-width: 992px) {
+    .organization-content {
+        margin-left: 280px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .organization-header {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .content-card {
+        padding: 1rem;
+    }
+}

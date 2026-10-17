@@ -1,0 +1,82 @@
+.reviews-hero {
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(34, 197, 184, 0.22),
+            transparent 35%
+        ),
+        #f4fbfa;
+
+    border-bottom: 1px solid #d5e6e4;
+}
+
+.stat-card,
+.review-toolbar,
+.review-card,
+.empty-reviews {
+    border: 1px solid #d5e6e4;
+    border-radius: 1.25rem;
+    background-color: #ffffff;
+}
+
+.stat-card,
+.review-card {
+    box-shadow: 0 1rem 2.5rem rgba(11, 43, 75, 0.07);
+}
+
+.stat-icon,
+.empty-icon {
+    display: grid;
+    place-items: center;
+    color: #0f7f75;
+    background-color: #e8f7f5;
+}
+
+.stat-icon {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 1rem;
+    font-size: 1.35rem;
+}
+
+.empty-icon {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+.review-stars {
+    color: #f5a623;
+}
+
+.review-stars .empty-star {
+    color: #d4dce3;
+}
+
+.review-feature {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.4rem 0.7rem;
+    border-radius: 50rem;
+    color: #0f6f67;
+    background-color: #eaf7f5;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.review-card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 1.25rem 3rem rgba(11, 43, 75, 0.12);
+}
+
+.recommendation-badge {
+    color: #0f6f67;
+    background-color: #eaf7f5;
+}

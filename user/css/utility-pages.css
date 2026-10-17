@@ -1,0 +1,31 @@
+.page-hero {
+  background: linear-gradient(135deg, #f2fbfa 0%, #d9f5f1 100%);
+  border-bottom: 1px solid #cfe3e1;
+}
+
+.content-card {
+  border: 1px solid #d8e6e4;
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 1rem 2.5rem rgba(11, 43, 75, 0.07);
+}
+
+.notification-item {
+  border-left: 0.25rem solid transparent;
+}
+
+.notification-item.is-unread {
+  border-left-color: #0f7f75;
+  background: #f1faf8;
+}
+
+.page-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
+  color: #0f7f75;
+  background: #e8f7f5;
+  font-size: 1.4rem;
+}

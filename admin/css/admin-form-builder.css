@@ -1,0 +1,25 @@
+
+.form-field-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.form-field-item:last-child {
+    border-bottom: 0;
+}
+
+.drag-handle {
+    cursor: grab;
+    color: #98a2b3;
+    font-size: 1.3rem;
+}
+
+.field-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}

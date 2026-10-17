@@ -1,0 +1,104 @@
+/* Wusool Admin visual QA, October 17, 2026. Presentation only. */
+/* Scoped to reviewed Admin pages. Do not override other portals' design systems. */
+
+/* ADM-V04: attention panel matches adjacent quick actions card height. */
+body[data-admin-polish="dashboard"] .content-card:has(> #attentionContainer) {
+  height: 100% !important;
+  align-self: stretch !important;
+}
+/* Contextual empty state: enough breathing room without fabricated content. */
+body[data-admin-polish="dashboard"] #attentionContainer > p {
+  line-height: 1.65;
+}
+
+/* ADM-V05 and V07: less oversized hero for a compact recommendations screen. */
+body[data-admin-polish="smart"] .main-content > .page-header {
+  padding: clamp(22px, 2.35vw, 36px) !important;
+  min-height: 0 !important;
+}
+body[data-admin-polish="smart"] .main-content > .page-header > .container-fluid {
+  padding: 0 !important;
+}
+body[data-admin-polish="smart"] .main-content > .container-fluid {
+  padding-top: clamp(16px, 2.2vw, 30px) !important;
+}
+body[data-admin-polish="smart"] #recommendationsList .admin-list-item {
+  align-items: flex-start;
+  gap: 15px;
+  padding-block: 16px;
+}
+
+/* ADM-V08: make Tickets search/filters/actions a coherent toolbar. */
+body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 12px;
+}
+body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-filters {
+  flex: 1 1 490px;
+  min-width: min(100%, 280px);
+  width: auto;
+}
+body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-toolbar > [data-new] {
+  margin-inline-start: auto;
+}
+body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-toolbar > .btn {
+  min-height: 44px;
+  white-space: normal;
+}
+
+/* ADM-V02 and ADM-V12: row actions remain all available; refine readability and wrapping. */
+body[data-admin-polish="organizations"] .action-menu,
+body[data-admin-polish="users"] .action-menu,
+body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-actions {
+  gap: 8px;
+  max-width: 100%;
+}
+body[data-admin-polish="organizations"] .action-menu .btn,
+body[data-admin-polish="users"] .action-menu .btn,
+body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-actions .btn {
+  min-height: 38px;
+  line-height: 1.35;
+  border-radius: 10px;
+  white-space: normal;
+}
+body[data-admin-polish="organizations"] .table-responsive,
+body[data-admin-polish="users"] .table-responsive,
+body[data-admin-polish="tickets"] .table-responsive {
+  max-width: 100%;
+  overscroll-behavior-x: contain;
+}
+
+/* ADM-V09: recruitment uses a full Admin page frame, without changing forms/pipeline. */
+body[data-admin-polish="recruitment"] .recruitment-shell {
+  max-width: 1460px;
+  padding-inline: clamp(18px, 2.5vw, 36px);
+}
+
+/* Small-screen safety. */
+@media (max-width: 767px) {
+  body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-filters {
+    flex: 0 1 auto;
+    width: 100%;
+    min-width: 0;
+  }
+  body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-toolbar > [data-new] {
+    margin-inline-start: 0;
+    align-self: flex-start;
+  }
+  body[data-admin-polish="tickets"] #bookingTicketsPanel .booking-toolbar > .btn {
+    align-self: flex-start;
+  }
+  body[data-admin-polish="recruitment"] .recruitment-shell {
+    padding-inline: 14px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-admin-polish] .action-menu .btn { transition: none !important; }
+}

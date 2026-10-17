@@ -1,0 +1,24 @@
+
+.requirement-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.requirement-item:last-child {
+    border-bottom: 0;
+}
+
+.requirement-weight {
+    display: inline-flex;
+    min-width: 44px;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    color: var(--wusool-primary-dark);
+    background: var(--wusool-light);
+    font-weight: 700;
+}

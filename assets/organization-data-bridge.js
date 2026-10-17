@@ -1,0 +1,1 @@
+/* Page controllers use WusoolServices directly. No secondary data bridge. */

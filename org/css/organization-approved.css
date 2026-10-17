@@ -1,0 +1,328 @@
+:root {
+    --wusool-primary: #087f78;
+    --wusool-primary-dark: #055c57;
+    --wusool-secondary: #0b2341;
+    --wusool-light: #edf8f7;
+    --wusool-border: #cfe3e1;
+    --wusool-text: #102746;
+    --wusool-muted: #64748b;
+    --wusool-success: #15803d;
+    --wusool-warning: #f59e0b;
+    --wusool-white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--wusool-text);
+    background-color: #f8fbfb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.approval-header {
+    background-color: var(--wusool-white);
+    border-bottom: 1px solid var(--wusool-border);
+}
+
+.navbar-brand {
+    color: var(--wusool-secondary);
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: var(--wusool-secondary);
+}
+
+.brand-icon {
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--wusool-white);
+    background: linear-gradient(
+        135deg,
+        #16b7b0,
+        #1687e8
+    );
+    border-radius: 14px;
+    font-size: 1.45rem;
+    box-shadow: 0 8px 20px rgba(8, 127, 120, 0.18);
+}
+
+.brand-name {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.btn-wusool {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+    border: 1px solid var(--wusool-primary);
+    font-weight: 700;
+}
+
+.btn-wusool:hover,
+.btn-wusool:focus {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary-dark);
+    border-color: var(--wusool-primary-dark);
+}
+
+.btn-outline-wusool {
+    color: var(--wusool-primary);
+    background-color: transparent;
+    border: 1px solid var(--wusool-primary);
+    font-weight: 700;
+}
+
+.btn-outline-wusool:hover,
+.btn-outline-wusool:focus {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+}
+
+.approval-main {
+    min-height: calc(100vh - 160px);
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(33, 201, 190, 0.16),
+            transparent 34%
+        ),
+        linear-gradient(
+            180deg,
+            #f4fbfa 0%,
+            #ffffff 65%
+        );
+}
+
+.approval-card {
+    padding: 3rem;
+    text-align: center;
+    background-color: var(--wusool-white);
+    border: 1px solid var(--wusool-border);
+    border-radius: 28px;
+    box-shadow: 0 22px 55px rgba(11, 35, 65, 0.1);
+}
+
+.approval-icon {
+    width: 92px;
+    height: 92px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1.5rem;
+    color: var(--wusool-white);
+    background: linear-gradient(
+        135deg,
+        var(--wusool-primary),
+        #18b89f
+    );
+    border: 9px solid var(--wusool-light);
+    border-radius: 50%;
+    font-size: 2.8rem;
+    box-shadow: 0 12px 30px rgba(8, 127, 120, 0.25);
+}
+
+.approval-label,
+.section-label {
+    color: var(--wusool-primary);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12rem;
+}
+
+.approval-title {
+    margin-bottom: 1rem;
+    color: var(--wusool-secondary);
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+}
+
+.approval-description {
+    max-width: 650px;
+    margin: 0 auto;
+    color: var(--wusool-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.progress-step {
+    height: 100%;
+    padding: 1.25rem 0.75rem;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+}
+
+.progress-step.completed,
+.progress-step.current {
+    background-color: var(--wusool-light);
+    border-color: var(--wusool-border);
+}
+
+.progress-step.current {
+    box-shadow: inset 0 -4px 0 var(--wusool-primary);
+}
+
+.step-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    color: var(--wusool-muted);
+    background-color: #e2e8f0;
+    border-radius: 50%;
+}
+
+.progress-step.completed .step-icon,
+.progress-step.current .step-icon {
+    color: var(--wusool-white);
+    background-color: var(--wusool-primary);
+}
+
+.progress-step h2 {
+    margin-bottom: 0.3rem;
+    color: var(--wusool-secondary);
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+.progress-step p {
+    margin-bottom: 0;
+    color: var(--wusool-muted);
+    font-size: 0.78rem;
+}
+
+.approval-details {
+    padding: 1.75rem;
+    background-color: #fbfdfd;
+    border: 1px solid var(--wusool-border);
+    border-radius: 20px;
+}
+
+.section-icon {
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--wusool-primary);
+    background-color: var(--wusool-light);
+    border-radius: 14px;
+    font-size: 1.4rem;
+}
+
+.section-title {
+    color: var(--wusool-secondary);
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.approval-details dt {
+    margin-bottom: 0.4rem;
+    color: var(--wusool-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.approval-details dd {
+    margin-bottom: 0;
+    color: var(--wusool-secondary);
+    font-weight: 700;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    color: var(--wusool-success);
+    background-color: #dcfce7;
+    border-radius: 50rem;
+    font-size: 0.86rem;
+}
+
+.next-step-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    text-align: left;
+    background-color: #fff8e7;
+    border: 1px solid #f8d78c;
+    border-radius: 16px;
+}
+
+.notice-icon {
+    color: var(--wusool-warning);
+    font-size: 1.3rem;
+}
+
+.next-step-notice h2 {
+    margin-bottom: 0.35rem;
+    color: var(--wusool-secondary);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.next-step-notice p {
+    margin-bottom: 0;
+    color: #7c5a16;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.security-note {
+    color: var(--wusool-muted);
+    font-size: 0.85rem;
+}
+
+.approval-footer {
+    color: #c9d7e8;
+    background-color: var(--wusool-secondary);
+    font-size: 0.85rem;
+}
+
+.approval-footer nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.approval-footer a {
+    color: #c9d7e8;
+    text-decoration: none;
+}
+
+.approval-footer a:hover {
+    color: var(--wusool-white);
+}
+
+@media (max-width: 767.98px) {
+    .approval-card {
+        padding: 2rem 1rem;
+        border-radius: 20px;
+    }
+
+    .approval-icon {
+        width: 78px;
+        height: 78px;
+        font-size: 2.2rem;
+    }
+
+    .approval-details {
+        padding: 1.25rem;
+    }
+
+    .btn-lg {
+        width: 100%;
+    }
+}

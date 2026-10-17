@@ -1,0 +1,400 @@
+/*
+  Wusool unified UI layer — presentation only (no behaviour).
+  Loaded LAST on every User portal page so the portal shell pages (assets/wusool/*)
+  and the Bootstrap-based pages (user/css/*) share one set of tokens:
+  fonts, type scale, radii, buttons, cards, inputs, header, footer and page width.
+  Colours that must change in dark mode go through the existing --wt-* variables
+  (assets/theme-surfaces.css), so the dark theme keeps working.
+*/
+
+/* ---------- Fonts: self-hosted, one family per language ---------- */
+@font-face { font-family: "WU Inter"; src: url("./fonts/inter-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Inter"; src: url("./fonts/inter-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Inter"; src: url("./fonts/inter-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Inter"; src: url("./fonts/inter-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Cairo"; src: url("./cairo.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Cairo"; src: url("./cairo-600.ttf") format("truetype"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Cairo"; src: url("./cairo-700.ttf") format("truetype"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "WU Cairo"; src: url("./cairo-800.ttf") format("truetype"); font-weight: 800; font-style: normal; font-display: swap; }
+
+/* ---------- Tokens ---------- */
+:root {
+  --u-font-en: "WU Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --u-font-ar: "WU Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
+  --u-font: var(--u-font-en);
+
+  /* Type scale: the only sizes used by page text */
+  --u-fs-xs: 0.75rem;
+  --u-fs-sm: 0.875rem;
+  --u-fs-body: 0.9375rem;
+  --u-fs-md: 1rem;
+  --u-fs-lg: 1.125rem;
+  --u-fs-xl: 1.375rem;
+  --u-fs-2xl: 2rem;
+  --u-fs-3xl: 2.5rem;
+
+  /* Shape and spacing */
+  --u-r-sm: 8px;
+  --u-r-md: 12px;
+  --u-r-lg: 16px;
+  --u-r-pill: 999px;
+  --u-card-pad: clamp(16px, 2vw, 20px);
+  --u-gap: 16px;
+  --u-control-h: 44px;
+  --u-control-h-sm: 36px;
+  --u-logo: 56px;
+  --u-header-h: 76px;
+  --u-page-pad: clamp(16px, 2.2vw, 28px);
+
+  /* Brand colours (light) */
+  --u-primary: #006653;
+  --u-primary-hover: #004d42;
+  --u-primary-soft: #d2f2e5;
+  --u-primary-softer: #eff9f5;
+  --u-heading: #103f3b;
+  --u-shadow: 0 6px 24px rgba(11, 93, 59, 0.08);
+
+  /* Re-point the older font / brand variables to the same tokens */
+  --wu-font-en: var(--u-font-en);
+  --wu-font-ar: var(--u-font-ar);
+  --wu-heading-en: var(--u-font-en);
+  --wu-heading-ar: var(--u-font-ar);
+  --primary-color: var(--u-primary);
+  --wu-button-primary: var(--u-primary);
+  --wu-button-primary-hover: var(--u-primary-hover);
+  --wu-button-radius: var(--u-r-md);
+  --wu-card-radius: var(--u-r-lg);
+}
+html:lang(ar) { --u-font: var(--u-font-ar); }
+html:not([data-wusool-color-mode="dark"]) { --wt-accent: var(--u-primary); }
+html[data-wusool-color-mode="dark"] {
+  --u-primary: var(--wt-accent, #70ddcc);
+  --u-primary-hover: #a6efe3;
+  --u-heading: var(--wt-text, #f4f8f6);
+  --u-shadow: none;
+}
+
+/* ---------- Base typography ---------- */
+html body {
+  font-family: var(--u-font);
+  font-size: var(--u-fs-body);
+  line-height: 1.6;
+}
+html body :is(button, input, select, textarea, optgroup) { font-family: var(--u-font); }
+
+html body :is(main, .page) h1:not(.hero h1) {
+  font-family: var(--u-font);
+  color: var(--u-heading);
+  font-size: var(--u-fs-2xl);
+  font-weight: 700;
+  line-height: 1.25;
+}
+html body :is(main, .page) h2:not(.hero h2) {
+  font-family: var(--u-font);
+  font-size: var(--u-fs-xl);
+  font-weight: 700;
+  line-height: 1.3;
+}
+html body :is(main, .page) h3 {
+  font-family: var(--u-font);
+  font-size: var(--u-fs-lg);
+  font-weight: 700;
+  line-height: 1.35;
+}
+html body :is(main, .page) :is(h4, h5, h6) {
+  font-family: var(--u-font);
+  font-size: var(--u-fs-md);
+  font-weight: 700;
+  line-height: 1.4;
+}
+html body .hero h1 {
+  font-family: var(--u-font);
+  font-size: clamp(1.75rem, 4vw, var(--u-fs-3xl));
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Titles inside cards use one size whatever the card type */
+html body :is(.service-card, .institution-card, .booking-row, .career-card, .summary-card,
+  .navigation-card, .quick-action-card, .feature-card, .content-card, .review-card, .report-card,
+  .stat-card, .saved-place-card, .information-card, .details-card, .suggestions-card,
+  .score-card, .safety-card, .place-card, .card) :is(h2, h3, h4, h5, .card-title) {
+  font-size: var(--u-fs-md);
+  font-weight: 700;
+  line-height: 1.35;
+}
+html body :is(.panel, .card-header) :is(h2, h3) { font-size: var(--u-fs-lg); }
+
+/* ---------- Colours that must be the same green everywhere (light mode) ---------- */
+html:not([data-wusool-color-mode="dark"]) body :is(.btn.btn-primary, .btn.primary, .btn.btn-wusool) {
+  background: var(--u-primary);
+  border-color: var(--u-primary);
+  color: #fff;
+}
+html:not([data-wusool-color-mode="dark"]) body :is(.btn.btn-primary, .btn.primary, .btn.btn-wusool):is(:hover, :focus-visible) {
+  background: var(--u-primary-hover);
+  border-color: var(--u-primary-hover);
+  color: #fff;
+}
+html:not([data-wusool-color-mode="dark"]) body :is(.btn.btn-outline-primary, .btn.btn-wusool-outline, .btn.btn-outline-wusool) {
+  background: transparent;
+  border-color: var(--u-primary);
+  color: var(--u-primary);
+}
+html:not([data-wusool-color-mode="dark"]) body :is(.btn.btn-outline-primary, .btn.btn-wusool-outline, .btn.btn-outline-wusool):is(:hover, :focus-visible) {
+  background: var(--u-primary);
+  color: #fff;
+}
+html:not([data-wusool-color-mode="dark"]) body :is(.main-nav a[aria-current], .wsp-global-links a[aria-current]) {
+  color: var(--u-primary);
+  border-color: var(--u-primary);
+}
+
+/* ---------- Buttons: one size, one radius ---------- */
+html body .btn.btn {
+  min-height: var(--u-control-h);
+  padding: 10px 18px;
+  border-radius: var(--u-r-md);
+  font-size: var(--u-fs-sm);
+  font-weight: 600;
+  line-height: 1.3;
+}
+html body .btn.btn-sm { min-height: var(--u-control-h-sm); padding: 6px 12px; font-size: var(--u-fs-xs); }
+html body .btn.btn-lg { min-height: 48px; padding: 12px 22px; font-size: var(--u-fs-md); }
+
+/* ---------- Inputs ---------- */
+html body :is(main, .page) :is(.form-control, .form-select, textarea,
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"])) {
+  min-height: var(--u-control-h);
+  border-radius: var(--u-r-md);
+  font-size: var(--u-fs-body);
+}
+html body :is(main, .page) textarea { min-height: 96px; }
+
+/* ---------- Badges ---------- */
+html body :is(.badge, .status-badge, .verified-badge) {
+  border-radius: var(--u-r-pill);
+  font-size: var(--u-fs-xs);
+  font-weight: 600;
+}
+
+/* ---------- Cards: same radius, border, shadow, padding ---------- */
+html body :is(.card, .panel, .institution-card, .service-card, .booking-row, .career-card,
+  .offer-summary-card, .summary-card, .navigation-card, .quick-action-card, .feature-card,
+  .content-card, .review-card, .report-card, .stat-card, .saved-place-card, .information-card,
+  .details-card, .suggestions-card, .score-card, .safety-card, .review-search-card,
+  .place-card, .missing-card) {
+  border-radius: var(--u-r-lg);
+  border: 1px solid var(--wt-border, #e2eeea);
+  background-color: var(--wt-surface, #fff);
+  box-shadow: var(--u-shadow);
+}
+html body :is(.panel, .booking-row, .career-card, .offer-summary-card, .summary-card,
+  .navigation-card, .quick-action-card, .feature-card, .content-card, .review-card,
+  .report-card, .stat-card, .saved-place-card, .information-card, .details-card,
+  .suggestions-card, .score-card, .safety-card, .review-search-card, .place-card, .missing-card) {
+  padding: var(--u-card-pad);
+}
+html body .card > .card-body { padding: var(--u-card-pad); }
+html body .service-card { padding: var(--u-card-pad); }
+
+/* Cards in the same grid are the same height; logos are the same size */
+html body :is(.institution-grid, .service-grid, .career-grid, .branch-grid) {
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+  gap: var(--u-gap);
+}
+html body :is(.institution-grid, .service-grid, .career-grid, .branch-grid) > :is(.institution-card, .service-card, .career-card, .directory-branch) {
+  height: 100%;
+  min-height: 0;
+}
+html body :is(.institution-card, .service-card, .booking-row) > .org-logo {
+  width: var(--u-logo);
+  height: var(--u-logo);
+  border-radius: var(--u-r-md);
+  flex: none;
+}
+
+/* ---------- Header: one look for the portal shell and the legacy pages ---------- */
+html body :is(.header, .wsp-global-nav) {
+  box-sizing: border-box;
+  min-height: var(--u-header-h);
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.2vw, 20px);
+  padding: 0 var(--u-page-pad);
+  background: var(--wt-surface, #fff);
+  color: var(--wt-text, #152734);
+  border-bottom: 1px solid var(--wt-border, #e2eeea);
+  font-family: var(--u-font);
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+}
+html body :is(.brand, .wsp-global-brand) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  font-size: var(--u-fs-xl);
+  font-weight: 800;
+  white-space: nowrap;
+  color: var(--wt-text, #152734);
+  text-decoration: none;
+}
+html body :is(.brand, .wsp-global-brand) :is(span, small) {
+  font-size: var(--u-fs-xs);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+html body :is(.main-nav, .wsp-global-links) a,
+html body .wsp-global-more summary {
+  font-size: var(--u-fs-sm);
+  font-weight: 700;
+  white-space: nowrap;
+}
+/* The nav takes the space left over, so the tools never sit on top of the links */
+html body .main-nav { min-width: 0; flex: 1 1 0; flex-wrap: wrap; gap: 0 clamp(8px, 1vw, 18px); }
+html body .header-tools { flex: 0 0 auto; }
+html body .wusool-preferences select { min-width: 112px; }
+@media (max-width: 1559px) {
+  html body .header .user-link > span:not(.avatar-initial):not(.user-circle) { display: none; }
+}
+
+/* ---------- Legacy pages get the same page frame as the portal shell ---------- */
+html:has(body.wsp-unified-layout) { background: var(--wt-page, #f2fbf8); }
+html:not([data-wusool-color-mode="dark"]):has(body.wsp-unified-layout) {
+  background: radial-gradient(ellipse at 30% 20%, #e9faf3, transparent 60%), #f2fbf8;
+}
+html body.wsp-unified-layout {
+  width: calc(100% - 32px);
+  min-height: calc(100vh - 40px);
+  margin: 20px auto;
+  background: var(--wt-surface, #fff);
+  border: 1px solid var(--wt-border, #dceee7);
+  border-radius: 22px;
+  box-shadow: 0 8px 40px rgba(5, 118, 83, 0.04);
+  overflow: clip;
+  display: flex;
+  flex-direction: column;
+}
+html body.wsp-unified-layout > main { flex: 1; }
+html body.wsp-unified-layout .container {
+  max-width: none;
+  width: 100%;
+  padding-inline: var(--u-page-pad);
+}
+html body.wsp-unified-layout #wusoolServiceStatus {
+  margin: var(--u-gap) var(--u-page-pad) 0 !important;
+  border-radius: var(--u-r-md);
+  font-size: var(--u-fs-sm);
+  background: var(--wt-raised, #eff9f5);
+  border: 1px solid var(--wt-border, #e2eeea);
+  color: var(--wt-text, #152734);
+}
+@media (max-width: 560px) {
+  html body.wsp-unified-layout { width: 100%; margin: 0; border: 0; border-radius: 0; min-height: 100dvh; }
+}
+
+/* ---------- Footers: one look ---------- */
+html body :is(.user-footer, .main-footer) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 20px var(--u-page-pad);
+  background: var(--wt-surface, #fff);
+  color: var(--wt-muted, #6f7885);
+  border-top: 1px solid var(--wt-border, #e2eeea);
+  font-size: var(--u-fs-sm);
+}
+html body .main-footer :is(h1, h2, h3, h4, h5, h6, p, a, small, span, strong, li) { color: inherit; }
+html body .main-footer a:hover { color: var(--u-primary); }
+
+/* ---------- Never scroll sideways ---------- */
+html body :is(main, .page) :is(img, video, canvas, svg:not(.bi)) { max-width: 100%; }
+html body :is(main, .page) :is(.table-responsive, .table-wrap) { overflow-x: auto; }
+
+/* ---------- Older design layer (wusool-unified-design.css): same tokens, no overflow ---------- */
+:root,
+html[data-wusool-color-mode="light"],
+html[data-wusool-color-mode="dark"] {
+  --wu-font-en: var(--u-font-en);
+  --wu-font-ar: var(--u-font-ar);
+  --wu-heading-en: var(--u-font-en);
+  --wu-heading-ar: var(--u-font-ar);
+}
+html:not([data-wusool-color-mode="dark"]) {
+  --wu-brand: var(--u-primary);
+  --wu-brand-hover: var(--u-primary-hover);
+  --wu-focus: var(--u-primary);
+}
+/* The older layer forces page titles to 32px / 26px with !important; use the shared scale */
+html body:not(.u-x) .wu-primary-heading :is(h1, .page-title, .dashboard-title):not(.hero *) {
+  font-size: var(--u-fs-2xl) !important;
+  color: var(--u-heading) !important;
+}
+html body:not(.u-x) .wu-primary-heading h2:not(.hero *) {
+  font-size: var(--u-fs-xl) !important;
+}
+/* The photo hero keeps a white title whether or not the older layer tags it as a page heading */
+html body:not(.u-x) .hero :is(h1) {
+  color: #fff !important;
+  font-size: clamp(1.75rem, 4vw, var(--u-fs-3xl)) !important;
+}
+/* Hero titles that the older layer flattens (display: contents) must wrap inside the page */
+html body .wu-primary-heading:not(.plans-hero) { flex-wrap: wrap; min-width: 0; }
+html body .wu-primary-heading:not(.plans-hero) > * { min-width: 0; max-width: 100%; }
+html body .wu-primary-heading:not(.plans-hero) :is(h1, h2, p, .lead, .wu-heading-secondary) {
+  flex: 1 1 100%;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+/* Message boxes inside a hero keep their own text wrapper (the older layer flattened it side by side) */
+html body .wu-primary-heading:not(.plans-hero) :is(article, .card, [class*="-card"], [class*="message"], [class*="status"]) div:has(> h1, > h2, > h3, > .page-title, > .dashboard-title) {
+  display: block !important;
+}
+/* Flex rows inside a hero wrap instead of pushing the title off screen */
+html body .wu-primary-heading:not(.plans-hero) :is(.heading-content, .d-flex, [class*="heading"]) { flex-wrap: wrap; }
+/* A white button on a white card is invisible: use the same soft-green button as the other cards */
+html:not([data-wusool-color-mode="dark"]) body .institution-card .btn.white {
+  background: var(--u-primary-softer);
+  border-color: var(--wt-border, #e2eeea);
+  color: var(--u-primary);
+}
+/* Legacy header: log-out button and hero card line up with the shared page padding */
+html body .wsp-global-logout {
+  font-size: var(--u-fs-sm);
+  font-weight: 700;
+  min-height: 40px;
+  padding: 6px 16px;
+  border-radius: var(--u-r-md);
+}
+html body main > .wu-title-only:not(.wu-heading-promoted) {
+  margin: 24px var(--u-page-pad) !important;
+  max-width: calc(100% - 2 * var(--u-page-pad)) !important;
+}
+
+/* Pages with their own Bootstrap navbar (no shared header script): same height, padding and type */
+html body.wsp-unified-layout > header.sticky-top {
+  min-height: var(--u-header-h);
+  display: flex;
+  align-items: center;
+  background: var(--wt-surface, #fff);
+  border-bottom: 1px solid var(--wt-border, #e2eeea) !important;
+}
+html body.wsp-unified-layout > header.sticky-top > .navbar { width: 100%; padding: 0; }
+html body.wsp-unified-layout > header.sticky-top > .navbar > .container { padding-block: 0 !important; }
+html body.wsp-unified-layout > header.sticky-top :is(.nav-link, .navbar-brand) {
+  font-size: var(--u-fs-sm);
+  font-weight: 700;
+}
+html body.wsp-unified-layout > header.sticky-top .navbar-brand { font-size: var(--u-fs-xl); font-weight: 800; }
+html body.wsp-unified-layout > header.sticky-top .navbar-logo { border-radius: var(--u-r-md); }
+html:not([data-wusool-color-mode="dark"]) body.wsp-unified-layout > header.sticky-top .navbar-logo {
+  background: var(--u-primary);
+  color: #fff;
+}
+html body.wsp-unified-layout > header.sticky-top > .navbar { border: 0; border-radius: 0; box-shadow: none; background: transparent; }

@@ -1,0 +1,51 @@
+/* Presentation only. Scene meshes, scroll clocks and application hooks stay intact. */
+.wusool-journey .journey-brand,
+.wusool-journey .journey-bottom,
+.wusool-journey .showcase-disclaimer,
+.wusool-journey #searchForm {display:none}
+/* Keep this chapter's footprint so removing its presentation cannot retime the road. */
+.wusool-journey #featuredPlaces > .container {visibility:hidden;pointer-events:none}
+.wusool-journey .journey-intro {align-items:center;direction:inherit}
+.wusool-journey .journey-copy {width:min(880px,100%);max-width:880px;margin-inline:auto;text-align:center}
+.wusool-journey .journey-copy p {margin-inline:auto;max-width:560px}
+.wusool-journey .journey-copy h1 {font-size:clamp(2.5rem,5.2vw,4.75rem);text-wrap:balance}
+.wusool-journey .journey-top {justify-content:center}
+.wusool-journey .journey-stops-nav {max-width:none;gap:8px;justify-content:center;flex:1}
+.wusool-journey .journey-stops-nav a {font-size:.75rem;font-weight:650;min-height:44px;padding:11px 13px;display:inline-flex;align-items:center;justify-content:center;line-height:1.4;background:#123c3be6;border-color:#a4c9c5;color:#fff;text-align:center;transition:background-color 180ms ease,border-color 180ms ease}
+.wusool-journey .journey-stops-nav a:hover {background:#126c63;border-color:#d0f0e2}
+.wusool-journey .journey-stops-nav a[aria-current] {background:#d8f1bb;color:#123b32;border-color:#d8f1bb}
+/* Remove the large backing plates; keep content and existing action groups. */
+.wusool-journey .journey-road-chapter > .container,
+html[data-wusool-color-mode=dark] .wusool-journey .journey-road-chapter > .container {background:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none}
+.wusool-journey .journey-road-chapter > .container::before {visibility:hidden}
+.wusool-journey .journey-road-chapter :is(.premium-ai-shell,.story-shell,.premium-accessibility-shell,.premium-stats-shell,.website-accessibility) {background:transparent;border-color:transparent;box-shadow:none}
+.wusool-journey .journey-road-chapter :is(.process-card,.feature-card,.organization-card,.stat-card,.accessibility-item,.story-step,.ai-vision-demo,.story-phone,.home-cta) {background-color:#f9fdfbe8;border-color:#c4d9d1;box-shadow:0 8px 28px #0b30331a;backdrop-filter:blur(10px);transition:background-color 180ms ease,border-color 180ms ease,box-shadow 180ms ease}
+.wusool-journey .journey-road-chapter :is(.process-card,.feature-card,.organization-card,.stat-card,.accessibility-item,.story-step,.ai-vision-demo,.story-phone,.home-cta):is(:hover,:focus-within) {background-color:#fff;border-color:#137f73;box-shadow:0 12px 30px #0b303326}
+.wusool-journey .journey-road-chapter :is(.section-title,.story-title,.premium-ai-title,.premium-organization-title) {color:#123c38;text-shadow:0 1px 8px #ffffffb3;text-wrap:balance}
+.wusool-journey .journey-road-chapter :is(.section-description,.story-lead,.premium-ai-copy,.premium-organization-copy,.section-small-title) {color:#153f3a;text-shadow:0 1px 6px #fff}
+.wusool-journey #aiAnalysis :is(.premium-ai-title,.premium-ai-copy,.ai-feature-list strong,.ai-feature-list small),
+.wusool-journey #experience :is(.story-title,.story-lead,.story-step strong,.story-step small),
+.wusool-journey .home-cta :is(h2,p) {color:#123c38}
+.wusool-journey .journey-road-chapter :is(.story-step,.accessibility-item) {color:#123c38}
+html[data-wusool-color-mode=dark] .wusool-journey .journey-road-chapter :is(.process-card,.feature-card,.organization-card,.stat-card,.accessibility-item,.story-step,.ai-vision-demo,.story-phone,.home-cta) {background-color:#123431e8;border-color:#527b70;color:#edf7f1}
+html[data-wusool-color-mode=dark] .wusool-journey .journey-road-chapter :is(.process-card,.feature-card,.organization-card,.stat-card,.accessibility-item,.story-step,.ai-vision-demo,.story-phone,.home-cta):is(:hover,:focus-within) {background-color:#173e38;border-color:#b1dbc7}
+html[data-wusool-color-mode=dark] .wusool-journey .journey-road-chapter :is(h2,h3,p,strong,small,.section-small-title,.section-description,.story-lead,.premium-ai-copy) {color:#f0f8f2;text-shadow:0 2px 8px #09221fc9}
+.wusool-journey .journey-road-chapter a:focus-visible {outline:3px solid #ffb648;outline-offset:4px}
+@media(max-width:750px) {
+ .wusool-journey .journey-top {gap:8px;flex-wrap:wrap;align-items:center}
+ .wusool-journey .journey-stops-nav {max-width:100%;gap:6px}
+ .wusool-journey .journey-stops-nav a {font-size:.6875rem;padding:8px 10px;min-height:40px}
+ .wusool-journey .journey-copy h1 {font-size:clamp(2rem,7.5vw,3rem)}
+ .wusool-journey .journey-copy {max-width:100%}
+}
+@media(prefers-reduced-motion:reduce) {
+ .wusool-journey .journey-road-chapter *, .wusool-journey .journey-stops-nav a {transition:none}
+ .wusool-journey.journey-static #featuredPlaces {display:none}
+}
+
+.wusool-journey .story-shell::before {background:none}
+.wusool-journey .journey-road-chapter .home-cta {background-image:none}
+.wusool-journey .home-cta :is(h2,p) {color:#123c38}
+.wusool-journey #aiAnalysis .ai-feature-list :is(strong,small) {color:#123c38}
+.wusool-journey .home-cta .btn-outline-light {border-color:#147b70;color:#145e55}
+html[data-wusool-color-mode=dark] .wusool-journey .home-cta .btn-outline-light {border-color:#b0d9c8;color:#edf7f1}
