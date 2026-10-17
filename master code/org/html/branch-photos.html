@@ -26,6 +26,7 @@
     <!-- Shared CSS -->
 
     <!-- Page CSS -->
+    <link rel="stylesheet" href="../../assets/branch-media.css">
     <link rel="stylesheet" href="../css/branch-photos.css">
     <!-- Shared Organization Sidebar CSS -->
     <link rel="stylesheet" href="../css/organization-sidebar.css">
@@ -166,12 +167,11 @@
                         </span>
 
                         <h2 class="page-title mt-2 mb-2">
-                            Upload Branch Photos
+                            Branch Photos & Walkthrough Video
                         </h2>
 
                         <p class="text-secondary mb-0">
-                            Add clear reference photos to help Wusool AI
-                            understand and navigate this branch.
+                            Upload reference photos and a walkthrough video for every floor to prepare verified indoor navigation evidence.
                         </p>
                     </div>
 
@@ -252,12 +252,11 @@
 
                             <div>
                                 <h2 class="h4 mb-1">
-                                    Reference Photos
+                                    Branch Media References
                                 </h2>
 
                                 <p class="text-secondary mb-0">
-                                    Upload up to three photos for each
-                                    category.
+                                    Add at least one photo and one walkthrough video for each floor. Files will appear below as soon as they are saved.
                                 </p>
                             </div>
 
@@ -273,15 +272,11 @@
 
                             <div>
                                 <strong>
-                                    How will the AI use these photos?
+                                    How will these references support indoor navigation?
                                 </strong>
 
                                 <p class="mb-0 mt-1">
-                                    The AI compares the visitor's current
-                                    photo with these verified branch photos
-                                    to identify their location, detect unsafe
-                                    paths, and provide accurate text or voice
-                                    directions.
+                                    Uploaded photos and walkthrough videos provide visual landmarks for a future AI navigation service. This local prototype can extract timestamped frames, but cannot confirm indoor coordinates or provide verified directions without a configured and validated backend.
                                 </p>
                             </div>
                         </div>
@@ -301,11 +296,11 @@
 
                             <div>
                                 <span class="summary-label">
-                                    Optional categories
+                                    Walkthrough videos
                                 </span>
 
                                 <strong id="requiredPhotoCount">
-                                    Optional
+                                    0 videos
                                 </strong>
                             </div>
 
@@ -313,7 +308,7 @@
                                 <div
                                     class="progress"
                                     role="progressbar"
-                                    aria-label="Optional media presence"
+                                    aria-label="Completed floor evidence"
                                 >
                                     <div
                                         class="progress-bar"
@@ -341,7 +336,7 @@
                             <i class="bi bi-exclamation-circle me-2"></i>
 
                             <span id="photoValidationMessage">
-                                Please upload all optional photos.
+                                Each floor needs at least one photo and one walkthrough video before continuing.
                             </span>
                         </div>
 
@@ -425,7 +420,7 @@
                         <ul class="requirement-list">
                             <li>
                                 <i class="bi bi-check-circle-fill"></i>
-                                Use clear and recent photos.
+                                Use clear, recent photos and a walkthrough video for each floor.
                             </li>
 
                             <li>
@@ -445,7 +440,7 @@
 
                             <li>
                                 <i class="bi bi-check-circle-fill"></i>
-                                JPEG, PNG or WebP — maximum 5 MB.
+                                JPG/PNG/WebP photos up to 5 MB; MP4/WebM video up to 100 MB.
                             </li>
                         </ul>
 
@@ -514,7 +509,6 @@
 
 <script src="../../assets/vendor/bootstrap-5.3.3/bootstrap.bundle.min.js"></script>
 
-<link rel="stylesheet" href="../../assets/branch-media.css">
 <script src="../../assets/media-blob-store.js"></script>
 <script src="../../assets/google-maps-loader.js"></script>
 <script src="../../assets/media-location-editor.js"></script>

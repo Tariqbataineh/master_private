@@ -301,17 +301,39 @@ WusoolUI.enqueue(async () => {
     document.getElementById('backButton').href=`./branch-working-hours.html?id=${encodeURIComponent(currentBranch.id)}`;
   };
   const saveAccessibilityData = async completed => {
-    const branches=(await readStoredObject('wusoolOrganizationBranches'))||[];
-    const summary={};
-    for(const feature of accessibilityFeatures){
-      const statuses=floors.map(f=>f.accessibility[feature.key]);
-      summary[feature.key]=statuses.includes('available')?'available':statuses.includes('not-sure')?'not-sure':statuses.every(v=>v==='not-available')?'not-available':null;
+    // Save ONLY the facilities edited in this wizard step. A whole-list write
+    // re-saves unrelated branches (and their legacy contact phone values),
+    // causing an irrelevant phone validation error on this page.
+    const summary = {};
+    for (const feature of accessibilityFeatures) {
+      const statuses = floors.map(floor => floor.accessibility[feature.key]);
+      summary[feature.key] = statuses.includes('available')
+        ? 'available'
+        : statuses.includes('not-sure')
+          ? 'not-sure'
+          : statuses.every(status => status === 'not-available')
+            ? 'not-available'
+            : null;
     }
-    const updatedBranch={...currentBranch,accessibility:summary,accessibilityFloors:structuredClone(floors),accessibilityNotes:document.getElementById('accessibilityNotes').value.trim(),completedSteps:{...currentBranch.completedSteps,details:true,workingHours:true,accessibility:completed},updatedAt:new Date().toISOString()};
-    const index=branches.findIndex(b=>String(b.id)===String(currentBranch.id));
-    if(index>=0)branches[index]=updatedBranch;else branches.push(updatedBranch);
-    await WusoolServices.rawWrite('wusoolOrganizationBranches',JSON.stringify(branches));
-    await WusoolServices.rawWrite('wusoolCurrentBranchDraft',JSON.stringify(updatedBranch));currentBranch=updatedBranch;
+    const payload = {
+      id: currentBranch.id,
+      accessibility: summary,
+      accessibilityFloors: structuredClone(floors),
+      accessibilityNotes: document.getElementById('accessibilityNotes').value.trim(),
+      completedSteps: {
+        ...currentBranch.completedSteps,
+        accessibility: completed,
+      },
+    };
+    // saveBranch performs ownership, entitlement and business-rule checks.
+    // It merges the existing record without revalidating untouched contact fields.
+    const saved = await WusoolServices.saveBranch(payload);
+    if (!saved?.id || String(saved.id) !== String(currentBranch.id)) {
+      throw new Error('Branch save could not be confirmed. Please retry.');
+    }
+    // Subsequent wizard steps use ?id=...; no compatibility whole-list or
+    // current-draft re-save is needed. Update local state only on success.
+    currentBranch = saved;
   };
   const initializeNotesCounter = () => {
     WusoolUI.listen(document.getElementById('accessibilityNotes'), 'input', updateNotesCounter);

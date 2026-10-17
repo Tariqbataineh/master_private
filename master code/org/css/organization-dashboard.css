@@ -915,3 +915,7 @@ body {
 .organization-main .welcome-actions{text-align:end;min-width:0}
 .organization-main .empty-table-message{padding:24px 16px;line-height:1.7}
 @media(max-width:600px){.organization-main .content-card{padding:16px}.organization-main .stat-card{gap:12px}.organization-main .welcome-title{overflow-wrap:anywhere}.organization-main .subscription-information div{align-items:flex-start}}
+/* ORG-6 recruitment and meeting presentation */
+body :is(.recruitment-section,.recruitment-panel,.meeting-card,.interview-card) { min-width:0; overflow-wrap:anywhere; }
+body :is(.recruitment-section,.recruitment-panel) :is(h1,h2,h3) { line-height:1.3; }
+body :is(.meeting-card,.interview-card) :is(button,a) { max-width:100%; }

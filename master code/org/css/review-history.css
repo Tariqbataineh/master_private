@@ -371,3 +371,28 @@ body {
 
 
 @media(max-width:575.98px){.reviews-table-card table{table-layout:fixed;width:100%}.reviews-table-card :is(td,th){white-space:normal;overflow-wrap:anywhere}.reviews-table-card .btn{min-width:0;max-width:100%;white-space:normal;padding:6px}.reviews-table-card .badge{white-space:normal}}
+
+/* Review-history polish: branch audit records, not fabricated AI review scores. */
+body.org-review-history-page .organization-content {min-width:0;background:var(--wt-background,#f5f9f9);color:var(--wt-text,#102d34)}
+body.org-review-history-page .organization-header {background:var(--wt-surface,#fff);border-bottom-color:var(--wt-border,#cfdfdb)}
+body.org-review-history-page .organization-header h1 {color:var(--wt-text,#102d34)}
+body.org-review-history-page .page-heading {background:var(--wt-surface,#fff);padding:18px 22px;border-color:var(--wt-border,#cfdfdb);border-radius:16px;box-shadow:none}
+body.org-review-history-page .page-heading>p {max-width:85ch;line-height:1.55}
+body.org-review-history-page :is(.stat-card,.filter-card,.reviews-table-card,.empty-state,.modal-content) {background:var(--wt-surface,#fff);color:var(--wt-text,#102d34);border-color:var(--wt-border,#cfdfdb)}
+body.org-review-history-page .stat-card {padding:16px 18px;min-height:94px;box-shadow:none}
+body.org-review-history-page .stat-value {color:var(--wt-text,#102d34)}
+body.org-review-history-page .stat-icon {background:var(--wt-raised,#eff8f5);color:var(--wt-accent,#13755f)}
+body.org-review-history-page .filter-card {padding:18px 22px}
+body.org-review-history-page .reviews-table-card .table {--bs-table-bg:transparent;color:var(--wt-text,#102d34)}
+body.org-review-history-page .reviews-table-card .table thead th {background:var(--wt-raised,#eff8f5);color:var(--wt-text,#102d34);border-color:var(--wt-border,#cfdfdb)}
+body.org-review-history-page .reviews-table-card .table tbody td {background:var(--wt-surface,#fff);color:var(--wt-text,#102d34);border-color:var(--wt-border,#cfdfdb)}
+body.org-review-history-page .reviews-table-card table {min-width:900px}
+body.org-review-history-page .review-summary,
+body.org-review-history-page .details-card,
+body.org-review-history-page .feedback-list li {background:var(--wt-raised,#f1f7f4);border-color:var(--wt-border,#cfdfdb)}
+body.org-review-history-page .history-scope-note {font-size:.875rem;line-height:1.6;color:var(--wt-muted,#61747a);margin:-4px 0 18px;padding:0 4px}
+body.org-review-history-page .reviews-table-card [data-review-id]:focus-visible {outline:3px solid var(--wt-accent,#13755f);outline-offset:3px}
+body.org-review-history-page .review-reference {max-width:240px;display:inline-block;overflow-wrap:anywhere}
+body.org-review-history-page .review-status.other {background:var(--wt-raised,#eff8f5);color:var(--wt-text,#102d34)}
+body.org-review-history-page .review-status.published {background:var(--wt-raised,#eff8f5);color:var(--wt-accent,#13755f)}
+@media(max-width:575px){body.org-review-history-page .page-heading,body.org-review-history-page .filter-card{padding:16px}body.org-review-history-page .reviews-table-card table{min-width:900px;table-layout:auto}body.org-review-history-page .reviews-table-card .table-responsive{overflow-x:auto}}

@@ -681,3 +681,38 @@ a {
         grid-column: auto;
     }
 }
+/* ORG-9: branch photo/video evidence UX. Does not change shared portal layout. */
+.branch-media-tools{padding:20px 24px;background:var(--wt-surface,#fff);border-color:var(--wt-border,#cee0df)}
+.branch-evidence-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.branch-evidence-heading h2{font-family:var(--wusool-heading-font,'Sora','Alexandria',sans-serif);font-size:clamp(1.12rem,1.7vw,1.4rem);font-weight:800;color:var(--wt-text,#0b3833);margin:5px 0 8px}
+.branch-evidence-heading p{line-height:1.65;margin:0;color:var(--wt-muted,#526b70)}
+.branch-evidence-eyebrow{color:var(--wt-accent,#087f6d);font-weight:800;font-size:.76rem;letter-spacing:.04em}
+.branch-upload-status{font-weight:650;line-height:1.5;min-height:1.5rem;margin:10px 0 0;color:var(--wt-accent,#0b806a)}
+.branch-upload-status.is-error{color:var(--wt-danger,#b32937)}
+.branch-floor-section{background:var(--wt-surface,#fff);margin-bottom:18px;box-shadow:0 10px 25px rgba(4,37,37,.035)}
+.branch-floor-header{flex-wrap:wrap;align-items:flex-start}
+.branch-floor-header h3,.branch-media-card h3{color:var(--wt-text,#123b37)}
+.branch-floor-count{font-size:.81rem;margin-top:6px;color:var(--wt-muted,#557079)}
+.branch-hidden-file{position:absolute;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none}
+.branch-floor-actions{position:relative;gap:8px;align-items:center}
+.branch-floor-actions .btn{white-space:normal;min-height:42px;display:inline-flex;align-items:center;justify-content:center}
+.branch-media-card{display:flex;flex-direction:column;gap:10px;overflow:hidden;border-radius:16px}
+.branch-media-card .media-preview{border-radius:12px;overflow:hidden;min-height:205px;background:#102c36;display:flex;align-items:center;justify-content:center}
+.branch-media-card .media-preview img,.branch-media-card .media-preview video{display:block;width:100%;height:245px;object-fit:contain;border-radius:0;background:#102c36}
+.branch-missing-preview{padding:24px;text-align:center;color:#fff}
+.branch-media-details h3{font-size:1rem;line-height:1.4;margin:5px 0;overflow-wrap:anywhere}
+.branch-media-details p{line-height:1.55;color:var(--wt-muted,#4e6970);margin:5px 0;font-size:.875rem}
+.branch-media-type{display:inline-block;background:rgba(0,133,113,.09);color:var(--wt-accent,#087e6c);font-size:.78rem;font-weight:750;padding:4px 9px;border-radius:999px}
+.branch-media-actions,.branch-dialog-actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:10px}
+.branch-reference-note{background:var(--wt-soft,#eef7f5);padding:8px 10px;border-radius:9px}
+.branch-frame-strip{display:flex;gap:10px;overflow-x:auto;padding:8px 0}
+.branch-frame-strip figure{flex:0 0 112px;margin:0}
+.branch-frame-strip img{width:112px;height:72px;object-fit:cover;border:1px solid var(--wt-border,#cee0df);border-radius:9px;background:#112c34}
+.branch-frame-strip figcaption{text-align:center;margin-top:4px;color:var(--wt-muted,#526c70);font-size:.76rem}
+.media-editor-dialog,.media-camera-dialog{border:1px solid var(--wt-border,#cadfdd);border-radius:18px;max-height:calc(100dvh - 36px);overflow:auto;padding:22px;background:var(--wt-surface,#fff);color:var(--wt-text,#142d29)}
+.media-editor-dialog{width:min(740px,calc(100vw - 24px))}.media-camera-dialog{width:min(720px,calc(100vw - 24px))}
+.media-editor-dialog form{display:grid;gap:12px}.media-editor-dialog form>label{display:grid;gap:5px;font-weight:650}.media-editor-dialog h2,.media-camera-dialog h2{font-size:1.35rem;color:var(--wt-text,#102e2a)}
+.media-camera-dialog video{display:block;width:100%;max-height:65vh;background:#071e29;border-radius:12px;object-fit:contain}
+.branch-dialog-error{color:#be283b;font-weight:700;min-height:1em}
+@media(max-width:767px){.branch-media-tools{padding:16px}.branch-floor-actions{width:100%}.branch-floor-actions>.btn{flex:1 1 130px}.branch-media-card .media-preview img,.branch-media-card .media-preview video{height:210px}}
+@media(prefers-color-scheme:dark){html[data-theme='dark'] .branch-floor-section,html[data-theme='dark'] .branch-media-tools{background:var(--wt-surface,#14292d)}}

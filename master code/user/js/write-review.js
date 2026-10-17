@@ -31,22 +31,39 @@ WusoolUI.enqueue(async () => {
       const parameters = new URLSearchParams(window.location.search);
       return parameters.get('visitId');
     };
-    const getVisits = async () => {
-      try {
-        return JSON.parse(await WusoolServices.rawRead(visitsKey)) || [];
-      } catch (error) {
-        if (WusoolServices.mode === 'api') throw error;
-        return [];
-      }
-    };
-    const getReviews = async () => {
-      try {
-        return JSON.parse(await WusoolServices.rawRead(reviewsKey)) || [];
-      } catch (error) {
-        if (WusoolServices.mode === 'api') throw error;
-        return [];
-      }
-    };
+   
+const getVisits = async () => {
+  const account = await WusoolServices.getCurrentAccount();
+
+  if (!account || account.role !== 'User') {
+    return [];
+  }
+
+  const bookings = await WusoolServices.getBookings();
+
+  return bookings.filter(booking =>
+    booking.userId === account.id &&
+    booking.isDeleted !== true
+  );
+};
+
+    
+const getReviews = async () => {
+  const response = await WusoolServices.getReviews();
+
+  if (Array.isArray(response)) {
+    return response;
+  }
+
+  if (Array.isArray(response?.items)) {
+    return response.items;
+  }
+
+  throw new Error(
+    'Unexpected reviews response from WusoolServices.'
+  );
+};
+
     const formatDate = (dateValue) => {
       if (!dateValue) {
         return 'Not available';
@@ -63,7 +80,8 @@ WusoolUI.enqueue(async () => {
       selectedVisit = (await getVisits()).find((visit) => {
         return visit.id === visitId;
       });
-      if (!selectedVisit || selectedVisit.status !== 'Completed') {
+      if (
+  !selectedVisit || String(selectedVisit.status).toLowerCase() !== 'completed'){
         showMissingVisit();
         return;
       }
@@ -74,17 +92,51 @@ WusoolUI.enqueue(async () => {
       reviewContent.classList.add('d-none');
       missingVisit.classList.remove('d-none');
     };
-    const renderVisit = (visit) => {
-      document.getElementById('placeName').textContent = visit.placeName || 'Place Name';
-      document.getElementById('branchName').textContent = visit.branch || 'Not available';
-      document.getElementById('visitDestination').textContent =
-        visit.destination || 'Not available';
-      document.getElementById('visitDate').textContent = formatDate(visit.date);
-      document.getElementById('visitDetailsLink').href = `./visit-details.html?id=${visit.id}`;
-      document.getElementById('cancelReviewLink').href = `./visit-details.html?id=${visit.id}`;
-      document.getElementById('successVisitLink').href = `./visit-details.html?id=${visit.id}`;
-      document.title = `Review ${visit.placeName} | Wusool`;
-    };
+   
+const renderVisit = (visit) => {
+  const placeName =
+    visit.locationSnapshot?.organizationName ||
+    visit.organizationName ||
+    'Organization';
+
+  const branchName =
+    visit.branchName ||
+    visit.locationSnapshot?.branchName ||
+    'Branch';
+
+  const setText = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  };
+
+  setText('placeName', placeName);
+  setText('branchName', branchName);
+
+  setText(
+    'visitDestination',
+    visit.serviceName ||
+    visit.serviceSnapshot?.name ||
+    branchName
+  );
+
+  setText('visitDate', formatDate(visit.date));
+
+  const detailsUrl =
+    './my-tickets.html?booking=' +
+    encodeURIComponent(visit.id);
+
+  for (const id of [
+    'visitDetailsLink',
+    'cancelReviewLink',
+    'successVisitLink'
+  ]) {
+    const link = document.getElementById(id);
+    if (link) link.href = detailsUrl;
+  }
+
+  document.title = `Review ${placeName} | Wusool`;
+};
+
     const selectRating = (rating) => {
       selectedRating = rating;
       overallRating.value = String(rating);
@@ -168,29 +220,59 @@ WusoolUI.enqueue(async () => {
       const selectedOption = document.querySelector('input[name="recommendPlace"]:checked');
       return selectedOption ? selectedOption.value : '';
     };
-    const createReview = async () => {
-      return {
-        id: Date.now(),
-        visitId: selectedVisit.id,
-        placeId: selectedVisit.placeId,
-        placeName: selectedVisit.placeName,
-        branch: selectedVisit.branch,
-        rating: selectedRating,
-        title: document.getElementById('reviewTitle').value.trim(),
-        comment: reviewComment.value.trim(),
-        informationAccuracy: document.getElementById('informationAccuracy').value,
-        accessibilityFeatures: getSelectedFeatures(),
-        recommended: getSelectedRecommendation(),
-        photo: selectedPhoto
-          ? await WusoolServices.upload(selectedPhoto, {
-              branchId: selectedVisit.placeId,
-              purpose: 'review',
-            })
-          : existingPhoto,
-        status: 'Published',
-        createdAt: new Date().toISOString(),
-      };
-    };
+  
+const createReview = async () => {
+  if (!selectedVisit || selectedVisit.status !== 'completed') {
+    throw new Error('Only completed visits can be reviewed.');
+  }
+
+  const account = await WusoolServices.getCurrentAccount();
+
+  if (
+    !account ||
+    account.role !== 'User' ||
+    String(selectedVisit.userId) !== String(account.id)
+  ) {
+    throw new Error('You cannot review this visit.');
+  }
+
+  return {
+    visitId: selectedVisit.id,
+    bookingId: selectedVisit.id,
+    userId: account.id,
+    organizationId: selectedVisit.organizationId,
+    branchId: selectedVisit.branchId,
+    placeId: selectedVisit.branchId,
+
+    placeName:
+      selectedVisit.locationSnapshot?.organizationName ||
+      selectedVisit.organizationName ||
+      'Organization',
+
+    branch:
+      selectedVisit.branchName ||
+      selectedVisit.locationSnapshot?.branchName ||
+      'Branch',
+
+    rating: selectedRating,
+    title: document.getElementById('reviewTitle').value.trim(),
+    comment: reviewComment.value.trim(),
+    informationAccuracy:
+      document.getElementById('informationAccuracy').value,
+    accessibilityFeatures: getSelectedFeatures(),
+    recommended: getSelectedRecommendation(),
+
+    photo: selectedPhoto
+      ? await WusoolServices.upload(selectedPhoto, {
+          branchId: selectedVisit.branchId,
+          purpose: 'review'
+        })
+      : existingPhoto,
+
+    status: 'Pending'
+  };
+};
+
     const updateVisitReviewStatus = async (visitId) => {
       const updatedVisits = (await getVisits()).map((visit) => {
         if (visit.id === visitId) {
@@ -204,13 +286,59 @@ WusoolUI.enqueue(async () => {
       await WusoolServices.rawWrite(visitsKey, JSON.stringify(updatedVisits));
     };
     const locked = (review) => review && (review.moderationLocked || review.approvedAt || ['visible', 'published', 'approved'].includes(String(review.status).toLowerCase()));
-    const saveReview = async (review) => {
-      const existing = (await getReviews()).find(r => String(r.visitId) === String(review.visitId));
-      if (locked(existing)) throw new Error('This review was approved by Admin and is now read-only.');
-      if (existing) { review.id = existing.id; review.createdAt = existing.createdAt; }
-      await WusoolServices.saveReview({ ...review, branchId: review.placeId, status: 'Pending' });
-      window.WusoolLive?.saved();
-    };
+   
+const saveReview = async (review) => {
+  const account = await WusoolServices.getCurrentAccount();
+
+  if (!account || account.role !== 'User') {
+    throw new Error('Please sign in as a user.');
+  }
+
+  const bookings = await WusoolServices.getBookings();
+
+  const booking = bookings.find(
+    b => String(b.id) === String(review.visitId)
+  );
+
+  if (
+    !booking ||
+    booking.status !== 'completed' ||
+    String(booking.userId) !== String(account.id)
+  ) {
+    throw new Error(
+      'This visit is not eligible for review.'
+    );
+  }
+
+  const existingReviews = await getReviews();
+
+  const existing = existingReviews.find(r =>
+    String(r.visitId || r.bookingId) === String(booking.id)
+  );
+
+  // One review per completed booking.
+  if (existing) {
+    throw new Error(
+      'You have already reviewed this visit.'
+    );
+  }
+
+  const payload = {
+    ...review,
+    visitId: booking.id,
+    bookingId: booking.id,
+    userId: account.id,
+    organizationId: booking.organizationId,
+    branchId: booking.branchId,
+    placeId: booking.branchId,
+    status: 'Pending'
+  };
+
+  await WusoolServices.saveReview(payload);
+
+  window.WusoolLive?.saved();
+};
+
     const loadExistingReview = async (visitId) => {
       const existingReview = (await getReviews()).find((review) => {
         return review.visitId === visitId;

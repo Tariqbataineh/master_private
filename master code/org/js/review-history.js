@@ -15,11 +15,24 @@ WusoolUI.enqueue(async () => {
     renderPage();
     window.WusoolLive?.watch('review-history', async () => {
       await loadReviewHistory();
+      populateBranchFilter();
+      filterReviews();
+      renderStatistics();
+    });
+    WusoolUI.listen(window, 'wxi:language', () => {
+      populateBranchFilter();
       filterReviews();
       renderStatistics();
     });
   });
   const defaultReviewHistory = [];
+  const isArabic = () => document.documentElement.lang === 'ar';
+  const t = (english, arabic) => isArabic() ? arabic : english;
+  const decisions = new Set(['approved', 'pending', 'changes-required', 'rejected']);
+  const statusKey = (status) => {
+    const value = String(status || '').trim().toLowerCase();
+    return value === 'changes-requested' ? 'changes-required' : value;
+  };
   const initializeModal = () => {
     const modalElement = document.getElementById('reviewDetailsModal');
     reviewDetailsModal = bootstrap.Modal.getOrCreateInstance(modalElement);
@@ -28,10 +41,11 @@ WusoolUI.enqueue(async () => {
     const storedReviews = await WusoolServices.rawRead(reviewHistoryStorageKey);
     if (!storedReviews) {
       reviewHistory = [...defaultReviewHistory];
-      await saveReviewHistory();
+      // A read-only audit page must not write a blank history record.
     } else {
       try {
-        reviewHistory = JSON.parse(storedReviews);
+        const parsed = JSON.parse(storedReviews);
+        reviewHistory = Array.isArray(parsed) ? parsed : [];
       } catch (error) {
         if (WusoolServices.mode === 'api') throw error;
         console.error('Unable to load review history:', error);
@@ -39,28 +53,19 @@ WusoolUI.enqueue(async () => {
       }
     }
     reviewHistory.sort((firstReview, secondReview) => {
-      return new Date(secondReview.submittedAt) - new Date(firstReview.submittedAt);
+      return (Date.parse(secondReview.submittedAt) || 0) - (Date.parse(firstReview.submittedAt) || 0);
     });
     filteredReviews = [...reviewHistory];
   };
-  const saveReviewHistory = async () => {
-    await WusoolServices.rawWrite(reviewHistoryStorageKey, JSON.stringify(reviewHistory));
-  };
   const populateBranchFilter = () => {
     const branchFilter = document.getElementById('branchFilter');
-    const branchNames = [
-      ...new Set(
-        reviewHistory.map((review) => {
-          return review.branchName;
-        }),
-      ),
-    ];
-    branchNames.forEach((branchName) => {
-      const option = document.createElement('option');
-      option.value = branchName;
-      option.textContent = branchName;
-      branchFilter.appendChild(option);
-    });
+    const current = branchFilter.value;
+    const branchNames = [...new Set(reviewHistory.map(review => String(review.branchName || '').trim()).filter(Boolean))];
+    branchFilter.replaceChildren(
+      new Option(t('All branches', 'كل الفروع'), 'all'),
+      ...branchNames.map(name => new Option(name, name)),
+    );
+    branchFilter.value = branchNames.includes(current) ? current : 'all';
   };
   const configureFilters = () => {
     WusoolUI.listen(document.getElementById('reviewSearch'), 'input', filterReviews);
@@ -83,14 +88,12 @@ WusoolUI.enqueue(async () => {
     const selectedBranch = document.getElementById('branchFilter').value;
     const selectedStatus = document.getElementById('statusFilter').value;
     filteredReviews = reviewHistory.filter((review) => {
-      const searchableText = `
-                    ${WusoolUI.escape(review.reference)}
-                    ${WusoolUI.escape(review.branchName)}
-                    ${WusoolUI.escape(review.city)}
-                `.toLowerCase();
+      const searchableText = [review.reference, review.branchName, review.city, review.entityId, review.notes, review.reason]
+        .map(value => String(value || '')).join(' ').toLowerCase();
+      const key = statusKey(review.status);
       const matchesSearch = searchableText.includes(searchValue);
       const matchesBranch = selectedBranch === 'all' || review.branchName === selectedBranch;
-      const matchesStatus = selectedStatus === 'all' || review.status === selectedStatus;
+      const matchesStatus = selectedStatus === 'all' || (selectedStatus === 'other' ? !decisions.has(key) : key === selectedStatus);
       return matchesSearch && matchesBranch && matchesStatus;
     });
     renderReviews();
@@ -111,10 +114,16 @@ WusoolUI.enqueue(async () => {
     setTextContent('approvedReviews', countReviewsByStatus('approved'));
     setTextContent('pendingReviews', countReviewsByStatus('pending'));
     setTextContent('changesReviews', countReviewsByStatus('changes-required'));
+    const other = reviewHistory.filter(review => !decisions.has(statusKey(review.status))).length;
+    setTextContent('historyScopeNote', other
+      ? t(`History contains ${other} entries with other branch states or actions. Counts above show the listed decisions, not every history entry.`,
+          `يتضمن السجل ${other} حدثًا بحالات أو إجراءات أخرى للفروع. العدادات أعلاه تخص القرارات الموضحة ولا تغطي جميع الأحداث.`)
+      : t('This history is based on saved branch audit events; entries are not necessarily distinct approval reviews.',
+          'يعتمد هذا السجل على أحداث تدقيق الفروع المحفوظة؛ وليس بالضرورة أن يكون كل حدث مراجعة موافقة مستقلة.'));
   };
   const countReviewsByStatus = (status) => {
     return reviewHistory.filter((review) => {
-      return review.status === status;
+      return statusKey(review.status) === status;
     }).length;
   };
   const renderReviews = () => {
@@ -124,7 +133,8 @@ WusoolUI.enqueue(async () => {
     WusoolUI.html(tableBody, '');
     setTextContent(
       'resultsText',
-      `Showing ${filteredReviews.length} ${filteredReviews.length === 1 ? 'review' : 'reviews'}`,
+      t(`Showing ${filteredReviews.length} of ${reviewHistory.length} history entries`,
+        `عرض ${filteredReviews.length} من أصل ${reviewHistory.length} حدثًا في السجل`),
     );
     if (filteredReviews.length === 0) {
       tableCard.classList.add('d-none');
@@ -139,12 +149,12 @@ WusoolUI.enqueue(async () => {
   };
   const createReviewRow = (review) => {
     const statusInformation = getStatusInformation(review.status);
-    const score = typeof review.score === 'number' ? `${WusoolUI.escape(review.score)}%` : '—';
+    const score = Number.isFinite(review.score) && review.score >= 0 && review.score <= 100 ? `${review.score}%` : '—';
     return `
         <tr>
             <td>
                 <strong>
-                    ${escapeHtml(review.reference)}
+                    <span class="review-reference" title="${escapeHtml(review.reference || review.entityId || '')}">${escapeHtml(review.reference || review.entityId || '—')}</span>
                 </strong>
             </td>
 
@@ -171,7 +181,7 @@ WusoolUI.enqueue(async () => {
 
             <td>
                 <span
-                    class="review-status ${WusoolUI.escape(review.status)}"
+                    class="review-status ${decisions.has(statusKey(review.status)) ? statusKey(review.status) : 'other'}"
                 >
                     <i class="bi ${statusInformation.icon}"></i>
                     ${statusInformation.label}
@@ -179,7 +189,7 @@ WusoolUI.enqueue(async () => {
             </td>
 
             <td>
-                ${review.reviewedAt ? formatDateTime(review.reviewedAt) : 'Not reviewed'}
+                ${review.reviewedAt ? formatDateTime(review.reviewedAt) : t('Not reviewed', 'لم تُراجع بعد')}
             </td>
 
             <td class="text-end">
@@ -187,8 +197,9 @@ WusoolUI.enqueue(async () => {
                     type="button"
                     class="btn btn-sm btn-outline-wusool"
                     data-review-id="${WusoolUI.escape(review.id)}"
+                    aria-label="${escapeHtml(t('View event details for', 'عرض تفاصيل الحدث للفرع'))} ${escapeHtml(review.branchName || review.reference || '')}"
                 >
-                    View Details
+                    ${t('View Details', 'عرض التفاصيل')}
                 </button>
             </td>
         </tr>
@@ -208,13 +219,13 @@ WusoolUI.enqueue(async () => {
     setTextContent('modalSubmittedDate', formatDateTime(selectedReview.submittedAt));
     setTextContent(
       'modalReviewedDate',
-      selectedReview.reviewedAt ? formatDateTime(selectedReview.reviewedAt) : 'Not reviewed',
+      selectedReview.reviewedAt ? formatDateTime(selectedReview.reviewedAt) : t('Not reviewed', 'لم تُراجع بعد'),
     );
-    const scoreValue = typeof selectedReview.score === 'number' ? `${selectedReview.score}%` : '—';
+    const scoreValue = Number.isFinite(selectedReview.score) && selectedReview.score >= 0 && selectedReview.score <= 100 ? `${selectedReview.score}%` : '—';
     setTextContent('modalScore', scoreValue);
     setTextContent('modalScoreLabel', getScoreLabel(selectedReview.score));
     const statusElement = document.getElementById('modalReviewStatus');
-    statusElement.className = `review-status ${selectedReview.status}`;
+    statusElement.className = `review-status ${decisions.has(statusKey(selectedReview.status)) ? statusKey(selectedReview.status) : 'other'}`;
     WusoolUI.html(
       statusElement,
       `
@@ -222,16 +233,22 @@ WusoolUI.enqueue(async () => {
         ${statusInformation.label}
     `,
     );
-    renderFeedback(selectedReview.feedback || selectedReview.reviewReason || selectedReview.adminNotes);
-    document.getElementById('openReviewStatusLink').href =
-      `./branch-review-status.html?id=${encodeURIComponent(selectedReview.branchId)}`;
+    const feedback = [selectedReview.feedback, selectedReview.reviewReason, selectedReview.adminNotes,
+      selectedReview.notes, selectedReview.reason].find(item =>
+        (Array.isArray(item) && item.length > 0) || (typeof item === 'string' && item.trim()));
+    renderFeedback(feedback);
+    const link = document.getElementById('openReviewStatusLink');
+    const branchId = selectedReview.branchId || selectedReview.entityId;
+    link.hidden = !branchId;
+    if (branchId) link.href = `./branch-review-status.html?id=${encodeURIComponent(branchId)}`;
+    else link.removeAttribute('href');
     reviewDetailsModal.show();
   };
   const renderFeedback = (feedbackItems) => {
     const feedbackList = document.getElementById('modalFeedbackList');
     WusoolUI.html(feedbackList, '');
     const items = Array.isArray(feedbackItems) ? feedbackItems : typeof feedbackItems === 'string' && feedbackItems.trim() ? [feedbackItems] : [];
-    if (!items.length) items.push('No additional reviewer comments.');
+    if (!items.length) items.push(t('No additional reviewer comments.', 'لا توجد ملاحظات إضافية من المراجع.'));
     items.forEach((feedbackItem) => {
       const listItem = document.createElement('li');
       WusoolUI.html(
@@ -240,7 +257,7 @@ WusoolUI.enqueue(async () => {
                 <i class="bi bi-check-circle"></i>
 
                 <span>
-                    ${escapeHtml(feedbackItem)}
+                    ${escapeHtml(typeof feedbackItem === 'object' && feedbackItem !== null ? (feedbackItem.message || feedbackItem.text || feedbackItem.comment || '') : feedbackItem)}
                 </span>
             `,
       );
@@ -248,41 +265,31 @@ WusoolUI.enqueue(async () => {
     });
   };
   const getStatusInformation = (status) => {
+    const key = statusKey(status);
     const statuses = {
-      approved: {
-        label: 'Approved',
-        icon: 'bi-check-circle-fill',
-      },
-      pending: {
-        label: 'Pending',
-        icon: 'bi-hourglass-split',
-      },
-      'changes-required': {
-        label: 'Changes Required',
-        icon: 'bi-pencil-square',
-      },
-      rejected: {
-        label: 'Rejected',
-        icon: 'bi-x-circle-fill',
-      },
+      approved: { label: t('Approved', 'معتمد'), icon: 'bi-check-circle-fill' },
+      pending: { label: t('Pending', 'قيد المراجعة'), icon: 'bi-hourglass-split' },
+      'changes-required': { label: t('Changes Required', 'التعديلات مطلوبة'), icon: 'bi-pencil-square' },
+      rejected: { label: t('Rejected', 'مرفوض'), icon: 'bi-x-circle-fill' },
+      published: { label: t('Published', 'منشور'), icon: 'bi-check-circle' },
     };
-    return statuses[status] || statuses.pending;
+    return statuses[key] || { label: t('Other event', 'حدث آخر'), icon: 'bi-clock-history' };
   };
   const getScoreLabel = (score) => {
     if (typeof score !== 'number') {
-      return 'Not available';
+      return t('Not available', 'غير متوفر');
     }
     if (score >= 85) {
-      return 'Excellent Accessibility';
+      return t('Excellent Accessibility', 'إمكانية وصول ممتازة');
     }
     if (score >= 70) {
-      return 'Good Accessibility';
+      return t('Good Accessibility', 'إمكانية وصول جيدة');
     }
-    return 'Needs Improvement';
+    return t('Needs Improvement', 'يحتاج إلى تحسين');
   };
   const formatDateTime = (dateValue) => {
     if (!dateValue || !Number.isFinite(Date.parse(dateValue))) return '—';
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat(isArabic() ? 'ar-JO' : 'en-JO', {
       timeZone: 'Asia/Amman',
       year: 'numeric',
       month: 'short',

@@ -93,14 +93,21 @@
 <link rel="stylesheet" href="../../assets/wusool-dark-fix-v3.css" data-wusool-dark-fix="v3">
 </head>
 
-<body>
+<body class="org-bookings-page">
 
     <!-- Shared Organization Sidebar -->
     <div id="organizationSidebarContainer"></div>
 
-    <main class="organization-content">
-<section class="p-4"><p class="text-secondary">Wusool · Visit management</p><h1>Visitor Bookings</h1><p>Track bookings, appointments and visitor journeys in Jordan time.</p><div data-booking-host></div></section>
-</main>
+    <main class="organization-content org-bookings-main" id="mainContent">
+      <section class="org-bookings-content" aria-labelledby="orgBookingsTitle">
+        <header class="org-bookings-intro">
+          <p class="org-bookings-eyebrow">VISIT MANAGEMENT</p>
+          <h1 id="orgBookingsTitle">Visitor Bookings</h1>
+          <p>Manage appointments, visitor arrivals, and branch services in one place.</p>
+        </header>
+        <div data-booking-host></div>
+      </section>
+    </main>
 
     <!-- Ticket Details Modal -->
     <div

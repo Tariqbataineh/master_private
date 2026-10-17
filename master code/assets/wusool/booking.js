@@ -99,6 +99,16 @@ const unavailableReason = (code) => {
 };
 
 
+// Keep the booking draft synchronized with the branch radio selection.
+// Reset downstream selections when a different branch is chosen.
+function resetBranch(id) {
+  draft.branchId = id;
+  draft.serviceId = null;
+  draft.time = null;
+  draft.slots = [];
+  draft.key = crypto.randomUUID();
+}
+
 function prepare() {
   if (draft) return;
 

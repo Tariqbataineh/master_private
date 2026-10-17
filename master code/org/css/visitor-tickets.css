@@ -337,3 +337,36 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* Organization visitor-bookings presentation: scoped to the real shared booking host.
+   Booking actions, permission checks, and storage stay in assets/booking-tickets.js. */
+body.org-bookings-page .org-bookings-main {min-width:0;overflow-x:clip;background:var(--wt-background,#f5f9f9);color:var(--wt-text,#102d34)}
+body.org-bookings-page .org-bookings-content {width:100%;max-width:1800px;margin-inline:auto;padding:clamp(16px,2vw,30px)}
+body.org-bookings-page .org-bookings-intro {padding:clamp(20px,2.3vw,32px);margin-bottom:20px;border:1px solid var(--wt-border,#cfdfdb);border-radius:var(--wu-radius-card,18px);background:var(--wt-surface,#fff);box-shadow:var(--wu-shadow,0 4px 20px #0f27470d)}
+body.org-bookings-page .org-bookings-intro h1 {margin:0 0 8px;color:var(--wt-text,#102d34);font-size:clamp(1.6rem,2vw,2.15rem);line-height:1.2;font-weight:750}
+body.org-bookings-page .org-bookings-intro p:last-child {margin:0;color:var(--wt-muted,#61747a);max-width:70ch}
+body.org-bookings-page .org-bookings-eyebrow {font-size:.75rem;letter-spacing:.09em;font-weight:750;color:var(--wt-accent,#13755f);margin:0 0 8px}
+body.org-bookings-page [data-booking-host],body.org-bookings-page #bookingTicketsPanel {min-width:0;width:100%;max-width:100%}
+body.org-bookings-page #bookingTicketsPanel {padding:0!important;margin:0!important}
+/* The shared widget already renders its own heading; use the page h1 instead. */
+body.org-bookings-page #bookingTicketsPanel>h2 {display:none}
+body.org-bookings-page #bookingTicketsPanel .booking-table-card {padding:clamp(14px,2vw,26px)}
+body.org-bookings-page #bookingTicketsPanel .booking-toolbar {align-items:end;gap:14px}
+body.org-bookings-page #bookingTicketsPanel .booking-filters {grid-template-columns:minmax(0,1fr);width:min(100%,820px);gap:12px}
+body.org-bookings-page #bookingTicketsPanel .booking-filters>div {align-items:center;gap:10px!important}
+body.org-bookings-page #bookingTicketsPanel .booking-filters select {flex:1 1 170px;min-width:150px;width:auto}
+/* Organization data is already scoped to the signed-in organization in the shared service. */
+body.org-bookings-page #bookingTicketsPanel .booking-filters select:not([data-status]):not([data-branch]) {display:none}
+body.org-bookings-page #bookingTicketsPanel .booking-stat {height:100%;border-radius:16px}
+body.org-bookings-page #bookingTicketsPanel .booking-actions .btn:focus-visible,
+body.org-bookings-page #bookingTicketsPanel .booking-toolbar .btn:focus-visible {outline:3px solid var(--wt-accent,#13755f);outline-offset:3px}
+@media (max-width:767px) {
+  body.org-bookings-page .org-bookings-content {padding:16px}
+  body.org-bookings-page #bookingTicketsPanel .booking-toolbar {align-items:stretch;flex-direction:column}
+  body.org-bookings-page #bookingTicketsPanel .booking-filters {width:100%}
+  body.org-bookings-page #bookingTicketsPanel .booking-filters>div {flex-wrap:wrap}
+  body.org-bookings-page #bookingTicketsPanel .booking-filters select {min-width:130px}
+  body.org-bookings-page #bookingTicketsPanel .booking-toolbar>button {align-self:stretch}
+}
+@media (prefers-reduced-motion: reduce) {
+  body.org-bookings-page :is(.org-bookings-intro,.booking-stat) {transition:none}
+}

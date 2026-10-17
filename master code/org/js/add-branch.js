@@ -61,11 +61,17 @@ WusoolUI.enqueue(async () => {
       event.preventDefault();
       form.classList.add('was-validated');
       if (!form.checkValidity()) {
-        form.querySelector(':invalid')?.focus();
+        const invalidField = form.querySelector(':invalid');
+        showToast(invalidField?.validationMessage || 'Complete the required fields before continuing.');
+        invalidField?.focus();
         return;
       }
-      const savedBranch = await saveBranchDraft();
-      window.location.href = `./branch-working-hours.html?id=${savedBranch.id}`;
+      if (window.WusoolBranchLocationPicker && !window.WusoolBranchLocationPicker.canSave()) {
+        showToast('Confirm the branch location on the map before continuing to working hours.');
+        return;
+      }
+      const savedBranch = await saveBranchDraft({ completeDetails: true });
+      window.location.href = `./branch-working-hours.html?id=${encodeURIComponent(savedBranch.id)}`;
     });
   };
   const initializeSaveDraft = () => {
@@ -77,10 +83,10 @@ WusoolUI.enqueue(async () => {
         return;
       }
       await saveBranchDraft();
-      showToast('Branch draft saved successfully.');
+      showToast('Branch draft saved successfully. Continue adding details when ready.');
     });
   };
-  const createBranchData = async () => {
+  const createBranchData = async ({ completeDetails = false } = {}) => {
     const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
     const currentDraft = await resolveRequestedDraft(branches);
     const nextId = 'branch-' + crypto.randomUUID();
@@ -107,7 +113,7 @@ WusoolUI.enqueue(async () => {
       score: currentDraft?.score ?? null,
       status: 'draft',
       completedSteps: {
-        details: true,
+        details: completeDetails || Boolean(currentDraft?.completedSteps?.details && document.getElementById('branchForm').checkValidity()),
         workingHours: currentDraft?.completedSteps?.workingHours || false,
         accessibility: currentDraft?.completedSteps?.accessibility || false,
         photos: currentDraft?.completedSteps?.photos || false,
@@ -117,20 +123,13 @@ WusoolUI.enqueue(async () => {
       updatedAt: new Date().toISOString(),
     };
   };
-  const saveBranchDraft = async () => {
-    const branchData = await createBranchData();
-    const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];
-    const existingBranchIndex = branches.findIndex((branch) => {
-      return branch.id === branchData.id;
-    });
-    if (existingBranchIndex >= 0) {
-      branches[existingBranchIndex] = branchData;
-    } else {
-      branches.push(branchData);
-    }
-    await WusoolServices.rawWrite('wusoolOrganizationBranches', JSON.stringify(branches));
-    await WusoolServices.rawWrite('wusoolCurrentBranchDraft', JSON.stringify(branchData));
-    return branchData;
+  const saveBranchDraft = async (options = {}) => {
+    const branchData = await createBranchData(options);
+    // Save only this branch. Rewriting a full branch list can delete/overwrite
+    // someone else's newer updates and can be rejected by stale-write checks.
+    const saved = await WusoolServices.save('branches', branchData);
+    await WusoolServices.rawWrite('wusoolCurrentBranchDraft', JSON.stringify(saved));
+    return saved;
   };
   const restoreCurrentDraft = async () => {
     const branches = (await readStoredObject('wusoolOrganizationBranches')) || [];

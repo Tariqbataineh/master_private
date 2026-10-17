@@ -92,16 +92,9 @@ WusoolUI.enqueue(async () => {
       } catch {}
       const p = picker('branchAddress', 'latitude', 'longitude', 'branchCity', record);
       if (p) {
-        by('saveDraftButton')?.addEventListener(
-          'click',
-          (event) => {
-            if (!p.state.canSave()) {
-              event.preventDefault();
-              event.stopImmediatePropagation();
-            }
-          },
-          { capture: true },
-        );
+        // A partial draft may be saved before location confirmation.
+        // Save & Continue still validates confirmed coordinates in the wizard.
+        window.WusoolBranchLocationPicker = p.state;
         by('useLocationButton')?.setAttribute('hidden', '');
       }
     }

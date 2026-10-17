@@ -3809,6 +3809,15 @@
   "Demo Summary": "ملخص تجريبي",
   "Unverified": "غير مؤكد",
   "No saved reviews match the selected filters.": "لا توجد مراجعات محفوظة تطابق الفلاتر المحددة.",
+  "Find available services at published organizations and branches": "ابحث عن الخدمات المتاحة لدى المؤسسات والفروع المنشورة",
+  "Finance": "مالية",
+  "Alphabetical": "أبجديًا",
+  "Recently added": "المضافة حديثًا",
+  "Add to favorites": "إضافة إلى المفضلة",
+  "Remove from favorites": "إزالة من المفضلة",
+  "Book Now": "احجز الآن",
+  "Load More": "عرض المزيد",
+  "Wusool Setup": "إعداد Wusool",
   "Saved branch review data only. Demo summaries are not AI results.": "بيانات المراجعات المحفوظة للفروع فقط. الملخصات التجريبية ليست نتائج ذكاء اصطناعي."
 
 }

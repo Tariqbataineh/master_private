@@ -529,20 +529,15 @@ window.WusoolServiceModules.push(function registerentities(ctx) {
           'SUBSCRIPTION_REQUIRED',
           'An active subscription is required to create a branch. Open Subscription Management or contact Admin.',
         );
+      const capacity = ctx.api.effectiveBranchCapacity(subscription);
       if (
-        ctx.effectiveBranchCapacity(subscription) >= 0 &&
-        ctx.branchUsage(data.branches, a.id) >=
-          ctx.effectiveBranchCapacity(subscription)
+        ctx.api.branchUsage(data.branches, a.id) >= capacity
       )
-        ctx.fail('BRANCH_LIMIT', 'The subscription branch limit has been reached.');
+        ctx.fail('BRANCH_LIMIT', 'The subscription branch limit has been reached. Update the authorized subscription capacity in Admin.');
     }
-    if (kind === 'branches' && ctx.branchCountsTowardCapacity(x)) {
-      const wasCounted = old && ctx.branchCountsTowardCapacity(old);
-      const countedWithoutCurrent = ctx.branchUsage(data.branches.filter(b => String(b.id) !== String(x.id)), x.organizationId);
-      const capacity = ctx.effectiveBranchCapacity(ctx.subscriptionFor(data,x.organizationId));
-      if (!wasCounted && countedWithoutCurrent >= capacity)
-        ctx.fail('BRANCH_LIMIT', 'The confirmed subscription capacity has been reached. / تم بلوغ سعة الاشتراك المؤكدة.');
-    }
+    // No unrelated hard-coded branch ceiling: audited subscription capacity is
+    // enforced above when an organization creates a branch. Admin-defined
+    // Enterprise grants can legitimately allow more than twelve branches.
     if (
       kind === 'tickets' &&
       x.branchId &&

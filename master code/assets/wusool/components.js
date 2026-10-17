@@ -564,7 +564,10 @@ export function header(active) {
           </span>
 
           <span>
-            Hello, ${esc(firstName)}
+            <span
+              data-wusool-en="Hello, ${esc(firstName)}"
+              data-wusool-ar="مرحبًا، ${esc(firstName)}"
+            >Hello, ${esc(firstName)}</span>
             <small>Personal Account</small>
           </span>
 

@@ -1281,16 +1281,14 @@ function renderInstitution() {
 // MY BOOKINGS
 // ==================================================
 
+
 function renderBookings() {
   shell(
     `
       ${heading("My Bookings")}
 
       <div class="booking-create-action">
-        <a
-          class="btn primary"
-          href="${href("plan-visit")}"
-        >
+        <a class="btn primary" href="${href("plan-visit")}">
           ${icon("calendar")} Create New Booking
         </a>
       </div>
@@ -1323,24 +1321,115 @@ function renderBookings() {
     "my-visits"
   );
 
+  let reviews = [];
+  let running = false;
+
+  const currentUserId = () =>
+    String(store.profile()?.id || "");
+
+  const isCompleted = (booking) =>
+    String(booking.statusCode || booking.status)
+      .toLowerCase() === "completed";
+
+  const isOwner = (booking) =>
+    Boolean(currentUserId()) &&
+    String(booking.userId) === currentUserId();
+
+  const hasReviewed = (booking) =>
+    reviews.some((review) => {
+      const reviewBookingId =
+        review.bookingId || review.visitId;
+
+      return (
+        review.isDeleted !== true &&
+        String(reviewBookingId) === String(booking.id) &&
+        String(review.userId) === currentUserId()
+      );
+    });
+
+  const reviewAction = (booking) => {
+    if (
+      !isCompleted(booking) ||
+      !isOwner(booking) ||
+      booking.interviewId
+    ) {
+      return "";
+    }
+
+    if (hasReviewed(booking)) {
+      return `
+        <span
+          class="badge status"
+          aria-label="Visit reviewed"
+        >
+          ${icon("star")} Reviewed
+        </span>
+      `;
+    }
+
+    const url =
+      new URL("./write-review.html", location.href);
+
+    url.searchParams.set("visitId", booking.id);
+
+    return `
+      <a
+        class="btn primary"
+        data-review-booking="${esc(booking.id)}"
+        href="${esc(url.href)}"
+      >
+        ${icon("star")} Rate Your Visit
+      </a>
+    `;
+  };
+
+  async function loadReviews() {
+    const response = await api().getReviews();
+
+    if (Array.isArray(response)) {
+      reviews = response;
+    } else if (Array.isArray(response?.items)) {
+      reviews = response.items;
+    } else {
+      throw new Error("Invalid reviews response");
+    }
+  }
+
   function update() {
     const filtered = store.bookings().filter((booking) =>
-      state.bookingTab === "الكل" || state.bookingTab === "ملغاة"
+      state.bookingTab === "الكل" ||
+      state.bookingTab === "ملغاة"
         ? state.bookingTab === "الكل" ||
           booking.statusCode === "cancelled"
         : state.bookingTab === "القادمة"
-          ? ["pending", "confirmed", "in-progress", "waitlisted"].includes(
+          ? [
+              "pending",
+              "confirmed",
+              "in-progress",
+              "waitlisted",
+            ].includes(booking.statusCode) &&
+            !isPastVisit(booking)
+          : ["completed", "no-show"].includes(
               booking.statusCode
-            ) && !isPastVisit(booking)
-          : ["completed", "no-show"].includes(booking.statusCode) ||
-            isPastVisit(booking)
+            ) || isPastVisit(booking)
     );
 
     const rules =
       state.bookingSort === "newest"
-        ? [{ field: "createdAt", type: "date", direction: "desc" }]
+        ? [
+            {
+              field: "createdAt",
+              type: "date",
+              direction: "desc",
+            },
+          ]
         : state.bookingSort === "oldest"
-          ? [{ field: "createdAt", type: "date" }]
+          ? [
+              {
+                field: "createdAt",
+                type: "date",
+              },
+            ]
           : state.bookingSort === "status"
             ? [
                 { field: "statusCode" },
@@ -1381,7 +1470,8 @@ function renderBookings() {
                     ${icon("calendar")}
                     ${esc(booking.day)} -
                     <bdi>
-                      ${esc(booking.date)} · ${esc(booking.time)}
+                      ${esc(booking.date)} ·
+                      ${esc(booking.time)}
                     </bdi>
                   </small>
 
@@ -1407,96 +1497,112 @@ function renderBookings() {
 
                 <div class="row-actions">
                   <button
+                    type="button"
                     class="btn soft"
                     data-track="${esc(booking.id)}"
                   >
                     ${icon("pin")} Track Visit
                   </button>
-                </div>
 
-                ${
-                  ["pending", "confirmed", "waitlisted"].includes(
-                    booking.statusCode
-                  ) && !booking.interviewId
-                    ? `
-                      <button
-                        class="icon-btn row-menu"
-                        data-booking-menu="${esc(booking.id)}"
-                        aria-label="Booking Options"
-                        aria-expanded="false"
-                      >
-                        ${icon("more")}
-                      </button>
-                    `
-                    : ""
-                }
+                  ${reviewAction(booking)}
+
+                  ${
+                    [
+                      "pending",
+                      "confirmed",
+                      "waitlisted",
+                    ].includes(booking.statusCode) &&
+                    !booking.interviewId
+                      ? `
+                        <button
+                          type="button"
+                          class="icon-btn row-menu"
+                          data-booking-menu="${esc(booking.id)}"
+                          aria-label="Booking Options"
+                          aria-expanded="false"
+                        >
+                          ${icon("more")}
+                        </button>
+                      `
+                      : ""
+                  }
+                </div>
               </article>
             `
           )
           .join("")
       : empty("No bookings in this section.");
 
-    target.querySelectorAll("[data-track]").forEach((button) => {
-      button.onclick = (event) =>
-        busy(event.currentTarget, () =>
-          tracking(
-            store.bookings().find(
-              (booking) => booking.id === button.dataset.track
-            ),
-            update
-          )
-        );
-    });
+    target.querySelectorAll("[data-track]").forEach(
+      (button) => {
+        button.onclick = (event) =>
+          busy(event.currentTarget, () =>
+            tracking(
+              store.bookings().find(
+                (booking) =>
+                  booking.id === button.dataset.track
+              ),
+              update
+            )
+          );
+      }
+    );
 
-    target.querySelectorAll("[data-booking-menu]").forEach((button) => {
-      button.onclick = () => {
-        const booking = store.bookings().find(
-          (item) => item.id === button.dataset.bookingMenu
-        );
+    target
+      .querySelectorAll("[data-booking-menu]")
+      .forEach((button) => {
+        button.onclick = () => {
+          const booking = store.bookings().find(
+            (item) =>
+              item.id === button.dataset.bookingMenu
+          );
 
-        if (!booking) return;
+          if (!booking) return;
 
-        const dialog = modal(
-          "Booking Options",
-          `
-            <h3>${esc(serviceName(booking))}</h3>
+          const dialog = modal(
+            "Booking Options",
+            `
+              <h3>${esc(serviceName(booking))}</h3>
 
-            <div class="form-actions">
-              ${
-                booking.statusCode === "pending"
-                  ? `
-                    <a
-                      class="btn soft"
-                      href="${href("reschedule-visit", {
-                        id: booking.id,
-                      })}"
-                    >
-                      Reschedule Appointment
-                    </a>
-                  `
-                  : ""
-              }
+              <div class="form-actions">
+                ${
+                  booking.statusCode === "pending"
+                    ? `
+                      <a
+                        class="btn soft"
+                        href="${href("reschedule-visit", {
+                          id: booking.id,
+                        })}"
+                      >
+                        Reschedule Appointment
+                      </a>
+                    `
+                    : ""
+                }
 
-              <button
-                class="btn danger"
-                data-cancel-booking
-              >
-                Cancel Booking
-              </button>
-            </div>
-          `
-        );
+                <button
+                  class="btn danger"
+                  data-cancel-booking
+                >
+                  Cancel Booking
+                </button>
+              </div>
+            `
+          );
 
-        dialog.host.querySelector("[data-cancel-booking]").onclick =
-          () => {
+          dialog.host.querySelector(
+            "[data-cancel-booking]"
+          ).onclick = () => {
             dialog.close();
             cancelBooking(booking, update);
           };
-      };
-    });
+        };
+      });
   }
 
-  document.querySelector("#booking-sort").onchange = (event) => {
+  document.querySelector(
+    "#booking-sort"
+  ).onchange = (event) => {
     state.bookingSort = event.target.value;
     update();
   };
@@ -1508,8 +1614,6 @@ function renderBookings() {
     update();
   });
 
-  let running = false;
-
   const refresh = async () => {
     if (running || document.hidden) return;
 
@@ -1517,6 +1621,7 @@ function renderBookings() {
 
     try {
       await refreshBookings();
+      await loadReviews();
       update();
     } catch (error) {
       toast(errorText(error));
@@ -1534,7 +1639,11 @@ function renderBookings() {
       "Your booking was submitted and is awaiting organization approval."
     );
 
-    history.replaceState(null, "", location.pathname);
+    history.replaceState(
+      null,
+      "",
+      location.pathname
+    );
   }
 
   const tracked = params.get("track");
@@ -1544,55 +1653,14 @@ function renderBookings() {
       (booking) => booking.id === tracked
     );
 
-    if (record) tracking(record, update);
+    if (record) {
+      tracking(record, update);
+    }
   }
-}
 
-function cancelBooking(booking, onChange) {
-  const dialog = modal(
-    "Cancel Booking",
-    `
-      <form id="cancel-form">
-        <p>
-          Your visit will be cancelled and the organization
-          will be notified.
-        </p>
-
-        <label class="field">
-          Cancellation Reason
-
-          <textarea
-            name="reason"
-            maxlength="1000"
-            required
-          ></textarea>
-        </label>
-
-        <button class="btn danger" type="submit">
-          Confirm Cancellation
-        </button>
-      </form>
-    `
-  );
-
-  dialog.host.querySelector("form").onsubmit = (event) => {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-
-    busy(form.querySelector("button"), async () => {
-      await store.cancelBooking(
-        booking.id,
-        new FormData(form).get("reason"),
-        booking.revision
-      );
-
-      dialog.close();
-      onChange();
-
-      toast("Your booking has been cancelled.");
-    });
-  };
+  refresh().catch((error) => {
+    toast(errorText(error));
+  });
 }
 
 // ==================================================

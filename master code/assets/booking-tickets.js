@@ -37,10 +37,11 @@ WusoolUI.enqueue(async () => {
       servicesButton.className = 'btn btn-outline-primary'; servicesButton.textContent = t('إدارة خدمات الفروع', 'Manage branch services');
       servicesButton.onclick = () => WusoolTicketServicesUI.manage(servicesButton); panel.querySelector('.booking-toolbar').append(servicesButton);
     }
-    let bookings = [],
-      branches = [],
-      users = [],
-      placeDetails = [];
+   let bookings = [],
+  branches = [],
+  users = [],
+  placeDetails = [],
+  reviews = [];
     const organizationFilter = document.createElement('select');
     organizationFilter.className = 'form-select';
     organizationFilter.setAttribute('aria-label', t('المؤسسة', 'Organization'));
@@ -108,6 +109,15 @@ WusoolUI.enqueue(async () => {
     };
     const trackingOnly = account.role === 'User' && location.pathname.endsWith('/my-tickets.html');
     panel.classList.toggle('booking-tracking-only', trackingOnly);
+    const hasReviewed = (booking) =>
+  reviews.some(review =>
+    !review.isDeleted &&
+    String(review.userId) === String(account.id) &&
+    (
+      String(review.visitId) === String(booking.id) ||
+      String(review.bookingId) === String(booking.id)
+    )
+  );
     const render = () => {
       const roleCards = organization
         ? ['pending', 'confirmed', 'in-progress']
@@ -197,14 +207,41 @@ WusoolUI.enqueue(async () => {
                   } catch {
                     return '';
                   }
-                })()}${b.scheduleConflict ? `<p class="small mb-0 text-warning">${t('تغيير الدوام: الموعد يحتاج مراجعة', 'Hours changed: appointment needs review')}</p>` : ''}${b.cancellationReason ? `<p class="small mb-0">${esc(b.cancellationReason)}</p>` : ''}</td><td><div class="booking-actions">${!b.interviewId && (admin || (organization && ['pending', 'confirmed'].includes(b.status)) || (!organization && !admin && b.status === 'pending')) ? `<button class="btn btn-sm btn-outline-primary" data-edit="${esc(b.id)}">${t('تعديل الموعد', 'Reschedule')}</button>` : ''}${!b.interviewId && (admin || organization) && ['pending', 'confirmed', 'in-progress'].includes(b.status) ? `<button class="btn btn-sm btn-outline-secondary" data-cancel="${esc(b.id)}">${t('إلغاء', 'Cancel')}</button>` : ''}${(admin || organization) && b.status === 'pending' ? `<button class="btn btn-sm btn-outline-success" data-approve="${esc(b.id)}">${t('موافقة', 'Approve')}</button>` : ''}${(admin || organization) && ((b.journeyState === 'arrived' && b.status === 'confirmed' && b.qrVerified?.actorId === account.id && Date.now() - Date.parse(b.qrVerified.at) < 600000) || (b.journeyState === 'serving' && b.status === 'in-progress')) ? `<button class="btn btn-sm btn-outline-success" data-progress="${esc(b.id)}">${b.status === 'confirmed' ? t('تم استقبال الزائر', 'Receive visitor') : t('إكمال الزيارة', 'Complete visit')}</button>` : ''}${b.interviewId ? `<a class="btn btn-sm btn-outline-primary" href="./recruitment.html?view=interviews">${t("المقابلة", "Interview")}</a>` : ""}${journeyButtons(b)}${window.WusoolVisitUX?.actions(b, account) || ''}${admin && !b.interviewId ? `<button class="btn btn-sm btn-outline-danger" data-delete="${esc(b.id)}">${t('حذف', 'Delete')}</button>` : ''}</div></td></tr>`;
+                })()}${b.scheduleConflict ? `<p class="small mb-0 text-warning">${t('تغيير الدوام: الموعد يحتاج مراجعة', 'Hours changed: appointment needs review')}</p>` : ''}${b.cancellationReason ? `<p class="small mb-0">${esc(b.cancellationReason)}</p>` : ''}</td><td><div class="booking-actions">${!b.interviewId && (admin || (organization && ['pending', 'confirmed'].includes(b.status)) || (!organization && !admin && b.status === 'pending')) ? `<button class="btn btn-sm btn-outline-primary" data-edit="${esc(b.id)}">${t('تعديل الموعد', 'Reschedule')}</button>` : ''}${!b.interviewId && (admin || organization) && ['pending', 'confirmed', 'in-progress'].includes(b.status) ? `<button class="btn btn-sm btn-outline-secondary" data-cancel="${esc(b.id)}">${t('إلغاء', 'Cancel')}</button>` : ''}${(admin || organization) && b.status === 'pending' ? `<button class="btn btn-sm btn-outline-success" data-approve="${esc(b.id)}">${t('موافقة', 'Approve')}</button>` : ''}${(admin || organization) && ((b.journeyState === 'arrived' && b.status === 'confirmed' && b.qrVerified?.actorId === account.id && Date.now() - Date.parse(b.qrVerified.at) < 600000) || (b.journeyState === 'serving' && b.status === 'in-progress')) ? `<button class="btn btn-sm btn-outline-success" data-progress="${esc(b.id)}">${b.status === 'confirmed' ? t('تم استقبال الزائر', 'Receive visitor') : t('إكمال الزيارة', 'Complete visit')}</button>` : ''}${b.interviewId ? `<a class="btn btn-sm btn-outline-primary" href="./recruitment.html?view=interviews">${t("المقابلة", "Interview")}</a>` : ""}
+                ${journeyButtons(b)}
+${!admin &&
+  !organization &&
+  account.role === 'User' &&
+  String(b.userId) === String(account.id) &&
+  b.status === 'completed'
+    ? hasReviewed(b)
+      ? `<span class="badge text-bg-success">
+          <i class="bi bi-check-circle" aria-hidden="true"></i>
+          ${t('تم التقييم', 'Reviewed')}
+        </span>`
+      : `<a
+          class="btn btn-sm btn-wusool w-review-button"
+          data-review-booking="${esc(b.id)}"
+          href="./write-review.html?visitId=${encodeURIComponent(b.id)}"
+        >
+          <i class="bi bi-star-fill" aria-hidden="true"></i>
+          ${t('قيّم زيارتك', 'Rate Your Visit')}
+        </a>`
+    : ''}
+${window.WusoolVisitUX?.actions(b, account) || ''}${admin && !b.interviewId ? `<button class="btn btn-sm btn-outline-danger" data-delete="${esc(b.id)}">${t('حذف', 'Delete')}</button>` : ''}</div></td></tr>`;
               })
               .join('')
           : `<tr><td colspan="7" class="booking-empty">${t('لا توجد تيكتات بعد.', 'No tickets yet.')}</td></tr>`,
       );
       if (trackingOnly) panel.querySelectorAll('.booking-actions').forEach(group => {
         const bank = document.createElement('span'); bank.hidden = true; bank.dataset.trackingActions = '';
-        [...group.children].filter(n => n.dataset.journey !== 'history').forEach(n => bank.append(n));
+       [...group.children]
+  .filter(n =>
+    n.dataset.journey !== 'history' &&
+    !n.hasAttribute('data-review-booking') &&
+    !n.classList.contains('text-bg-success')
+  )
+  .forEach(n => bank.append(n));
         group.append(bank); group.querySelector('[data-journey="history"]')?.classList.add('w-track-button');
       });
     };
@@ -212,6 +249,17 @@ WusoolUI.enqueue(async () => {
       await WusoolServices.visits?.process();
       placeDetails = (await WusoolServices.places()).items;
       bookings = await WusoolServices.getBookings();
+      if (account.role === 'User') {
+  const response = await WusoolServices.getReviews();
+
+  if (Array.isArray(response)) {
+    reviews = response;
+  } else if (Array.isArray(response?.items)) {
+    reviews = response.items;
+  } else {
+    throw new Error('Invalid reviews response');
+  }
+}
       branches =
         organization || admin
           ? await WusoolServices.getBranches()

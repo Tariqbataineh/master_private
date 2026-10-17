@@ -5,3 +5,20 @@ body{background:var(--wt-background,#f5f9f9);color:var(--wt-text,#0d2948);}.revi
 @media(min-width:992px){body.visit-reviews-page.has-organization-sidebar>#wusoolServiceStatus{margin-left:calc(var(--organization-sidebar-width) + 16px)!important;}}
 
 .reviews-header{align-items:flex-start;}.reviews-header>button{width:44px;height:44px;flex:0 0 44px;padding:10px;align-self:flex-start;}
+
+/* Compact accessible empty/filtered states; dynamic review records remain read-only. */
+body.visit-reviews-page .reviews-workspace {padding:clamp(16px,2vw,30px);min-width:0}
+body.visit-reviews-page .reviews-header {margin-bottom:18px;align-items:center}
+body.visit-reviews-page .reviews-header h1 {font-size:clamp(1.6rem,2vw,2rem);line-height:1.2}
+body.visit-reviews-page .reviews-header .text-secondary {max-width:75ch;line-height:1.6}
+body.visit-reviews-page .reviews-metrics {gap:12px;margin-bottom:18px}
+body.visit-reviews-page .reviews-metrics article {padding:16px 18px;min-height:84px}
+body.visit-reviews-page .reviews-filters {padding:18px;gap:12px;margin-bottom:12px}
+body.visit-reviews-page .review-empty {padding:36px 22px;color:var(--wt-muted,#60747b);line-height:1.6}
+body.visit-reviews-page .visit-reviews-grid {gap:14px}
+body.visit-reviews-page .visit-review-card {background:var(--wt-surface,#fff);color:var(--wt-text,#102d34);min-width:0}
+body.visit-reviews-page .visit-review-card header {flex-wrap:wrap;align-items:start}
+body.visit-reviews-page .visit-review-card .review-author {min-width:0;overflow-wrap:anywhere}
+body.visit-reviews-page .visit-review-card .review-author>div {min-width:0}
+body.visit-reviews-page .reviews-filters :is(input,select):focus-visible {outline:2px solid var(--wt-accent,#13755f);outline-offset:2px}
+@media(max-width:767px){body.visit-reviews-page .reviews-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}body.visit-reviews-page .reviews-metrics article{align-items:start}body.visit-reviews-page .reviews-filters{grid-template-columns:1fr}body.visit-reviews-page .visit-reviews-grid{grid-template-columns:1fr}}
